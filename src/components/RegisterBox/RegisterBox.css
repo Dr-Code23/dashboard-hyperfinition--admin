@@ -1,0 +1,75 @@
+.register-box {
+    background: var(--bg-main);
+    height: 100vh;
+}
+.register-box .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.register-box .container .content {
+    width: 100%;
+    max-width: 476px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 6px;
+    padding: 60px 20px;
+}
+.register-box .container .content h2 {
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 48px;
+    text-transform: capitalize;
+    text-align: center;
+    color: var(--text-color-01);
+    margin-bottom: 15px;
+}
+.register-box .container .content h6 {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    text-transform: capitalize;
+    text-align: center;
+    color: var(--text-color-02);
+    margin-bottom: 0px;
+    margin-bottom: 20px;
+}
+.register-box .container .box {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    gap: 20px;
+}
+.register-box .container .box .content-box {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+}
+.register-box .container .box .content-box h5 {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 175%;
+    color: var(--text-color-02);
+    text-transform: capitalize;
+}
+.register-box .container .box .content-box .input-box div::after,
+.register-box .container .box .content-box .input-box div::after,
+.register-box .container .box .content-box .input-box div::before {
+    all: unset !important;
+}
+.register-box .container .box .content-box .input-box {
+    border: 1px solid var(--text-color-03);
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+.register-box .container .box Button.submit {
+    background-color: var(--text-color-03);
+    margin: auto;
+    width: 100%;
+    padding: 13px;
+    color: var(--text-color-04);
+}
