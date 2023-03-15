@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { LoginThunk } from "../Thunk/LoginThunk";
 
-let initState = {}
+let initState = {
+  code: null,
+  token: null,
+}
 
 
 let LoginReducer = createSlice({
@@ -19,11 +22,14 @@ let LoginReducer = createSlice({
 
       })
       .addCase(LoginThunk.fulfilled, (state, action) => {
-
+        state.code = action.payload.code
+        state.token = action.payload.data.token
+        localStorage.setItem('AccessToken', action.payload.data.token);
 
       })
       .addCase(LoginThunk.rejected, (state, action) => {
-
+        state.code = action.payload.code
+        localStorage.setItem('AccessToken', '');
 
       })
 

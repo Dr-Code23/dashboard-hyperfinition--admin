@@ -4,16 +4,16 @@ import axios from "axios";
 
 export let LoginThunk = createAsyncThunk('login/LoginThunk', async (arg, ThunkApi) => {
   let { rejectWithValue } = ThunkApi
-  console.log(arg)
   try {
-    let res = await axios.post(`https://abdjan.everest-ci.com/api/test`, {
-      firstName: 'Fred',
-      lastName: 'Flintstone'
-    })
-    console.log(res.data)
+    let res = await axios.post(`${process.env.REACT_APP_API}/login`, {
 
-    return res
+      email: arg?.email,
+      password: arg?.pass
+    })
+    return res.data
   } catch (error) {
-    return rejectWithValue(error.message)
+    // console.log(error.response.data)
+    return rejectWithValue(error.response.data)
   }
 })
+

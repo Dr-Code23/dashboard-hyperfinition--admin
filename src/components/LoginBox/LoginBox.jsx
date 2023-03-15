@@ -1,13 +1,12 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import './LoginBox.css'
-import { border, Box } from '@mui/system';
 import { Button, FormControl, IconButton, Input, InputAdornment, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
 import { useFormik } from 'formik';
 
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LoginThunk } from '../../RTK/Thunk/LoginThunk';
 
 // =====validation===========
@@ -16,39 +15,61 @@ const SignupSchema = Yup.object().shape({
     .email('must be a valid email')
     .required('Required'),
 
-  //.matches(/^[A-Z]/, 'The first letter must be capitalize'),
 
   pass: Yup.string()
-    .min(4, 'Too Short!')
-    .max(14, 'Too Long!')
     .required('Required'),
 
 });
 const LoginBox = () => {
   let dispatch = useDispatch()
-  const [showPassword, setShowPassword] = React.useState(false);
   let navigate = useNavigate()
+  let { code } = useSelector((state) => state.LoginReducer);
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showErrorForm, setShowErrorForm] = React.useState(false);
   const handleClickShowPassword = useCallback(() => {
     setShowPassword((show) => !show)
 
   }, []);
-
   const handleMouseDownPassword = useCallback((event) => {
 
     event.preventDefault();
   }, [])
+  // handel path and error form
+  useEffect(() => {
+    if (localStorage.AccessToken) {
+      navigate('/admin')
+    }
+
+  }, [navigate]);
+
+  useEffect(() => {
+    if (code === 200) {
+      if (localStorage.AccessToken) {
+        setShowErrorForm(false)
+        navigate('/admin')
+      }
+    }
+    else {
+      if (code !== null) {
+        setShowErrorForm(true)
+      }
+
+    }
+
+  }, [code, navigate]);
+
+  // fun handel validation
   const formik = useFormik({
     initialValues: {
-      email: '',
-      pass: '',
+      email: 'user@admin.com',
+      pass: 'user',
     },
     onSubmit: values => {
-      // console.log(values)
       dispatch(LoginThunk(values))
+
     },
     validationSchema: SignupSchema,
   });
-
 
   return (
     <>
@@ -105,7 +126,7 @@ const LoginBox = () => {
 
               }} >Forgot Password</span>
               <Button className='submit' variant="contained" type='submit'  >contact</Button>
-
+              <span style={{ display: showErrorForm ? 'block' : 'none', color: 'red', textAlign: 'center', width: '100%' }}>email or password is wrong</span>
             </Typography>
           </div>
 
