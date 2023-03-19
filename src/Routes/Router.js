@@ -24,13 +24,10 @@ export let Router = createBrowserRouter([
         // path: "admin",
         // element: <Admin />,
         // loader: async (e) => {
-
         //   if (localStorage.AccessToken) {
         //   }
-
         //   return e
         // },
-
       },
 
     ],
