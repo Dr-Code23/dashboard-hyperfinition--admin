@@ -1,0 +1,26 @@
+.header{
+
+background-color: transparent !important;
+box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+display: flex;
+flex-direction: row !important;
+
+align-items: center;
+justify-content: space-between;
+
+}
+.header .container{
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+
+.header .box-left{
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 20px;
+}

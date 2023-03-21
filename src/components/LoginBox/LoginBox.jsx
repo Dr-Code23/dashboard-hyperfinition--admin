@@ -4,7 +4,6 @@ import { Button, FormControl, IconButton, Input, InputAdornment, TextField, Typo
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
 import { useFormik } from 'formik';
-import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoginThunk } from '../../RTK/Thunk/LoginThunk';
@@ -23,8 +22,6 @@ const SignupSchema = Yup.object().shape({
 const LoginBox = () => {
   let dispatch = useDispatch()
   let navigate = useNavigate()
-  let { t, i18n } = useTranslation()
-  // console.log(i18n)
   let { code } = useSelector((state) => state.LoginReducer);
   const [showPassword, setShowPassword] = React.useState(false);
   const [showErrorForm, setShowErrorForm] = React.useState(false);
@@ -72,27 +69,21 @@ const LoginBox = () => {
     },
     validationSchema: SignupSchema,
   });
-
   return (
     <>
       <div className="login-box" >
-
         <div className="container ">
           <div className="content">
             <h2>
               {/* {t('title.ti')} */}
               Sign In
-
             </h2>
             <h6>
               Sign in to stay connected.
-
-
             </h6>
             <Typography component={'form'} className={'box'} onSubmit={formik.handleSubmit}>
               <Typography variant="body1" component={'div'} className='content-box' sx={{ width: '100%' }} >
                 <h5>Email</h5>
-
                 <TextField sx={{ width: '100%', }} id="outlined-basic" className='input-box' variant="standard" name="email"
                   onChange={formik.handleChange}
                   value={formik.values.email} />
@@ -128,10 +119,7 @@ const LoginBox = () => {
                   <span style={{ width: "100%", color: 'red', fontSize: '15px', marginTop: '5px' }}>{formik.errors.pass}</span>
                 ) : null}
               </Typography>
-              <span onClick={() => {
-                navigate('/register')
 
-              }} >Forgot Password</span>
               <Button className='submit' variant="contained" type='submit'  >contact</Button>
               <span style={{ display: showErrorForm ? 'block' : 'none', color: 'red', textAlign: 'center', width: '100%' }}>email or password is wrong</span>
             </Typography>

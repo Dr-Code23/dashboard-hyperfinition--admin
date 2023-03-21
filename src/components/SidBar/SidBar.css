@@ -1,0 +1,7 @@
+.sidbar{
+/* justify-content: flex-end !important; */
+
+}
+.sidbar ul .active{
+background-color: var(--text-color-02);
+}

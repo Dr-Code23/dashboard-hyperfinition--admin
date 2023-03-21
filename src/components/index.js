@@ -1,1 +1,7 @@
 export { default as LoginBox } from "./LoginBox/LoginBox.jsx"
+export { default as Header } from "./Header/Header.jsx"
+export { default as SidBar } from "./SidBar/SidBar.jsx"
+export { default as BrandBox } from "./PageBox/BrandBox/BrandBox.jsx"
+export { default as MyShopBox } from "./PageBox/MyShopBox/MyShopBox.jsx"
+export { default as BrandModal } from "./BrandModal/BrandModal.jsx"
+export { default as ShopModal } from "./ShopModal/ShopModal.jsx"

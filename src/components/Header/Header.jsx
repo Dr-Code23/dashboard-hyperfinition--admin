@@ -1,101 +1,139 @@
-import { Avatar, Box, Button, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
-import React, { useState } from 'react';
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 
-let Header = ({ sidebarOpen, setSidebarOpen, i18n }) => {
+import MenuIcon from "@mui/icons-material/Menu";
+import React, { useCallback } from "react";
+import "./Header.css";
+import { useNavigate } from "react-router-dom";
+const Header = ({ drawerWidth, handleDrawerToggle, i18n }) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  let Navigate = useNavigate();
 
-
-  const handleOpenUserMenu = (event) => {
+  const handleOpenUserMenu = useCallback((event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
+  }, []);
+  const handleCloseUserMenu = useCallback(() => {
     setAnchorElUser(null);
-  };
+  }, []);
+  const handleLogOut = useCallback(() => {
+    localStorage.removeItem("AccessToken");
+    Navigate("/");
+  }, [Navigate]);
 
   return (
-    <header className="sticky top-0 bg-white border-b border-slate-200 z-30">
-      <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 -mb-px">
-
-          {/* Header: Left side */}
-          <div className="flex">
-
-            {/* Hamburger button */}
-            <button
-              className="text-slate-500 hover:text-slate-600 lg:hidden"
-              aria-controls="sidebar"
-              aria-expanded={sidebarOpen}
-              onClick={(e) => { e.stopPropagation(); setSidebarOpen(!sidebarOpen); }}
+    <>
+      <AppBar
+        position="fixed"
+        sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          mr: i18n.language === "ar" && { sm: `${drawerWidth}px` },
+          ml: i18n.language !== "ar" && { sm: `${drawerWidth}px` },
+        }}
+        className="header"
+      >
+        <div className="container">
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: "none" } }}
             >
-              <span className="sr-only">Open sidebar</span>
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <rect x="4" y="5" width="16" height="2" />
-                <rect x="4" y="11" width="16" height="2" />
-                <rect x="4" y="17" width="16" height="2" />
-              </svg>
-            </button>
+              <MenuIcon sx={{ color: "#000" }} />
+            </IconButton>
+          </Toolbar>
 
-          </div>
-
-          {/* Header: Right side */}
-          <div className="flex items-center">
-
-            {
-              i18n.language === 'ar' ? (
-                <Button variant="contained" color="primary" sx={{ width: '40px', height: '40px', minWidth: '40px' }} className=' !rounded-full  !bg-slate-400 !ml-3' onClick={() => {
-                  i18n.changeLanguage('en')
-                }}>
-                  en
-                </Button>
-              ) : (
-                <Button variant='contained' sx={{ width: '40px', height: '40px', minWidth: '40px' }} className='  !rounded-full !bg-slate-400 !mr-3' onClick={() => {
-                  i18n.changeLanguage('ar')
-                }}>
-                  ar
-                </Button>
-
-              )
-
-
-            }
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+          <Box className="box-left">
+            {i18n.language === "ar" ? (
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                  width: "35px",
+                  height: "35px",
+                  minWidth: "35px",
                 }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                className=" !rounded-full  !bg-slate-400 !ml-2"
+                onClick={() => {
+                  i18n.changeLanguage("en");
                 }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          </div>
+                en
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                sx={{
+                  width: "35px",
+                  height: "35px",
+                  minWidth: "35px",
+                }}
+                className="!rounded-full !bg-slate-400 !mr-2"
+                onClick={() => {
+                  i18n.changeLanguage("ar");
+                }}
+              >
+                ar
+              </Button>
+            )}
 
+            <Tooltip title="Open settings">
+              <IconButton
+                onClick={handleOpenUserMenu}
+                sx={{ p: 0 }}
+              >
+                <Avatar
+                  alt="Remy Sharp"
+                  src="https://mui.com/static/images/avatar/2.jpg"
+                />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">
+                  Account
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography
+                  textAlign="center"
+                  onClick={handleLogOut}
+                >
+                  Logout
+                </Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
         </div>
-      </div>
-    </header>
+      </AppBar>
+    </>
   );
-}
+};
 
 export default Header;
