@@ -45,6 +45,7 @@ const MyShopBox = ({ open, setOpen, editData, setEditData }) => {
                   height: "45px",
                   fontSize: "18px",
                 }}
+                className='!bg-primaryBg'
                 onClick={() => {
                   setOpen(true);
                   setEditData({

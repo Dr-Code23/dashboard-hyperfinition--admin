@@ -56,7 +56,7 @@ const BrandBox = ({ title, list, setOpen }) => {
           <h6 className=' capitalize text-[22px]  font-medium	'>search :</h6>
           <input type="text" className=' bg-secondaryBg outline-none p-[8px]' />
         </div>
-        <TableContainer component={Paper} sx={{ height: '438px' }}>
+        <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>

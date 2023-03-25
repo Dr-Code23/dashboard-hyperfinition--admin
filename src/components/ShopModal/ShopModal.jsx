@@ -6,7 +6,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import './ShopModal.css'
 import IconButton from '@mui/material/IconButton'
 import ImageUploading from 'react-images-uploading';
-import img from "../../assets/Img/default.jpg";
 
 const ShopModal = ({ open, setOpen, editData, setEditData }) => {
   const handleClose = useCallback(() => {
@@ -71,7 +70,6 @@ const ShopModal = ({ open, setOpen, editData, setEditData }) => {
                 )}
               </ImageUploading>
             </>
-
             <div>
               <h6>name</h6>
               <input type="text" placeholder='Name ' value={editData.name} onChange={(e) => {
@@ -90,7 +88,7 @@ const ShopModal = ({ open, setOpen, editData, setEditData }) => {
                 setEditData({ ...editData, address: e.target.value });
               }} />
             </div>
-            <Button className='submit' variant="contained" type='submit'    >Submit</Button>
+            <Button className='submit !bg-primaryBg' variant="contained" type='submit'    >Submit</Button>
           </form>
         </Box>
       </Modal>

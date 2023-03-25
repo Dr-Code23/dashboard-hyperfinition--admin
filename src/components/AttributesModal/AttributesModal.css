@@ -1,4 +1,4 @@
-.shop-modal {
+.attribute-modal {
   position: absolute;
   left: 0;
   top: 0;
@@ -11,7 +11,7 @@
   user-select: none;
 }
 
-.shop-modal form {
+.attribute-modal form {
   position: relative;
   display: flex;
   align-items: center;
@@ -21,23 +21,17 @@
   width: 100%;
   max-width: 450px;
   border-radius: 6px;
-  padding: 30px 15px;
-  gap: 10px;
+  padding: 60px 15px;
+  gap: 20px;
 }
 
-.shop-modal form h5 {
+.attribute-modal form h5 {
   text-transform: capitalize;
   font-size: 22px;
   font-weight: 500;
-  margin-bottom: 10px;
 }
 
-.shop-modal form img {
-  border-color: rgb(25, 189, 25) !important;
-  border-radius: 6px;
-}
-
-.shop-modal form input {
+.attribute-modal form input {
   width: 100%;
   outline: none;
   border: none;
@@ -46,30 +40,13 @@
   border-radius: 4px;
 }
 
-.shop-modal form div {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.shop-modal form div h6 {
-  margin-bottom: 0;
-  text-transform: capitalize;
-  font-size: 17px;
-  font-weight: 500;
-}
-
-.shop-modal form button.submit {
-  margin-top: 0;
+.attribute-modal form button.submit {
+  margin-top: 20px;
   height: 50px;
   width: 150px;
 }
 
-.shop-modal form .close-modal {
+.attribute-modal form .close-modal {
   position: absolute;
   top: 10px;
   right: 20px;

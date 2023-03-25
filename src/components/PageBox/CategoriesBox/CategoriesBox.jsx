@@ -1,7 +1,8 @@
-import React from 'react';
 
+
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './BrandBox.css'
+import './CategoriesBox.css'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,8 +12,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton'
-import { DeleteForever, ModeEdit } from '@mui/icons-material';
-import { Avatar, Button } from '@mui/material';
+import { DeleteForever, ModeEdit, RemoveRedEye } from '@mui/icons-material';
+import { Button } from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -45,10 +46,7 @@ const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
-
-const BrandBox = ({ title, list, setOpen }) => {
-  // const navigation = useNavigate();
-
+const CategoriesBox = ({ setOpen, setOpenCt }) => {
   return (
     <>
       <div className=" mx-auto px-4 max-w-[800px] mt-[40px]">
@@ -60,7 +58,6 @@ const BrandBox = ({ title, list, setOpen }) => {
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell className=' !bg-primaryBg capitalize'>Img</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
 
@@ -69,13 +66,15 @@ const BrandBox = ({ title, list, setOpen }) => {
             <TableBody>
               {rows.map((row) => (
                 <StyledTableRow key={row.name}>
-                  <StyledTableCell component="th" scope="row">
-                    <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg" />                  </StyledTableCell>
+
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
                   <StyledTableCell align="center">
                     <div className='action flex items-center justify-center gap-2'>
                       <IconButton aria-label="" onClick={() => { setOpen(true) }} >
                         <ModeEdit />
+                      </IconButton>
+                      <IconButton aria-label="" onClick={() => { setOpenCt(true) }}  >
+                        <RemoveRedEye />
                       </IconButton>
                       <IconButton aria-label="" >
                         <DeleteForever />
@@ -95,8 +94,7 @@ const BrandBox = ({ title, list, setOpen }) => {
 
 
     </>
-
   );
 }
 
-export default BrandBox;
+export default React.memo(CategoriesBox);

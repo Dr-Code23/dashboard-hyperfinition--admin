@@ -1,0 +1,100 @@
+.user-box {
+  background: var(--bg-main);
+  height: 100%;
+  margin-top: 40px;
+}
+
+.user-box .container {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  height: 100%;
+}
+
+.user-box .container .content {
+  width: 100%;
+  max-width: 576px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 6px;
+  padding: 60px 20px;
+}
+
+.user-box .container .content h2 {
+  font-weight: 600;
+  font-size: 33px;
+  line-height: 130%;
+  text-transform: capitalize;
+  text-align: center;
+  color: var(--text-color-01);
+  margin-bottom: 10px;
+}
+
+.user-box .container .content h6 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 175%;
+  text-transform: capitalize;
+  text-align: center;
+  color: var(--text-color-02);
+  margin-bottom: 0px;
+}
+
+.user-box .container .box {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user-box .container .box .content-box {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.user-box .container .box .content-box h5 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 175%;
+  color: var(--text-color-02);
+  text-transform: capitalize;
+}
+
+.user-box .container .box .content-box .input-box div::after,
+.user-box .container .box .content-box .input-box div::after,
+.user-box .container .box .content-box .input-box div::before {
+  all: unset !important;
+}
+
+.user-box .container .box .content-box .input-box {
+  border: 1px solid var(--text-color-03);
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.user-box .container .box .content-box fieldset {
+  border: none !important;
+  outline: none !important;
+}
+
+
+.user-box .container .box span {
+  display: block;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 175%;
+  color: var(--text-color-03);
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.user-box .container .box Button.submit {
+  background-color: var(--text-color-03);
+  margin: auto;
+  margin-top: 20px;
+  width: 100%;
+  padding: 13px;
+  color: var(--text-color-04);
+}

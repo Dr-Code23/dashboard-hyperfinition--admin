@@ -44,28 +44,22 @@ const Layout = (props) => {
     if (!localStorage.getItem('AccessToken')) {
       navigate('/')
     }
-  }, []);
+  }, [navigate]);
+
   return (
     <>
-
       <Box sx={{ display: 'flex', minHeight: '100vh', direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}>
         {/* <CssBaseline /> */}
         <Header {...{ handleDrawerToggle, i18n, drawerWidth }} />
-
-        <SidBar {...{ drawerWidth, container, i18n, mobileOpen, handleDrawerToggle }} />
-
-
+        <SidBar {...{ drawerWidth, container, i18n, mobileOpen, handleDrawerToggle, setMobileOpen }} />
         <Box
           component="main"
           sx={{ mt: '20px', width: { xs: '100%', sm: `calc(100% - ${drawerWidth}px)` }, overflow: "hidden" }}
         >
-
           <Toolbar />
           <Outlet />
         </Box>
       </Box>
-
-
     </>
   );
 }

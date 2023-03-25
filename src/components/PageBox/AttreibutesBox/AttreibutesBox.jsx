@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import './BrandBox.css'
+import './AttreibutesBox.css'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -45,10 +45,7 @@ const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
-
-const BrandBox = ({ title, list, setOpen }) => {
-  // const navigation = useNavigate();
-
+const AttreibutesBox = ({ setOpen }) => {
   return (
     <>
       <div className=" mx-auto px-4 max-w-[800px] mt-[40px]">
@@ -60,7 +57,6 @@ const BrandBox = ({ title, list, setOpen }) => {
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell className=' !bg-primaryBg capitalize'>Img</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
 
@@ -69,8 +65,7 @@ const BrandBox = ({ title, list, setOpen }) => {
             <TableBody>
               {rows.map((row) => (
                 <StyledTableRow key={row.name}>
-                  <StyledTableCell component="th" scope="row">
-                    <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg" />                  </StyledTableCell>
+
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
                   <StyledTableCell align="center">
                     <div className='action flex items-center justify-center gap-2'>
@@ -95,8 +90,7 @@ const BrandBox = ({ title, list, setOpen }) => {
 
 
     </>
-
   );
 }
 
-export default BrandBox;
+export default AttreibutesBox;
