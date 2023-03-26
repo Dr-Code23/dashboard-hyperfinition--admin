@@ -1,16 +1,19 @@
 import React from 'react';
-import { CategoriesBox } from '../../components';
-import CategoriesModal from '../../components/CategoriesModal/CategoriesModal';
+import { CategoriesBox, CategoriesModal, ParentModal, SubModal } from '../../components';
 
 const Categories = () => {
   const [open, setOpen] = React.useState(false);
   const [openCt, setOpenCt] = React.useState(false);
+  const [openParent, setOpenParent] = React.useState(false);
+  const [openSub, setOpenSub] = React.useState(false);
   const [nameBrand, setNameBrand] = React.useState('New Brand Name');
   return (
 
     <>
-      <CategoriesBox  {...{ setOpen, nameBrand, setNameBrand, setOpenCt }} />
-      <CategoriesModal   {...{ open, setOpen, nameBrand, setNameBrand, openCt, setOpenCt }} />
+      <CategoriesBox  {...{ setOpen, setOpenCt, setOpenParent, setOpenSub }} />
+      <CategoriesModal  {...{ nameBrand, setNameBrand, openCt, setOpenCt }} />
+      <ParentModal   {...{ openParent, setOpenParent, }} />
+      <SubModal   {...{ openSub, setOpenSub }} />
     </>
   );
 }

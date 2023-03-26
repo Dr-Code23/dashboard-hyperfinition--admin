@@ -11,3 +11,6 @@ export { default as AttributesModal } from "./AttributesModal/AttributesModal.js
 export { default as UsersBox } from "./PageBox/UsersBox/UsersBox.jsx"
 export { default as UserModal } from "./UserModal/UserModal.jsx"
 export { default as CategoriesBox } from "./PageBox/CategoriesBox/CategoriesBox.jsx"
+export { default as CategoriesModal } from "./CategoriesModal/CategoriesModal.jsx"
+export { default as ParentModal } from "./ParentModal/ParentModal.jsx"
+export { default as SubModal } from "./SubModal/SubModal.jsx"

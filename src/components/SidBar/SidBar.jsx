@@ -31,7 +31,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
 
         </Toolbar>
         <Divider />
-        <List>
+        <List dir='ltr' >
           {/* <NavLink to={'/admin/shop'} className='w-full  text-decoration-none'>
             </NavLink> */}
           {/* ========================= Dashboard======================== */}

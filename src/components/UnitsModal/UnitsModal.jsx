@@ -40,7 +40,7 @@ const UnitsModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
               <CloseIcon />
 
             </IconButton>
-            <h5>New Attribute Name</h5>
+            <h5>New Units Name</h5>
 
 
             <div className=' w-full' >

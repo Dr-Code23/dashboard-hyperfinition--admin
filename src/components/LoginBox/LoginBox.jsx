@@ -120,7 +120,7 @@ const LoginBox = () => {
                 ) : null}
               </Typography>
 
-              <Button className='submit' variant="contained" type='submit'  >contact</Button>
+              <Button className='submit' variant="contained" type='submit'  >Sign In</Button>
               <span style={{ display: showErrorForm ? 'block' : 'none', color: 'red', textAlign: 'center', width: '100%' }}>email or password is wrong</span>
             </Typography>
           </div>

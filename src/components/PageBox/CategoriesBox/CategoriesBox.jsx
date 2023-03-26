@@ -13,8 +13,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton'
 import { DeleteForever, ModeEdit, RemoveRedEye } from '@mui/icons-material';
-import { Button } from '@mui/material';
-
+import { Button, Typography } from '@mui/material';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -46,14 +47,24 @@ const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
-const CategoriesBox = ({ setOpen, setOpenCt }) => {
+
+const CategoriesBox = ({ setOpen, setOpenCt, setOpenParent, setOpenSub }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <>
       <div className=" mx-auto px-4 max-w-[800px] mt-[40px]">
-        <div className='flex  items-end mb-3 gap-2 pl-1'>
+        {/* <div className='flex  items-end mb-3 gap-2 pl-1'>
           <h6 className=' capitalize text-[22px]  font-medium	'>search :</h6>
           <input type="text" className=' bg-secondaryBg outline-none p-[8px]' />
-        </div>
+        </div> */}
         <TableContainer component={Paper} sx={{ height: '438px' }}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
@@ -70,9 +81,39 @@ const CategoriesBox = ({ setOpen, setOpenCt }) => {
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
                   <StyledTableCell align="center">
                     <div className='action flex items-center justify-center gap-2'>
-                      <IconButton aria-label="" onClick={() => { setOpen(true) }} >
-                        <ModeEdit />
-                      </IconButton>
+                      <>
+                        <IconButton id="basic-button"
+                          aria-controls={open ? 'basic-menu' : undefined}
+                          aria-haspopup="true"
+                          aria-expanded={open ? 'true' : undefined}
+                          onClick={handleClick}  >
+                          <ModeEdit />
+                        </IconButton>
+                        <Menu
+                          id="basic-menu"
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                          sx={{ boxShadow: 'none' }}
+                          MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                          }}
+                          className='menu-box'
+                        >
+                          <MenuItem onClick={() => {
+                            handleClose()
+                            setOpenParent(true)
+                          }}>
+                            Parent Category
+                          </MenuItem>
+                          <MenuItem onClick={() => {
+                            handleClose()
+                            setOpenSub(true)
+                          }}>
+                            Sub Category
+                          </MenuItem>
+                        </Menu>
+                      </>
                       <IconButton aria-label="" onClick={() => { setOpenCt(true) }}  >
                         <RemoveRedEye />
                       </IconButton>
@@ -87,9 +128,22 @@ const CategoriesBox = ({ setOpen, setOpenCt }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Button variant="contained" color="primary" className='!mt-[20px] !bg-primaryBg' onClick={() => { setOpen(true) }} >
-          Add a new
-        </Button>
+
+        <>
+          <div className="box-bt flex  items-center justify-start gap-[20px] ">
+            <Button variant="contained" color="primary" className='!mt-[20px] !bg-primaryBg ' onClick={() => {
+              setOpenParent(true)
+            }} >
+              Add Parent Category
+
+            </Button>
+            <Button variant="contained" color="primary" className='!mt-[20px] !bg-primaryBg' onClick={() => { setOpenSub(true) }} >
+              Add Sub Category
+            </Button>
+          </div>
+
+
+        </>
       </div>
 
 
