@@ -1,7 +1,8 @@
+
 import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import './BrandBox.css'
+import './ProductBox.css'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,6 +15,7 @@ import IconButton from '@mui/material/IconButton'
 import { DeleteForever, ModeEdit } from '@mui/icons-material';
 import { Avatar, Button } from '@mui/material';
 import { PaginationBox } from '../../index.js'
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -46,12 +48,12 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-const BrandBox = ({ title, list, setOpen }) => {
+const ProductBox = ({ title, list, setOpen }) => {
   // const navigation = useNavigate();
 
   return (
     <>
-      <div className=" mx-auto px-4 mt-[40px]">
+      <div className=" mx-auto px-4  mt-[40px]">
 
         <div className='flex  items-start md:items-center justify-between flex-col md:flex-row mb-3  gap-5 '>
           <div className='flex  items-end gap-2 pl-1'>
@@ -62,8 +64,6 @@ const BrandBox = ({ title, list, setOpen }) => {
             Add a new
           </Button>
         </div>
-
-
         <TableContainer component={Paper} sx={{ height: '438px' }}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
@@ -71,6 +71,12 @@ const BrandBox = ({ title, list, setOpen }) => {
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
                 <StyledTableCell className=' !bg-primaryBg capitalize'>Img</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>description</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>brand</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>categories</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>attributes</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>price</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>quantity</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
 
               </TableRow>
@@ -79,14 +85,21 @@ const BrandBox = ({ title, list, setOpen }) => {
               {rows.map((row, index) => (
                 <StyledTableRow key={row.name}>
                   <StyledTableCell align="center">{index + 1}</StyledTableCell>
-
                   <StyledTableCell component="th" scope="row">
                     <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg" />
                   </StyledTableCell>
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
+                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
+                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
+                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
+                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
+                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
+                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
                   <StyledTableCell align="center">
                     <div className='action flex items-center justify-center gap-2'>
-                      <IconButton aria-label="" onClick={() => { setOpen(true) }} >
+                      <IconButton aria-label="" onClick={() => {
+                        // setOpen(true)
+                      }} >
                         <ModeEdit />
                       </IconButton>
                       <IconButton aria-label="" >
@@ -102,6 +115,7 @@ const BrandBox = ({ title, list, setOpen }) => {
         </TableContainer>
 
       </div>
+
       <PaginationBox count={10} />
 
     </>
@@ -109,5 +123,4 @@ const BrandBox = ({ title, list, setOpen }) => {
   );
 }
 
-export default BrandBox;
-// import { PaginationBox } from '../../index.js'
+export default ProductBox;

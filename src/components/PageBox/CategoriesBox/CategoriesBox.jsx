@@ -16,6 +16,7 @@ import { DeleteForever, ModeEdit, RemoveRedEye } from '@mui/icons-material';
 import { Button, Typography } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { PaginationBox } from '../../index.js'
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -60,23 +61,37 @@ const CategoriesBox = ({ setOpen, setOpenCt, setOpenParent, setOpenSub }) => {
   };
   return (
     <>
-      <div className=" mx-auto px-4 max-w-[800px] mt-[40px]">
-        {/* <div className='flex  items-end mb-3 gap-2 pl-1'>
-          <h6 className=' capitalize text-[22px]  font-medium	'>search :</h6>
-          <input type="text" className=' bg-secondaryBg outline-none p-[8px]' />
-        </div> */}
+      <div className=" mx-auto px-4  mt-[40px]">
+        <>
+          <div className="box-bt flex  items-center justify-end gap-[20px] mb-5 ">
+            <Button variant="contained" color="primary" className=' !bg-primaryBg ' onClick={() => {
+              setOpenParent(true)
+            }} >
+              Add Parent Category
+
+            </Button>
+            <Button variant="contained" color="primary" className=' !bg-primaryBg' onClick={() => { setOpenSub(true) }} >
+              Add Sub Category
+            </Button>
+          </div>
+
+
+        </>
         <TableContainer component={Paper} sx={{ height: '438px' }}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
+
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
 
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {rows.map((row, index) => (
                 <StyledTableRow key={row.name}>
+                  <StyledTableCell align="center">{index + 1}</StyledTableCell>
 
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
                   <StyledTableCell align="center">
@@ -129,23 +144,10 @@ const CategoriesBox = ({ setOpen, setOpenCt, setOpenParent, setOpenSub }) => {
           </Table>
         </TableContainer>
 
-        <>
-          <div className="box-bt flex  items-center justify-start gap-[20px] ">
-            <Button variant="contained" color="primary" className='!mt-[20px] !bg-primaryBg ' onClick={() => {
-              setOpenParent(true)
-            }} >
-              Add Parent Category
 
-            </Button>
-            <Button variant="contained" color="primary" className='!mt-[20px] !bg-primaryBg' onClick={() => { setOpenSub(true) }} >
-              Add Sub Category
-            </Button>
-          </div>
-
-
-        </>
       </div>
 
+      <PaginationBox count={10} />
 
     </>
   );

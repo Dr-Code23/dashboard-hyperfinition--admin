@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton'
 import { DeleteForever, ModeEdit } from '@mui/icons-material';
 import { Avatar, Button } from '@mui/material';
+import { PaginationBox } from '../../index.js'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -48,24 +49,29 @@ const rows = [
 const AttreibutesBox = ({ setOpen }) => {
   return (
     <>
-      <div className=" mx-auto px-4 max-w-[800px] mt-[40px]">
-        <div className='flex  items-end mb-3 gap-2 pl-1'>
-          <h6 className=' capitalize text-[22px]  font-medium	'>search :</h6>
-          <input type="text" className=' bg-secondaryBg outline-none p-[8px]' />
+      <div className=" mx-auto px-4 mt-[40px]">
+        <div className='flex  items-start md:items-center justify-between flex-col md:flex-row mb-3  gap-5 '>
+          <div className='flex  items-end gap-2 pl-1'>
+            <h6 className=' capitalize text-[22px]  font-medium	'>search :</h6>
+            <input type="text" className=' bg-secondaryBg outline-none p-[8px]' />
+          </div>
+          <Button variant="contained" color="primary" className=' !bg-primaryBg' onClick={() => { setOpen(true) }} >
+            Add a new
+          </Button>
         </div>
         <TableContainer component={Paper} sx={{ height: '438px' }}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
-
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {rows.map((row, index) => (
                 <StyledTableRow key={row.name}>
-
+                  <StyledTableCell align="center">{index + 1}</StyledTableCell>
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
                   <StyledTableCell align="center">
                     <div className='action flex items-center justify-center gap-2'>
@@ -83,11 +89,10 @@ const AttreibutesBox = ({ setOpen }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Button variant="contained" color="primary" className='!mt-[20px] !bg-primaryBg' onClick={() => { setOpen(true) }} >
-          Add a new
-        </Button>
+
       </div>
 
+      <PaginationBox count={10} />
 
     </>
   );

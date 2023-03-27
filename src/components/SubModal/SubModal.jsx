@@ -144,17 +144,7 @@ const SubModal = ({ openSub, setOpenSub }) => {
               <Tab label="French(fr)" />
             </Tabs>
             <div className='w-full h-[78px] relative'>
-              {/* <div style={{ display: shopEditBox ? 'block' : 'none' }} className=' absolute w-full h-full top-0 left-0  bg-white z-[1000]'>
-                <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>Edit Name</h6>
-                <div className=' flex items-center justify-center gap-2'>
-                  <input type="text" placeholder='Name' />
-                  <Button className=' !bg-primaryBg h-[42px] ' variant="contained" onClick={(e) => {
-                    setShopEditBox(false)
 
-
-                  }}>Edit</Button>
-                </div>
-              </div> */}
               <>
                 <div className='w-full overflow-hidden' style={{ display: value === 0 ? 'block' : 'none' }}>
                   <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>Name(en)</h6>
@@ -192,6 +182,8 @@ const SubModal = ({ openSub, setOpenSub }) => {
               <Table sx={{ minWidth: 300 }} aria-label="customized table">
                 <TableHead>
                   <TableRow>
+                    <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
+
                     <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
                     <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Actions</StyledTableCell>
 
@@ -200,7 +192,7 @@ const SubModal = ({ openSub, setOpenSub }) => {
                 <TableBody>
                   {tableData.map((el, index) => (
                     <StyledTableRow key={index}>
-
+                      <StyledTableCell align="center">{index + 1}</StyledTableCell>
                       <StyledTableCell align="center">{el}</StyledTableCell>
                       <StyledTableCell align="center">
                         <IconButton aria-label="" onClick={() => {

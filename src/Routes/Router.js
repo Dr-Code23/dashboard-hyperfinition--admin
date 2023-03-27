@@ -5,8 +5,10 @@ import Categories from "./Pages/Categories";
 import Dashboard from "./Pages/Dashboard";
 import Layout from "./Pages/Layout";
 import Login from "./Pages/Login";
+import Product from "./Pages/Product";
 import Shop from "./Pages/Shop";
 import Units from "./Pages/Units";
+import UserDetail from "./Pages/UserDetail";
 import Users from "./Pages/Users";
 
 export let Router = createBrowserRouter([
@@ -43,8 +45,16 @@ export let Router = createBrowserRouter([
         element: <Users />,
       },
       {
+        path: "users/detail/:id",
+        element: <UserDetail />,
+      },
+      {
         path: "categories",
         element: <Categories />,
+      },
+      {
+        path: "product",
+        element: <Product />,
       },
       {
         // path: "admin",

@@ -81,13 +81,16 @@ const CategoriesModal = ({ openCt, setOpenCt, nameBrand, setNameBrand }) => {
               <Table sx={{ minWidth: 300 }} aria-label="customized table">
                 <TableHead>
                   <TableRow>
+                    <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
+
                     <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
 
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {rows.map((row, index) => (
                     <StyledTableRow key={row.name}>
+                      <StyledTableCell align="center">{index + 1}</StyledTableCell>
 
                       <StyledTableCell align="center">{row.calories}</StyledTableCell>
 

@@ -12,7 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import { NavLink, } from 'react-router-dom';
-import { Apartment, Attribution, BrandingWatermark, Category, DesignServices, KeyboardDoubleArrowLeft, Person, Sell } from '@mui/icons-material';
+import { Apartment, Attribution, BrandingWatermark, Category, DesignServices, KeyboardDoubleArrowLeft, Person, ProductionQuantityLimits, Sell } from '@mui/icons-material';
 import { IconButton, Typography } from '@mui/material';
 import ImgLogo from "../../assets/Img/logo.png"
 const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, setMobileOpen }) => {
@@ -34,7 +34,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
         <List dir='ltr' >
           {/* <NavLink to={'/admin/shop'} className='w-full  text-decoration-none'>
             </NavLink> */}
-          {/* ========================= Dashboard======================== */}
+          {/* =========================Dashboard======================== */}
 
           <ListItem disablePadding   >
             <NavLink to={'/admin/'} className=' w-full text-decoration-none active:text-red-900'>
@@ -117,6 +117,18 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                   <Category sx={{ color: '#fff' }} />
                 </ListItemIcon>
                 <ListItemText primary={'categories'} className=' capitalize' />
+              </ListItemButton>
+            </NavLink>
+          </ListItem>
+          {/* ========================categories================================ */}
+
+          <ListItem disablePadding   >
+            <NavLink to={'/admin/product'} className='w-full  text-decoration-none'>
+              <ListItemButton sx={{ color: '#fff' }} >
+                <ListItemIcon>
+                  <ProductionQuantityLimits sx={{ color: '#fff' }} />
+                </ListItemIcon>
+                <ListItemText primary={'product'} className=' capitalize' />
               </ListItemButton>
             </NavLink>
           </ListItem>

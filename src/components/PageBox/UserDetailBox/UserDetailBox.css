@@ -1,0 +1,87 @@
+.user-detail {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  margin-top: 40px;
+}
+
+.user-detail form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  background-color: var(--bg-main);
+  width: 100%;
+  max-width: 576px;
+  border-radius: 6px;
+  padding: 60px 15px;
+  gap: 20px;
+  overflow-y: auto;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+
+
+.user-detail .box .content-box {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.user-detail .box .content-box h5 {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 175%;
+  color: var(--text-color-02);
+  text-transform: capitalize;
+}
+
+.user-detail .box .content-box .input-box div::after,
+.user-detail .box .content-box .input-box div::after,
+.user-detail .box .content-box .input-box div::before {
+  all: unset !important;
+}
+
+.user-detail .box .content-box .input-box {
+  border: 1px solid var(--text-color-03);
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+.user-detail .box .content-box fieldset {
+  border: none !important;
+  outline: none !important;
+}
+
+
+.user-detail .box span {
+  display: block;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 175%;
+  color: var(--text-color-03);
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.user-detail .box Button.submit {
+  background-color: var(--text-color-03);
+  margin: auto;
+  margin-top: 20px;
+  width: 100%;
+  padding: 13px;
+  color: var(--text-color-04);
+}
+
+.user-detail .close-modal {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  background: var(--text-color-03) !important;
+  z-index: 1000;
+}
