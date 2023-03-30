@@ -1,8 +1,8 @@
 
 
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './CategoriesBox.css'
+import './SubCategoriesBox.css'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,12 +13,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton'
 import { DeleteForever, ModeEdit, } from '@mui/icons-material';
-import { Avatar, Button, Tab, Tabs, } from '@mui/material';
+import { Avatar, Button, FormControl, MenuItem, Select, Tab, Tabs, } from '@mui/material';
 import ImageUploading from 'react-images-uploading';
-import img from "../../../assets/Img/default.jpg"
-import { PaginationBox } from '../../index.js'
+import { PaginationBox } from '../index.js'
 import { useTranslation } from 'react-i18next';
-import SwitchBox from '../../SwitchBox/SwitchBox';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -51,14 +49,17 @@ const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
-
-const CategoriesBox = () => {
+let selectData = ['name', 'email', 'pass']
+const SubCategoriesBox = () => {
   let navigate = useNavigate()
-
-
-
   let { i18n } = useTranslation()
   const [value, setValue] = React.useState(0);
+  const [age, setAge] = React.useState('0');
+  const handleChangeMenu = useCallback((event) => {
+
+    setAge(event.target.value);
+
+  }, [])
   //handle input language
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -74,11 +75,7 @@ const CategoriesBox = () => {
       setValue(2)
     }
   }, [i18n.language]);
-  const [images, setImages] = React.useState([{ data_url: img }]);
-  const onChange = (imageList, addUpdateIndex) => {
-    // console.log(imageList, addUpdateIndex);
-    setImages(imageList);
-  };
+
   return (
     <>
       <div className=" mx-auto px-4  mt-[40px] mb-[160px] ">
@@ -95,57 +92,50 @@ const CategoriesBox = () => {
           <div className='flex justify-center flex-col lg:flex-row items-center w-full  gap-5 h-full'>
             <>
 
-              <div className=' w-full mb-3' style={{ display: value === 0 ? 'block' : 'none' }}>
-                <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>Name(en)</h6>
+              <div className=' w-full ' style={{ display: value === 0 ? 'block' : 'none' }}>
+                <h6 className=' text-[17px] mb-3 font-[500] capitalize  '>Sub category Name(EN)
+                  (en)</h6>
 
                 <input type="text" placeholder='Name' />
               </div>
-              <div className=' w-full mb-3' style={{ display: value === 1 ? 'block' : 'none' }}>
-                <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>Name(ar)</h6>
+              <div className=' w-full ' style={{ display: value === 1 ? 'block' : 'none' }}>
+                <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Sub category Name(EN)
+                  (ar)</h6>
 
                 <input type="text" placeholder='Name' />
               </div>
-              <div className=' w-full mb-3' style={{ display: value === 2 ? 'block' : 'none' }}>
-                <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>Name(fr)</h6>
+              <div className=' w-full ' style={{ display: value === 2 ? 'block' : 'none' }}>
+                <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Sub category Name(EN)
+                  (fr)</h6>
 
                 <input type="text" placeholder='Name' />
               </div>
             </>
-            <>
-              <ImageUploading
-                multiple
-                value={images}
-                onChange={onChange}
-                maxNumber={'1'}
-                dataURLKey="data_url"
+            <FormControl fullWidth className='min-h-[75.5px]' >
+              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Main Category *</h6>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={age}
+                onChange={handleChangeMenu}
+                className='select-box '
+
               >
-                {({
-                  imageList,
-                  onImageUpload,
-                  onImageRemoveAll,
-                  onImageUpdate,
-                  onImageRemove,
-                  isDragging,
-                  dragProps,
-                }) => (
-                  // write your building UI
-                  <>
+                {
+                  selectData.length && selectData.map((el, index) => {
+                    return (
+                      <MenuItem value={index} key={index}>
+                        {el}
+                      </MenuItem>
+                    )
+                  })
+                }
 
-                    {imageList.map((image, index) => (
-                      <div key={index} className="image-item  w-full flex flex-col  items-start ">
-
-                        <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>Images</h6>
-                        <img src={image['data_url']} className="  min-w-[200px] w-full max-w-[500px] max-h-[280px]  rounded-[6px] sm:w-full cursor-pointer object-cover" alt="" {...dragProps} style={isDragging ? { border: '4px dashed #1da231' } : undefined} width="100" onClick={() => onImageUpdate(index)} />
-
-                      </div>
-                    ))}
-                  </>
-                )}
-              </ImageUploading>
-            </>
+              </Select>
+            </FormControl>
           </div>
 
-          <Button variant="contained" color="primary" type='submit' className=' !bg-primaryBg  !w-full md:!w-[130px] !h-[50px]  !mt-5 !ml-auto'  >
+          <Button variant="contained" color="primary" type='submit' className=' !bg-primaryBg  !w-full md:!w-[130px] !h-[50px]  !mt-[30px] !ml-auto'  >
             submit
 
           </Button>
@@ -159,7 +149,6 @@ const CategoriesBox = () => {
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Img</StyledTableCell>
 
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>home status</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
 
               </TableRow>
@@ -173,26 +162,13 @@ const CategoriesBox = () => {
                   <StyledTableCell align="center">
                     <Avatar alt="Travis Howard" className=' mx-auto' src="https://mui.com/static/images/avatar/2.jpg" />
                   </StyledTableCell>
-                  <StyledTableCell align="center">
-                    <div data-name='false' onClick={(e) => {
-                      // if (e.currentTarget.dataset.name == 'true') {
-                      //   console.log('notactive')
-                      //   e.currentTarget.dataset.name = false
-                      // }
-                      // else {
-                      //   console.log('active')
-                      //   e.currentTarget.dataset.name = true
-                      // }
-                    }}>
-                      <SwitchBox />
-                    </div>
-                  </StyledTableCell>
+
                   <StyledTableCell align="center">
                     <div className='action flex items-center justify-center gap-2'>
 
                       <IconButton id="basic-button"
                         onClick={() => {
-                          navigate(`/admin/categories/edit/${index + 1}`)
+                          navigate(`/admin/categories/sub/edit/${index + 1}`)
 
                         }}
                       >
@@ -222,4 +198,4 @@ const CategoriesBox = () => {
   );
 }
 
-export default React.memo(CategoriesBox);
+export default React.memo(SubCategoriesBox);

@@ -49,18 +49,20 @@ const rows = [
 ];
 
 const ProductBox = ({ title, list, setOpen }) => {
-  // const navigation = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <>
       <div className=" mx-auto px-4  mt-[40px]">
 
-        <div className='flex  items-start md:items-center justify-between flex-col md:flex-row mb-3  gap-5 '>
-          <div className='flex  items-end gap-2 pl-1'>
+        <div className='flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 '>
+          {/* <div className='flex  items-end gap-2 pl-1'>
             <h6 className=' capitalize text-[22px]  font-medium	'>search :</h6>
             <input type="text" className=' bg-secondaryBg outline-none p-[8px]' />
-          </div>
-          <Button variant="contained" color="primary" className=' !bg-primaryBg' onClick={() => { setOpen(true) }} >
+          </div> */}
+          <Button variant="contained" color="primary" className=' !bg-primaryBg' onClick={() => {
+            navigate('/admin/product/add/add')
+          }} >
             Add a new
           </Button>
         </div>
@@ -69,14 +71,8 @@ const ProductBox = ({ title, list, setOpen }) => {
             <TableHead>
               <TableRow>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
-                <StyledTableCell className=' !bg-primaryBg capitalize'>Img</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>description</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>brand</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>categories</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>attributes</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>price</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>quantity</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
 
               </TableRow>
@@ -85,20 +81,13 @@ const ProductBox = ({ title, list, setOpen }) => {
               {rows.map((row, index) => (
                 <StyledTableRow key={row.name}>
                   <StyledTableCell align="center">{index + 1}</StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/1.jpg" />
-                  </StyledTableCell>
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
+
                   <StyledTableCell align="center">
                     <div className='action flex items-center justify-center gap-2'>
                       <IconButton aria-label="" onClick={() => {
-                        // setOpen(true)
+                        navigate(`/admin/product/edit/${index + 1}`)
                       }} >
                         <ModeEdit />
                       </IconButton>

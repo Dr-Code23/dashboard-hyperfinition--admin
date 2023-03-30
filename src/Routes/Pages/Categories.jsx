@@ -11,7 +11,7 @@ const Categories = () => {
 
     <>
       <CategoriesBox  {...{ setOpen, setOpenCt, setOpenParent, setOpenSub }} />
-      <CategoriesModal  {...{ nameBrand, setNameBrand, openCt, setOpenCt }} />
+      <CategoriesModal />
       <ParentModal   {...{ openParent, setOpenParent, }} />
       <SubModal   {...{ openSub, setOpenSub }} />
     </>

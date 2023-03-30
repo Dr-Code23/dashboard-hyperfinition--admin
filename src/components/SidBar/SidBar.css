@@ -1,7 +1,28 @@
-.sidbar{
-/* justify-content: flex-end !important; */
+.sidbar {
+  /* justify-content: flex-end !important; */
 
 }
-.sidbar ul .active{
-background-color: var(--text-color-02);
+
+.sidebar-list.active {
+  background-color: var(--text-color-02);
+}
+
+.sidebar-categories-list .list {
+  display: none;
+}
+
+.sidebar-categories-list.active {
+  background: transparent !important;
+}
+
+.sidebar-categories-list.active .list {
+
+  background: transparent !important;
+  display: block;
+}
+
+.sidebar-categories-list.active .list .active {
+  background-color: var(--text-color-02);
+  display: block;
+
 }

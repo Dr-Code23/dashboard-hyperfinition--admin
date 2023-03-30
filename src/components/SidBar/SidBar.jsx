@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useMemo, } from 'react';
 import "./SidBar.css"
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -12,7 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import { NavLink, } from 'react-router-dom';
-import { Apartment, Attribution, BrandingWatermark, Category, DesignServices, KeyboardDoubleArrowLeft, Person, ProductionQuantityLimits, Sell } from '@mui/icons-material';
+import { Apartment, Attribution, BrandingWatermark, Category, DesignServices, FiberManualRecord, KeyboardDoubleArrowLeft, Person, ProductionQuantityLimits, } from '@mui/icons-material';
 import { IconButton, Typography } from '@mui/material';
 import ImgLogo from "../../assets/Img/logo.png"
 const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, setMobileOpen }) => {
@@ -37,7 +37,9 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
           {/* =========================Dashboard======================== */}
 
           <ListItem disablePadding   >
-            <NavLink to={'/admin/'} className=' w-full text-decoration-none active:text-red-900'>
+            <NavLink to={'/admin/'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
               <ListItemButton sx={{ color: '#fff' }}  >
                 <ListItemIcon >
                   <InboxIcon sx={{ color: '#fff' }} />
@@ -51,7 +53,9 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
 
           <ListItem disablePadding   >
 
-            <NavLink to={'/admin/shop'} className='w-full  text-decoration-none'>
+            <NavLink to={'/admin/shop'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon>
                   <AddShoppingCartIcon sx={{ color: '#fff' }} />
@@ -63,7 +67,9 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
           </ListItem>
           {/* ======================== Brand========================= */}
           <ListItem disablePadding   >
-            <NavLink to={'/admin/brand'} className='w-full  text-decoration-none'>
+            <NavLink to={'/admin/brand'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon>
                   <BrandingWatermark sx={{ color: '#fff' }} />
@@ -75,7 +81,9 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
           {/* ========================attributes================================ */}
 
           <ListItem disablePadding   >
-            <NavLink to={'/admin/attributes'} className='w-full  text-decoration-none'>
+            <NavLink to={'/admin/attributes'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon>
                   <Attribution sx={{ color: '#fff' }} />
@@ -87,7 +95,9 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
           {/* ========================units================================ */}
 
           <ListItem disablePadding   >
-            <NavLink to={'/admin/units'} className='w-full  text-decoration-none'>
+            <NavLink to={'/admin/units'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon>
                   <Apartment sx={{ color: '#fff' }} />
@@ -99,7 +109,9 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
           {/* ========================Users================================ */}
 
           <ListItem disablePadding   >
-            <NavLink to={'/admin/users'} className='w-full  text-decoration-none'>
+            <NavLink to={'/admin/users'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon>
                   <Person sx={{ color: '#fff' }} />
@@ -111,19 +123,51 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
           {/* ========================categories================================ */}
 
           <ListItem disablePadding   >
-            <NavLink to={'/admin/categories'} className='w-full  text-decoration-none'>
+            <NavLink to={'/admin/categories'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-categories-list active" : "w-full   text-decoration-none sidebar-categories-list"
+            }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon>
                   <Category sx={{ color: '#fff' }} />
                 </ListItemIcon>
                 <ListItemText primary={'categories'} className=' capitalize' />
               </ListItemButton>
+              <div className={`list pl-[10px]`}>
+
+                {/* =================================== */}
+                <NavLink to={'/admin/categories/sub'} className='w-full  text-decoration-none'>
+                  <ListItemButton sx={{ color: '#fff' }} >
+                    <ListItemIcon className='!min-w-[20px]  ' >
+                      <FiberManualRecord sx={{ color: '#fff', fontSize: '13px' }} />
+                    </ListItemIcon>
+                    <ListItemText className=' capitalize '>
+                      <span className=' text-[13px]'>
+                        sub categories
+                      </span>
+                    </ListItemText>
+                  </ListItemButton>
+                </NavLink>
+                {/* =================================== */}
+                <NavLink to={'/admin/categories/sub_sub'} className='w-full  text-decoration-none'>
+                  <ListItemButton sx={{ color: '#fff' }} >
+                    <ListItemIcon className='!min-w-[20px]  ' >
+                      <FiberManualRecord sx={{ color: '#fff', fontSize: '13px' }} />
+                    </ListItemIcon>
+                    <ListItemText className=' capitalize '>
+                      <span className=' text-[13px]'>
+                        sub sub categories
+                      </span>
+                    </ListItemText>
+                  </ListItemButton>
+                </NavLink>
+              </div>
             </NavLink>
           </ListItem>
-          {/* ========================categories================================ */}
-
+          {/* ========================== Products============================= */}
           <ListItem disablePadding   >
-            <NavLink to={'/admin/product'} className='w-full  text-decoration-none'>
+            <NavLink to={'/admin/product'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon>
                   <ProductionQuantityLimits sx={{ color: '#fff' }} />
@@ -134,7 +178,9 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
           </ListItem>
           {/* ========================Services================================ */}
           <ListItem disablePadding   >
-            <NavLink to={'/admin/'} className='w-full  text-decoration-none'>
+            <NavLink to={'/admin/services'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon >
                   <DesignServices sx={{ color: '#fff' }} />
@@ -144,18 +190,18 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
             </NavLink>
             {/* ================================================= */}
           </ListItem>
-          {/* ========================== Products============================= */}
-
-          <ListItem disablePadding>
-            <NavLink to={'/admin/'} className='w-full  text-decoration-none'>
-              <ListItemButton sx={{ color: '#fff' }}  >
+          {/* ========================project================================ */}
+          <ListItem disablePadding   >
+            <NavLink to={'/admin/project'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
+              <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon >
-                  <Sell sx={{ color: '#fff' }} />
+                  <DesignServices sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText primary={'Products'} />
+                <ListItemText primary={'project'} />
               </ListItemButton>
             </NavLink>
-
             {/* ================================================= */}
           </ListItem>
           {/* ======================================================== */}
@@ -209,7 +255,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
               boxSizing: 'border-box', width: drawerWidth, paddingX: '15px', backgroundColor: '#031d54', left: i18n.language === 'ar' ? 'auto' : '0'
             },
           }}
-          open
+
 
         >
 

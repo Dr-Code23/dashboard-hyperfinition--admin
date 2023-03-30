@@ -164,9 +164,6 @@ const UserDetailBox = () => {
                         {el}
                       </MenuItem>
                     )
-
-
-
                   })
                 }
 

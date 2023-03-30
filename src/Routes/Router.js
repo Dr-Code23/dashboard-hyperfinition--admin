@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import { ProductEdit, ProductNew, ProjectAdd, ServicesAdd, ServicesBox, ServicesEdit, SubCategoriesBox, SubCategoriesEdit, SubSubCategoriesBox } from "../components";
+import CategoriesEdit from "../components/CategoriesEdit/CategoriesEdit";
 import Attributes from "./Pages/Attributes";
 import Brand from "./Pages/Brand";
 import Categories from "./Pages/Categories";
@@ -6,6 +8,7 @@ import Dashboard from "./Pages/Dashboard";
 import Layout from "./Pages/Layout";
 import Login from "./Pages/Login";
 import Product from "./Pages/Product";
+import Project from "./Pages/Project";
 import Shop from "./Pages/Shop";
 import Units from "./Pages/Units";
 import UserDetail from "./Pages/UserDetail";
@@ -53,8 +56,61 @@ export let Router = createBrowserRouter([
         element: <Categories />,
       },
       {
+        path: "categories",
+        element: <Categories />,
+      },
+      {
+        path: "categories/edit/:editCategories",
+        element: <CategoriesEdit />,
+      },
+
+      {
+        path: "categories/sub",
+        element: <SubCategoriesBox />,
+      },
+      {
+        path: "categories/sub/edit/:editSub",
+        element: <SubCategoriesEdit />,
+      },
+      {
+        path: "categories/sub_sub",
+        element: <SubSubCategoriesBox />,
+      },
+      {
+        path: "categories/sub_sub/edit/:editSub",
+        element: <SubCategoriesEdit />,
+      },
+      {
         path: "product",
         element: <Product />,
+      },
+      {
+        path: "product/add/:productAdd",
+        element: <ProductNew />,
+      },
+      {
+        path: "product/edit/:productEdit",
+        element: <ProductEdit />,
+      },
+      {
+        path: "services",
+        element: <ServicesBox />,
+      },
+      {
+        path: "services/add/:serviceAdd",
+        element: <ServicesAdd />,
+      },
+      {
+        path: "services/edit/:serviceEdit",
+        element: <ServicesEdit />,
+      },
+      {
+        path: "project",
+        element: <Project />,
+      },
+      {
+        path: "project/add/:projectAdd",
+        element: <ProjectAdd />,
       },
       {
         // path: "admin",

@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import './UsersBox.css'
+import './ServicesBox.css'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -47,18 +47,21 @@ const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
-const UnitsBox = () => {
-  let navigate = useNavigate()
+
+const ServicesBox = ({ title, list, setOpen }) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className=" mx-auto px-4  mt-[40px]">
-        <div className='flex  items-start md:items-center justify-between flex-col md:flex-row mb-3  gap-5 '>
-          <div className='flex  items-end gap-2 pl-1'>
+
+        <div className='flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 '>
+          {/* <div className='flex  items-end gap-2 pl-1'>
             <h6 className=' capitalize text-[22px]  font-medium	'>search :</h6>
             <input type="text" className=' bg-secondaryBg outline-none p-[8px]' />
-          </div>
+          </div> */}
           <Button variant="contained" color="primary" className=' !bg-primaryBg' onClick={() => {
-            navigate('/admin/users/detail/add')
+            navigate('/admin/services/add/add')
           }} >
             Add a new
           </Button>
@@ -69,8 +72,7 @@ const UnitsBox = () => {
               <TableRow>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Email</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Rule</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>price</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
 
               </TableRow>
@@ -79,15 +81,14 @@ const UnitsBox = () => {
               {rows.map((row, index) => (
                 <StyledTableRow key={row.name}>
                   <StyledTableCell align="center">{index + 1}</StyledTableCell>
+                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
+                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
 
-                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
                   <StyledTableCell align="center">
                     <div className='action flex items-center justify-center gap-2'>
                       <IconButton aria-label="" onClick={() => {
-                        navigate(`/admin/users/detail/${index + 1}`)
-                      }} >
+                        navigate(`/admin/services/edit/${index + 1}`)
+                      }}>
                         <ModeEdit />
                       </IconButton>
                       <IconButton aria-label="" >
@@ -103,11 +104,12 @@ const UnitsBox = () => {
         </TableContainer>
 
       </div>
+
       <PaginationBox count={10} />
 
-
     </>
+
   );
 }
 
-export default UnitsBox;
+export default ServicesBox;
