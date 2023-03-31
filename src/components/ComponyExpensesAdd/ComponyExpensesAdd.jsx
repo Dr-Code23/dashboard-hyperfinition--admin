@@ -1,6 +1,6 @@
 import { Button, FormControl, } from '@mui/material';
 import React, { useState } from 'react';
-import './ProjectAdd.css'
+import './ComponyExpensesAdd.css'
 import "react-datepicker/dist/react-datepicker.css";
 import SelectBox from '../SelectBox/SelectBox';
 import DatePicker from "react-datepicker";
@@ -41,7 +41,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 let selectData = ['name', 'email', 'pass']
-const ProjectAdd = () => {
+const ComponyExpensesAdd = () => {
   let numberD = 0
 
   const [startDate, setStartDate] = useState(new Date("2023/01/01"));
@@ -49,6 +49,7 @@ const ProjectAdd = () => {
   const [selectTarget, setSelectTarget] = React.useState({
 
     Product: '',
+    Project: '',
 
   });
   const [tableData, setTableData] = useState([{ name: 'dr-1', id: numberD += 1 }, { name: 'dr-2', id: numberD += 1 }, { name: 'dr-3', id: numberD += 1 }, { name: 'dr-4', id: numberD += 1 }]);
@@ -68,8 +69,6 @@ const ProjectAdd = () => {
 
       }
     }
-
-
     else {
       setOpen(true)
 
@@ -98,55 +97,17 @@ const ProjectAdd = () => {
           <div className=' flex flex-wrap  w-full gap-[30px] justify-start items-center'>
 
 
-            <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]' >
-              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>project Name *</h6>
-              <input type="text" placeholder='Name' />
-
-            </FormControl>
-            <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]'>
-              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Customer Name *</h6>
-              <input type="text" placeholder='Name' />
-
-            </FormControl>
-            <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]'>
-              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Project Total *</h6>
-              <input type="text" placeholder='Name' />
+            <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]' onClick={(e) => {
+              // console.log(e.target.textContent)
+              setSelectTarget({ ...selectTarget, Project: e.target.textContent })
+            }} >
+              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Project *</h6>
+              <SelectBox selectData={selectData} />
 
             </FormControl>
           </div>
           <hr className=' w-full my-[40px]' />
-          <div className=' flex flex-col md:flex-row   md:justify-start justify-center items-center gap-[30px] w-full '>
-            {/* className='w-full max-w-[400px]' */}
-            <FormControl className='min-h-[75.5px]  w-full lg:max-w-[440px]' >
-              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Start Date *</h6>
-              <DatePicker
-                dateFormat="yyyy/MM/dd"
-                selected={startDate}
-                onChange={(date) => {
-                  setStartDate(date)
 
-                }}
-                selectsStart
-                startDate={startDate}
-                endDate={endDate}
-              />
-            </FormControl>
-            <FormControl className='min-h-[75.5px]  w-full lg:max-w-[440px]' >
-              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>End Date *</h6>
-              <DatePicker
-                selected={endDate}
-                dateFormat="yyyy/MM/dd"
-                onChange={(date) => setEndDate(date)}
-                selectsEnd
-                startDate={startDate}
-                endDate={endDate}
-                minDate={startDate}
-              />
-            </FormControl>
-
-
-          </div>
-          <hr className=' w-full my-[40px]' />
 
           <div className=' flex flex-wrap  w-full gap-[30px] justify-start items-center'>
 
@@ -224,4 +185,4 @@ const ProjectAdd = () => {
   );
 }
 
-export default React.memo(ProjectAdd);
+export default React.memo(ComponyExpensesAdd);

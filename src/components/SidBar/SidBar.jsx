@@ -12,7 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import { NavLink, } from 'react-router-dom';
-import { Apartment, Attribution, BrandingWatermark, Category, DesignServices, FiberManualRecord, KeyboardDoubleArrowLeft, Person, ProductionQuantityLimits, } from '@mui/icons-material';
+import { AccountCircle, AccountTree, Apartment, Attribution, BrandingWatermark, Category, ContactPhone, DesignServices, Explore, FiberManualRecord, KeyboardDoubleArrowLeft, Paid, Person, ProductionQuantityLimits, } from '@mui/icons-material';
 import { IconButton, Typography } from '@mui/material';
 import ImgLogo from "../../assets/Img/logo.png"
 const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, setMobileOpen }) => {
@@ -197,7 +197,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
             }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon >
-                  <DesignServices sx={{ color: '#fff' }} />
+                  <AccountTree sx={{ color: '#fff' }} />
                 </ListItemIcon>
                 <ListItemText className=' !capitalize' primary={'project'} />
               </ListItemButton>
@@ -211,7 +211,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
             }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon >
-                  <DesignServices sx={{ color: '#fff' }} />
+                  <Paid sx={{ color: '#fff' }} />
                 </ListItemIcon>
                 <ListItemText className=' !capitalize' primary={'projectPayment'} />
               </ListItemButton>
@@ -220,28 +220,40 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
           </ListItem>
           {/* ========================componyExpenses================================ */}
           <ListItem disablePadding   >
-            <NavLink to={'/admin/componyExpenses'} className={({ isActive }) =>
+            <NavLink to={'/admin/projectExpense'} className={({ isActive }) =>
               isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
             }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon  >
-                  <DesignServices sx={{ color: '#fff' }} />
+                  <Explore sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText className=' !capitalize' primary={'componyExpenses'} />
+                <ListItemText className=' !capitalize' primary={'projectExpenses'} />
               </ListItemButton>
             </NavLink>
           </ListItem>
           {/* ========================profile================================ */}
-
           <ListItem disablePadding   >
             <NavLink to={'/admin/profile'} className={({ isActive }) =>
               isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
             }>
               <ListItemButton sx={{ color: '#fff' }} >
                 <ListItemIcon  >
-                  <DesignServices sx={{ color: '#fff' }} />
+                  <AccountCircle sx={{ color: '#fff' }} />
                 </ListItemIcon>
                 <ListItemText className=' !capitalize' primary={'profile'} />
+              </ListItemButton>
+            </NavLink>
+          </ListItem>
+          {/* ========================contact================================ */}
+          <ListItem disablePadding   >
+            <NavLink to={'/admin/contact'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
+              <ListItemButton sx={{ color: '#fff' }} >
+                <ListItemIcon  >
+                  <ContactPhone sx={{ color: '#fff' }} />
+                </ListItemIcon>
+                <ListItemText className=' !capitalize' primary={'contact'} />
               </ListItemButton>
             </NavLink>
           </ListItem>

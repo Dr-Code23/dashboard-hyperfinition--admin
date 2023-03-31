@@ -57,10 +57,10 @@ const Layout = (props) => {
           sx={{ mt: '20px', width: { xs: '100%', sm: `calc(100% - ${drawerWidth}px)` }, overflow: "hidden" }}
         >
           <Toolbar />
-          <div className=' max-w-[1280px] mx-auto'>
+          {/* <div className=' max-w-[1280px] mx-auto'>
             <Outlet />
-          </div>
-          {/* <Outlet /> */}
+          </div> */}
+          <Outlet />
         </Box>
       </Box>
     </>

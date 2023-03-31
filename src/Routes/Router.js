@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ComponyExpenses, ProductEdit, ProductNew, ProfileBox, ProjectAdd, ProjectPayment, ProjectPaymentAdd, ProjectPaymentEdit, ProjectView, ServicesAdd, ServicesBox, ServicesEdit, SubCategoriesBox, SubCategoriesEdit, SubSubCategoriesBox } from "../components";
+import { ComponyExpenses, ComponyExpensesAdd, ComponyExpensesView, ContactBox, ProductEdit, ProductNew, ProfileBox, ProjectAdd, ProjectPayment, ProjectPaymentAdd, ProjectPaymentEdit, ProjectView, ServicesAdd, ServicesBox, ServicesEdit, SubCategoriesBox, SubCategoriesEdit, SubSubCategoriesBox } from "../components";
 import CategoriesEdit from "../components/CategoriesEdit/CategoriesEdit";
 import Attributes from "./Pages/Attributes";
 import Brand from "./Pages/Brand";
 import Categories from "./Pages/Categories";
+import Compony from "./Pages/Compony";
 import Dashboard from "./Pages/Dashboard";
 import Layout from "./Pages/Layout";
 import Login from "./Pages/Login";
@@ -129,13 +130,26 @@ export let Router = createBrowserRouter([
         element: <ProjectPaymentEdit />,
       },
       {
-        path: "componyExpenses",
-        element: <ComponyExpenses />,
+        path: "projectExpense",
+        element: <Compony />,
+      },
+      {
+        path: "projectExpense/add/:componyExpensesAdd",
+        element: <ComponyExpensesAdd />,
+      },
+      {
+        path: "projectExpense/view/:ComponyExpensesView",
+        element: <ComponyExpensesView />,
       },
       {
         path: "profile",
         element: <ProfileBox />,
       },
+      {
+        path: "contact",
+        element: <ContactBox />,
+      },
+
       {
         // path: "admin",
         // element: <Admin />,

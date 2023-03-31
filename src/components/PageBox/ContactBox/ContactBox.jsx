@@ -11,10 +11,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton'
-import { RemoveRedEye } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import { DeleteForever, InfoOutlined, ModeEdit, RemoveRedEye } from '@mui/icons-material';
+import { Box, Button, Modal } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+
 import { PaginationBox } from '../../index'
-import './ComponyExpenses.css'
+import './ContactBox.css'
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -47,7 +49,12 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-const ComponyExpenses = () => {
+const ContactBox = () => {
+  const [openCt, setOpenCt] = React.useState(false);
+  const handleClose = useCallback(() => {
+    setOpenCt(false)
+  }, [setOpenCt]);
+  // ================
   const navigate = useNavigate();
 
   return (
@@ -55,24 +62,17 @@ const ComponyExpenses = () => {
       <div className=" mx-auto px-4  mt-[40px]">
 
         <div className='flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 '>
-          {/* <div className='flex  items-end gap-2 pl-1'>
-            <h6 className=' capitalize text-[22px]  font-medium	'>search :</h6>
-            <input type="text" className=' bg-secondaryBg outline-none p-[8px]' />
-          </div> */}
-          <Button variant="contained" color="primary" className=' !bg-primaryBg' onClick={() => {
-            navigate('/admin/projectExpense/add/add')
-          }} >
-            Add a new
-          </Button>
+
         </div>
-        <TableContainer component={Paper} sx={{ height: '438px' }}>
+        <TableContainer component={Paper} sx={{ height: '338px' }}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Project Name</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Customer Name</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Email</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Phone</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Action</StyledTableCell>
 
               </TableRow>
             </TableHead>
@@ -82,19 +82,16 @@ const ComponyExpenses = () => {
                   <StyledTableCell align="center">{index + 1}</StyledTableCell>
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
-
+                  <StyledTableCell align="center">{row.calories}</StyledTableCell>
                   <StyledTableCell align="center">
                     <div className='action flex items-center justify-center gap-2'>
-
                       <IconButton aria-label="" onClick={() => {
-                        navigate(`/admin/projectExpense/view/${index + 1}`)
+                        setOpenCt(true)
                       }}>
-                        <RemoveRedEye />
+                        <InfoOutlined />
                       </IconButton>
-
                     </div>
                   </StyledTableCell>
-
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -102,11 +99,37 @@ const ComponyExpenses = () => {
         </TableContainer>
 
       </div>
-      <PaginationBox count={10} />
 
+      <PaginationBox count={10} />
+      <>
+        <Modal
+          open={openCt}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box className="contact-modal" >
+
+            <div className='all'>
+              <IconButton aria-label="" onClick={() => {
+                setOpenCt(false)
+
+              }}
+                className="close-modal"
+              >
+                <CloseIcon />
+
+              </IconButton>
+              <h4 className=' w-full text-start mb-[12px] text-[20px]  font-bold'>Message :</h4>
+              <p className=' w-full text-start  text-[17px]  font-medium' >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus nostrum minima harum blanditiis ab molestias aspernatur culpa cupiditate corrupti! Saepe commodi accusamus, facere quos ducimus ex quam optio officia adipisci?</p>
+            </div>
+
+          </Box>
+        </Modal>
+      </>
     </>
 
   );
 }
 
-export default ComponyExpenses;
+export default ContactBox;
