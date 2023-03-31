@@ -116,8 +116,13 @@ const Header = ({ drawerWidth, handleDrawerToggle, i18n }) => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">
-                  Account
+                <Typography textAlign="center"
+                  onClick={() => {
+                    Navigate('/admin/profile')
+
+                  }}
+                >
+                  Profile
                 </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>

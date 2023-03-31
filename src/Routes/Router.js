@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ProductEdit, ProductNew, ProjectAdd, ServicesAdd, ServicesBox, ServicesEdit, SubCategoriesBox, SubCategoriesEdit, SubSubCategoriesBox } from "../components";
+import { ComponyExpenses, ProductEdit, ProductNew, ProfileBox, ProjectAdd, ProjectPayment, ProjectPaymentAdd, ProjectPaymentEdit, ProjectView, ServicesAdd, ServicesBox, ServicesEdit, SubCategoriesBox, SubCategoriesEdit, SubSubCategoriesBox } from "../components";
 import CategoriesEdit from "../components/CategoriesEdit/CategoriesEdit";
 import Attributes from "./Pages/Attributes";
 import Brand from "./Pages/Brand";
@@ -111,6 +111,30 @@ export let Router = createBrowserRouter([
       {
         path: "project/add/:projectAdd",
         element: <ProjectAdd />,
+      },
+      {
+        path: "project/view/:projectView",
+        element: <ProjectView />,
+      },
+      {
+        path: "projectPayment",
+        element: <ProjectPayment />,
+      },
+      {
+        path: "projectPayment/add/:projectPaymentAdd",
+        element: <ProjectPaymentAdd />,
+      },
+      {
+        path: "projectPayment/edit/:projectPaymentEdit",
+        element: <ProjectPaymentEdit />,
+      },
+      {
+        path: "componyExpenses",
+        element: <ComponyExpenses />,
+      },
+      {
+        path: "profile",
+        element: <ProfileBox />,
       },
       {
         // path: "admin",

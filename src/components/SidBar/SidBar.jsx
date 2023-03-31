@@ -44,7 +44,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon >
                   <InboxIcon sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText primary={'Dash'} />
+                <ListItemText className=' !capitalize' primary={'Dash'} />
               </ListItemButton>
             </NavLink>
 
@@ -60,7 +60,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon>
                   <AddShoppingCartIcon sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText primary={'My Shop'} />
+                <ListItemText className=' !capitalize' primary={'My Shop'} />
               </ListItemButton>
             </NavLink>
 
@@ -74,7 +74,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon>
                   <BrandingWatermark sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText primary={'Brand'} />
+                <ListItemText className=' !capitalize' primary={'Brand'} />
               </ListItemButton>
             </NavLink>
           </ListItem>
@@ -88,7 +88,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon>
                   <Attribution sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText primary={'attributes'} className=' capitalize' />
+                <ListItemText className=' !capitalize' primary={'attributes'} className=' capitalize' />
               </ListItemButton>
             </NavLink>
           </ListItem>
@@ -102,7 +102,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon>
                   <Apartment sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText primary={'units'} className=' capitalize' />
+                <ListItemText className=' !capitalize' primary={'units'} className=' capitalize' />
               </ListItemButton>
             </NavLink>
           </ListItem>
@@ -116,7 +116,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon>
                   <Person sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText primary={'Users'} className=' capitalize' />
+                <ListItemText className=' !capitalize' primary={'Users'} className=' capitalize' />
               </ListItemButton>
             </NavLink>
           </ListItem>
@@ -130,7 +130,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon>
                   <Category sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText primary={'categories'} className=' capitalize' />
+                <ListItemText className=' !capitalize' primary={'categories'} className=' capitalize' />
               </ListItemButton>
               <div className={`list pl-[10px]`}>
 
@@ -140,7 +140,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                     <ListItemIcon className='!min-w-[20px]  ' >
                       <FiberManualRecord sx={{ color: '#fff', fontSize: '13px' }} />
                     </ListItemIcon>
-                    <ListItemText className=' capitalize '>
+                    <ListItemText className=' !capitalize' className=' capitalize '>
                       <span className=' text-[13px]'>
                         sub categories
                       </span>
@@ -153,7 +153,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                     <ListItemIcon className='!min-w-[20px]  ' >
                       <FiberManualRecord sx={{ color: '#fff', fontSize: '13px' }} />
                     </ListItemIcon>
-                    <ListItemText className=' capitalize '>
+                    <ListItemText className=' !capitalize' className=' capitalize '>
                       <span className=' text-[13px]'>
                         sub sub categories
                       </span>
@@ -172,7 +172,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon>
                   <ProductionQuantityLimits sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText primary={'product'} className=' capitalize' />
+                <ListItemText className=' !capitalize' primary={'product'} className=' capitalize' />
               </ListItemButton>
             </NavLink>
           </ListItem>
@@ -185,7 +185,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon >
                   <DesignServices sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText primary={'Services'} />
+                <ListItemText className=' !capitalize' primary={'Services'} />
               </ListItemButton>
             </NavLink>
             {/* ================================================= */}
@@ -199,10 +199,51 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon >
                   <DesignServices sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText primary={'project'} />
+                <ListItemText className=' !capitalize' primary={'project'} />
               </ListItemButton>
             </NavLink>
             {/* ================================================= */}
+          </ListItem>
+          {/* ========================projectPayment================================ */}
+          <ListItem disablePadding   >
+            <NavLink to={'/admin/projectPayment'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
+              <ListItemButton sx={{ color: '#fff' }} >
+                <ListItemIcon >
+                  <DesignServices sx={{ color: '#fff' }} />
+                </ListItemIcon>
+                <ListItemText className=' !capitalize' primary={'projectPayment'} />
+              </ListItemButton>
+            </NavLink>
+            {/* ================================================= */}
+          </ListItem>
+          {/* ========================componyExpenses================================ */}
+          <ListItem disablePadding   >
+            <NavLink to={'/admin/componyExpenses'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
+              <ListItemButton sx={{ color: '#fff' }} >
+                <ListItemIcon  >
+                  <DesignServices sx={{ color: '#fff' }} />
+                </ListItemIcon>
+                <ListItemText className=' !capitalize' primary={'componyExpenses'} />
+              </ListItemButton>
+            </NavLink>
+          </ListItem>
+          {/* ========================profile================================ */}
+
+          <ListItem disablePadding   >
+            <NavLink to={'/admin/profile'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
+              <ListItemButton sx={{ color: '#fff' }} >
+                <ListItemIcon  >
+                  <DesignServices sx={{ color: '#fff' }} />
+                </ListItemIcon>
+                <ListItemText className=' !capitalize' primary={'profile'} />
+              </ListItemButton>
+            </NavLink>
           </ListItem>
           {/* ======================================================== */}
 

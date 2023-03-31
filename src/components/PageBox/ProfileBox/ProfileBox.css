@@ -1,0 +1,15 @@
+ .add-box .input-box div::after,
+ .add-box .input-box div::after,
+ .add-box .input-box div::before {
+   all: unset !important;
+ }
+
+ .add-box .input-box {
+   border: 1px solid var(--text-color-03);
+   border-radius: 4px;
+ }
+
+ .add-box .input-box input {
+   border: none !important;
+
+ }

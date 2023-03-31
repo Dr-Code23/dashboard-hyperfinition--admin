@@ -1,6 +1,5 @@
-import { Alert, Button, FormControl, } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Button, FormControl, } from '@mui/material';
+import React, { useState } from 'react';
 import './ProjectAdd.css'
 import "react-datepicker/dist/react-datepicker.css";
 import SelectBox from '../SelectBox/SelectBox';
@@ -17,8 +16,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { DeleteForever, } from '@mui/icons-material';
 import { useCallback } from 'react';
-import Snackbar from '@mui/material/Snackbar';
-import CloseIcon from '@mui/icons-material/Close';
+import { ErrorBox } from '../index';
 
 
 
@@ -54,19 +52,10 @@ const ProjectAdd = () => {
 
   });
   const [tableData, setTableData] = useState([{ name: 'dr-1', id: numberD += 1 }, { name: 'dr-2', id: numberD += 1 }, { name: 'dr-3', id: numberD += 1 }, { name: 'dr-4', id: numberD += 1 }]);
+
+  //  error Message
   const [open, setOpen] = React.useState(false);
 
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   const addTable = useCallback((e) => {
     if (e.currentTarget.parentElement.querySelector('input').value) {
@@ -75,31 +64,19 @@ const ProjectAdd = () => {
 
       }
       else {
-        handleClick()
+        setOpen(true)
 
       }
     }
 
 
     else {
-      handleClick()
+      setOpen(true)
 
     }
 
   }, [tableData]);
-  const action = useCallback((e) => {
-    <>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
 
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </>
-  }, []);
   const TableChange = useCallback((e) => {
     setTableData(tableData.filter((el) => el.id !== e))
   }, [tableData]);
@@ -112,151 +89,137 @@ const ProjectAdd = () => {
 
   return (
     <>
-      <>
-        <div className='p-[20px] mt-[40px]'>
-          <form action="" className="add-box flex  items-start justify-start flex-col px-5 py-[60px]  mb-[40px] add-shadow  " onSubmit={(e) => {
-            e.preventDefault()
-          }}>
 
-            <div className=' flex flex-wrap  w-full gap-[30px] justify-start items-center'>
+      <div className='p-[20px] mt-[40px]'>
+        <form action="" className="add-box flex  items-start justify-start flex-col px-5 py-[60px]  mb-[40px] add-shadow  " onSubmit={(e) => {
+          e.preventDefault()
+        }}>
 
-
-              <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]' >
-                <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>project Name *</h6>
-                <input type="text" placeholder='Name' />
-
-              </FormControl>
-              <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]'>
-                <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Customer Name *</h6>
-                <input type="text" placeholder='Name' />
-
-              </FormControl>
-              <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]'>
-                <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Project Total *</h6>
-                <input type="text" placeholder='Name' />
-
-              </FormControl>
-            </div>
-            <hr className=' w-full my-[40px]' />
-            <div className=' flex flex-col md:flex-row   md:justify-start justify-center items-center gap-[30px] w-full '>
-              {/* className='w-full max-w-[400px]' */}
-              <FormControl className='min-h-[75.5px]  w-full lg:max-w-[440px]' >
-                <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Start Date *</h6>
-                <DatePicker
-                  dateFormat="yyyy/MM/dd"
-                  selected={startDate}
-                  onChange={(date) => {
-                    setStartDate(date)
-
-                  }}
-                  selectsStart
-                  startDate={startDate}
-                  endDate={endDate}
-                />
-              </FormControl>
-              <FormControl className='min-h-[75.5px]  w-full lg:max-w-[440px]' >
-                <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>End Date *</h6>
-                <DatePicker
-                  selected={endDate}
-                  dateFormat="yyyy/MM/dd"
-                  onChange={(date) => setEndDate(date)}
-                  selectsEnd
-                  startDate={startDate}
-                  endDate={endDate}
-                  minDate={startDate}
-                />
-              </FormControl>
+          <div className=' flex flex-wrap  w-full gap-[30px] justify-start items-center'>
 
 
-            </div>
-            <hr className=' w-full my-[40px]' />
+            <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]' >
+              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>project Name *</h6>
+              <input type="text" placeholder='Name' />
 
-            <div className=' flex flex-wrap  w-full gap-[30px] justify-start items-center'>
+            </FormControl>
+            <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]'>
+              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Customer Name *</h6>
+              <input type="text" placeholder='Name' />
 
-              <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]' onClick={(e) => {
-                // console.log(e.target.textContent)
-                setSelectTarget({ ...selectTarget, Product: e.target.textContent })
+            </FormControl>
+            <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]'>
+              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Project Total *</h6>
+              <input type="text" placeholder='Name' />
+
+            </FormControl>
+          </div>
+          <hr className=' w-full my-[40px]' />
+          <div className=' flex flex-col md:flex-row   md:justify-start justify-center items-center gap-[30px] w-full '>
+            {/* className='w-full max-w-[400px]' */}
+            <FormControl className='min-h-[75.5px]  w-full lg:max-w-[440px]' >
+              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Start Date *</h6>
+              <DatePicker
+                dateFormat="yyyy/MM/dd"
+                selected={startDate}
+                onChange={(date) => {
+                  setStartDate(date)
+
+                }}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+              />
+            </FormControl>
+            <FormControl className='min-h-[75.5px]  w-full lg:max-w-[440px]' >
+              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>End Date *</h6>
+              <DatePicker
+                selected={endDate}
+                dateFormat="yyyy/MM/dd"
+                onChange={(date) => setEndDate(date)}
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+              />
+            </FormControl>
+
+
+          </div>
+          <hr className=' w-full my-[40px]' />
+
+          <div className=' flex flex-wrap  w-full gap-[30px] justify-start items-center'>
+
+            <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]' onClick={(e) => {
+              // console.log(e.target.textContent)
+              setSelectTarget({ ...selectTarget, Product: e.target.textContent })
+            }} >
+              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>product *</h6>
+              <SelectBox selectData={selectData} />
+
+            </FormControl>
+            <FormControl className=' !flex-col  md:!flex-row justify-center items-center md:items-end gap-[20px]  min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]'  >
+              <div className=' flex-1 w-full '>
+                <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Quantity total *</h6>
+                <input type="text" placeholder='Quantity' />
+              </div>
+              <Button variant="contained" color="primary" className=' !bg-primaryBg  !w-full md:!w-[80px] !h-[50px]' onClick={(e) => {
+                addTable(e)
               }} >
-                <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>product *</h6>
-                <SelectBox selectData={selectData} />
-
-              </FormControl>
-              <FormControl className=' !flex-col  md:!flex-row justify-center items-center md:items-end gap-[20px]  min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]'  >
-                <div className=' flex-1 w-full '>
-                  <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Quantity total *</h6>
-                  <input type="text" placeholder='Quantity' />
-                </div>
-                <Button variant="contained" color="primary" className=' !bg-primaryBg  !w-full md:!w-[80px] !h-[50px]' onClick={(e) => {
-                  addTable(e)
-                }} >
-                  add
-                </Button>
+                add
+              </Button>
 
 
-              </FormControl>
+            </FormControl>
 
 
-            </div>
-            <hr className=' w-full my-[40px]' />
-            <TableContainer component={Paper} sx={{ minHeight: '238px' }} className=" " >
-              <Table sx={{ minWidth: 300 }} aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
-                    <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
-                    <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Quantity </StyledTableCell>
-                    <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Price</StyledTableCell>
-                    <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Actions</StyledTableCell>
+          </div>
+          <hr className=' w-full my-[40px]' />
+          <TableContainer component={Paper} sx={{ minHeight: '238px' }} className=" " >
+            <Table sx={{ minWidth: 300 }} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
+                  <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
+                  <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Quantity </StyledTableCell>
+                  <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Price</StyledTableCell>
+                  <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Actions</StyledTableCell>
 
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {tableData.map((el, index) => (
-                    <StyledTableRow key={index}>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {tableData.map((el, index) => (
+                  <StyledTableRow key={index}>
 
-                      <StyledTableCell align="center">{index + 1}</StyledTableCell>
-                      <StyledTableCell align="center">dr</StyledTableCell>
-                      <StyledTableCell align="center">{el.name}</StyledTableCell>
-                      <StyledTableCell align="center">12</StyledTableCell>
-                      <StyledTableCell align="center">
+                    <StyledTableCell align="center">{index + 1}</StyledTableCell>
+                    <StyledTableCell align="center">dr</StyledTableCell>
+                    <StyledTableCell align="center">{el.name}</StyledTableCell>
+                    <StyledTableCell align="center">12</StyledTableCell>
+                    <StyledTableCell align="center">
 
-                        <IconButton aria-label="" onClick={() => {
-                          TableChange(el.id)
-                        }} >
-                          <DeleteForever />
-                        </IconButton>
-                      </StyledTableCell>
+                      <IconButton aria-label="" onClick={() => {
+                        TableChange(el.id)
+                      }} >
+                        <DeleteForever />
+                      </IconButton>
+                    </StyledTableCell>
 
 
-                    </StyledTableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            {/* ======================== */}
-            <hr className=' w-full my-[40px]' />
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {/* ======================== */}
+          <hr className=' w-full my-[40px]' />
 
-            <Button variant="contained" color="primary" type='submit' className=' !bg-primaryBg  !w-full md:!w-[130px] !h-[50px]  !mt-[30px] !ml-auto'  >
-              submit
-            </Button>
-          </form>
+          <Button variant="contained" color="primary" type='submit' className=' !bg-primaryBg  !w-full md:!w-[130px] !h-[50px]  !mt-[30px] !ml-auto'  >
+            submit
+          </Button>
+        </form>
+      </div>
+      <ErrorBox setOpen={setOpen} open={open} Data="The Quantity Must be Number !" />
 
-        </div>
-        <>
-          <Snackbar
-            open={open}
-            autoHideDuration={3000}
-            onClose={handleClose}
-            message="Note archived"
-            action={action}
-            className=' !right-0  !mx-auto w-fit'
-          >
-            <Alert onClose={handleClose} severity="error" sx={{ width: '100%', backgroundColor: '#d84646', color: '#fff' }}>
-              The Quantity Must be Number !
-            </Alert>
-          </Snackbar>
-        </>
-      </>
     </>
   );
 }

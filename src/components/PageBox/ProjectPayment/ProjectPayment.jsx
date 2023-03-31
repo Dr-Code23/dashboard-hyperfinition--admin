@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ProjectBox.css'
+import './ProjectPayment.css'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton'
 import { DeleteForever, ModeEdit, RemoveRedEye } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import { PaginationBox } from '../../index'
+import { PaginationBox } from '../../index.js'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -47,7 +47,7 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-const ProjectBox = ({ title, list, setOpen }) => {
+const ProjectPayment = () => {
   const navigate = useNavigate();
 
   return (
@@ -60,7 +60,7 @@ const ProjectBox = ({ title, list, setOpen }) => {
             <input type="text" className=' bg-secondaryBg outline-none p-[8px]' />
           </div> */}
           <Button variant="contained" color="primary" className=' !bg-primaryBg' onClick={() => {
-            navigate('/admin/project/add/add')
+            navigate('/admin/projectPayment/add/add')
           }} >
             Add a new
           </Button>
@@ -70,9 +70,9 @@ const ProjectBox = ({ title, list, setOpen }) => {
             <TableHead>
               <TableRow>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Customer Name</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Project Name</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Customer Name</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Price</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
 
               </TableRow>
@@ -85,20 +85,19 @@ const ProjectBox = ({ title, list, setOpen }) => {
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
                   <StyledTableCell align="center">{row.calories}</StyledTableCell>
 
+
                   <StyledTableCell align="center">
                     <div className='action flex items-center justify-center gap-2'>
-
                       <IconButton aria-label="" onClick={() => {
-                        navigate(`/admin/project/view/${index + 1}`)
-                      }}>
-                        <RemoveRedEye />
+                        navigate(`/admin/projectPayment/edit/${index + 1}`)
+                      }} >
+                        <ModeEdit />
                       </IconButton>
                       <IconButton aria-label="" >
                         <DeleteForever />
                       </IconButton>
                     </div>
                   </StyledTableCell>
-
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -114,4 +113,4 @@ const ProjectBox = ({ title, list, setOpen }) => {
   );
 }
 
-export default ProjectBox;
+export default ProjectPayment;
