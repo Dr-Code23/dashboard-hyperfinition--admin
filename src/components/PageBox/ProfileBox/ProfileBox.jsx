@@ -18,7 +18,6 @@ const ProfileBox = () => {
     event.preventDefault();
   }, [])
   const [images, setImages] = React.useState([{ data_url: img }]);
-  console.log(images[0])
 
   // useEffect(() => {
   //   setImages([{ data_url: editData.img }])

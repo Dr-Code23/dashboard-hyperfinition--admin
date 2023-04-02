@@ -10,6 +10,7 @@ export let LoginThunk = createAsyncThunk('login/LoginThunk', async (arg, ThunkAp
       email: arg?.email,
       password: arg?.pass
     })
+
     return res.data
   } catch (error) {
     // console.log(error.response.data)

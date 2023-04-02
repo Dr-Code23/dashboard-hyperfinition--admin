@@ -12,7 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import { NavLink, } from 'react-router-dom';
-import { AccountCircle, AccountTree, Apartment, Attribution, BrandingWatermark, Category, ContactPhone, DesignServices, Explore, FiberManualRecord, KeyboardDoubleArrowLeft, Paid, Person, ProductionQuantityLimits, } from '@mui/icons-material';
+import { AccountCircle, AccountTree, Apartment, Attribution, BrandingWatermark, Category, CellTowerOutlined, ContactPhone, DesignServices, Explore, FiberManualRecord, InfoOutlined, KeyboardDoubleArrowLeft, Paid, Person, ProductionQuantityLimits, SpeedOutlined, } from '@mui/icons-material';
 import { IconButton, Typography } from '@mui/material';
 import ImgLogo from "../../assets/Img/logo.png"
 const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, setMobileOpen }) => {
@@ -213,10 +213,23 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon >
                   <Paid sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText className=' !capitalize' primary={'projectPayment'} />
+                <ListItemText className=' !capitalize' primary={'project Payment'} />
               </ListItemButton>
             </NavLink>
             {/* ================================================= */}
+          </ListItem>
+          {/* ========================generalExpenses================================ */}
+          <ListItem disablePadding   >
+            <NavLink to={'/admin/generalExpenses'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
+              <ListItemButton sx={{ color: '#fff' }} >
+                <ListItemIcon  >
+                  <CellTowerOutlined sx={{ color: '#fff' }} />
+                </ListItemIcon>
+                <ListItemText className=' !capitalize' primary={'General Expenses'} />
+              </ListItemButton>
+            </NavLink>
           </ListItem>
           {/* ========================componyExpenses================================ */}
           <ListItem disablePadding   >
@@ -227,7 +240,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                 <ListItemIcon  >
                   <Explore sx={{ color: '#fff' }} />
                 </ListItemIcon>
-                <ListItemText className=' !capitalize' primary={'projectExpenses'} />
+                <ListItemText className=' !capitalize' primary={'project Expenses'} />
               </ListItemButton>
             </NavLink>
           </ListItem>
@@ -254,6 +267,32 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
                   <ContactPhone sx={{ color: '#fff' }} />
                 </ListItemIcon>
                 <ListItemText className=' !capitalize' primary={'contact'} />
+              </ListItemButton>
+            </NavLink>
+          </ListItem>
+          {/* ========================about================================ */}
+          <ListItem disablePadding   >
+            <NavLink to={'/admin/about'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
+              <ListItemButton sx={{ color: '#fff' }} >
+                <ListItemIcon  >
+                  <InfoOutlined sx={{ color: '#fff' }} />
+                </ListItemIcon>
+                <ListItemText className=' !capitalize' primary={'about'} />
+              </ListItemButton>
+            </NavLink>
+          </ListItem>
+          {/* ========================about================================ */}
+          <ListItem disablePadding   >
+            <NavLink to={'/admin/roles'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
+              <ListItemButton sx={{ color: '#fff' }} >
+                <ListItemIcon  >
+                  <SpeedOutlined sx={{ color: '#fff' }} />
+                </ListItemIcon>
+                <ListItemText className=' !capitalize' primary={'roles'} />
               </ListItemButton>
             </NavLink>
           </ListItem>

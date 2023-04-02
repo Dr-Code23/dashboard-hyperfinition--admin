@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ComponyExpenses, ComponyExpensesAdd, ComponyExpensesView, ContactBox, ProductEdit, ProductNew, ProfileBox, ProjectAdd, ProjectPayment, ProjectPaymentAdd, ProjectPaymentEdit, ProjectView, ServicesAdd, ServicesBox, ServicesEdit, SubCategoriesBox, SubCategoriesEdit, SubSubCategoriesBox } from "../components";
+import { AboutBox, ComponyExpensesAdd, ComponyExpensesView, ContactBox, GeneralExpenses, GeneralExpensesAdd, GeneralExpensesEdit, ProductEdit, ProductNew, ProfileBox, ProjectAdd, ProjectPayment, ProjectPaymentAdd, ProjectPaymentEdit, ProjectView, RolesBox, RolesBoxAdd, RolesBoxEdit, ServicesAdd, ServicesBox, ServicesEdit, SubCategoriesBox, SubCategoriesEdit, SubSubCategoriesBox } from "../components";
 import CategoriesEdit from "../components/CategoriesEdit/CategoriesEdit";
 import Attributes from "./Pages/Attributes";
 import Brand from "./Pages/Brand";
@@ -106,6 +106,18 @@ export let Router = createBrowserRouter([
         element: <ServicesEdit />,
       },
       {
+        path: "generalExpenses",
+        element: <GeneralExpenses />,
+      },
+      {
+        path: "generalExpenses/add/:generalExpensesAdd",
+        element: <GeneralExpensesAdd />,
+      },
+      {
+        path: "generalExpenses/edit/:GeneralExpensesEdit",
+        element: <GeneralExpensesEdit />,
+      },
+      {
         path: "project",
         element: <Project />,
       },
@@ -148,6 +160,22 @@ export let Router = createBrowserRouter([
       {
         path: "contact",
         element: <ContactBox />,
+      },
+      {
+        path: "about",
+        element: <AboutBox />,
+      },
+      {
+        path: "roles",
+        element: <RolesBox />,
+      },
+      {
+        path: "roles/add/:RolesBoxAdd",
+        element: <RolesBoxAdd />,
+      },
+      {
+        path: "roles/edit/:RolesBoxEdit",
+        element: <RolesBoxEdit />,
       },
 
       {

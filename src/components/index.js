@@ -36,4 +36,11 @@ export { default as ProjectPaymentAdd } from "./ProjectPaymentAdd/ProjectPayment
 export { default as ProjectPaymentEdit } from "./ProjectPaymentEdit/ProjectPaymentEdit.jsx"
 export { default as ComponyExpensesView } from "./ComponyExpensesView/ComponyExpensesView.jsx"
 export { default as ComponyExpensesAdd } from "./ComponyExpensesAdd/ComponyExpensesAdd.jsx"
+export { default as GeneralExpenses } from "./PageBox/GeneralExpenses/GeneralExpenses.jsx"
+export { default as GeneralExpensesAdd } from "./GeneralExpensesAdd/GeneralExpensesAdd.jsx"
+export { default as GeneralExpensesEdit } from "./GeneralExpensesEdit/GeneralExpensesEdit.jsx"
+export { default as RolesBoxAdd } from "./RolesBoxAdd/RolesBoxAdd.jsx"
+export { default as RolesBoxEdit } from "./RolesBoxEdit/RolesBoxEdit.jsx"
+export { default as AboutBox } from "./PageBox/AboutBox/AboutBox.jsx"
+export { default as RolesBox } from "./PageBox/RolesBox/RolesBox.jsx"
 // ProjectPayment

@@ -60,8 +60,8 @@ const LoginBox = () => {
   // fun handel validation
   const formik = useFormik({
     initialValues: {
-      email: 'user@admin.com',
-      pass: 'user',
+      email: 'super_admin@admin.com',
+      pass: 'super_admin',
     },
     onSubmit: values => {
       dispatch(LoginThunk(values))
