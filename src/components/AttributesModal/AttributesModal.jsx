@@ -47,7 +47,7 @@ const AttributesModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
             <div className=' w-full' >
               <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>Name</h6>
 
-              <input type="text" placeholder='Brand Name' onChange={(e) => {
+              <input type="text" placeholder=' Attribute Name' onChange={(e) => {
 
                 // setNameBrand(e.target.value);
               }} />

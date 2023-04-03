@@ -70,7 +70,7 @@ const RolesBox = () => {
             <TableHead>
               <TableRow>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Roles Name</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'> Name</StyledTableCell>
                 <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
 
               </TableRow>

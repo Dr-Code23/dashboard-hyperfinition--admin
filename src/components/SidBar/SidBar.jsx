@@ -12,15 +12,19 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import { NavLink, } from 'react-router-dom';
-import { AccountCircle, AccountTree, Apartment, Attribution, BrandingWatermark, Category, CellTowerOutlined, ContactPhone, DesignServices, Explore, FiberManualRecord, InfoOutlined, KeyboardDoubleArrowLeft, Paid, Person, ProductionQuantityLimits, SpeedOutlined, } from '@mui/icons-material';
+import { AccountCircle, AccountTree, Apartment, Attribution, BrandingWatermark, Category, CellTowerOutlined, ContactPhone, DesignServices, Explore, FiberManualRecord, InfoOutlined, KeyboardDoubleArrowLeft, Paid, Person, ProductionQuantityLimits, SettingsOutlined, SpeedOutlined, } from '@mui/icons-material';
 import { IconButton, Typography } from '@mui/material';
 import ImgLogo from "../../assets/Img/logo.png"
+import { ReactComponent as LogoSvg } from '../../assets/Icon/Hyper SVG 01.svg';
 const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, setMobileOpen }) => {
   let drawer = useMemo(() => {
     return (
       <>
-        <Toolbar sx={{ display: 'flex ', justifyContent: 'center' }} className=" ">
-          <img className=' max-h-[120px]  w-fit ' src={ImgLogo} alt="img-logo" />
+        <Toolbar sx={{ display: 'flex ', justifyContent: 'center' }} className=" !min-h-[120px]">
+          {/* <img className=' max-h-[120px]  w-fit ' src={ImgLogo} alt="img-logo" /> */}
+          <span className=' w-full  h-full flex justify-items-stretch items-stretch '>
+            <LogoSvg className='max-w-[100%]  w-full  h-full' />
+          </span>
           <Typography variant="body1" color="initial" sx={{ display: { sm: 'none' } }} className=' !absolute top-5 right-0 ' component={'div'} >
             <IconButton variant="contained" color="primary" className=' ' onClick={(e) => {
               setMobileOpen(false)
@@ -31,9 +35,8 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
 
         </Toolbar>
         <Divider />
-        <List dir='ltr' >
-          {/* <NavLink to={'/admin/shop'} className='w-full  text-decoration-none'>
-            </NavLink> */}
+        <List dir='ltr'  >
+
           {/* =========================Dashboard======================== */}
 
           <ListItem disablePadding   >
@@ -49,22 +52,8 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
             </NavLink>
 
           </ListItem>
-          {/* ========================= Shop======================== */}
 
-          <ListItem disablePadding   >
 
-            <NavLink to={'/admin/shop'} className={({ isActive }) =>
-              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
-            }>
-              <ListItemButton sx={{ color: '#fff' }} >
-                <ListItemIcon>
-                  <AddShoppingCartIcon sx={{ color: '#fff' }} />
-                </ListItemIcon>
-                <ListItemText className=' !capitalize' primary={'My Shop'} />
-              </ListItemButton>
-            </NavLink>
-
-          </ListItem>
           {/* ======================== Brand========================= */}
           <ListItem disablePadding   >
             <NavLink to={'/admin/brand'} className={({ isActive }) =>
@@ -296,6 +285,19 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
               </ListItemButton>
             </NavLink>
           </ListItem>
+          {/* ========================settings================================ */}
+          <ListItem disablePadding   >
+            <NavLink to={'/admin/settings'} className={({ isActive }) =>
+              isActive ? "w-full  text-decoration-none sidebar-list active" : "w-full   text-decoration-none sidebar-list"
+            }>
+              <ListItemButton sx={{ color: '#fff' }} >
+                <ListItemIcon  >
+                  <SettingsOutlined sx={{ color: '#fff' }} />
+                </ListItemIcon>
+                <ListItemText className=' !capitalize' primary={'settings'} />
+              </ListItemButton>
+            </NavLink>
+          </ListItem>
           {/* ======================================================== */}
 
         </List>
@@ -311,7 +313,7 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
-        className='sidbar'
+        className='sidbar  '
       >
 
         {/*  drawer in responsive */}
@@ -326,10 +328,9 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
           sx={{
             display: { xs: 'block', sm: 'none' },
             '& .MuiDrawer-paper': {
-              boxSizing: 'border-box', paddingX: '15px', width: drawerWidth, backgroundColor: '#031d54', right: i18n.language === 'ar' && '0', left: i18n.language === 'ar' ? 'auto' : '0'
+              boxSizing: 'border-box', paddingX: '15px', paddingY: '50px', width: drawerWidth, backgroundColor: '#031d54', right: i18n.language === 'ar' && '0', left: i18n.language === 'ar' ? 'auto' : '0'
             },
           }}
-
         >
           {/* <Toolbar sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <IconButton variant="contained" color="primary" onClick={handleDrawerToggle}>
@@ -344,11 +345,9 @@ const SidBar = ({ drawerWidth, container, mobileOpen, handleDrawerToggle, i18n, 
           sx={{
             display: { xs: 'none', sm: 'block' },
             '& .MuiDrawer-paper': {
-              boxSizing: 'border-box', width: drawerWidth, paddingX: '15px', backgroundColor: '#031d54', left: i18n.language === 'ar' ? 'auto' : '0'
+              boxSizing: 'border-box', width: drawerWidth, paddingX: '15px', paddingY: '50px', backgroundColor: '#031d54', left: i18n.language === 'ar' ? 'auto' : '0'
             },
           }}
-
-
         >
 
           {drawer}

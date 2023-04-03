@@ -4,7 +4,6 @@ import ImageUploading from 'react-images-uploading';
 import img from "../../../assets/Img/default.jpg"
 import { Tab, Tabs, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-
 const AboutBox = () => {
   const [images, setImages] = React.useState([{ data_url: img }]);
   let { i18n } = useTranslation()
@@ -113,13 +112,10 @@ const AboutBox = () => {
             </div>
             <Button variant="contained" color="primary" type='submit' className=' !bg-primaryBg  !w-full md:!w-[150px] !h-[50px] !ml-auto'  >
               submit
-
             </Button>
           </form>
         </div>
       </div>
-
-
     </>
   );
 }

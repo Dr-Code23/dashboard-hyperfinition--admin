@@ -17,7 +17,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
     setOpen(false)
   }, [setOpen]);
   const [images, setImages] = React.useState([{ data_url: img }]);
-  let { i18n } = useTranslation()
+  let { t, i18n } = useTranslation()
 
   // useEffect(() => {
   //   setImages([{ data_url: editData.img }])
@@ -66,7 +66,10 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
               <CloseIcon />
 
             </IconButton>
-            <h5>New Brand Name</h5>
+            <h5>
+              {t('pages.BrandModal.New_Brand_Name')}
+
+            </h5>
             <>
               <ImageUploading
                 multiple
@@ -100,35 +103,44 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
               </ImageUploading>
             </>
             <Tabs value={value} onChange={handleChange} centered sx={{ mb: '20px' }}>
-              <Tab label="English(en)" />
-              <Tab label="Arabic(ar)" />
-              <Tab label="French(fr)" />
+              <Tab label={t('Language.English')} />
+              <Tab label={t('Language.Arabic')} />
+              <Tab label={t('Language.French')} />
             </Tabs>
             <div className=' w-full' style={{ display: value === 0 ? 'block' : 'none' }}>
-              <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>Name(en)</h6>
+              <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>
+                {t('pages.BrandModal.Name')}
+              </h6>
 
-              <input type="text" placeholder='Brand Name' onChange={(e) => {
+              <input type="text" placeholder={t('pages.BrandModal.placeholder')} onChange={(e) => {
 
                 // setNameBrand(e.target.value);
               }} />
             </div>
             <div className=' w-full' style={{ display: value === 1 ? 'block' : 'none' }}>
-              <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>Name(ar)</h6>
+              <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>
+                {t('pages.BrandModal.Name')}
+              </h6>
 
-              <input type="text" placeholder='Brand Name' onChange={(e) => {
+              <input type="text" placeholder={t('pages.BrandModal.placeholder')} onChange={(e) => {
 
                 // setNameBrand(e.target.value);
               }} />
             </div>
             <div className=' w-full' style={{ display: value === 2 ? 'block' : 'none' }}>
-              <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>Name(fr)</h6>
+              <h6 className='mb-[10px] text-[17px] font-[500] capitalize  '>
+                {t('pages.BrandModal.Name')}
+              </h6>
 
-              <input type="text" placeholder='Brand Name' onChange={(e) => {
+              <input type="text" placeholder={t('pages.BrandModal.placeholder')} onChange={(e) => {
 
                 // setNameBrand(e.target.value);
               }} />
             </div>
-            <Button className='submit !bg-primaryBg' variant="contained" type='submit'    >Submit</Button>
+            <Button className='submit !bg-primaryBg' variant="contained" type='submit'>
+              {t('pages.BrandModal.Submit')}
+
+            </Button>
           </form>
         </Box>
       </Modal>

@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton'
 import { DeleteForever, ModeEdit } from '@mui/icons-material';
 import { Avatar, Button } from '@mui/material';
 import { PaginationBox } from '../../index.js'
+import { useTranslation } from 'react-i18next';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -48,6 +49,7 @@ const rows = [
 
 const BrandBox = ({ title, list, setOpen }) => {
   // const navigation = useNavigate();
+  let { t, i18n } = useTranslation()
 
   return (
     <>
@@ -55,11 +57,11 @@ const BrandBox = ({ title, list, setOpen }) => {
 
         <div className='flex  items-start md:items-center justify-between flex-col md:flex-row mb-3  gap-5 '>
           <div className='flex  items-end gap-2 pl-1'>
-            <h6 className=' capitalize text-[22px]  font-medium	'>search :</h6>
+            <h6 className=' capitalize text-[22px]  font-medium	'>{t('pages.BrandBox.search')} :</h6>
             <input type="text" className=' bg-secondaryBg outline-none p-[8px]' />
           </div>
           <Button variant="contained" color="primary" className=' !bg-primaryBg' onClick={() => { setOpen(true) }} >
-            Add a new
+            {t('pages.BrandBox.Add_a_new')}
           </Button>
         </div>
 
@@ -68,10 +70,21 @@ const BrandBox = ({ title, list, setOpen }) => {
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
               <TableRow>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
-                <StyledTableCell className=' !bg-primaryBg capitalize'>Img</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Name</StyledTableCell>
-                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>actions</StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>
+                  {t('pages.BrandBox.table.id')}
+
+                </StyledTableCell>
+                <StyledTableCell className=' !bg-primaryBg capitalize'>
+                  {t('pages.BrandBox.table.Img')}
+
+                </StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>
+                  {t('pages.BrandBox.table.Name')}
+
+                </StyledTableCell>
+                <StyledTableCell align="center" className='!bg-primaryBg capitalize'>
+                  {t('pages.BrandBox.table.actions')}
+                </StyledTableCell>
 
               </TableRow>
             </TableHead>
@@ -103,11 +116,9 @@ const BrandBox = ({ title, list, setOpen }) => {
 
       </div>
       <PaginationBox count={10} />
-
     </>
 
   );
 }
 
 export default BrandBox;
-// import { PaginationBox } from '../../index.js'

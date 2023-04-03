@@ -1,6 +1,40 @@
 {
-  "title": {
-    "ti": "Sign In",
-    "ds": "Sign In To Stay Connected."
+  "pages": {
+    "BrandBox": {
+      "search": "search",
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Img": "Img",
+        "Name": "Name",
+        "actions": "actions"
+      }
+    },
+    "BrandModal": {
+      "New_Brand_Name": "New Brand Name",
+      "Name": "Name",
+      "Submit": "Submit",
+      "placeholder": "text"
+    },
+    "UnitsBox": {
+      "search": "search",
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "actions": "actions"
+      }
+    },
+    "UnitsModal": {
+      "New_Unit_Name": "New Unit Name",
+      "Name": "Name",
+      "Submit": "Submit",
+      "placeholder": "text"
+    }
+  },
+  "Language": {
+    "English": "English(en)",
+    "Arabic": "Arabic(ar)",
+    "French": "French(fr)"
   }
 }

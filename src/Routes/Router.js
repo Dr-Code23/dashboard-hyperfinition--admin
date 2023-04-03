@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import { AboutBox, ComponyExpensesAdd, ComponyExpensesView, ContactBox, GeneralExpenses, GeneralExpensesAdd, GeneralExpensesEdit, ProductEdit, ProductNew, ProfileBox, ProjectAdd, ProjectPayment, ProjectPaymentAdd, ProjectPaymentEdit, ProjectView, RolesBox, RolesBoxAdd, RolesBoxEdit, ServicesAdd, ServicesBox, ServicesEdit, SubCategoriesBox, SubCategoriesEdit, SubSubCategoriesBox } from "../components";
+import { SettingsBox, AboutBox, ComponyExpensesAdd, ComponyExpensesView, ContactBox, GeneralExpenses, GeneralExpensesAdd, GeneralExpensesEdit, ProductEdit, ProductNew, ProfileBox, ProjectAdd, ProjectPayment, ProjectPaymentAdd, ProjectPaymentEdit, ProjectView, RolesBox, RolesBoxAdd, RolesBoxEdit, ServicesAdd, ServicesBox, ServicesEdit, SubCategoriesBox, SubCategoriesEdit, SubSubCategoriesBox } from "../components";
 import CategoriesEdit from "../components/CategoriesEdit/CategoriesEdit";
 import Attributes from "./Pages/Attributes";
 import Brand from "./Pages/Brand";
@@ -10,7 +10,6 @@ import Layout from "./Pages/Layout";
 import Login from "./Pages/Login";
 import Product from "./Pages/Product";
 import Project from "./Pages/Project";
-import Shop from "./Pages/Shop";
 import Units from "./Pages/Units";
 import UserDetail from "./Pages/UserDetail";
 import Users from "./Pages/Users";
@@ -27,11 +26,7 @@ export let Router = createBrowserRouter([
     errorElement: <div>errorElement</div>,
     children: [
       { index: true, element: <Dashboard /> },
-      {
-        path: "shop",
-        element: <Shop />,
 
-      },
       {
         path: "brand",
         element: <Brand />,
@@ -176,6 +171,10 @@ export let Router = createBrowserRouter([
       {
         path: "roles/edit/:RolesBoxEdit",
         element: <RolesBoxEdit />,
+      },
+      {
+        path: "settings",
+        element: <SettingsBox />,
       },
 
       {
