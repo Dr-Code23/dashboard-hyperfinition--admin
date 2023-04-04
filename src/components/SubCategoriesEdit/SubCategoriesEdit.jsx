@@ -58,7 +58,7 @@ const SubCategoriesEdit = () => {
                                     )}
                                 </h6>
 
-                                <input type="text" placeholder="Name" />
+                                <input type="text" />
                             </div>
                             <div
                                 className=" w-full "
@@ -72,7 +72,7 @@ const SubCategoriesEdit = () => {
                                     )}{" "}
                                 </h6>
 
-                                <input type="text" placeholder="Name" />
+                                <input type="text" />
                             </div>
                             <div
                                 className=" w-full "
@@ -86,7 +86,7 @@ const SubCategoriesEdit = () => {
                                     )}{" "}
                                 </h6>
 
-                                <input type="text" placeholder="Name" />
+                                <input type="text" />
                             </div>
                         </>
                     </div>

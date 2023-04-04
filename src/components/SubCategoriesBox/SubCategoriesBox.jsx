@@ -116,7 +116,7 @@ const SubCategoriesBox = () => {
                                     )}
                                 </h6>
 
-                                <input type="text" placeholder="Name" />
+                                <input type="text" />
                             </div>
                             <div
                                 className=" w-full "
@@ -130,7 +130,7 @@ const SubCategoriesBox = () => {
                                     )}{" "}
                                 </h6>
 
-                                <input type="text" placeholder="Name" />
+                                <input type="text" />
                             </div>
                             <div
                                 className=" w-full "
@@ -144,7 +144,7 @@ const SubCategoriesBox = () => {
                                     )}
                                 </h6>
 
-                                <input type="text" placeholder="Name" />
+                                <input type="text" />
                             </div>
                         </>
                         <FormControl fullWidth className="min-h-[75.5px]">

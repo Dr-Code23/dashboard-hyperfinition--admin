@@ -83,7 +83,7 @@ const ServicesAdd = () => {
                                         )}
                                     </h6>
 
-                                    <input type="text" placeholder="Name" />
+                                    <input type="text" />
                                 </div>
                                 <div
                                     className=" w-full "
@@ -97,7 +97,7 @@ const ServicesAdd = () => {
                                         )}
                                     </h6>
 
-                                    <input type="text" placeholder="Name" />
+                                    <input type="text" />
                                 </div>
                                 <div
                                     className=" w-full "
@@ -111,7 +111,7 @@ const ServicesAdd = () => {
                                         )}
                                     </h6>
 
-                                    <input type="text" placeholder="Name" />
+                                    <input type="text" />
                                 </div>
                             </>
                             <div

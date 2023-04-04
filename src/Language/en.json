@@ -13,6 +13,7 @@
     "BrandModal": {
       "New_Brand_Name": "New Brand Name",
       "Name": "Name",
+      "Images": "Images",
       "Submit": "Submit",
       "placeholder": "text"
     },
