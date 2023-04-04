@@ -30,11 +30,368 @@
       "Name": "Name",
       "Submit": "Submit",
       "placeholder": "text"
+    },
+    "AttributeBox": {
+      "search": "search",
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "actions": "actions"
+      }
+    },
+    "AttributesModal": {
+      "New_Unit_Name": "New Attribute Name",
+      "Name": "Name",
+      "Submit": "Submit",
+      "placeholder": "text"
+    },
+    "UsersBox": {
+      "search": "search",
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Email": "Email",
+        "Rule": "Rule",
+        "actions": "actions"
+      }
+    },
+    "UserDetailBox": {
+      "Name": "Name",
+      "Email": "Email",
+      "Password": "Password",
+      "Confirm_Password": "Confirm Password",
+      "Rule": "Rule ",
+      "Submit": "Submit ",
+      "email_or_password_is_wrong": "email or password is wrong ",
+      "Required": "Required ",
+      "must_be_a_valid_email": "must be a valid email "
+    },
+    "CategoriesBox": {
+      "add": {
+        "name": "Name",
+        "Images": "Images",
+        "Submit": "Submit"
+      },
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Img": "Img",
+        "Home_Status": "Home Status",
+        "actions": "actions"
+      }
+    },
+    "CategoriesEdit": {
+      "add": {
+        "name": "Name",
+        "Images": "Images",
+        "Submit": "Submit"
+      }
+    },
+    "SubCategoriesBox": {
+      "add": {
+        "Main_Category": "Main Category *",
+        "Sub_category_Name": "Sub category Name",
+        "Submit": "Submit"
+      },
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Img": "Img",
+        "actions": "actions"
+      }
+    },
+    "SubCategoriesEdit": {
+      "add": {
+        "Sub_category_Name": "Sub category Name",
+        "Submit": "Submit"
+      }
+    },
+    "SubSubCategoriesBox": {
+      "add": {
+        "Main_Category": "Main Category *",
+        "Sub_category_Name": "Sub category Name",
+        "Sub_Sub_category_Name": "Sub Sub category Name",
+        "Submit": "Submit"
+      },
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Img": "Img",
+        "actions": "actions"
+      }
+    },
+    "ProductBox": {
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Price": "Price",
+        "actions": "actions"
+      }
+    },
+    "ProductNew": {
+      "Sub_category_Name": "Sub category Name",
+      "Description": "Description",
+      "Brand": "Brand ",
+      "Attributes": "Attributes  ",
+      "Categories": "Categories  ",
+      "Sub_Categories": "Sub Categories ",
+      "Sub_Sub_category": "Sub Sub Categories  ",
+      "Unit": "Unit",
+      "Unit_Price": "Unit Price",
+      "Total_Quantity": "Total Quantity ",
+      "ADD_Images": "ADD Images ",
+      "Img": "Img",
+      "Submit": "Submit "
+    },
+    "ProductEdit": {
+      "Sub_category_Name": "Sub category Name",
+      "Description": "Description",
+      "Brand": "Brand ",
+      "Attributes": "Attributes  ",
+      "Categories": "Categories  ",
+      "Sub_Categories": "Sub Categories ",
+      "Sub_Sub_category": "Sub Sub Categories  ",
+      "Unit": "Unit",
+      "Unit_Price": "Unit Price",
+      "Total_Quantity": "Total Quantity ",
+      "ADD_Images": "ADD Images ",
+      "Img": "Img",
+      "Submit": "Submit "
+    },
+    "ServicesBox": {
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Price": "Price",
+        "actions": "actions"
+      }
+    },
+    "ServicesAdd": {
+      "Sub_category_Name": "Sub category Name",
+      "Description": "Description",
+      "Categories": "Categories  ",
+      "Unit": "Unit",
+      "Price": "Price",
+      "Phone_Number": "Phone Number ",
+      "ADD_Images": "ADD Images ",
+      "Img": "Img",
+      "Submit": "Submit "
+    },
+    "ServicesEdit": {
+      "Sub_category_Name": "Sub category Name",
+      "Description": "Description",
+      "Categories": "Categories  ",
+      "Unit": "Unit",
+      "Price": "Price",
+      "Phone_Number": "Phone Number ",
+      "ADD_Images": "ADD Images ",
+      "Img": "Img",
+      "Submit": "Submit "
+    },
+    "ProjectBox": {
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Customer_Name": "Customer Name",
+        "Project_Name": "Project Name",
+        "actions": "actions"
+      }
+    },
+    "ProjectAdd": {
+      "Project_Name": "Project Name",
+      "Customer_Name": "Customer Name",
+      "Project_Total": "Project Total",
+      "Start_Date": "Start Date",
+      "End_Date": "End Date",
+      "Product": "Product",
+      "Quantity_Total": "Quantity Total",
+      "The_Quantity_Must_be_Number": "The Quantity Must be Number !",
+      "Add": "Add",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Quantity": "Quantity",
+        "Price": "Price",
+        "actions": "actions"
+      },
+      "Submit": "Submit"
+    },
+    "ProjectView": {
+      "Project_Name": "Project Name",
+      "Customer_Name": "Customer Name",
+      "Project_Total": "Project Total",
+      "Start_Date": "Start Date",
+      "End_Date": "End Date",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Project_Name": "Project Name",
+        "Customer_Name": "Customer Name"
+      }
+    },
+    "ProjectPayment": {
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Customer_Name": "Customer Name",
+        "Project_Name": "Project Name",
+        "Price": "Price",
+        "actions": "actions"
+      }
+    },
+    "ProjectPaymentAdd": {
+      "Project": "Project ",
+      "Price": "Price  ",
+      "Submit": "Submit"
+    },
+    "ProjectPaymentEdit": {
+      "Project": "Project ",
+      "Price": "Price  ",
+      "Submit": "Submit"
+    },
+    "GeneralExpenses": {
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Price": "Price",
+        "Description": "Description",
+        "Description_Modal": "Description",
+        "actions": "actions"
+      }
+    },
+    "GeneralExpensesAdd": {
+      "Price": "Price",
+      "Description": "Description",
+      "Submit": "Submit"
+    },
+    "GeneralExpensesEdit": {
+      "Price": "Price",
+      "Description": "Description",
+      "Submit": "Submit"
+    },
+    "ComponyExpenses": {
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Customer_Name": "Customer Name",
+        "Project_Name": "Project Name",
+        "actions": "actions"
+      }
+    },
+    "ComponyExpensesAdd": {
+      "Project": "Project ",
+      "Product": "Product",
+      "Quantity_Total": "Quantity Total",
+      "The_Quantity_Must_be_Number": "The Quantity Must be Number !",
+      "Add": "Add",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Quantity": "Quantity",
+        "Price": "Price",
+        "actions": "actions"
+      },
+      "Submit": "Submit"
+    },
+    "ComponyExpensesView": {
+      "Project_Name": "Project Name",
+      "Customer_Name": "Customer Name",
+      "Project_Total": "Project Total",
+      "Start_Date": "Start Date",
+      "End_Date": "End Date",
+      "table": {
+        "id": "id",
+        "Date": "Date",
+        "Products": "Products ",
+        "Customer_Name": "Customer Name"
+      },
+      "table_Modal": {
+        "id": "id",
+        "Project": "Project",
+        "Products": "Products ",
+        "quantity": "quantity"
+      }
+    },
+    "Profile": {
+      "Full_Name": "Full Name ",
+      "Email": "Email",
+      "New_Password": "New Password",
+      "Confirm_Password": "Confirm  Password",
+      "Save_Change": "Save Change"
+    },
+    "ContactBox": {
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Email": "Email",
+        "Phone": "Phone",
+        "Message_Modal": "Message",
+        "actions": "actions"
+      }
+    },
+    "RolesBox": {
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "actions": "actions"
+      }
+    },
+    "RolesBoxAdd": {
+      "Role_Name": "Role Name",
+      "Submit": "Submit"
+    },
+    "RolesBoxEdit": {
+      "Role_Name": "Role Name",
+      "Submit": "Submit"
+    },
+    "AboutBox": {
+      "Title": "Title",
+      "Description": "Description",
+      "Image": "Image",
+      "Submit": "Submit"
+    },
+    "SettingsBox": {
+      "Facebook": "Facebook",
+      "Instagram": "Instagram",
+      "Whatsapp": "Whatsapp",
+      "Youtube": "Youtube",
+      "Phones": "Phones",
+      "Address": "Address",
+      "Submit": "Submit"
     }
   },
+  "sidBar": {
+    "DashBoard": "DashBoard",
+    "Brand": "Brand",
+    "attributes": "attributes",
+    "units": "units",
+    "Users": "Users",
+    "categories": "categories",
+    "sub_categories": "sub categories",
+    "sub_Sub_categories": "sub sub categories",
+    "product": "product",
+    "Services": "Services",
+    "project": "project",
+    "project_Payment": "project Payment",
+    "General_Expenses": "General Expenses",
+    "project_Expenses": "project Expenses",
+    "profile": "profile",
+    "contact": "contact",
+    "about": "about",
+    "roles": "roles",
+    "Logout": "Logout",
+    "settings": "settings"
+  },
   "Language": {
-    "English": "English(en)",
-    "Arabic": "Arabic(ar)",
-    "French": "French(fr)"
+    "English": "English",
+    "Arabic": "Arabic",
+    "French": "French"
   }
 }

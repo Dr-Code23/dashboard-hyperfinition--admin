@@ -9,6 +9,7 @@
     --text-color-02: #8a92a6;
     --text-color-03: #031d54;
     --text-color-04: #fff;
+    --text-color-05: #0644c6;
 }
 
 * {
@@ -71,3 +72,20 @@ h6 {
     border: none !important;
     outline: none !important;
 }
+
+/* ::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--text-color-05);
+
+
+
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--text-color-02);
+    border-radius: 30px;
+
+} */

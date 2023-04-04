@@ -1,179 +1,258 @@
-import { FormControl, IconButton, } from '@mui/material';
-import React, { useCallback } from 'react';
-import './ComponyExpensesView.css'
+import { FormControl, IconButton } from "@mui/material";
+import React, { useCallback } from "react";
+import "./ComponyExpensesView.css";
 import "react-datepicker/dist/react-datepicker.css";
-import CloseIcon from '@mui/icons-material/Close';
-import { Box, Modal } from '@mui/material';
+import CloseIcon from "@mui/icons-material/Close";
+import { Box, Modal } from "@mui/material";
 
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { InfoOutlined } from '@mui/icons-material';
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { InfoOutlined } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
+    "&:nth-of-type(odd)": {
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    "&:last-child td, &:last-child th": {
+        border: 0,
+    },
 }));
 
 function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+    return { name, calories, fat, carbs, protein };
 }
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+    createData("Eclair", 262, 16.0, 24, 6.0),
+    createData("Cupcake", 305, 3.7, 67, 4.3),
+    createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 const ComponyExpensesView = () => {
-  const [openCt, setOpenCt] = React.useState(false);
-  const handleClose = useCallback(() => {
-    setOpenCt(false)
-  }, [setOpenCt]);
-  // ================
+    let { t, i18n } = useTranslation();
 
-  return (
-    <>
+    const [openCt, setOpenCt] = React.useState(false);
+    const handleClose = useCallback(() => {
+        setOpenCt(false);
+    }, [setOpenCt]);
+    // ================
 
-      <div className='p-[20px] mt-[40px]'>
-        <form action="" className="add-box flex  items-start justify-start flex-col px-5 py-[60px]  mb-[40px] add-shadow  " onSubmit={(e) => {
-          e.preventDefault()
-        }}>
-
-          <div className=' flex flex-wrap  w-full gap-[30px] justify-start items-center'>
-
-
-            <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]' >
-              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>project Name *</h6>
-              <h4 className='input'>project</h4>
-
-            </FormControl>
-            <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]'>
-              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Customer Name *</h6>
-              <h4 className='input'>Customer</h4>
-
-            </FormControl>
-            <FormControl className='min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]'>
-              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Project Total *</h6>
-              <h4 className='input'>Project</h4>
-
-            </FormControl>
-          </div>
-          <hr className=' w-full my-[40px]' />
-          <div className=' flex flex-col md:flex-row   md:justify-start justify-center items-center gap-[30px] w-full '>
-            <FormControl className='min-h-[75.5px]  w-full lg:max-w-[440px]' >
-              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>Start Date *</h6>
-              <h4 className='input'>2023/01/01</h4>
-            </FormControl>
-            <FormControl className='min-h-[75.5px]  w-full lg:max-w-[440px]' >
-              <h6 className=' text-[17px]  mb-3 font-[500] capitalize  '>End Date *</h6>
-              <h4 className='input'>2023/01/01</h4>
-            </FormControl>
-
-
-          </div>
-          <hr className=' w-full my-[40px]' />
-          <TableContainer component={Paper} sx={{ height: '438px' }}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
-                  <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Date</StyledTableCell>
-                  <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Products</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row, index) => (
-                  <StyledTableRow key={row.name}>
-                    <StyledTableCell align="center">{index + 1}</StyledTableCell>
-                    <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                    <StyledTableCell align="center">
-                      <div className='action flex items-center justify-center gap-2'>
-                        <IconButton aria-label="" onClick={() => {
-                          setOpenCt(true)
-                        }}>
-                          <InfoOutlined />
-                        </IconButton>
-                      </div>
-                    </StyledTableCell>                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {/* ======================== */}
-        </form>
-
-      </div>
-      <>
-        <Modal
-          open={openCt}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box className="compony-modal" >
-
-            <div className='all'>
-              <IconButton aria-label="" onClick={() => {
-                setOpenCt(false)
-
-              }}
-                className="close-modal"
-              >
-                <CloseIcon />
-
-              </IconButton>
-              <TableContainer component={Paper} sx={{ height: '338px' }} className=" " >
-                <Table sx={{ minWidth: 500 }} aria-label="customized table">
-                  <TableHead>
-                    <TableRow>
-                      <StyledTableCell align="center" className='!bg-primaryBg capitalize'>id</StyledTableCell>
-
-                      <StyledTableCell align="center" className='!bg-primaryBg capitalize'>Project</StyledTableCell>
-                      <StyledTableCell align="center" className='!bg-primaryBg capitalize'>product</StyledTableCell>
-                      <StyledTableCell align="center" className='!bg-primaryBg capitalize'>quantity</StyledTableCell>
-
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row, index) => (
-                      <StyledTableRow key={row.name}>
-                        <StyledTableCell align="center">{index + 1}</StyledTableCell>
-                        <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                        <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                        <StyledTableCell align="center">{row.calories}</StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+    return (
+        <>
+            <div className="p-[20px] mt-[40px]">
+                <form
+                    action=""
+                    className="add-box flex  items-start justify-start flex-col px-5 py-[60px]  mb-[40px] add-shadow  "
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                    }}
+                >
+                    <div className=" flex flex-wrap  w-full gap-[30px] justify-start items-center">
+                        <FormControl className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]">
+                            <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
+                                {t("pages.ComponyExpensesView.Project_Name")}
+                            </h6>
+                            <h4 className="input">project</h4>
+                        </FormControl>
+                        <FormControl className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]">
+                            <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
+                                {t("pages.ComponyExpensesView.Customer_Name")}
+                            </h6>
+                            <h4 className="input">Customer</h4>
+                        </FormControl>
+                        <FormControl className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]">
+                            <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
+                                {t("pages.ComponyExpensesView.Project_Total")}
+                            </h6>
+                            <h4 className="input">Project</h4>
+                        </FormControl>
+                    </div>
+                    <hr className=" w-full my-[40px]" />
+                    <div className=" flex flex-col md:flex-row   md:justify-start justify-center items-center gap-[30px] w-full ">
+                        <FormControl className="min-h-[75.5px]  w-full lg:max-w-[440px]">
+                            <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
+                                {t("pages.ComponyExpensesView.Start_Date")}
+                            </h6>
+                            <h4 className="input">2023/01/01</h4>
+                        </FormControl>
+                        <FormControl className="min-h-[75.5px]  w-full lg:max-w-[440px]">
+                            <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
+                                {t("pages.ComponyExpensesView.End_Date")}
+                            </h6>
+                            <h4 className="input">2023/01/01</h4>
+                        </FormControl>
+                    </div>
+                    <hr className=" w-full my-[40px]" />
+                    <TableContainer component={Paper} sx={{ height: "438px" }}>
+                        <Table
+                            sx={{ minWidth: 700 }}
+                            aria-label="customized table"
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t(
+                                            "pages.ComponyExpensesView.table.id"
+                                        )}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t(
+                                            "pages.ComponyExpensesView.table.Date"
+                                        )}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t(
+                                            "pages.ComponyExpensesView.table.Products"
+                                        )}
+                                    </StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {rows.map((row, index) => (
+                                    <StyledTableRow key={row.name}>
+                                        <StyledTableCell align="center">
+                                            {index + 1}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {row.calories}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            <div className="action flex items-center justify-center gap-2">
+                                                <IconButton
+                                                    aria-label=""
+                                                    onClick={() => {
+                                                        setOpenCt(true);
+                                                    }}
+                                                >
+                                                    <InfoOutlined />
+                                                </IconButton>
+                                            </div>
+                                        </StyledTableCell>{" "}
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    {/* ======================== */}
+                </form>
             </div>
+            <>
+                <Modal
+                    open={openCt}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box className="compony-modal">
+                        <div className="all">
+                            <IconButton
+                                aria-label=""
+                                onClick={() => {
+                                    setOpenCt(false);
+                                }}
+                                className="close-modal"
+                            >
+                                <CloseIcon />
+                            </IconButton>
+                            <TableContainer
+                                component={Paper}
+                                sx={{ height: "338px" }}
+                                className=" "
+                            >
+                                <Table
+                                    sx={{ minWidth: 700 }}
+                                    aria-label="customized table"
+                                >
+                                    <TableHead>
+                                        <TableRow>
+                                            <StyledTableCell
+                                                align="center"
+                                                className="!bg-primaryBg capitalize"
+                                            >
+                                                {t(
+                                                    "pages.ComponyExpensesView.table_Modal.id"
+                                                )}
+                                            </StyledTableCell>
 
-          </Box>
-        </Modal>
-      </>
-    </>
-  );
-}
+                                            <StyledTableCell
+                                                align="center"
+                                                className="!bg-primaryBg capitalize"
+                                            >
+                                                {t(
+                                                    "pages.ComponyExpensesView.table_Modal.Project"
+                                                )}
+                                            </StyledTableCell>
+                                            <StyledTableCell
+                                                align="center"
+                                                className="!bg-primaryBg capitalize"
+                                            >
+                                                {t(
+                                                    "pages.ComponyExpensesView.table_Modal.Products"
+                                                )}
+                                            </StyledTableCell>
+                                            <StyledTableCell
+                                                align="center"
+                                                className="!bg-primaryBg capitalize"
+                                            >
+                                                {t(
+                                                    "pages.ComponyExpensesView.table_Modal.quantity"
+                                                )}
+                                            </StyledTableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {rows.map((row, index) => (
+                                            <StyledTableRow key={row.name}>
+                                                <StyledTableCell align="center">
+                                                    {index + 1}
+                                                </StyledTableCell>
+                                                <StyledTableCell align="center">
+                                                    {row.calories}
+                                                </StyledTableCell>
+                                                <StyledTableCell align="center">
+                                                    {row.calories}
+                                                </StyledTableCell>
+                                                <StyledTableCell align="center">
+                                                    {row.calories}
+                                                </StyledTableCell>
+                                            </StyledTableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </div>
+                    </Box>
+                </Modal>
+            </>
+        </>
+    );
+};
 
 export default React.memo(ComponyExpensesView);

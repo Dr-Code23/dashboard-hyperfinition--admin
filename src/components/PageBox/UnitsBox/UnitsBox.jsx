@@ -71,6 +71,8 @@ const UnitsBox = ({ setOpen }) => {
                             setOpen(true);
                         }}
                     >
+                        {t("pages.UserDetailBox.Rule")}
+
                         {t("pages.UnitsBox.Add_a_new")}
                     </Button>
                 </div>
