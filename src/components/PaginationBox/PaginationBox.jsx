@@ -8,9 +8,12 @@ const PaginationBox = ({ count, setPageTarget }) => {
     const handleChange = (event, value) => {
         setPage(value);
     };
-    // useEffect(() => {
-    //   setPageTarget(page)
-    // }, [page, setPageTarget]);
+
+    useEffect(() => {
+        if (setPageTarget !== undefined) {
+            setPageTarget(page);
+        }
+    }, [page, setPageTarget]);
     return (
         <div
             className="pagination-box flex justify-center items-center mt-[40px]"

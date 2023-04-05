@@ -16,18 +16,24 @@ import React, { useCallback } from "react";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import EnImg from "../../assets/Img/en.jpg";
+import ArImg from "../../assets/Img/ar.jpg";
+import FrImg from "../../assets/Img/fr.jpg";
 const Header = ({ drawerWidth, handleDrawerToggle }) => {
     let { t, i18n } = useTranslation();
-
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
     let Navigate = useNavigate();
 
-    const handleOpenUserMenu = useCallback((event) => {
-        setAnchorElUser(event.currentTarget);
-    }, []);
-    const handleCloseUserMenu = useCallback(() => {
-        setAnchorElUser(null);
-    }, []);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [languageTarget, setLanguageTarget] = React.useState(null);
+    const [imgTarget, setImgTarget] = React.useState(
+        localStorage.getItem("language") === "en"
+            ? EnImg
+            : localStorage.getItem("language") === "ar"
+            ? ArImg
+            : localStorage.getItem("language") === "fr"
+            ? FrImg
+            : EnImg
+    );
     const handleLogOut = useCallback(() => {
         localStorage.removeItem("AccessToken");
         Navigate("/");
@@ -58,103 +64,194 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                     </Toolbar>
 
                     <Box className="box-left">
-                        {i18n.language === "ar" ? (
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                sx={{
-                                    width: "35px",
-                                    height: "35px",
-                                    minWidth: "35px",
+                        <>
+                            <IconButton
+                                onClick={(event) => {
+                                    setLanguageTarget(event.currentTarget);
                                 }}
-                                className=" !rounded-full  !bg-slate-400 !ml-2"
-                                onClick={() => {
-                                    i18n.changeLanguage("en");
-                                }}
+                                sx={{ p: 0 }}
+                                className="img-shadow"
                             >
-                                en
-                            </Button>
-                        ) : (
-                            <Button
-                                variant="contained"
-                                sx={{
-                                    width: "35px",
-                                    height: "35px",
-                                    minWidth: "35px",
-                                }}
-                                className="!rounded-full !bg-slate-400 !mr-2"
-                                onClick={() => {
-                                    i18n.changeLanguage("ar");
-                                }}
-                            >
-                                ar
-                            </Button>
-                        )}
+                                <Avatar alt="Remy Sharp" src={imgTarget} />
+                            </IconButton>
 
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            <Avatar
-                                alt="Remy Sharp"
-                                src="https://mui.com/static/images/avatar/2.jpg"
-                            />
-                        </IconButton>
+                            <Menu
+                                sx={{ mt: "45px" }}
+                                id="menu-appbar"
+                                anchorEl={languageTarget}
+                                anchorOrigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
+                                open={Boolean(languageTarget)}
+                                onClose={(e) => {
+                                    setLanguageTarget(null);
+                                }}
+                            >
+                                <MenuItem
+                                    onClick={(e) => {
+                                        setLanguageTarget(null);
+                                    }}
+                                    className=" w-full !min-w-[180px] "
+                                >
+                                    <Typography
+                                        textAlign="center "
+                                        className=" w-full flex justify-start items-center gap-[8px]"
+                                        onClick={() => {
+                                            setImgTarget(EnImg);
+                                            i18n.changeLanguage("en");
+                                            localStorage.setItem(
+                                                "language",
+                                                "en"
+                                            );
+                                        }}
+                                    >
+                                        <img
+                                            src={EnImg}
+                                            alt=""
+                                            className=" w-[35px] h-[20px]"
+                                        />
+                                        {t("Language.English")}
+                                    </Typography>
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={(e) => {
+                                        setLanguageTarget(null);
+                                    }}
+                                    className=" w-full !min-w-[180px] "
+                                >
+                                    <Typography
+                                        textAlign="center "
+                                        className=" w-full flex justify-start items-center gap-[8px]"
+                                        onClick={() => {
+                                            setImgTarget(ArImg);
+                                            i18n.changeLanguage("ar");
+                                            localStorage.setItem(
+                                                "language",
+                                                "ar"
+                                            );
+                                        }}
+                                    >
+                                        <img
+                                            src={ArImg}
+                                            alt=""
+                                            className=" w-[35px] h-[20px]"
+                                        />
+                                        {t("Language.Arabic")}
+                                    </Typography>
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={(e) => {
+                                        setLanguageTarget(null);
+                                    }}
+                                    className=" w-full !min-w-[180px] "
+                                >
+                                    <Typography
+                                        textAlign="center "
+                                        className=" w-full flex justify-start items-center gap-[8px]"
+                                        onClick={() => {
+                                            setImgTarget(FrImg);
+                                            i18n.changeLanguage("fr");
+                                            localStorage.setItem(
+                                                "language",
+                                                "fr"
+                                            );
+                                        }}
+                                    >
+                                        <img
+                                            src={FrImg}
+                                            alt=""
+                                            className=" w-[35px] h-[20px]"
+                                        />
+                                        {t("Language.French")}
+                                    </Typography>
+                                </MenuItem>
+                            </Menu>
+                        </>
+                        <>
+                            <IconButton
+                                onClick={(event) => {
+                                    setAnchorElUser(event.currentTarget);
+                                }}
+                                sx={{ p: 0 }}
+                            >
+                                <Avatar
+                                    alt="Remy Sharp"
+                                    src="https://mui.com/static/images/avatar/2.jpg"
+                                />
+                            </IconButton>
 
-                        <Menu
-                            sx={{ mt: "45px" }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: "top",
-                                horizontal: "right",
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            <MenuItem
-                                onClick={handleCloseUserMenu}
-                                className=" w-full !min-w-[100px] "
+                            <Menu
+                                sx={{ mt: "45px" }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: "top",
+                                    horizontal: "right",
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={(e) => {
+                                    setAnchorElUser(null);
+                                }}
                             >
-                                <Typography
-                                    textAlign="center"
-                                    className=" w-full"
-                                    onClick={() => {
-                                        Navigate("/admin/profile");
+                                <MenuItem
+                                    onClick={(e) => {
+                                        setAnchorElUser(null);
                                     }}
+                                    className=" w-full !min-w-[100px] "
                                 >
-                                    {t("sidBar.profile")}
-                                </Typography>
-                            </MenuItem>
-                            <MenuItem
-                                onClick={handleCloseUserMenu}
-                                className=" w-full !min-w-[100px] "
-                            >
-                                <Typography
-                                    textAlign="center"
-                                    className=" w-full"
-                                    onClick={() => {
-                                        Navigate("/admin/settings");
+                                    <Typography
+                                        textAlign="center"
+                                        className=" w-full"
+                                        onClick={() => {
+                                            Navigate("/admin/profile");
+                                        }}
+                                    >
+                                        {t("sidBar.profile")}
+                                    </Typography>
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={(e) => {
+                                        setAnchorElUser(null);
                                     }}
+                                    className=" w-full !min-w-[100px] "
                                 >
-                                    {t("sidBar.settings")}
-                                </Typography>
-                            </MenuItem>
-                            <MenuItem
-                                onClick={handleCloseUserMenu}
-                                className=" w-full !min-w-[100px] "
-                            >
-                                <Typography
-                                    textAlign="center"
-                                    className=" w-full"
-                                    onClick={handleLogOut}
+                                    <Typography
+                                        textAlign="center"
+                                        className=" w-full"
+                                        onClick={() => {
+                                            Navigate("/admin/settings");
+                                        }}
+                                    >
+                                        {t("sidBar.settings")}
+                                    </Typography>
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={(e) => {
+                                        setAnchorElUser(null);
+                                    }}
+                                    className=" w-full !min-w-[100px] "
                                 >
-                                    {t("sidBar.Logout")}
-                                </Typography>
-                            </MenuItem>
-                        </Menu>
+                                    <Typography
+                                        textAlign="center"
+                                        className=" w-full"
+                                        onClick={handleLogOut}
+                                    >
+                                        {t("sidBar.Logout")}
+                                    </Typography>
+                                </MenuItem>
+                            </Menu>
+                        </>
                     </Box>
                 </div>
             </AppBar>

@@ -10,24 +10,40 @@
     padding: 20px;
     user-select: none;
 }
+
 .brand-modal form {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: start;
     flex-direction: column;
-    background-color: var(--bg-main);
     width: 100%;
     max-width: 450px;
+    max-height: calc(100svh - 80px);
+    overflow-y: auto;
     border-radius: 6px;
+
+}
+
+.brand-modal form .content-all {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    background-color: var(--bg-main);
     padding: 60px 15px;
+    min-height: 800px;
     gap: 20px;
 }
+
 .brand-modal form h5 {
     text-transform: capitalize;
     font-size: 22px;
     font-weight: 500;
 }
+
 .brand-modal form input {
     width: 100%;
     outline: none;
@@ -36,11 +52,13 @@
     padding: 8px;
     border-radius: 4px;
 }
+
 .brand-modal form button.submit {
     margin-top: 20px;
     height: 50px;
     width: 150px;
 }
+
 .brand-modal form .close-modal {
     position: absolute;
     top: 10px;
