@@ -14,24 +14,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { OneBrandThunk } from "../../RTK/Thunk/OneBrandThunk";
 import { UpDateBrand } from "../../RTK/Thunk/UpDateBrand";
 import { AllBrandThunk } from "../../RTK/Thunk/AllBrandThunk";
+import { AddBrandThunk } from "../../RTK/Thunk/AddBrandThunk";
 
 const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
+    let { t, i18n } = useTranslation();
+    let dispatch = useDispatch();
+
     const handleClose = useCallback(() => {
         setOpen(false);
     }, [setOpen]);
     const [images, setImages] = React.useState([{ data_url: img }]);
-    let dispatch = useDispatch();
-    let { t, i18n } = useTranslation();
+
     let { brandImg, nameBrand_fr, nameBrand_ar, nameBrand_en, currentPage } =
         useSelector((state) => state.BrandReducer);
-
     const [value, setValue] = React.useState(0);
     const [inputValue, setInputValue] = React.useState({
         input_en: "",
         input_ar: "",
         input_fr: "",
     });
-
     const [code, setCode] = useState(0);
     const onChange = (imageList, addUpdateIndex) => {
         // console.log(imageList, addUpdateIndex);
@@ -52,7 +53,41 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
             setValue(2);
         }
     }, [i18n.language]);
-    // handle api
+
+    // ========== convertImg===============
+    const [imageFile, setImageFile] = useState(null);
+    let convertImage = async (imageUrl) => {
+        if (imageUrl) {
+            let response = await fetch(imageUrl || "");
+            let blob = await response.blob();
+
+            let file = new File([blob], "image.jpg", { type: "image/jpeg" });
+
+            setImageFile(file);
+        }
+
+        // =========
+    };
+    useEffect(() => {
+        if (nameBrand?.type === "update") {
+            if (images[0].data_url !== img) {
+                convertImage(images[0].data_url);
+            }
+        }
+        if (nameBrand?.type === "add") {
+            convertImage(images[0].data_url);
+        }
+    }, [images, nameBrand?.type]);
+    // handle img value on loading
+    useEffect(() => {
+        if (nameBrand?.type === "update") {
+            setImages([{ data_url: brandImg }]);
+        }
+        if (nameBrand?.type === "add") {
+            setImages([{ data_url: img }]);
+        }
+    }, [nameBrand?.type, brandImg]);
+    // handle api update
     useEffect(() => {
         if (nameBrand?.type === "update") {
             dispatch(OneBrandThunk({ id: nameBrand?.id }));
@@ -60,33 +95,31 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
     }, [nameBrand, dispatch]);
     useEffect(() => {
         if (nameBrand?.type === "update") {
-            setImages([{ data_url: brandImg }]);
-        } else {
-            setImages([{ data_url: img }]);
-        }
-    }, [brandImg, nameBrand?.type]);
-    useEffect(() => {
-        if (nameBrand?.type === "update") {
             setInputValue({
                 input_en: nameBrand_en,
                 input_ar: nameBrand_ar,
                 input_fr: nameBrand_fr,
             });
-        } else {
+        }
+    }, [nameBrand?.type, nameBrand_fr, nameBrand_ar, nameBrand_en, brandImg]);
+
+    // handle api add
+    useEffect(() => {
+        if (nameBrand?.type === "add") {
             setInputValue({ input_en: "", input_ar: "", input_fr: "" });
         }
-    }, [nameBrand?.type, nameBrand_fr, nameBrand_ar, nameBrand_en]);
+    }, [nameBrand?.type]);
+    // handle sub
     let handleSubmit = (e) => {
         e.preventDefault();
         if (nameBrand?.type === "update") {
-            console.log(inputValue);
-
             dispatch(
                 UpDateBrand({
                     id: nameBrand?.id,
                     ar: inputValue?.input_ar,
                     en: inputValue?.input_en,
                     fr: inputValue?.input_fr,
+                    img: imageFile,
                 })
             )
                 .unwrap()
@@ -95,15 +128,45 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                     dispatch(AllBrandThunk({ page: currentPage }));
                     setOpen(false);
                     setCode(0);
+                    setInputValue({ input_en: "", input_ar: "", input_fr: "" });
+                    setImages([{ data_url: img }]);
+                    setNameBrand("");
                 })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
                     setCode(error.code);
-
                     // handle error here
                 });
         }
+        if (nameBrand?.type === "add") {
+            dispatch(
+                AddBrandThunk({
+                    id: nameBrand?.id,
+                    ar: inputValue?.input_ar,
+                    en: inputValue?.input_en,
+                    fr: inputValue?.input_fr,
+                    img: imageFile,
+                })
+            )
+                .unwrap()
+                .then((data) => {
+                    // console.log(data);
+                    dispatch(AllBrandThunk({ page: currentPage }));
+                    setOpen(false);
+                    setCode(0);
+                    setInputValue({ input_en: "", input_ar: "", input_fr: "" });
+                    setImages([{ data_url: img }]);
+                    setNameBrand({ type: "", id: "" });
+                })
+                .catch((error) => {
+                    // console.log(error);
+                    setCode(error.code);
+                    // handle error here
+                });
+        }
+        // ======after-sub=====
     };
+
     return (
         <>
             <Modal
@@ -124,6 +187,13 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                             <IconButton
                                 aria-label=""
                                 onClick={() => {
+                                    setInputValue({
+                                        input_en: "",
+                                        input_ar: "",
+                                        input_fr: "",
+                                    });
+                                    setImages([{ data_url: img }]);
+                                    setNameBrand({ type: "", id: "" });
                                     setOpen(false);
                                     setCode(0);
                                 }}

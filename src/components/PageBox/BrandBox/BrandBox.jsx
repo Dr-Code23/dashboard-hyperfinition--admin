@@ -17,6 +17,7 @@ import { PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { AllBrandThunk } from "../../../RTK/Thunk/AllBrandThunk";
+import { DeleteBrand } from "../../../RTK/Thunk/DeleteBrand";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -46,7 +47,27 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
 
     useEffect(() => {
         dispatch(AllBrandThunk({ page: pageTarget }));
-    }, [dispatch, pageTarget]);
+    }, [dispatch, pageTarget, i18n.language]);
+
+    // ====
+    // handle Delete Brand
+    let handleDeleteBrand = (id) => {
+        dispatch(
+            DeleteBrand({
+                id: id,
+            })
+        )
+            .unwrap()
+            .then((data) => {
+                console.log(data);
+                dispatch(AllBrandThunk({ page: pageTarget }));
+            })
+            .catch((error) => {
+                console.log(error);
+
+                // handle error here
+            });
+    };
 
     return (
         <>
@@ -77,7 +98,10 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
                                 >
                                     {t("pages.BrandBox.table.id")}
                                 </StyledTableCell>
-                                <StyledTableCell className=" !bg-primaryBg capitalize">
+                                <StyledTableCell
+                                    align="center"
+                                    className=" !bg-primaryBg capitalize"
+                                >
                                     {t("pages.BrandBox.table.Img")}
                                 </StyledTableCell>
                                 <StyledTableCell
@@ -107,6 +131,7 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
                                             scope="row"
                                         >
                                             <Avatar
+                                                className=" !mx-auto"
                                                 alt="Remy Sharp"
                                                 src={row.image}
                                             />
@@ -128,7 +153,14 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
                                                 >
                                                     <ModeEdit />
                                                 </IconButton>
-                                                <IconButton aria-label="">
+                                                <IconButton
+                                                    aria-label=""
+                                                    onClick={() => {
+                                                        handleDeleteBrand(
+                                                            row.id
+                                                        );
+                                                    }}
+                                                >
                                                     <DeleteForever />
                                                 </IconButton>
                                             </div>
@@ -139,6 +171,7 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
                     </Table>
                 </TableContainer>
             </div>
+
             <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
         </>
     );

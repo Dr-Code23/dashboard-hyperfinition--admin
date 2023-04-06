@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { AddBrandThunk } from "../Thunk/AddBrandThunk";
 import { AllBrandThunk } from "../Thunk/AllBrandThunk";
+import { DeleteBrand } from "../Thunk/DeleteBrand";
 import { OneBrandThunk } from "../Thunk/OneBrandThunk";
 import { UpDateBrand } from "../Thunk/UpDateBrand";
 let initState = {
@@ -21,7 +23,6 @@ let BrandReducer = createSlice({
     extraReducers: (builder) => {
         builder
             // =======allBrand===========
-
             .addCase(AllBrandThunk.pending, (state, action) => {})
             .addCase(AllBrandThunk.fulfilled, (state, action) => {
                 // console.log(action.payload);
@@ -42,7 +43,17 @@ let BrandReducer = createSlice({
             .addCase(UpDateBrand.fulfilled, (state, action) => {
                 // console.log(action.payload);
             })
-            .addCase(UpDateBrand.rejected, (state, action) => {});
+            .addCase(UpDateBrand.rejected, (state, action) => {})
+            // =======DeleteBrand===========
+            .addCase(DeleteBrand.fulfilled, (state, action) => {
+                // console.log(action.payload);
+            })
+            .addCase(DeleteBrand.rejected, (state, action) => {})
+            // =======AddBrandThunk===========
+            .addCase(AddBrandThunk.fulfilled, (state, action) => {
+                // console.log(action.payload);
+            })
+            .addCase(AddBrandThunk.rejected, (state, action) => {});
     },
 });
 
