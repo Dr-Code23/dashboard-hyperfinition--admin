@@ -131,6 +131,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                     setInputValue({ input_en: "", input_ar: "", input_fr: "" });
                     setImages([{ data_url: img }]);
                     setNameBrand("");
+                    setImageFile(null);
                 })
                 .catch((error) => {
                     // console.log(error);
@@ -157,6 +158,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                     setInputValue({ input_en: "", input_ar: "", input_fr: "" });
                     setImages([{ data_url: img }]);
                     setNameBrand({ type: "", id: "" });
+                    setImageFile(null);
                 })
                 .catch((error) => {
                     // console.log(error);
@@ -166,7 +168,18 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
         }
         // ======after-sub=====
     };
-
+    let handleCloseModal = () => {
+        setInputValue({
+            input_en: "",
+            input_ar: "",
+            input_fr: "",
+        });
+        setImages([{ data_url: img }]);
+        setNameBrand({ type: "", id: "" });
+        setCode(0);
+        setOpen(false);
+        setImageFile(null);
+    };
     return (
         <>
             <Modal
@@ -187,15 +200,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                             <IconButton
                                 aria-label=""
                                 onClick={() => {
-                                    setInputValue({
-                                        input_en: "",
-                                        input_ar: "",
-                                        input_fr: "",
-                                    });
-                                    setImages([{ data_url: img }]);
-                                    setNameBrand({ type: "", id: "" });
-                                    setOpen(false);
-                                    setCode(0);
+                                    handleCloseModal();
                                 }}
                                 className="close-modal"
                             >
@@ -359,4 +364,4 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
     );
 };
 
-export default React.memo(BrandModal);
+export default BrandModal;
