@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import "./UnitsBox.css";
@@ -15,6 +15,9 @@ import { DeleteForever, ModeEdit } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { AllUnitsThunk } from "../../../RTK/Thunk/AllUnitsThunk";
+import { DeleteUnitThunk } from "../../../RTK/Thunk/DeleteUnitThunk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -36,39 +39,47 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-const UnitsBox = ({ setOpen }) => {
+const UnitsBox = ({ setOpen, setTypeUnit }) => {
     let { t, i18n } = useTranslation();
+    let dispatch = useDispatch();
 
+    const [pageTarget, setPageTarget] = useState(1);
+    let { unitData, lastPage } = useSelector((state) => state.UnitsReducer);
+
+    useEffect(() => {
+        dispatch(AllUnitsThunk({ page: pageTarget }));
+    }, [dispatch, pageTarget, i18n.language]);
+    // handle Delete attribute
+    let handleDeleteUnit = (id) => {
+        dispatch(
+            DeleteUnitThunk({
+                id: id,
+            })
+        )
+            .unwrap()
+            .then((data) => {
+                // console.log(data);
+                dispatch(AllUnitsThunk({ page: pageTarget }));
+            })
+            .catch((error) => {
+                // console.log(error);
+                // handle error here
+            });
+    };
     return (
         <>
             <div className=" mx-auto px-4  mt-[40px]">
-                <div className="flex  items-start md:items-center justify-between flex-col md:flex-row mb-3  gap-5 ">
-                    <div className="flex  items-end gap-2 pl-1">
-                        <h6 className=" capitalize text-[22px]  font-medium	">
-                            {t("pages.UnitsBox.search")} :
-                        </h6>
-                        <input
-                            type="text"
-                            className=" bg-secondaryBg outline-none p-[8px]"
-                        />
-                    </div>
+                <div className="flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 ">
                     <Button
                         variant="contained"
                         color="primary"
                         className=" !bg-primaryBg"
                         onClick={() => {
                             setOpen(true);
+                            setTypeUnit({
+                                type: "add",
+                                id: "",
+                            });
                         }}
                     >
                         {t("pages.UserDetailBox.Rule")}
@@ -76,62 +87,78 @@ const UnitsBox = ({ setOpen }) => {
                         {t("pages.UnitsBox.Add_a_new")}
                     </Button>
                 </div>
-                <TableContainer component={Paper} sx={{ height: "438px" }}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.UnitsBox.table.id")}
-                                </StyledTableCell>
+                {unitData.length && (
+                    <TableContainer component={Paper} sx={{ height: "438px" }}>
+                        <Table
+                            sx={{ minWidth: 700 }}
+                            aria-label="customized table"
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.UnitsBox.table.id")}
+                                    </StyledTableCell>
 
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.UnitsBox.table.Name")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.UnitsBox.table.actions")}
-                                </StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row, index) => (
-                                <StyledTableRow key={row.name}>
-                                    <StyledTableCell align="center">
-                                        {index + 1}
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.UnitsBox.table.Name")}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.UnitsBox.table.actions")}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        <div className="action flex items-center justify-center gap-2">
-                                            <IconButton
-                                                aria-label=""
-                                                onClick={() => {
-                                                    setOpen(true);
-                                                }}
-                                            >
-                                                <ModeEdit />
-                                            </IconButton>
-                                            <IconButton aria-label="">
-                                                <DeleteForever />
-                                            </IconButton>
-                                        </div>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {unitData.map((row, index) => (
+                                    <StyledTableRow key={row.name}>
+                                        <StyledTableCell align="center">
+                                            {row.id}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {row.name}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            <div className="action flex items-center justify-center gap-2">
+                                                <IconButton
+                                                    aria-label=""
+                                                    onClick={() => {
+                                                        setOpen(true);
+                                                        setTypeUnit({
+                                                            type: "update",
+                                                            id: row.id,
+                                                        });
+                                                    }}
+                                                >
+                                                    <ModeEdit />
+                                                </IconButton>
+                                                <IconButton
+                                                    aria-label=""
+                                                    onClick={() => {
+                                                        handleDeleteUnit(
+                                                            row.id
+                                                        );
+                                                    }}
+                                                >
+                                                    <DeleteForever />
+                                                </IconButton>
+                                            </div>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
             </div>
-            <PaginationBox count={10} />
+            <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
         </>
     );
 };

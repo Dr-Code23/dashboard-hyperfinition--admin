@@ -59,12 +59,11 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
         )
             .unwrap()
             .then((data) => {
-                console.log(data);
+                // console.log(data);
                 dispatch(AllBrandThunk({ page: pageTarget }));
             })
             .catch((error) => {
-                console.log(error);
-
+                // console.log(error);
                 // handle error here
             });
     };
@@ -88,39 +87,42 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
                         {t("pages.BrandBox.Add_a_new")}
                     </Button>
                 </div>
-                <TableContainer component={Paper} sx={{ height: "438px" }}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.BrandBox.table.id")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className=" !bg-primaryBg capitalize"
-                                >
-                                    {t("pages.BrandBox.table.Img")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.BrandBox.table.Name")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.BrandBox.table.actions")}
-                                </StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {brandData.length &&
-                                brandData.map((row, index) => (
+                {brandData.length && (
+                    <TableContainer component={Paper} sx={{ height: "438px" }}>
+                        <Table
+                            sx={{ minWidth: 700 }}
+                            aria-label="customized table"
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.BrandBox.table.id")}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className=" !bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.BrandBox.table.Img")}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.BrandBox.table.Name")}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.BrandBox.table.actions")}
+                                    </StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {brandData.map((row, index) => (
                                     <StyledTableRow key={row.name}>
                                         <StyledTableCell align="center">
                                             {row.id}
@@ -167,9 +169,10 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
                                         </StyledTableCell>
                                     </StyledTableRow>
                                 ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
             </div>
 
             <PaginationBox count={lastPage} setPageTarget={setPageTarget} />

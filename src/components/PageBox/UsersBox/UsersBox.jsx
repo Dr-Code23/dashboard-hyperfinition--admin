@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import "./UsersBox.css";
@@ -12,9 +12,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import { DeleteForever, ModeEdit } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { AllUsersThunk } from "../../../RTK/Thunk/AllUsersThunk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -49,110 +51,126 @@ const rows = [
 ];
 const UsersBox = () => {
     let navigate = useNavigate();
+    let dispatch = useDispatch();
     let { t, i18n } = useTranslation();
+    let { userData, lastPage } = useSelector((state) => state.UserReducer);
+    const [pageTarget, setPageTarget] = useState(1);
+    useEffect(() => {
+        dispatch(AllUsersThunk({ page: pageTarget }));
+    }, [dispatch, pageTarget, i18n.language]);
 
     return (
         <>
             <div className=" mx-auto px-4  mt-[40px]">
-                <div className="flex  items-start md:items-center justify-between flex-col md:flex-row mb-3  gap-5 ">
-                    <div className="flex  items-end gap-2 pl-1">
-                        <h6 className=" capitalize text-[22px]  font-medium	">
-                            {t("pages.UsersBox.search")} :
-                        </h6>
-                        <input
-                            type="text"
-                            className=" bg-secondaryBg outline-none p-[8px]"
-                        />
-                    </div>
+                <div className="flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 ">
                     <Button
                         variant="contained"
                         color="primary"
                         className=" !bg-primaryBg"
                         onClick={() => {
-                            navigate("/admin/users/detail/add");
+                            navigate("/admin/users/add/add");
                         }}
                     >
                         {t("pages.UsersBox.Add_a_new")}
                     </Button>
                 </div>
-                <TableContainer component={Paper} sx={{ height: "438px" }}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.UsersBox.table.id")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.UsersBox.table.Name")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.UsersBox.table.Email")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.UsersBox.table.Rule")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.UsersBox.table.actions")}
-                                </StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row, index) => (
-                                <StyledTableRow key={row.name}>
-                                    <StyledTableCell align="center">
-                                        {index + 1}
+                {userData.length && (
+                    <TableContainer component={Paper} sx={{ height: "438px" }}>
+                        <Table
+                            sx={{ minWidth: 700 }}
+                            aria-label="customized table"
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.UsersBox.table.id")}
                                     </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.UsersBox.table.Name")}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.UsersBox.table.Img")}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.UsersBox.table.Email")}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.UsersBox.table.Rule")}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.UsersBox.table.actions")}
+                                    </StyledTableCell>
+                                </TableRow>
+                            </TableHead>
 
-                                    <StyledTableCell align="center">
-                                        {row.calories}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        <div className="action flex items-center justify-center gap-2">
-                                            <IconButton
-                                                aria-label=""
-                                                onClick={() => {
-                                                    navigate(
-                                                        `/admin/users/detail/${
-                                                            index + 1
-                                                        }`
-                                                    );
-                                                }}
-                                            >
-                                                <ModeEdit />
-                                            </IconButton>
-                                            <IconButton aria-label="">
-                                                <DeleteForever />
-                                            </IconButton>
-                                        </div>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                            <TableBody>
+                                {userData.map((row, index) => (
+                                    <StyledTableRow key={row.id}>
+                                        <StyledTableCell align="center">
+                                            {row.id}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {row.name}
+                                        </StyledTableCell>
+                                        <StyledTableCell
+                                            component="th"
+                                            scope="row"
+                                        >
+                                            <Avatar
+                                                className=" !mx-auto"
+                                                alt="Remy Sharp"
+                                                src={row.avatar}
+                                            />
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {row.email}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {row.role_name}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            <div className="action flex items-center justify-center gap-2">
+                                                <IconButton
+                                                    aria-label=""
+                                                    onClick={() => {
+                                                        navigate(
+                                                            `/admin/users/detail/${row.id}`
+                                                        );
+                                                    }}
+                                                >
+                                                    <ModeEdit />
+                                                </IconButton>
+                                                <IconButton aria-label="">
+                                                    <DeleteForever />
+                                                </IconButton>
+                                            </div>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
             </div>
-            <PaginationBox count={10} />
+            <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
         </>
     );
 };

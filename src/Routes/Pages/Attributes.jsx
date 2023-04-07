@@ -1,16 +1,22 @@
-import React from 'react';
-import { AttreibutesBox, AttributesModal } from '../../components';
+import React from "react";
+import { AttreibutesBox, AttributesModal } from "../../components";
 
 const Attributes = () => {
-  const [open, setOpen] = React.useState(false);
-  const [nameBrand, setNameBrand] = React.useState('New Brand Name');
-  return (
-    <>
-      <AttreibutesBox {...{ open, setOpen, nameBrand, setNameBrand }} />
-      <AttributesModal {...{ open, setOpen, nameBrand, setNameBrand }} />
-
-    </>
-  );
-}
+    const [open, setOpen] = React.useState(false);
+    const [typeAttributes, setTypeAttributes] = React.useState({
+        type: "",
+        id: "",
+    });
+    return (
+        <>
+            <AttreibutesBox
+                {...{ open, setOpen, typeAttributes, setTypeAttributes }}
+            />
+            <AttributesModal
+                {...{ open, setOpen, typeAttributes, setTypeAttributes }}
+            />
+        </>
+    );
+};
 
 export default Attributes;

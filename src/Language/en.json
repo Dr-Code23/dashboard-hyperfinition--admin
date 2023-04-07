@@ -54,6 +54,7 @@
         "id": "id",
         "Name": "Name",
         "Email": "Email",
+        "Img": "Img",
         "Rule": "Rule",
         "actions": "actions"
       }

@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import img from "../../../assets/Img/default.jpg";
 import ImageUploading from "react-images-uploading";
-import "./UserDetailBox.css";
+import "./UserAddBox.css";
 import {
     Button,
     FormControl,
@@ -14,18 +14,14 @@ import {
     Typography,
 } from "@mui/material";
 import { Shortcut, Visibility, VisibilityOff } from "@mui/icons-material";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { OneUserThunk } from "../../../RTK/Thunk/OneUserThunk";
 
 let selectData = ["name", "email", "pass"];
-const UserDetailBox = () => {
+const UserAddBox = () => {
     let { t, i18n } = useTranslation();
-    let param = useParams();
-    let dispatch = useDispatch();
     const SignupSchema = Yup.object().shape({
         email: Yup.string()
             .email(t("pages.UserDetailBox.must_be_a_valid_email"))
@@ -36,13 +32,11 @@ const UserDetailBox = () => {
         Name: Yup.string().required(t("pages.UserDetailBox.Required")),
     });
     let navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
-    const [showErrorForm, setShowErrorForm] = useState(false);
-    const [images, setImages] = useState([{ data_url: img }]);
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showErrorForm, setShowErrorForm] = React.useState(false);
+    const [images, setImages] = React.useState([{ data_url: img }]);
 
-    let { oneUser, currentPage, oneImg, oneRole, oneName, oneEmail } =
-        useSelector((state) => state.UserReducer);
-    const [age, setAge] = useState("0");
+    const [age, setAge] = React.useState("0");
 
     const handleClickShowPassword = useCallback(() => {
         setShowPassword((show) => !show);
@@ -54,16 +48,14 @@ const UserDetailBox = () => {
         setAge(event.target.value);
     }, []);
     // fun handel validation
-    let formik = useFormik({
+    const formik = useFormik({
         initialValues: {
             Name: "",
             email: "",
             pass: "",
             ConPass: "",
         },
-        onSubmit: (values) => {
-            console.log(values);
-        },
+        onSubmit: (values) => {},
         validationSchema: SignupSchema,
     });
 
@@ -72,36 +64,6 @@ const UserDetailBox = () => {
         // console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
-
-    // ============= handle get data user================
-    useEffect(() => {
-        dispatch(OneUserThunk({ id: param.user_id }));
-    }, [dispatch, param.user_id]);
-
-    // ========== convertImg===============
-    const [imageFile, setImageFile] = useState(null);
-
-    let convertImage = async (imageUrl) => {
-        let response = await fetch(imageUrl || "");
-        let blob = await response.blob();
-        let file = new File([blob], "image.jpg", { type: "image/jpeg" });
-        setImageFile(file);
-        // =========
-    };
-    // handle img fil value on change
-
-    useEffect(() => {
-        if (images[0].data_url !== img) {
-            convertImage(images[0].data_url);
-        }
-    }, [images]);
-    // handle img value on loading
-
-    useEffect(() => {
-        if (oneImg) {
-            setImages([{ data_url: oneImg }]);
-        }
-    }, [oneImg]);
     return (
         <>
             <div className="user-detail container">
@@ -184,7 +146,7 @@ const UserDetailBox = () => {
                             variant="standard"
                             name="Name"
                             onChange={formik.handleChange}
-                            value={(formik.values.Name = oneName)}
+                            value={formik.values.Name}
                         />
                         {formik.errors.Name && formik.touched.Name ? (
                             <span
@@ -213,7 +175,7 @@ const UserDetailBox = () => {
                             variant="standard"
                             name="email"
                             onChange={formik.handleChange}
-                            value={(formik.values.email = oneEmail)}
+                            value={formik.values.email}
                         />
                         {formik.errors.email && formik.touched.email ? (
                             <span
@@ -383,4 +345,4 @@ const UserDetailBox = () => {
     );
 };
 
-export default UserDetailBox;
+export default UserAddBox;

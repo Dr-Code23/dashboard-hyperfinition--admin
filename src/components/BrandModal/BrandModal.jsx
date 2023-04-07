@@ -15,6 +15,7 @@ import { OneBrandThunk } from "../../RTK/Thunk/OneBrandThunk";
 import { UpDateBrand } from "../../RTK/Thunk/UpDateBrand";
 import { AllBrandThunk } from "../../RTK/Thunk/AllBrandThunk";
 import { AddBrandThunk } from "../../RTK/Thunk/AddBrandThunk";
+import { HandleMessage } from "../index";
 
 const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
     let { t, i18n } = useTranslation();
@@ -62,7 +63,6 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
             let blob = await response.blob();
 
             let file = new File([blob], "image.jpg", { type: "image/jpeg" });
-
             setImageFile(file);
         }
 
@@ -348,14 +348,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                             >
                                 {t("pages.BrandModal.Submit")}
                             </Button>
-                            <h2
-                                style={{
-                                    display: code === 422 ? "block" : "none",
-                                }}
-                                className=" capitalize text-red-500 "
-                            >
-                                {t("code_error.The_Main_value_Must_be_entered")}
-                            </h2>
+                            <HandleMessage code={code} />
                         </div>
                     </form>
                 </Box>
