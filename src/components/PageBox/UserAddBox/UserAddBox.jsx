@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import img from "../../../assets/Img/default.jpg";
 import ImageUploading from "react-images-uploading";
 import "./UserAddBox.css";
@@ -18,8 +18,11 @@ import { useNavigate } from "react-router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
+import { RolesDataThunk } from "../../../RTK/Thunk/RolesDataThunk";
+import { useDispatch, useSelector } from "react-redux";
+import { AddUserThunk } from "../../../RTK/Thunk/AddUserThunk";
+import { closeError } from "../../../RTK/Reducers/UserReducer";
 
-let selectData = ["name", "email", "pass"];
 const UserAddBox = () => {
     let { t, i18n } = useTranslation();
     const SignupSchema = Yup.object().shape({
@@ -32,11 +35,24 @@ const UserAddBox = () => {
         Name: Yup.string().required(t("pages.UserDetailBox.Required")),
     });
     let navigate = useNavigate();
+    let dispatch = useDispatch();
     const [showPassword, setShowPassword] = React.useState(false);
     const [showErrorForm, setShowErrorForm] = React.useState(false);
     const [images, setImages] = React.useState([{ data_url: img }]);
-
-    const [age, setAge] = React.useState("0");
+    let {
+        roleData,
+        nameError,
+        emailError,
+        passwordError,
+        role_idError,
+        avatarError,
+    } = useSelector((state) => state.UserReducer);
+    // = img==
+    const onChange = (imageList, addUpdateIndex) => {
+        // console.log(imageList, addUpdateIndex);
+        setImages(imageList);
+    };
+    const [age, setAge] = React.useState("");
 
     const handleClickShowPassword = useCallback(() => {
         setShowPassword((show) => !show);
@@ -47,6 +63,28 @@ const UserAddBox = () => {
     const handleChange = useCallback((event) => {
         setAge(event.target.value);
     }, []);
+    // ========== convertImg===============
+    const [imageFile, setImageFile] = useState(null);
+
+    let convertImage = async (imageUrl) => {
+        if (imageUrl) {
+            let response = await fetch(imageUrl || "", {
+                mode: "no-cors",
+            });
+            let blob = await response.blob();
+
+            let file = new File([blob], "image.jpg", { type: "image/jpeg" });
+            setImageFile(file);
+        }
+
+        // =========
+    };
+    useEffect(() => {
+        if (images[0].data_url !== img) {
+            convertImage(images[0].data_url);
+        }
+    }, [images]);
+
     // fun handel validation
     const formik = useFormik({
         initialValues: {
@@ -55,15 +93,44 @@ const UserAddBox = () => {
             pass: "",
             ConPass: "",
         },
-        onSubmit: (values) => {},
+        onSubmit: (values) => {
+            dispatch(
+                AddUserThunk({
+                    name: values.Name,
+                    email: values.email,
+                    password: values.pass,
+                    password_confirmation: values.ConPass,
+                    role_id: age,
+                    avatar: imageFile,
+                })
+            )
+                .unwrap()
+                .then((data) => {
+                    // console.log(data);
+                    setImages([{ data_url: img }]);
+                    navigate("/admin/users/");
+                    dispatch(closeError());
+                })
+                .catch((error) => {
+                    // console.log(error);
+                    //    setCode(error.code);
+                });
+        },
         validationSchema: SignupSchema,
     });
+    // handle roles data
+    useEffect(() => {
+        dispatch(RolesDataThunk());
+    }, [dispatch]);
 
-    // = img==
-    const onChange = (imageList, addUpdateIndex) => {
-        // console.log(imageList, addUpdateIndex);
-        setImages(imageList);
-    };
+    useEffect(() => {
+        dispatch(closeError());
+  return () => {
+      dispatch(closeError());
+  };    }, [formik.values, dispatch]);
+    // fathty@gmail.com
+    // fathy said athy
+    // F00x505050@
     return (
         <>
             <div className="user-detail container">
@@ -131,6 +198,18 @@ const UserAddBox = () => {
                                 </>
                             )}
                         </ImageUploading>
+                        {avatarError !== null && (
+                            <span
+                                style={{
+                                    width: "100%",
+                                    color: "red",
+                                    fontSize: "15px",
+                                    marginTop: "5px",
+                                }}
+                            >
+                                {avatarError}
+                            </span>
+                        )}
                     </>
                     <Typography
                         variant="body1"
@@ -148,6 +227,18 @@ const UserAddBox = () => {
                             onChange={formik.handleChange}
                             value={formik.values.Name}
                         />
+                        {nameError !== null && (
+                            <span
+                                style={{
+                                    width: "100%",
+                                    color: "red",
+                                    fontSize: "15px",
+                                    marginTop: "5px",
+                                }}
+                            >
+                                {nameError}
+                            </span>
+                        )}
                         {formik.errors.Name && formik.touched.Name ? (
                             <span
                                 style={{
@@ -177,7 +268,18 @@ const UserAddBox = () => {
                             onChange={formik.handleChange}
                             value={formik.values.email}
                         />
-                        {formik.errors.email && formik.touched.email ? (
+                        {emailError !== null ? (
+                            <span
+                                style={{
+                                    width: "100%",
+                                    color: "red",
+                                    fontSize: "15px",
+                                    marginTop: "5px",
+                                }}
+                            >
+                                {emailError}
+                            </span>
+                        ) : formik.errors.email && formik.touched.email ? (
                             <span
                                 style={{
                                     width: "100%",
@@ -229,7 +331,18 @@ const UserAddBox = () => {
                                 }
                             />
                         </FormControl>
-                        {formik.errors.pass && formik.touched.pass ? (
+                        {passwordError !== null ? (
+                            <span
+                                style={{
+                                    width: "100%",
+                                    color: "red",
+                                    fontSize: "15px",
+                                    marginTop: "5px",
+                                }}
+                            >
+                                {passwordError}
+                            </span>
+                        ) : formik.errors.pass && formik.touched.pass ? (
                             <span
                                 style={{
                                     width: "100%",
@@ -281,7 +394,18 @@ const UserAddBox = () => {
                                 }
                             />
                         </FormControl>
-                        {formik.errors.ConPass && formik.touched.ConPass ? (
+                        {passwordError !== null ? (
+                            <span
+                                style={{
+                                    width: "100%",
+                                    color: "red",
+                                    fontSize: "15px",
+                                    marginTop: "5px",
+                                }}
+                            >
+                                {passwordError}
+                            </span>
+                        ) : formik.errors.ConPass && formik.touched.ConPass ? (
                             <span
                                 style={{
                                     width: "100%",
@@ -302,24 +426,37 @@ const UserAddBox = () => {
                     >
                         <h5> {t("pages.UserDetailBox.Rule")}</h5>
                         <FormControl fullWidth>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={age}
-                                onChange={handleChange}
-                                className="input-box"
-                                sx={{ height: "60px" }}
-                            >
-                                {selectData.length &&
-                                    selectData.map((el, index) => {
+                            {roleData.length && (
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={age}
+                                    onChange={handleChange}
+                                    className="input-box"
+                                    sx={{ height: "60px" }}
+                                >
+                                    {roleData.map((el, index) => {
                                         return (
-                                            <MenuItem value={index} key={index}>
-                                                {el}
+                                            <MenuItem value={el.id} key={el.id}>
+                                                {el.name}
                                             </MenuItem>
                                         );
                                     })}
-                            </Select>
+                                </Select>
+                            )}
                         </FormControl>
+                        {role_idError !== null && (
+                            <span
+                                style={{
+                                    width: "100%",
+                                    color: "red",
+                                    fontSize: "15px",
+                                    marginTop: "5px",
+                                }}
+                            >
+                                {role_idError}
+                            </span>
+                        )}
                     </Typography>
 
                     <Button

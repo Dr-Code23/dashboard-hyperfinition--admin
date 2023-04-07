@@ -59,7 +59,9 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
     const [imageFile, setImageFile] = useState(null);
     let convertImage = async (imageUrl) => {
         if (imageUrl) {
-            let response = await fetch(imageUrl || "");
+            let response = await fetch(imageUrl || "", {
+                mode: "no-cors",
+            });
             let blob = await response.blob();
 
             let file = new File([blob], "image.jpg", { type: "image/jpeg" });

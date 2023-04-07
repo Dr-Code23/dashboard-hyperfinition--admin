@@ -17,6 +17,7 @@ import { PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { AllUsersThunk } from "../../../RTK/Thunk/AllUsersThunk";
+import { DeleteUserThunk } from "../../../RTK/Thunk/DeleteUserThunk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -58,7 +59,23 @@ const UsersBox = () => {
     useEffect(() => {
         dispatch(AllUsersThunk({ page: pageTarget }));
     }, [dispatch, pageTarget, i18n.language]);
-
+    // handle Delete user
+    let handleDeleteUser = (id) => {
+        dispatch(
+            DeleteUserThunk({
+                id: id,
+            })
+        )
+            .unwrap()
+            .then((data) => {
+                // console.log(data);
+                dispatch(AllUsersThunk({ page: pageTarget }));
+            })
+            .catch((error) => {
+                // console.log(error);
+                // handle error here
+            });
+    };
     return (
         <>
             <div className=" mx-auto px-4  mt-[40px]">
@@ -158,7 +175,14 @@ const UsersBox = () => {
                                                 >
                                                     <ModeEdit />
                                                 </IconButton>
-                                                <IconButton aria-label="">
+                                                <IconButton
+                                                    aria-label=""
+                                                    onClick={() => {
+                                                        handleDeleteUser(
+                                                            row.id
+                                                        );
+                                                    }}
+                                                >
                                                     <DeleteForever />
                                                 </IconButton>
                                             </div>
