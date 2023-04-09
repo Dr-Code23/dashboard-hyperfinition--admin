@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SubCategoriesBox.css";
 import { styled } from "@mui/material/styles";
@@ -23,6 +23,9 @@ import {
 import ImageUploading from "react-images-uploading";
 import { PaginationBox } from "../index.js";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { SelectParentCategoriesThunk } from "../../RTK/Thunk/SelectParentCategoriesThunk";
+import { SubCategoriesThunk } from "../../RTK/Thunk/SubCategoriesThunk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -58,12 +61,31 @@ const rows = [
 let selectData = ["name", "email", "pass"];
 const SubCategoriesBox = () => {
     let navigate = useNavigate();
+    let dispatch = useDispatch();
+
     let { t, i18n } = useTranslation();
     const [value, setValue] = React.useState(0);
-    const [age, setAge] = React.useState("0");
+    const [age, setAge] = React.useState(0);
+    const [pageTarget, setPageTarget] = useState(1);
+
+    const [inputValue, setInputValue] = React.useState({
+        input_en: "",
+        input_ar: "",
+        input_fr: "",
+    });
+    let {
+        subcategoriesData,
+        mainSelectData,
+        lastPage,
+        name_en_Error,
+        name_ar_Error,
+        name_fr_Error,
+        selectError,
+    } = useSelector((state) => state.SubCategoriesReducer);
     const handleChangeMenu = useCallback((event) => {
         setAge(event.target.value);
     }, []);
+
     //handle input language
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -79,6 +101,23 @@ const SubCategoriesBox = () => {
             setValue(2);
         }
     }, [i18n.language]);
+
+    // ================================
+    useEffect(() => {
+        dispatch(SelectParentCategoriesThunk());
+    }, [dispatch]);
+    /// update table data
+
+    useEffect(() => {
+        if (age !== 0) {
+            dispatch(
+                SubCategoriesThunk({
+                    id: age,
+                    page: pageTarget,
+                })
+            );
+        }
+    }, [age, dispatch, pageTarget]);
 
     return (
         <>
@@ -116,7 +155,29 @@ const SubCategoriesBox = () => {
                                     )}
                                 </h6>
 
-                                <input type="text" />
+                                <input
+                                    type="text"
+                                    value={inputValue?.input_en}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            input_en: e.target.value,
+                                        });
+                                    }}
+                                />
+                                {name_en_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginTop: "20px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {name_en_Error}
+                                    </span>
+                                )}
                             </div>
                             <div
                                 className=" w-full "
@@ -130,7 +191,29 @@ const SubCategoriesBox = () => {
                                     )}{" "}
                                 </h6>
 
-                                <input type="text" />
+                                <input
+                                    type="text"
+                                    value={inputValue?.input_ar}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            input_ar: e.target.value,
+                                        });
+                                    }}
+                                />
+                                {name_ar_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginTop: "20px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {name_ar_Error}
+                                    </span>
+                                )}
                             </div>
                             <div
                                 className=" w-full "
@@ -144,29 +227,65 @@ const SubCategoriesBox = () => {
                                     )}
                                 </h6>
 
-                                <input type="text" />
+                                <input
+                                    type="text"
+                                    value={inputValue?.input_fr}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            input_fr: e.target.value,
+                                        });
+                                    }}
+                                />
+                                {name_fr_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginTop: "20px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {name_fr_Error}
+                                    </span>
+                                )}
                             </div>
                         </>
                         <FormControl fullWidth className="min-h-[75.5px]">
                             <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                 {t("pages.SubCategoriesBox.add.Main_Category")}
                             </h6>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={age}
-                                onChange={handleChangeMenu}
-                                className="select-box "
-                            >
-                                {selectData.length &&
-                                    selectData.map((el, index) => {
+                            {mainSelectData.length && (
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={age}
+                                    onChange={handleChangeMenu}
+                                    className="select-box "
+                                >
+                                    {mainSelectData.map((el, index) => {
                                         return (
-                                            <MenuItem value={index} key={index}>
-                                                {el}
+                                            <MenuItem value={el.id} key={el.id}>
+                                                {el.name}
                                             </MenuItem>
                                         );
                                     })}
-                            </Select>
+                                </Select>
+                            )}
+                            {selectError !== null && (
+                                <span
+                                    style={{
+                                        width: "100%",
+                                        color: "red",
+                                        fontSize: "15px",
+                                        marginTop: "20px",
+                                        display: "block",
+                                    }}
+                                >
+                                    {selectError}
+                                </span>
+                            )}
                         </FormControl>
                     </div>
 
@@ -179,82 +298,82 @@ const SubCategoriesBox = () => {
                         {t("pages.SubCategoriesBox.add.Submit")}
                     </Button>
                 </form>
-                <TableContainer component={Paper} sx={{ height: "438px" }}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.SubCategoriesBox.table.id")}
-                                </StyledTableCell>
+                {subcategoriesData.length ? (
+                    <>
+                        <TableContainer component={Paper} className=" !h-fit">
+                            <Table
+                                sx={{ minWidth: 700 }}
+                                aria-label="customized table"
+                            >
+                                <TableHead>
+                                    <TableRow>
+                                        <StyledTableCell
+                                            align="center"
+                                            className="!bg-primaryBg capitalize"
+                                        >
+                                            {t(
+                                                "pages.SubCategoriesBox.table.id"
+                                            )}
+                                        </StyledTableCell>
 
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.SubCategoriesBox.table.Name")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.SubCategoriesBox.table.Img")}
-                                </StyledTableCell>
+                                        <StyledTableCell
+                                            align="center"
+                                            className="!bg-primaryBg capitalize"
+                                        >
+                                            {t(
+                                                "pages.SubCategoriesBox.table.Name"
+                                            )}
+                                        </StyledTableCell>
 
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.SubCategoriesBox.table.actions")}
-                                </StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row, index) => (
-                                <StyledTableRow key={row.name}>
-                                    <StyledTableCell align="center">
-                                        {index + 1}
-                                    </StyledTableCell>
+                                        <StyledTableCell
+                                            align="center"
+                                            className="!bg-primaryBg capitalize"
+                                        >
+                                            {t(
+                                                "pages.SubCategoriesBox.table.actions"
+                                            )}
+                                        </StyledTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {subcategoriesData.map((row, index) => (
+                                        <StyledTableRow key={row.id}>
+                                            <StyledTableCell align="center">
+                                                {row.id}
+                                            </StyledTableCell>
 
-                                    <StyledTableCell align="center">
-                                        {row.calories}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        <Avatar
-                                            alt="Travis Howard"
-                                            className=" mx-auto"
-                                            src="https://mui.com/static/images/avatar/2.jpg"
-                                        />
-                                    </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                {row.name}
+                                            </StyledTableCell>
 
-                                    <StyledTableCell align="center">
-                                        <div className="action flex items-center justify-center gap-2">
-                                            <IconButton
-                                                id="basic-button"
-                                                onClick={() => {
-                                                    navigate(
-                                                        `/admin/categories/sub/edit/${
-                                                            index + 1
-                                                        }`
-                                                    );
-                                                }}
-                                            >
-                                                <ModeEdit />
-                                            </IconButton>
-
-                                            <IconButton aria-label="">
-                                                <DeleteForever />
-                                            </IconButton>
-                                        </div>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <PaginationBox count={10} />
+                                            <StyledTableCell align="center">
+                                                <div className="action flex items-center justify-center gap-2">
+                                                    <IconButton
+                                                        id="basic-button"
+                                                        onClick={() => {
+                                                            navigate(
+                                                                `/admin/categories/sub/edit/${age}/${row.id}`
+                                                            );
+                                                        }}
+                                                    >
+                                                        <ModeEdit />
+                                                    </IconButton>
+                                                    <IconButton aria-label="">
+                                                        <DeleteForever />
+                                                    </IconButton>
+                                                </div>
+                                            </StyledTableCell>
+                                        </StyledTableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <PaginationBox
+                            count={lastPage}
+                            setPageTarget={setPageTarget}
+                        />
+                    </>
+                ) : null}
             </div>
         </>
     );

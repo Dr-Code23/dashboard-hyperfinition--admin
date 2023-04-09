@@ -6,6 +6,7 @@ import AttributeReducer from "./Reducers/AttributeReducer";
 import UnitsReducer from "./Reducers/UnitsReducer";
 import UserReducer from "./Reducers/UserReducer";
 import CategoriesReducer from "./Reducers/CategoriesReducer";
+import SubCategoriesReducer from "./Reducers/SubCategoriesReducer";
 export let Store = configureStore({
     reducer: {
         LoginReducer,
@@ -14,5 +15,6 @@ export let Store = configureStore({
         UnitsReducer,
         UserReducer,
         CategoriesReducer,
+        SubCategoriesReducer,
     },
 });

@@ -54,6 +54,7 @@
         "id": "id",
         "Name": "Name",
         "Email": "Email",
+        "Img": "Img",
         "Rule": "Rule",
         "actions": "actions"
       }
@@ -369,7 +370,7 @@
     }
   },
   "sidBar": {
-    "DashBoard": "Arabic",
+    "DashBoard": "DashBoard",
     "Brand": "Brand",
     "attributes": "attributes",
     "units": "units",
@@ -389,6 +390,9 @@
     "roles": "roles",
     "Logout": "Logout",
     "settings": "settings"
+  },
+  "code_error": {
+    "The_Main_value_Must_be_entered": "The Main value Must be entered !"
   },
   "Language": {
     "English": "English",
