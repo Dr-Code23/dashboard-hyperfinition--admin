@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Api } from "../Api";
-export let AddBrandThunk = createAsyncThunk(
-    "brand/AddBrandThunk",
+export let UpdateCategoriesThunk = createAsyncThunk(
+    "categories/UpdateCategoriesThunk",
     async (arg, ThunkApi) => {
         // console.log(arg);
         const formData = new FormData();
@@ -23,12 +23,10 @@ export let AddBrandThunk = createAsyncThunk(
         let { rejectWithValue } = ThunkApi;
         try {
             let res = await axios.post(
-                `${process.env.REACT_APP_API}/brands`,
+                `${process.env.REACT_APP_API}/parent_categories/${arg?.id}`,
                 formData,
                 config
             );
-            // console.log(res.data);
-
             return res.data;
         } catch (error) {
             // console.log(error.response.data);

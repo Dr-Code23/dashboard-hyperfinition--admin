@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CategoriesBox.css";
 import { styled } from "@mui/material/styles";
@@ -17,6 +17,13 @@ import img from "../../../assets/Img/default.jpg";
 import { PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
 import SwitchBox from "../../SwitchBox/SwitchBox";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { AllCategoriesThunk } from "../../../RTK/Thunk/AllCategoriesThunk";
+import { AddCategoriesThunk } from "../../../RTK/Thunk/AddCategoriesThunk";
+import { closeError } from "../../../RTK/Reducers/CategoriesReducer";
+import { DeleteCategoriesThunk } from "../../../RTK/Thunk/DeleteCategoriesThunk";
+import { CategoriesStatusThunk } from "../../../RTK/Thunk/CategoriesStatusThunk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -38,27 +45,32 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
 const CategoriesBox = () => {
     let navigate = useNavigate();
+    let dispatch = useDispatch();
 
     let { t, i18n } = useTranslation();
     const [value, setValue] = React.useState(0);
+    const [pageTarget, setPageTarget] = useState(1);
+    const [images, setImages] = React.useState([{ data_url: img }]);
+    let {
+        categoriesData,
+        lastPage,
+        avatarError,
+        name_en_Error,
+        name_ar_Error,
+        name_fr_Error,
+    } = useSelector((state) => state.CategoriesReducer);
+    const [inputValue, setInputValue] = React.useState({
+        input_en: "",
+        input_ar: "",
+        input_fr: "",
+    });
+
     //handle input language
-    const handleChange = (event, newValue) => {
+    const handleChange = useCallback((event, newValue) => {
         setValue(newValue);
-    };
+    }, []);
     useEffect(() => {
         if (i18n.language === "en") {
             setValue(0);
@@ -70,10 +82,102 @@ const CategoriesBox = () => {
             setValue(2);
         }
     }, [i18n.language]);
-    const [images, setImages] = React.useState([{ data_url: img }]);
     const onChange = (imageList, addUpdateIndex) => {
         // console.log(imageList, addUpdateIndex);
         setImages(imageList);
+    };
+
+    useEffect(() => {
+        dispatch(AllCategoriesThunk({ page: pageTarget }));
+    }, [dispatch, pageTarget, i18n.language]);
+    //  handle add table
+    // ========== convertImg===============
+    const [imageFile, setImageFile] = useState(null);
+    let convertImage = async (imageUrl) => {
+        if (imageUrl) {
+            let response = await fetch(imageUrl || "", {
+                mode: "no-cors",
+            });
+            let blob = await response.blob();
+
+            let file = new File([blob], "image.jpg", { type: "image/jpeg" });
+            setImageFile(file);
+        }
+
+        // =========
+    };
+    useEffect(() => {
+        if (images[0].data_url !== img) {
+            dispatch(closeError({ type: "img" }));
+            convertImage(images[0].data_url);
+        }
+    }, [images, dispatch]);
+
+    // handle error input
+    // =====en=======
+    useEffect(() => {
+        if (inputValue.input_en) {
+            dispatch(closeError({ type: "en" }));
+        }
+    }, [inputValue.input_en, dispatch]);
+    // =====ar=======
+    useEffect(() => {
+        if (inputValue.input_ar) {
+            dispatch(closeError({ type: "ar" }));
+        }
+    }, [inputValue.input_ar, dispatch]);
+    // =====fr=======
+
+    useEffect(() => {
+        if (inputValue.input_fr) {
+            dispatch(closeError({ type: "fr" }));
+        }
+    }, [inputValue.input_fr, dispatch]);
+    let handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(
+            AddCategoriesThunk({
+                // id: nameBrand?.id,
+                ar: inputValue?.input_ar,
+                en: inputValue?.input_en,
+                fr: inputValue?.input_fr,
+                img: imageFile,
+            })
+        )
+            .unwrap()
+            .then((data) => {
+                // console.log(data);
+                dispatch(AllCategoriesThunk({ page: pageTarget }));
+                setInputValue({
+                    input_en: "",
+                    input_ar: "",
+                    input_fr: "",
+                });
+                setImages([{ data_url: img }]);
+                setImageFile(null);
+            })
+            .catch((error) => {
+                // console.log(error);
+                // setCode(error.code);
+                // handle error here
+            });
+    };
+    // handle Delete Category
+    let handleDeleteCategories = (id) => {
+        dispatch(
+            DeleteCategoriesThunk({
+                id: id,
+            })
+        )
+            .unwrap()
+            .then((data) => {
+                // console.log(data);
+                dispatch(AllCategoriesThunk({ page: pageTarget }));
+            })
+            .catch((error) => {
+                // console.log(error);
+                // handle error here
+            });
     };
     return (
         <>
@@ -81,9 +185,7 @@ const CategoriesBox = () => {
                 <form
                     action=""
                     className="add-box flex  items-start justify-start flex-col px-5 py-[60px]  mb-[40px] add-shadow  "
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                    }}
+                    onSubmit={handleSubmit}
                 >
                     <Tabs
                         value={value}
@@ -108,7 +210,29 @@ const CategoriesBox = () => {
                                 <h6 className="mb-[10px] text-[17px] font-[500] capitalize  ">
                                     {t("pages.CategoriesBox.add.name")}
                                 </h6>
-                                <input type="text" placeholder="Name" />
+                                <input
+                                    type="text"
+                                    value={inputValue?.input_en}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            input_en: e.target.value,
+                                        });
+                                    }}
+                                />
+                                {name_en_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginTop: "20px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {name_en_Error}
+                                    </span>
+                                )}
                             </div>
                             <div
                                 className=" w-full mb-3"
@@ -119,7 +243,29 @@ const CategoriesBox = () => {
                                 <h6 className="mb-[10px] text-[17px] font-[500] capitalize  ">
                                     {t("pages.CategoriesBox.add.name")}
                                 </h6>
-                                <input type="text" placeholder="Name" />
+                                <input
+                                    type="text"
+                                    value={inputValue?.input_ar}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            input_ar: e.target.value,
+                                        });
+                                    }}
+                                />
+                                {name_ar_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginTop: "20px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {name_ar_Error}
+                                    </span>
+                                )}
                             </div>
                             <div
                                 className=" w-full mb-3"
@@ -131,7 +277,29 @@ const CategoriesBox = () => {
                                     {t("pages.CategoriesBox.add.name")}
                                 </h6>
 
-                                <input type="text" placeholder="Name" />
+                                <input
+                                    type="text"
+                                    value={inputValue?.input_fr}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            input_fr: e.target.value,
+                                        });
+                                    }}
+                                />
+                                {name_fr_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginTop: "20px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {name_fr_Error}
+                                    </span>
+                                )}
                             </div>
                         </>
                         <>
@@ -180,6 +348,18 @@ const CategoriesBox = () => {
                                                         onImageUpdate(index)
                                                     }
                                                 />
+                                                {avatarError !== null && (
+                                                    <span
+                                                        style={{
+                                                            width: "100%",
+                                                            color: "red",
+                                                            fontSize: "15px",
+                                                            marginTop: "20px",
+                                                        }}
+                                                    >
+                                                        {avatarError}
+                                                    </span>
+                                                )}
                                             </div>
                                         ))}
                                     </>
@@ -197,104 +377,133 @@ const CategoriesBox = () => {
                         {t("pages.CategoriesBox.add.Submit")}
                     </Button>
                 </form>
-                <TableContainer component={Paper} sx={{ height: "438px" }}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.CategoriesBox.table.id")}
-                                </StyledTableCell>
-
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.CategoriesBox.table.Name")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.CategoriesBox.table.Img")}
-                                </StyledTableCell>
-
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.CategoriesBox.table.Home_Status")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.CategoriesBox.table.actions")}
-                                </StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row, index) => (
-                                <StyledTableRow key={row.name}>
-                                    <StyledTableCell align="center">
-                                        {index + 1}
+                {categoriesData.length && (
+                    <TableContainer component={Paper} sx={{ height: "438px" }}>
+                        <Table
+                            sx={{ minWidth: 700 }}
+                            aria-label="customized table"
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.CategoriesBox.table.id")}
                                     </StyledTableCell>
 
-                                    <StyledTableCell align="center">
-                                        {row.calories}
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.CategoriesBox.table.Name")}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        <Avatar
-                                            alt="Travis Howard"
-                                            className=" mx-auto"
-                                            src="https://mui.com/static/images/avatar/2.jpg"
-                                        />
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.CategoriesBox.table.Img")}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        <div
-                                            data-name="false"
-                                            onClick={(e) => {
-                                                // if (e.currentTarget.dataset.name == 'true') {
-                                                //   console.log('notactive')
-                                                //   e.currentTarget.dataset.name = false
-                                                // }
-                                                // else {
-                                                //   console.log('active')
-                                                //   e.currentTarget.dataset.name = true
-                                                // }
-                                            }}
-                                        >
-                                            <SwitchBox />
-                                        </div>
+
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t(
+                                            "pages.CategoriesBox.table.Home_Status"
+                                        )}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        <div className="action flex items-center justify-center gap-2">
-                                            <IconButton
-                                                id="basic-button"
-                                                onClick={() => {
-                                                    navigate(
-                                                        `/admin/categories/edit/${
-                                                            index + 1
-                                                        }`
-                                                    );
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.CategoriesBox.table.actions")}
+                                    </StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {categoriesData.map((row, index) => (
+                                    <StyledTableRow key={row.id}>
+                                        <StyledTableCell align="center">
+                                            {row.id}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {row.name}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            <Avatar
+                                                alt="Travis Howard"
+                                                className=" mx-auto"
+                                                src={row.img}
+                                            />
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            <div
+                                                data-name={row.status}
+                                                onClick={(e) => {
+                                                    if (
+                                                        e.currentTarget.dataset
+                                                            .name == "true"
+                                                    ) {
+                                                        dispatch(
+                                                            CategoriesStatusThunk(
+                                                                {
+                                                                    id: row.id,
+                                                                    status: false,
+                                                                }
+                                                            )
+                                                        );
+                                                        e.currentTarget.dataset.name = false;
+                                                    } else {
+                                                        dispatch(
+                                                            CategoriesStatusThunk(
+                                                                {
+                                                                    id: row.id,
+                                                                    status: true,
+                                                                }
+                                                            )
+                                                        );
+                                                        e.currentTarget.dataset.name = true;
+                                                    }
                                                 }}
                                             >
-                                                <ModeEdit />
-                                            </IconButton>
+                                                <SwitchBox
+                                                    status={row.status}
+                                                />
+                                            </div>
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            <div className="action flex items-center justify-center gap-2">
+                                                <IconButton
+                                                    id="basic-button"
+                                                    onClick={() => {
+                                                        navigate(
+                                                            `/admin/categories/edit/${row.id}`
+                                                        );
+                                                    }}
+                                                >
+                                                    <ModeEdit />
+                                                </IconButton>
+                                                <IconButton
+                                                    aria-label=""
+                                                    onClick={() => {
+                                                        handleDeleteCategories(
+                                                            row.id
+                                                        );
+                                                    }}
+                                                >
+                                                    <DeleteForever />
+                                                </IconButton>
+                                            </div>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
 
-                                            <IconButton aria-label="">
-                                                <DeleteForever />
-                                            </IconButton>
-                                        </div>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <PaginationBox count={10} />
+                <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
             </div>
         </>
     );

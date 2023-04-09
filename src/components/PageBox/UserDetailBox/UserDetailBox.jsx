@@ -157,6 +157,7 @@ const UserDetailBox = () => {
             }
         }
     }, [formik.values, oneName, oneEmail]);
+
     useEffect(() => {
         dispatch(closeError());
         return () => {

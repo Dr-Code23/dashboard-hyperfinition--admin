@@ -82,10 +82,7 @@ export let Router = createBrowserRouter([
                 path: "categories",
                 element: <Categories />,
             },
-            {
-                path: "categories",
-                element: <Categories />,
-            },
+
             {
                 path: "categories/edit/:editCategories",
                 element: <CategoriesEdit />,

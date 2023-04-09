@@ -1,13 +1,35 @@
 import { Button } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ImageUploading from "react-images-uploading";
 import img from "../../assets/Img/default.jpg";
 import { Tab, Tabs } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { OneCategoriesThunk } from "../../RTK/Thunk/OneCategoriesThunk";
+import { UpdateCategoriesThunk } from "../../RTK/Thunk/UpdateCategoriesThunk";
+import { closeError } from "../../RTK/Reducers/CategoriesReducer";
 
 const CategoriesEdit = () => {
     let { t, i18n } = useTranslation();
+    let dispatch = useDispatch();
+    let param = useParams();
+    let navigate = useNavigate();
+
     const [value, setValue] = React.useState(0);
+    const [inputValue, setInputValue] = React.useState({
+        input_en: "",
+        input_ar: "",
+        input_fr: "",
+    });
+    let {
+        name_en_Error,
+        name_ar_Error,
+        name_fr_Error,
+        avatarError,
+        categoriesName,
+        categoriesImg,
+    } = useSelector((state) => state.CategoriesReducer);
     //handle input language
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -28,15 +50,109 @@ const CategoriesEdit = () => {
         // console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
+
+    // ========== convertImg===============
+    const [imageFile, setImageFile] = useState(null);
+
+    let convertImage = async (imageUrl) => {
+        if (imageUrl) {
+            let response = await fetch(imageUrl || "", {
+                mode: "no-cors",
+            });
+            let blob = await response.blob();
+
+            let file = new File([blob], "image.jpg", { type: "image/jpeg" });
+            setImageFile(file);
+        }
+
+        // =========
+    };
+    useEffect(() => {
+        if (categoriesImg) {
+            // console.log(oneImg);
+            setImages([{ data_url: categoriesImg }]);
+        }
+    }, [categoriesImg]);
+    useEffect(() => {
+        if (
+            images[0].data_url !== img &&
+            images[0].data_url !== categoriesImg
+        ) {
+            convertImage(images[0].data_url);
+        }
+    }, [images, categoriesImg]);
+
+    // handle  on loading data
+    useEffect(() => {
+        if (categoriesName) {
+            setInputValue({
+                input_en: categoriesName?.en,
+                input_ar: categoriesName?.ar,
+                input_fr: categoriesName?.fr,
+            });
+        }
+    }, [categoriesName]);
+    //handle get data
+    useEffect(() => {
+        dispatch(OneCategoriesThunk({ id: param.editCategories }));
+    }, [dispatch, param.editCategories]);
+
+    // handle error input
+    // =====en=======
+    useEffect(() => {
+        if (inputValue.input_en) {
+            dispatch(closeError({ type: "en" }));
+        }
+    }, [inputValue.input_en, dispatch]);
+    // =====ar=======
+    useEffect(() => {
+        if (inputValue.input_ar) {
+            dispatch(closeError({ type: "ar" }));
+        }
+    }, [inputValue.input_ar, dispatch]);
+    // =====fr=======
+    useEffect(() => {
+        if (inputValue.input_fr) {
+            dispatch(closeError({ type: "fr" }));
+        }
+    }, [inputValue.input_fr, dispatch]);
+    useEffect(() => {
+        return () => {
+            dispatch(closeError({ type: "all" }));
+        };
+    }, [dispatch]);
+    //handle  update
+    let handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(
+            UpdateCategoriesThunk({
+                id: param.editCategories,
+                ar: inputValue?.input_ar,
+                en: inputValue?.input_en,
+                fr: inputValue?.input_fr,
+                img: imageFile,
+            })
+        )
+            .unwrap()
+            .then((data) => {
+                // console.log(data);
+
+                setImages([{ data_url: img }]);
+                navigate("/admin/categories/");
+            })
+            .catch((error) => {
+                // console.log(error);
+                // setCode(error.code);
+                // handle error here
+            });
+    };
     return (
         <>
             <div className="p-[20px] mt-[40px]">
                 <form
                     action=""
                     className="add-box flex  items-start justify-start flex-col px-5 py-[60px]  mb-[40px] add-shadow  "
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                    }}
+                    onSubmit={handleSubmit}
                 >
                     <Tabs
                         value={value}
@@ -61,7 +177,29 @@ const CategoriesEdit = () => {
                                 <h6 className="mb-[10px] text-[17px] font-[500] capitalize  ">
                                     {t("pages.CategoriesEdit.add.name")}
                                 </h6>
-                                <input type="text" placeholder="Name" />
+                                <input
+                                    type="text"
+                                    value={inputValue?.input_en}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            input_en: e.target.value,
+                                        });
+                                    }}
+                                />
+                                {name_en_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginTop: "20px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {name_en_Error}
+                                    </span>
+                                )}
                             </div>
                             <div
                                 className=" w-full mb-3"
@@ -72,7 +210,29 @@ const CategoriesEdit = () => {
                                 <h6 className="mb-[10px] text-[17px] font-[500] capitalize  ">
                                     {t("pages.CategoriesEdit.add.name")}
                                 </h6>
-                                <input type="text" placeholder="Name" />
+                                <input
+                                    type="text"
+                                    value={inputValue?.input_ar}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            input_ar: e.target.value,
+                                        });
+                                    }}
+                                />
+                                {name_ar_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginTop: "20px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {name_ar_Error}
+                                    </span>
+                                )}
                             </div>
                             <div
                                 className=" w-full mb-3"
@@ -84,7 +244,29 @@ const CategoriesEdit = () => {
                                     {t("pages.CategoriesEdit.add.name")}
                                 </h6>
 
-                                <input type="text" placeholder="Name" />
+                                <input
+                                    type="text"
+                                    value={inputValue?.input_fr}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            input_fr: e.target.value,
+                                        });
+                                    }}
+                                />
+                                {name_fr_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginTop: "20px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {name_fr_Error}
+                                    </span>
+                                )}
                             </div>
                         </>
                         <>
@@ -133,6 +315,18 @@ const CategoriesEdit = () => {
                                                         onImageUpdate(index)
                                                     }
                                                 />
+                                                {avatarError !== null && (
+                                                    <span
+                                                        style={{
+                                                            width: "100%",
+                                                            color: "red",
+                                                            fontSize: "15px",
+                                                            marginTop: "20px",
+                                                        }}
+                                                    >
+                                                        {avatarError}
+                                                    </span>
+                                                )}
                                             </div>
                                         ))}
                                     </>
