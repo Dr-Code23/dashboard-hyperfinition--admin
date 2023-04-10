@@ -8,7 +8,7 @@ export let SelectSubCategoriesThunk = createAsyncThunk(
         let { rejectWithValue } = ThunkApi;
         try {
             let res = await axios.get(
-                `${process.env.REACT_APP_API}/select_menu/sub_categories/1`,
+                `${process.env.REACT_APP_API}/select_menu/sub_categories/${arg.id}`,
                 Api()
             );
             // console.log(res.data);

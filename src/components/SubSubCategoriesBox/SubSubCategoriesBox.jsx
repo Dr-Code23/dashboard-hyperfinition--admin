@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SubSubCategoriesBox.css";
 import { styled } from "@mui/material/styles";
@@ -30,6 +30,8 @@ import { SelectSubCategoriesThunk } from "../../RTK/Thunk/SelectSubCategoriesThu
 import { useState } from "react";
 import { SubSubCategoriesThunk } from "../../RTK/Thunk/SubSubCategoriesThunk";
 import { DeleteSubCategoriesThunk } from "../../RTK/Thunk/DeleteSubCategoriesThunk";
+import { AddSubSubCategoriesThunk } from "../../RTK/Thunk/AddSubSubCategoriesThunk";
+import { closeError } from "../../RTK/Reducers/SubSubCategoriesReducer";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -112,23 +114,27 @@ const SubSubCategoriesBox = () => {
         }
     }, [i18n.language]);
     // ================================
+    const dataOne = useRef(true);
     useEffect(() => {
-        dispatch(SelectParentCategoriesThunk());
-        dispatch(SelectSubCategoriesThunk());
+        if (dataOne.current) {
+            dispatch(SelectParentCategoriesThunk());
+            dataOne.current = false;
+        }
     }, [dispatch]);
     // ====get table data
     useEffect(() => {
-        if (targetIdSelect.main || targetIdSelect.sub) {
+        if (targetIdSelect.sub !== "") {
             // dispatch(closeError({ type: "select" }));
             dispatch(
                 SubSubCategoriesThunk({
                     sub: targetIdSelect.sub,
-                    main: targetIdSelect.main,
                     page: pageTarget,
                 })
             );
         }
     }, [targetIdSelect, dispatch, pageTarget]);
+    //handle first open page
+
     useEffect(() => {
         if (targetIdSelect.sub == "" && subSelectData.length) {
             setTargetIdSelect({
@@ -143,6 +149,21 @@ const SubSubCategoriesBox = () => {
             });
         }
     }, [mainSelectData, subSelectData, targetIdSelect]);
+
+    useEffect(() => {
+        if (targetIdSelect.main) {
+            dispatch(SelectSubCategoriesThunk({ id: targetIdSelect.main }));
+        }
+    }, [targetIdSelect.main, dispatch]);
+    //     useEffect(() => {
+    //         if (subSubcategoriesData.length) {
+    //  dispatch(
+    //      SubSubCategoriesThunk({
+    //          sub: targetIdSelect.sub,
+    //          page: pageTarget,
+    //      })
+    //  );        }
+    //     }, [, dispatch,]);
 
     // handle Delete sub Category
     let handleDeleteSubCategories = (id) => {
@@ -167,15 +188,67 @@ const SubSubCategoriesBox = () => {
                 // handle error here
             });
     };
+    let handleSubmit = (e) => {
+        e.preventDefault();
+        if (targetIdSelect.main !== "" && targetIdSelect.sub !== "") {
+            dispatch(
+                AddSubSubCategoriesThunk({
+                    // id: nameBrand?.id,
+                    ar: inputValue?.input_ar,
+                    en: inputValue?.input_en,
+                    fr: inputValue?.input_fr,
+                    sub: targetIdSelect.sub,
+                })
+            )
+                .unwrap()
+                .then((data) => {
+                    // console.log(data);
+                    dispatch(
+                        SubSubCategoriesThunk({
+                            sub: targetIdSelect.sub,
+                            page: pageTarget,
+                        })
+                    );
+                    setInputValue({
+                        input_en: "",
+                        input_ar: "",
+                        input_fr: "",
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                    // setCode(error.code);
+                    // handle error here
+                });
+        }
+    };
+    // handle error input
+    // =====en=======
+    useEffect(() => {
+        if (inputValue.input_en) {
+            dispatch(closeError({ type: "en" }));
+        }
+    }, [inputValue.input_en, dispatch]);
+    // =====ar=======
+    useEffect(() => {
+        if (inputValue.input_ar) {
+            dispatch(closeError({ type: "ar" }));
+        }
+    }, [inputValue.input_ar, dispatch]);
+    // =====fr=======
+
+    useEffect(() => {
+        if (inputValue.input_fr) {
+            dispatch(closeError({ type: "fr" }));
+        }
+    }, [inputValue.input_fr, dispatch]);
     return (
         <>
             <div className=" mx-auto px-4  mt-[40px] mb-[160px] ">
                 <form
                     action=""
                     className="add-box flex  items-start justify-start flex-col px-5 py-[60px]  mb-[40px] add-shadow  "
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                    }}
+                    onSubmit={handleSubmit}
                 >
                     <Tabs
                         value={value}
@@ -340,6 +413,20 @@ const SubSubCategoriesBox = () => {
                                         ...targetIdSelect,
                                         main: data[0].id,
                                     });
+                                    // dispatch(
+                                    //     SelectSubCategoriesThunk({
+                                    //         id: targetIdSelect.main,
+                                    //     })
+                                    // )
+                                    //     .unwrap()
+                                    //     .then((data) => {
+                                    //         // console.log(data);
+
+                                    //     })
+                                    //     .catch((error) => {
+                                    //         // setCode(error.code);
+                                    //         // handle error here
+                                    //     });
                                 }
                             }}
                         >
@@ -363,10 +450,7 @@ const SubSubCategoriesBox = () => {
                 </form>
                 {subSubcategoriesData.length ? (
                     <>
-                        <TableContainer
-                            component={Paper}
-                            sx={{ height: "438px" }}
-                        >
+                        <TableContainer component={Paper} className=" !h-fit">
                             <Table
                                 sx={{ minWidth: 700 }}
                                 aria-label="customized table"

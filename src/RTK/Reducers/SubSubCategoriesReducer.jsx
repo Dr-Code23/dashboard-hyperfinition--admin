@@ -7,11 +7,14 @@ import { UpdateSubCategoriesThunk } from "../Thunk/UpdateSubCategoriesThunk";
 import { DeleteSubCategoriesThunk } from "../Thunk/DeleteSubCategoriesThunk";
 import { SelectSubCategoriesThunk } from "../Thunk/SelectSubCategoriesThunk";
 import { SubSubCategoriesThunk } from "../Thunk/SubSubCategoriesThunk";
+import { AddSubSubCategoriesThunk } from "../Thunk/AddSubSubCategoriesThunk";
+import { OneSubSubCategoriesThunk } from "../Thunk/OneSubSubCategoriesThunk";
+import { UpdateSubSubCategoriesThunk } from "../Thunk/UpdateSubSubCategoriesThunk";
 
 let initState = {
     code: null,
     subSubcategoriesData: [],
-    subcategoriesName: {},
+    subSubcategoriesName: {},
     currentPage: 1,
     lastPage: 1,
     categoriesImg: "",
@@ -42,7 +45,7 @@ let SubSubCategoriesReducer = createSlice({
                 state.selectError = null;
             }
             if (action.payload.type === "all") {
-                state.subcategoriesName = {};
+                state.subSubcategoriesName = {};
                 state.name_fr_Error = null;
                 state.name_ar_Error = null;
                 state.name_en_Error = null;
@@ -73,7 +76,32 @@ let SubSubCategoriesReducer = createSlice({
             .addCase(SelectSubCategoriesThunk.fulfilled, (state, action) => {
                 state.subSelectData = action.payload.data;
             })
-            .addCase(SelectSubCategoriesThunk.rejected, (state, action) => {});
+            .addCase(SelectSubCategoriesThunk.rejected, (state, action) => {})
+            // =======AddSubSubCategoriesThunk===========
+
+            .addCase(AddSubSubCategoriesThunk.fulfilled, (state, action) => {})
+            .addCase(AddSubSubCategoriesThunk.rejected, (state, action) => {
+                state.name_en_Error = action.payload?.data?.["name.en"];
+                state.name_ar_Error = action.payload?.data?.["name.ar"];
+                state.name_fr_Error = action.payload?.data?.["name.fr"];
+                state.selectError = action.payload?.data?.parent_id;
+            })
+            // =======OneSubSubCategoriesThunk===========
+            .addCase(OneSubSubCategoriesThunk.fulfilled, (state, action) => {
+                state.subSubcategoriesName = action.payload.data.name;
+            })
+            .addCase(OneSubSubCategoriesThunk.rejected, (state, action) => {})
+            // =======UpdateSubCategoriesThunk===========
+
+            .addCase(
+                UpdateSubSubCategoriesThunk.fulfilled,
+                (state, action) => {}
+            )
+            .addCase(UpdateSubSubCategoriesThunk.rejected, (state, action) => {
+                state.name_en_Error = action.payload?.data?.["name.en"];
+                state.name_ar_Error = action.payload?.data?.["name.ar"];
+                state.name_fr_Error = action.payload?.data?.["name.fr"];
+            });
     },
 });
 

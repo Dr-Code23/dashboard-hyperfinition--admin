@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import { Tab, Tabs } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { OneSubCategoriesThunk } from "../../RTK/Thunk/OneSubCategoriesThunk";
-import { UpdateSubCategoriesThunk } from "../../RTK/Thunk/UpdateSubCategoriesThunk";
-import { closeError } from "../../RTK/Reducers/SubCategoriesReducer";
+import { OneSubSubCategoriesThunk } from "../../RTK/Thunk/OneSubSubCategoriesThunk";
+import { UpdateSubSubCategoriesThunk } from "../../RTK/Thunk/UpdateSubSubCategoriesThunk";
+import { closeError } from "../../RTK/Reducers/SubSubCategoriesReducer";
 
 const SubCategoriesEdit = () => {
     let { t, i18n } = useTranslation();
@@ -15,8 +15,8 @@ const SubCategoriesEdit = () => {
     let navigate = useNavigate();
 
     let param = useParams();
-    let { subcategoriesName, name_en_Error, name_ar_Error, name_fr_Error } =
-        useSelector((state) => state.SubCategoriesReducer);
+    let { subSubcategoriesName, name_en_Error, name_ar_Error, name_fr_Error } =
+        useSelector((state) => state.SubSubCategoriesReducer);
     const [inputValue, setInputValue] = React.useState({
         input_en: "",
         input_ar: "",
@@ -38,79 +38,79 @@ const SubCategoriesEdit = () => {
         }
     }, [i18n.language]);
     // // ======= get data============
-    // useEffect(() => {
-    //     dispatch(
-    //         OneSubCategoriesThunk({
-    //             main_id: param.idMainCategories,
-    //             sub_id: param.editSub,
-    //         })
-    //     );
-    // }, [param.idMainCategories, param.editSub, dispatch]);
-    // useEffect(() => {
-    //     if (subcategoriesName) {
-    //         setInputValue({
-    //             input_en: subcategoriesName?.en,
-    //             input_ar: subcategoriesName?.ar,
-    //             input_fr: subcategoriesName?.fr,
-    //         });
-    //     }
-    // }, [subcategoriesName]);
+    useEffect(() => {
+        dispatch(
+            OneSubSubCategoriesThunk({
+                sub: param.editSub,
+                sub_sub: param.SubSub,
+            })
+        );
+    }, [param.SubSub, param.editSub, dispatch]);
+    useEffect(() => {
+        if (subSubcategoriesName) {
+            setInputValue({
+                input_en: subSubcategoriesName?.en,
+                input_ar: subSubcategoriesName?.ar,
+                input_fr: subSubcategoriesName?.fr,
+            });
+        }
+    }, [subSubcategoriesName]);
     // // handle error input
     // // =====en=======
-    // useEffect(() => {
-    //     if (inputValue.input_en) {
-    //         dispatch(closeError({ type: "en" }));
-    //     }
-    // }, [inputValue.input_en, dispatch]);
-    // // =====ar=======
-    // useEffect(() => {
-    //     if (inputValue.input_ar) {
-    //         dispatch(closeError({ type: "ar" }));
-    //     }
-    // }, [inputValue.input_ar, dispatch]);
-    // // =====fr=======
+    useEffect(() => {
+        if (inputValue.input_en) {
+            dispatch(closeError({ type: "en" }));
+        }
+    }, [inputValue.input_en, dispatch]);
+    // =====ar=======
+    useEffect(() => {
+        if (inputValue.input_ar) {
+            dispatch(closeError({ type: "ar" }));
+        }
+    }, [inputValue.input_ar, dispatch]);
+    // =====fr=======
 
-    // useEffect(() => {
-    //     if (inputValue.input_fr) {
-    //         dispatch(closeError({ type: "fr" }));
-    //     }
-    // }, [inputValue.input_fr, dispatch]);
-    // useEffect(() => {
-    //     return () => {
-    //         dispatch(closeError({ type: "all" }));
-    //     };
-    // }, [dispatch]);
+    useEffect(() => {
+        if (inputValue.input_fr) {
+            dispatch(closeError({ type: "fr" }));
+        }
+    }, [inputValue.input_fr, dispatch]);
+    useEffect(() => {
+        return () => {
+            dispatch(closeError({ type: "all" }));
+        };
+    }, [dispatch]);
     // //handle  update
-    // let handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     dispatch(
-    //         UpdateSubCategoriesThunk({
-    //             ar: inputValue?.input_ar,
-    //             en: inputValue?.input_en,
-    //             fr: inputValue?.input_fr,
-    //             main_id: param.idMainCategories,
-    //             sub_id: param.editSub,
-    //         })
-    //     )
-    //         .unwrap()
-    //         .then((data) => {
-    //             // console.log(data);
+    let handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(
+            UpdateSubSubCategoriesThunk({
+                ar: inputValue?.input_ar,
+                en: inputValue?.input_en,
+                fr: inputValue?.input_fr,
+                sub: param.editSub,
+                sub_sub: param.SubSub,
+            })
+        )
+            .unwrap()
+            .then((data) => {
+                // console.log(data);
 
-    //             navigate("/admin/categories/sub");
-    //         })
-    //         .catch((error) => {
-    //             // console.log(error);
-    //             // setCode(error.code);
-    //             // handle error here
-    //         });
-    // };
+                navigate("/admin/categories/sub_sub");
+            })
+            .catch((error) => {
+                // console.log(error);
+                // setCode(error.code);
+                // handle error here
+            });
+    };
     return (
         <>
             <div className="p-[20px] mt-[40px]">
                 <form
                     action=""
                     className="add-box flex  items-start justify-start flex-col px-5 py-[60px]  mb-[40px] add-shadow  "
-                    // onSubmit={handleSubmit}
+                    onSubmit={handleSubmit}
                 >
                     <Tabs
                         value={value}
