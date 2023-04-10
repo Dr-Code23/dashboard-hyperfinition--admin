@@ -26,6 +26,7 @@ import {
     SubCategoriesEdit,
     SubSubCategoriesBox,
     UserAddBox,
+    SubSubCategoriesEdit,
 } from "../components";
 import CategoriesEdit from "../components/CategoriesEdit/CategoriesEdit";
 import Attributes from "./Pages/Attributes";
@@ -101,8 +102,8 @@ export let Router = createBrowserRouter([
                 element: <SubSubCategoriesBox />,
             },
             {
-                path: "categories/sub_sub/edit/:editSub",
-                element: <SubCategoriesEdit />,
+                path: "categories/sub_sub/edit/:editSub/:SubSub",
+                element: <SubSubCategoriesEdit />,
             },
             {
                 path: "product",

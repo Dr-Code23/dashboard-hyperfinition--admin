@@ -26,6 +26,12 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { SelectParentCategoriesThunk } from "../../RTK/Thunk/SelectParentCategoriesThunk";
 import { SubCategoriesThunk } from "../../RTK/Thunk/SubCategoriesThunk";
+import { AddSubCategoriesThunk } from "../../RTK/Thunk/AddSubCategoriesThunk";
+import {
+    closeError,
+    removeCategoriesData,
+} from "../../RTK/Reducers/SubCategoriesReducer";
+import { DeleteSubCategoriesThunk } from "../../RTK/Thunk/DeleteSubCategoriesThunk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -47,18 +53,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-let selectData = ["name", "email", "pass"];
 const SubCategoriesBox = () => {
     let navigate = useNavigate();
     let dispatch = useDispatch();
@@ -110,6 +104,8 @@ const SubCategoriesBox = () => {
 
     useEffect(() => {
         if (age !== 0) {
+            dispatch(closeError({ type: "select" }));
+
             dispatch(
                 SubCategoriesThunk({
                     id: age,
@@ -118,16 +114,93 @@ const SubCategoriesBox = () => {
             );
         }
     }, [age, dispatch, pageTarget]);
+    // handle error input
+    // =====en=======
+    useEffect(() => {
+        if (inputValue.input_en) {
+            dispatch(closeError({ type: "en" }));
+        }
+    }, [inputValue.input_en, dispatch]);
+    // =====ar=======
+    useEffect(() => {
+        if (inputValue.input_ar) {
+            dispatch(closeError({ type: "ar" }));
+        }
+    }, [inputValue.input_ar, dispatch]);
+    // =====fr=======
 
+    useEffect(() => {
+        if (inputValue.input_fr) {
+            dispatch(closeError({ type: "fr" }));
+        }
+    }, [inputValue.input_fr, dispatch]);
+    // ======submit=========
+    let handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(
+            AddSubCategoriesThunk({
+                // id: nameBrand?.id,
+                ar: inputValue?.input_ar,
+                en: inputValue?.input_en,
+                fr: inputValue?.input_fr,
+                parent_id: age === 0 ? null : age,
+            })
+        )
+            .unwrap()
+            .then((data) => {
+                // console.log(data);
+                dispatch(
+                    SubCategoriesThunk({
+                        id: age,
+                        page: pageTarget,
+                    })
+                );
+                setInputValue({
+                    input_en: "",
+                    input_ar: "",
+                    input_fr: "",
+                });
+            })
+            .catch((error) => {
+                // console.log(error);
+                // setCode(error.code);
+                // handle error here
+            });
+    };
+    useEffect(() => {
+        return () => {
+            dispatch(removeCategoriesData());
+        };
+    }, [dispatch]);
+    // handle Delete sub Category
+    let handleDeleteSubCategories = (id) => {
+        dispatch(
+            DeleteSubCategoriesThunk({
+                id: id,
+            })
+        )
+            .unwrap()
+            .then((data) => {
+                // console.log(data);
+                dispatch(
+                    SubCategoriesThunk({
+                        id: age,
+                        page: pageTarget,
+                    })
+                );
+            })
+            .catch((error) => {
+                // console.log(error);
+                // handle error here
+            });
+    };
     return (
         <>
             <div className=" mx-auto px-4  mt-[40px] mb-[160px] ">
                 <form
                     action=""
                     className="add-box flex  items-start justify-start flex-col px-5 py-[60px]  mb-[40px] add-shadow  "
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                    }}
+                    onSubmit={handleSubmit}
                 >
                     <Tabs
                         value={value}
@@ -266,7 +339,11 @@ const SubCategoriesBox = () => {
                                 >
                                     {mainSelectData.map((el, index) => {
                                         return (
-                                            <MenuItem value={el.id} key={el.id}>
+                                            <MenuItem
+                                                value={el.id}
+                                                key={el.id}
+                                                className="ssssssssssss"
+                                            >
                                                 {el.name}
                                             </MenuItem>
                                         );
@@ -358,7 +435,14 @@ const SubCategoriesBox = () => {
                                                     >
                                                         <ModeEdit />
                                                     </IconButton>
-                                                    <IconButton aria-label="">
+                                                    <IconButton
+                                                        aria-label=""
+                                                        onClick={() => {
+                                                            handleDeleteSubCategories(
+                                                                row.id
+                                                            );
+                                                        }}
+                                                    >
                                                         <DeleteForever />
                                                     </IconButton>
                                                 </div>

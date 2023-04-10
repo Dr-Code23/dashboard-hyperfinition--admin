@@ -73,6 +73,10 @@ h6 {
     outline: none !important;
 }
 
+/* .select-box ul {
+    max-height: 300px;
+} */
+
 /* ::-webkit-scrollbar {
     width: 8px;
 }

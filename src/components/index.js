@@ -44,5 +44,6 @@ export { default as RolesBox } from "./PageBox/RolesBox/RolesBox.jsx";
 export { default as SettingsBox } from "./PageBox/settingsBox/settingsBox.jsx";
 export { default as UserAddBox } from "./PageBox/UserAddBox/UserAddBox.jsx";
 export { default as HandleMessage } from "./HandleMessage/HandleMessage.jsx";
+export { default as SubSubCategoriesEdit } from "./SubSubCategoriesEdit/SubSubCategoriesEdit.jsx";
 
 // ProjectPayment

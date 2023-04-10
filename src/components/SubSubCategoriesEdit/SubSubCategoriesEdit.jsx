@@ -37,80 +37,80 @@ const SubCategoriesEdit = () => {
             setValue(2);
         }
     }, [i18n.language]);
-    // ======= get data============
-    useEffect(() => {
-        dispatch(
-            OneSubCategoriesThunk({
-                main_id: param.idMainCategories,
-                sub_id: param.editSub,
-            })
-        );
-    }, [param.idMainCategories, param.editSub, dispatch]);
-    useEffect(() => {
-        if (subcategoriesName) {
-            setInputValue({
-                input_en: subcategoriesName?.en,
-                input_ar: subcategoriesName?.ar,
-                input_fr: subcategoriesName?.fr,
-            });
-        }
-    }, [subcategoriesName]);
-    // handle error input
-    // =====en=======
-    useEffect(() => {
-        if (inputValue.input_en) {
-            dispatch(closeError({ type: "en" }));
-        }
-    }, [inputValue.input_en, dispatch]);
-    // =====ar=======
-    useEffect(() => {
-        if (inputValue.input_ar) {
-            dispatch(closeError({ type: "ar" }));
-        }
-    }, [inputValue.input_ar, dispatch]);
-    // =====fr=======
+    // // ======= get data============
+    // useEffect(() => {
+    //     dispatch(
+    //         OneSubCategoriesThunk({
+    //             main_id: param.idMainCategories,
+    //             sub_id: param.editSub,
+    //         })
+    //     );
+    // }, [param.idMainCategories, param.editSub, dispatch]);
+    // useEffect(() => {
+    //     if (subcategoriesName) {
+    //         setInputValue({
+    //             input_en: subcategoriesName?.en,
+    //             input_ar: subcategoriesName?.ar,
+    //             input_fr: subcategoriesName?.fr,
+    //         });
+    //     }
+    // }, [subcategoriesName]);
+    // // handle error input
+    // // =====en=======
+    // useEffect(() => {
+    //     if (inputValue.input_en) {
+    //         dispatch(closeError({ type: "en" }));
+    //     }
+    // }, [inputValue.input_en, dispatch]);
+    // // =====ar=======
+    // useEffect(() => {
+    //     if (inputValue.input_ar) {
+    //         dispatch(closeError({ type: "ar" }));
+    //     }
+    // }, [inputValue.input_ar, dispatch]);
+    // // =====fr=======
 
-    useEffect(() => {
-        if (inputValue.input_fr) {
-            dispatch(closeError({ type: "fr" }));
-        }
-    }, [inputValue.input_fr, dispatch]);
-    useEffect(() => {
-        return () => {
-            dispatch(closeError({ type: "all" }));
-        };
-    }, [dispatch]);
-    //handle  update
-    let handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(
-            UpdateSubCategoriesThunk({
-                ar: inputValue?.input_ar,
-                en: inputValue?.input_en,
-                fr: inputValue?.input_fr,
-                main_id: param.idMainCategories,
-                sub_id: param.editSub,
-            })
-        )
-            .unwrap()
-            .then((data) => {
-                // console.log(data);
+    // useEffect(() => {
+    //     if (inputValue.input_fr) {
+    //         dispatch(closeError({ type: "fr" }));
+    //     }
+    // }, [inputValue.input_fr, dispatch]);
+    // useEffect(() => {
+    //     return () => {
+    //         dispatch(closeError({ type: "all" }));
+    //     };
+    // }, [dispatch]);
+    // //handle  update
+    // let handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     dispatch(
+    //         UpdateSubCategoriesThunk({
+    //             ar: inputValue?.input_ar,
+    //             en: inputValue?.input_en,
+    //             fr: inputValue?.input_fr,
+    //             main_id: param.idMainCategories,
+    //             sub_id: param.editSub,
+    //         })
+    //     )
+    //         .unwrap()
+    //         .then((data) => {
+    //             // console.log(data);
 
-                navigate("/admin/categories/sub");
-            })
-            .catch((error) => {
-                // console.log(error);
-                // setCode(error.code);
-                // handle error here
-            });
-    };
+    //             navigate("/admin/categories/sub");
+    //         })
+    //         .catch((error) => {
+    //             // console.log(error);
+    //             // setCode(error.code);
+    //             // handle error here
+    //         });
+    // };
     return (
         <>
             <div className="p-[20px] mt-[40px]">
                 <form
                     action=""
                     className="add-box flex  items-start justify-start flex-col px-5 py-[60px]  mb-[40px] add-shadow  "
-                    onSubmit={handleSubmit}
+                    // onSubmit={handleSubmit}
                 >
                     <Tabs
                         value={value}

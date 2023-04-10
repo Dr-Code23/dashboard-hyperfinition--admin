@@ -133,6 +133,7 @@ const CategoriesBox = () => {
             dispatch(closeError({ type: "fr" }));
         }
     }, [inputValue.input_fr, dispatch]);
+
     let handleSubmit = (e) => {
         e.preventDefault();
         dispatch(
