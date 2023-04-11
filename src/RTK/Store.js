@@ -8,6 +8,9 @@ import UserReducer from "./Reducers/UserReducer";
 import CategoriesReducer from "./Reducers/CategoriesReducer";
 import SubCategoriesReducer from "./Reducers/SubCategoriesReducer";
 import SubSubCategoriesReducer from "./Reducers/SubSubCategoriesReducer";
+import ContactReducer from "./Reducers/ContactReducer";
+import SettingReducer from "./Reducers/SettingReducer";
+import ProfileReducer from "./Reducers/ProfileReducer";
 export let Store = configureStore({
     reducer: {
         LoginReducer,
@@ -18,5 +21,8 @@ export let Store = configureStore({
         CategoriesReducer,
         SubCategoriesReducer,
         SubSubCategoriesReducer,
+        ContactReducer,
+        SettingReducer,
+        ProfileReducer,
     },
 });

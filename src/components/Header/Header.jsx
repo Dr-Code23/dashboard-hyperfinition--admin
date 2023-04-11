@@ -19,11 +19,13 @@ import { useTranslation } from "react-i18next";
 import EnImg from "../../assets/Img/en.jpg";
 import ArImg from "../../assets/Img/ar.jpg";
 import FrImg from "../../assets/Img/fr.jpg";
+import { useEffect } from "react";
 const Header = ({ drawerWidth, handleDrawerToggle }) => {
     let { t, i18n } = useTranslation();
     let Navigate = useNavigate();
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [userImg, setUserImg] = React.useState("");
     const [languageTarget, setLanguageTarget] = React.useState(null);
     const [imgTarget, setImgTarget] = React.useState(
         localStorage.getItem("language") === "en"
@@ -39,6 +41,9 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
         Navigate("/");
     }, [Navigate]);
 
+    // useEffect(() => {
+    //     setUserImg(localStorage.getItem("avatar"));
+    // }, [localStorage.getItem("avatar")]);
     return (
         <>
             <AppBar
@@ -182,7 +187,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                             >
                                 <Avatar
                                     alt="Remy Sharp"
-                                    src="https://mui.com/static/images/avatar/2.jpg"
+                                    src={localStorage.getItem("avatar")}
                                 />
                             </IconButton>
 

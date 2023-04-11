@@ -125,12 +125,11 @@ const UserAddBox = () => {
 
     useEffect(() => {
         dispatch(closeError());
-  return () => {
-      dispatch(closeError());
-  };    }, [formik.values, dispatch]);
-    // fathty@gmail.com
-    // fathy said athy
-    // F00x505050@
+        return () => {
+            dispatch(closeError());
+        };
+    }, [formik.values, dispatch]);
+
     return (
         <>
             <div className="user-detail container">

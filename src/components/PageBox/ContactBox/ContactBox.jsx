@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -21,6 +21,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { PaginationBox } from "../../index";
 import "./ContactBox.css";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { ContactThunk } from "../../../RTK/Thunk/ContactThunk";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -54,89 +56,105 @@ const rows = [
 ];
 
 const ContactBox = () => {
+    const navigate = useNavigate();
+    let dispatch = useDispatch();
+    let { t, i18n } = useTranslation();
+    let { contactData, lastPage } = useSelector(
+        (state) => state.ContactReducer
+    );
+    const [pageTarget, setPageTarget] = useState(1);
+    const [messageData, setMessageData] = useState("");
     const [openCt, setOpenCt] = React.useState(false);
     const handleClose = useCallback(() => {
         setOpenCt(false);
     }, [setOpenCt]);
     // ================
-    const navigate = useNavigate();
-    let { t, i18n } = useTranslation();
+    useEffect(() => {
+        dispatch(ContactThunk({ page: pageTarget }));
+    }, [dispatch, pageTarget, i18n.language]);
 
     return (
         <>
             <div className=" mx-auto px-4  mt-[40px]">
-                <div className="flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 "></div>
-                <TableContainer component={Paper} sx={{ height: "338px" }}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ContactBox.table.id")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ContactBox.table.Name")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ContactBox.table.Email")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ContactBox.table.Phone")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ContactBox.table.actions")}
-                                </StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row, index) => (
-                                <StyledTableRow key={row.name}>
-                                    <StyledTableCell align="center">
-                                        {index + 1}
+                {contactData.length ? (
+                    <TableContainer component={Paper} sx={{ height: "424px" }}>
+                        <Table
+                            sx={{ minWidth: 700 }}
+                            aria-label="customized table"
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.ContactBox.table.id")}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.ContactBox.table.Name")}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.ContactBox.table.Email")}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.ContactBox.table.Phone")}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        <div className="action flex items-center justify-center gap-2">
-                                            <IconButton
-                                                aria-label=""
-                                                onClick={() => {
-                                                    setOpenCt(true);
-                                                }}
-                                            >
-                                                <InfoOutlined />
-                                            </IconButton>
-                                        </div>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.ContactBox.table.actions")}
                                     </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {contactData.map((row, index) => (
+                                    <StyledTableRow key={row.id}>
+                                        <StyledTableCell align="center">
+                                            {row.id}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {row.name}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {row.email}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {row.phone}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            <div className="action flex items-center justify-center gap-2">
+                                                <IconButton
+                                                    aria-label=""
+                                                    onClick={() => {
+                                                        setOpenCt(true);
+                                                        setMessageData(
+                                                            row.message
+                                                        );
+                                                    }}
+                                                >
+                                                    <InfoOutlined />
+                                                </IconButton>
+                                            </div>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                ) : null}
             </div>
 
-            <PaginationBox count={10} />
+            <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
             <>
                 <Modal
                     open={openCt}
@@ -150,6 +168,7 @@ const ContactBox = () => {
                                 aria-label=""
                                 onClick={() => {
                                     setOpenCt(false);
+                                    setMessageData("");
                                 }}
                                 className="close-modal"
                             >
@@ -159,12 +178,7 @@ const ContactBox = () => {
                                 {t("pages.ContactBox.table.Message_Modal")}:
                             </h4>
                             <p className=" w-full text-start  text-[17px]  font-medium">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Repellendus nostrum minima
-                                harum blanditiis ab molestias aspernatur culpa
-                                cupiditate corrupti! Saepe commodi accusamus,
-                                facere quos ducimus ex quam optio officia
-                                adipisci?
+                                {messageData}
                             </p>
                         </div>
                     </Box>
