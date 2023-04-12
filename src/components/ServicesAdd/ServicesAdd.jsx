@@ -11,11 +11,9 @@ let selectData = ["name", "email", "pass"];
 const ServicesAdd = () => {
     let { t, i18n } = useTranslation();
     const [value, setValue] = React.useState(0);
-    const [images, setImages] = React.useState([]);
+    const [images, setImages] = React.useState([{ data_url: img }]);
 
-    // useEffect(() => {
-    //   setImages([{ data_url: editData.img }])
-    // }, [editData.img]);
+
     const onChange = (imageList, addUpdateIndex) => {
         // console.log(imageList, addUpdateIndex);
         setImages(imageList);
@@ -239,7 +237,7 @@ const ServicesAdd = () => {
                                                             <img
                                                                 src={
                                                                     image[
-                                                                        "data_url"
+                                                                    "data_url"
                                                                     ]
                                                                 }
                                                                 className=" rounded-[6px]  w-full cursor-pointer object-cover !aspect-square	"

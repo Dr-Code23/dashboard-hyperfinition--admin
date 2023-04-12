@@ -1,13 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./AboutBox.css";
 import ImageUploading from "react-images-uploading";
 import img from "../../../assets/Img/default.jpg";
 import { Tab, Tabs, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { OneAboutThunk } from "../../../RTK/Thunk/OneAboutThunk";
+import { closeAbout, closeError } from "../../../RTK/Reducers/AboutReducer";
+import { UpdateAboutThunk } from "../../../RTK/Thunk/UpdateAboutThunk";
 const AboutBox = () => {
     const [images, setImages] = React.useState([{ data_url: img }]);
     let { t, i18n } = useTranslation();
+    let dispatch = useDispatch();
+
     const [value, setValue] = React.useState(0);
+    const [inputValue, setInputValue] = useState({
+        name_en: "",
+        name_ar: "",
+        name_fr: "",
+        desc_en: "",
+        desc_ar: "",
+        desc_fr: "",
+    });
+
+    let { oneImg,
+        nameError_en,
+        nameError_ar,
+        nameError_fr,
+        descError_en,
+        descError_ar,
+        descError_fr,
+        avatarError,
+        oneAbout } = useSelector(
+            (state) => state.AboutReducer
+        );
     //handle input language
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -27,11 +53,112 @@ const AboutBox = () => {
         // console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
+    // ============= handle get data user================
+    // console.log(!!oneAbout);
+
+
+    useEffect(() => {
+
+        dispatch(closeError());
+
+    }, [dispatch, inputValue]);
+    useEffect(() => {
+        return () => {
+            dispatch(closeError());
+
+
+        }
+
+    }, []);
+    useEffect(() => {
+        if (oneAbout == "") {
+            dispatch(OneAboutThunk());
+        }
+    }, [dispatch, oneAbout]);
+    useEffect(() => {
+        return () => {
+            dispatch(closeAbout());
+        };
+    }, [dispatch]);
+
+    // handle input value
+    useEffect(() => {
+        if (oneAbout) {
+            setInputValue({
+                name_en: oneAbout?.name?.en,
+                name_ar: oneAbout?.name?.ar,
+                name_fr: oneAbout?.name?.fr,
+                desc_en: oneAbout?.description?.en,
+                desc_ar: oneAbout?.description?.ar,
+                desc_fr: oneAbout?.description?.fr,
+            });
+        }
+    }, [oneAbout]);
+    // ========== convertImg===============
+    const [imageFile, setImageFile] = useState(null);
+
+    let convertImage = async (imageUrl) => {
+        if (imageUrl) {
+            let response = await fetch(imageUrl || "", {
+                mode: "no-cors",
+            });
+            let blob = await response.blob();
+
+            let file = new File([blob], "image.jpg", { type: "image/jpeg" });
+            setImageFile(file);
+        }
+
+        // =========
+    };
+    // handle img value on loading
+    useEffect(() => {
+        if (oneImg) {
+            // console.log(oneImg);
+            setImages([{ data_url: oneImg }]);
+        }
+    }, [oneImg]);
+    // handle img fil value on change
+
+    useEffect(() => {
+        if (images[0].data_url !== img && images[0].data_url !== oneImg) {
+            convertImage(images[0].data_url);
+        }
+    }, [images, oneImg]);
+
+    let handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(
+            UpdateAboutThunk({
+                name: {
+                    en: inputValue.name_en,
+                    ar: inputValue.name_ar,
+                    fr: inputValue.name_fr,
+                },
+                desc: {
+                    en: inputValue.desc_en,
+                    ar: inputValue.desc_ar,
+                    fr: inputValue.desc_fr,
+                },
+                img: imageFile,
+            })
+        )
+            .unwrap()
+            .then((data) => {
+                // console.log(data);
+            })
+            .catch((error) => {
+                // console.log(error);
+                //    setCode(error.code);
+            });
+    };
     return (
         <>
             <div className="p-[20px] my-[60px]">
                 <div className="about-box add-box w-full flex justify-center add-shadow  items-center h-full py-[40px] px-[20px]">
-                    <form className="box  flex justify-start gap-[40px] items-center flex-col  w-full max-w-[750px]  h-full p-[20px]">
+                    <form
+                        className="box  flex justify-start gap-[40px] items-center flex-col  w-full max-w-[750px]  h-full p-[20px]"
+                        onSubmit={handleSubmit}
+                    >
                         <div className="flex justify-start w-full items-start  mt-[40px] ">
                             <Tabs
                                 value={value}
@@ -63,13 +190,57 @@ const AboutBox = () => {
                                     <h6 className=" text-[17px] font-[500] capitalize  ">
                                         {t("pages.AboutBox.Title")}
                                     </h6>
-                                    <input type="text" className=" mb-[20px]" />
+                                    <input
+                                        type="text"
+                                        className=" mb-[20px]"
+                                        value={inputValue?.name_en}
+                                        onChange={(e) => {
+                                            setInputValue({
+                                                ...inputValue,
+                                                name_en: e.target.value,
+                                            });
+                                        }}
+                                    /> {nameError_en !== null && (
+                                        <span
+                                            style={{
+                                                width: "100%",
+                                                color: "red",
+                                                fontSize: "15px",
+                                                marginTop: "0px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            {nameError_en}
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="flex justify-start w-full items-start  flex-col gap-[15px]">
                                     <h6 className=" text-[17px] font-[500] capitalize  ">
                                         {t("pages.AboutBox.Description")}
                                     </h6>
-                                    <textarea className="min-h-[150px]"></textarea>
+                                    <textarea
+                                        className="min-h-[150px]"
+                                        value={inputValue?.desc_en}
+                                        onChange={(e) => {
+                                            setInputValue({
+                                                ...inputValue,
+                                                desc_en: e.target.value,
+                                            });
+                                        }}
+                                    ></textarea>
+                                    {descError_en !== null && (
+                                        <span
+                                            style={{
+                                                width: "100%",
+                                                color: "red",
+                                                fontSize: "15px",
+                                                marginTop: "0px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            {descError_en}
+                                        </span>
+                                    )}
                                 </div>
                             </>
                         </div>
@@ -82,13 +253,58 @@ const AboutBox = () => {
                                     <h6 className=" text-[17px] font-[500] capitalize  ">
                                         {t("pages.AboutBox.Title")}
                                     </h6>
-                                    <input type="text" className=" mb-[20px]" />
+                                    <input
+                                        type="text"
+                                        className=" mb-[20px]"
+                                        value={inputValue?.name_ar}
+                                        onChange={(e) => {
+                                            setInputValue({
+                                                ...inputValue,
+                                                name_ar: e.target.value,
+                                            });
+                                        }}
+                                    />
+                                    {nameError_ar !== null && (
+                                        <span
+                                            style={{
+                                                width: "100%",
+                                                color: "red",
+                                                fontSize: "15px",
+                                                marginTop: "0px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            {nameError_ar}
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="flex justify-start w-full items-start  flex-col gap-[15px]">
                                     <h6 className=" text-[17px] font-[500] capitalize  ">
                                         {t("pages.AboutBox.Description")}
                                     </h6>
-                                    <textarea className="min-h-[150px]"></textarea>
+                                    <textarea
+                                        className="min-h-[150px]"
+                                        value={inputValue?.desc_ar}
+                                        onChange={(e) => {
+                                            setInputValue({
+                                                ...inputValue,
+                                                desc_ar: e.target.value,
+                                            });
+                                        }}
+                                    ></textarea>
+                                    {descError_ar !== null && (
+                                        <span
+                                            style={{
+                                                width: "100%",
+                                                color: "red",
+                                                fontSize: "15px",
+                                                marginTop: "0px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            {descError_ar}
+                                        </span>
+                                    )}
                                 </div>
                             </>
                         </div>
@@ -101,13 +317,58 @@ const AboutBox = () => {
                                     <h6 className=" text-[17px] font-[500] capitalize  ">
                                         {t("pages.AboutBox.Title")}
                                     </h6>
-                                    <input type="text" className=" mb-[20px]" />
+                                    <input
+                                        type="text"
+                                        className=" mb-[20px]"
+                                        value={inputValue?.name_fr}
+                                        onChange={(e) => {
+                                            setInputValue({
+                                                ...inputValue,
+                                                name_fr: e.target.value,
+                                            });
+                                        }}
+                                    />
+                                    {nameError_fr !== null && (
+                                        <span
+                                            style={{
+                                                width: "100%",
+                                                color: "red",
+                                                fontSize: "15px",
+                                                marginTop: "0px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            {nameError_fr}
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="flex justify-start w-full items-start  flex-col gap-[15px]">
                                     <h6 className=" text-[17px] font-[500] capitalize  ">
                                         {t("pages.AboutBox.Description")}
                                     </h6>
-                                    <textarea className="min-h-[150px]"></textarea>
+                                    <textarea
+                                        className="min-h-[150px]"
+                                        value={inputValue?.desc_fr}
+                                        onChange={(e) => {
+                                            setInputValue({
+                                                ...inputValue,
+                                                desc_fr: e.target.value,
+                                            });
+                                        }}
+                                    ></textarea>
+                                    {descError_fr !== null && (
+                                        <span
+                                            style={{
+                                                width: "100%",
+                                                color: "red",
+                                                fontSize: "15px",
+                                                marginTop: "0px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            {descError_fr}
+                                        </span>
+                                    )}
                                 </div>
                             </>
                         </div>
@@ -144,8 +405,8 @@ const AboutBox = () => {
                                                     style={
                                                         isDragging
                                                             ? {
-                                                                  border: "4px dashed #000",
-                                                              }
+                                                                border: "4px dashed #000",
+                                                            }
                                                             : undefined
                                                     }
                                                     width="100"
@@ -158,6 +419,19 @@ const AboutBox = () => {
                                     )}
                                 </ImageUploading>
                             </>
+                            {avatarError !== null && (
+                                <span
+                                    style={{
+                                        width: "100%",
+                                        color: "red",
+                                        fontSize: "15px",
+                                        marginTop: "0px",
+                                        display: "block",
+                                    }}
+                                >
+                                    {avatarError}
+                                </span>
+                            )}
                         </div>
                         <Button
                             variant="contained"

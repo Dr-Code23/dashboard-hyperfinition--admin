@@ -346,7 +346,10 @@ const ProfileBox = () => {
                                 // write your building UI
                                 <>
                                     {imageList.map((image, index) => (
-                                        <div className=" cursor-pointer bg-white w-[150px] img-shadow  h-[150px] absolute top-[-75px] left-[50%] translate-x-[-50%] rounded-full overflow-hidden">
+                                        <div
+                                            className=" cursor-pointer bg-white w-[150px] img-shadow  h-[150px] absolute top-[-75px] left-[50%] translate-x-[-50%] rounded-full overflow-hidden"
+                                            key={index}
+                                        >
                                             <img
                                                 src={image["data_url"]}
                                                 className="w-full h-full object-cover"

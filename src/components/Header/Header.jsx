@@ -20,12 +20,15 @@ import EnImg from "../../assets/Img/en.jpg";
 import ArImg from "../../assets/Img/ar.jpg";
 import FrImg from "../../assets/Img/fr.jpg";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 const Header = ({ drawerWidth, handleDrawerToggle }) => {
     let { t, i18n } = useTranslation();
     let Navigate = useNavigate();
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const [userImg, setUserImg] = React.useState("");
+    const [userImg, setUserImg] = React.useState(
+        localStorage.getItem("avatar")
+    );
     const [languageTarget, setLanguageTarget] = React.useState(null);
     const [imgTarget, setImgTarget] = React.useState(
         localStorage.getItem("language") === "en"
@@ -40,10 +43,14 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
         localStorage.removeItem("AccessToken");
         Navigate("/");
     }, [Navigate]);
+    let { avatar } = useSelector((state) => state.ProfileReducer);
+    useEffect(() => {
+        if (avatar) {
+            setUserImg(avatar);
+            localStorage.setItem("avatar", avatar);
+        }
+    }, [avatar]);
 
-    // useEffect(() => {
-    //     setUserImg(localStorage.getItem("avatar"));
-    // }, [localStorage.getItem("avatar")]);
     return (
         <>
             <AppBar
@@ -185,10 +192,7 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                                 }}
                                 sx={{ p: 0 }}
                             >
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src={localStorage.getItem("avatar")}
-                                />
+                                <Avatar alt="Remy Sharp" src={userImg} />
                             </IconButton>
 
                             <Menu

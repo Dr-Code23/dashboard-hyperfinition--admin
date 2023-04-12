@@ -1,17 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Api } from "../Api";
-export let UpdateProfileThunk = createAsyncThunk(
-    "profile/UpdateProfileThunk",
+export let UpdateAboutThunk = createAsyncThunk(
+    "about/UpdateAboutThunk",
     async (arg, ThunkApi) => {
-        console.log(arg);
+        // console.log(arg);
         const formData = new FormData();
-        formData.append("name", arg.name);
-        formData.append("avatar", arg?.avatar);
-        formData.append("email", arg?.email);
-        formData.append("password_confirmation", arg?.password_confirmation);
-        formData.append("password", arg?.password);
-
+        formData.append(
+            "name",
+            JSON.stringify({
+                en: arg.name.en,
+                ar: arg.name.ar,
+                fr: arg.name.fr,
+            })
+        );
+        formData.append(
+            "description",
+            JSON.stringify({
+                en: arg.desc.en,
+                ar: arg.desc.ar,
+                fr: arg.desc.fr,
+            })
+        );
+        formData.append("image", arg?.img);
         const config = {
             headers: {
                 "content-type": "multipart/form-data",
@@ -23,15 +34,13 @@ export let UpdateProfileThunk = createAsyncThunk(
         let { rejectWithValue } = ThunkApi;
         try {
             let res = await axios.post(
-                `${process.env.REACT_APP_API}/profile`,
+                `${process.env.REACT_APP_API}/about_us`,
                 formData,
                 config
             );
-            // console.log(res.data);
-
             return res.data;
         } catch (error) {
-            console.log(error.response.data);
+            // console.log(error.response.data);
             return rejectWithValue(error.response.data);
         }
     }
