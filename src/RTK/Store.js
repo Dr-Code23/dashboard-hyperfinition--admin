@@ -13,6 +13,7 @@ import SettingReducer from "./Reducers/SettingReducer";
 import ProfileReducer from "./Reducers/ProfileReducer";
 import AboutReducer from "./Reducers/AboutReducer";
 import RolesReducer from "./Reducers/RolesReducer";
+import DashReducer from "./Reducers/DashReducer";
 export let Store = configureStore({
     reducer: {
         LoginReducer,
@@ -28,5 +29,6 @@ export let Store = configureStore({
         ProfileReducer,
         AboutReducer,
         RolesReducer,
+        DashReducer,
     },
 });
