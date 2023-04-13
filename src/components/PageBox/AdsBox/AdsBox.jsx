@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-
+import "./AdsBox.css";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -11,14 +11,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import { DeleteForever, InfoOutlined, ModeEdit } from "@mui/icons-material";
-import { Box, Button, Modal } from "@mui/material";
+import { Avatar, Box, Button, Modal } from "@mui/material";
 import { PaginationBox } from "../../index.js";
-import CloseIcon from "@mui/icons-material/Close";
-import "./GeneralExpenses.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { AllGeneralThunk } from "../../../RTK/Thunk/AllGeneralThunk.jsx";
-import { DeleteGeneralThunk } from "../../../RTK/Thunk/DeleteGeneralThunk.jsx";
+import { AllAdsThunk } from "../../../RTK/Thunk/AllAdsThunk";
+import CloseIcon from "@mui/icons-material/Close";
+import { DeleteAdsThunk } from "../../../RTK/Thunk/DeleteAdsThunk";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -39,35 +39,31 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-const GeneralExpenses = () => {
-    let { t, i18n } = useTranslation();
+const AdsBox = () => {
     let navigate = useNavigate();
     let dispatch = useDispatch();
-    const [openCt, setOpenCt] = React.useState(false);
+    let { t, i18n } = useTranslation();
+    let { adsData, lastPage } = useSelector((state) => state.AdsReducer);
     const [pageTarget, setPageTarget] = useState(1);
     const [messageData, setMessageData] = useState("");
-
-    let { generalData, lastPage } = useSelector(
-        (state) => state.GeneralReducer
-    );
-    useEffect(() => {
-        dispatch(AllGeneralThunk({ page: pageTarget }));
-    }, [dispatch, pageTarget, i18n.language]);
+    const [openCt, setOpenCt] = React.useState(false);
     const handleClose = useCallback(() => {
         setOpenCt(false);
     }, [setOpenCt]);
-    // ================
+    useEffect(() => {
+        dispatch(AllAdsThunk({ page: pageTarget }));
+    }, [dispatch, pageTarget, i18n.language]);
     // handle Delete
-    let handleDelete = (id) => {
+    let handleDeleteAds = (id) => {
         dispatch(
-            DeleteGeneralThunk({
+            DeleteAdsThunk({
                 id: id,
             })
         )
             .unwrap()
             .then((data) => {
                 // console.log(data);
-                dispatch(AllGeneralThunk({ page: pageTarget }));
+                dispatch(AllAdsThunk({ page: pageTarget }));
             })
             .catch((error) => {
                 // console.log(error);
@@ -83,14 +79,14 @@ const GeneralExpenses = () => {
                         color="primary"
                         className=" !bg-primaryBg"
                         onClick={() => {
-                            navigate("/admin/generalExpenses/add");
+                            navigate("/admin/ads/add");
                         }}
                     >
-                        {t("pages.GeneralExpenses.Add_a_new")}
+                        {t("pages.AdsBox.Add_a_new")}
                     </Button>
                 </div>
-                {generalData.length ? (
-                    <TableContainer component={Paper} sx={{ height: "438px" }}>
+                {adsData.length ? (
+                    <TableContainer component={Paper} className=" h-fit">
                         <Table
                             sx={{ minWidth: 700 }}
                             aria-label="customized table"
@@ -101,67 +97,83 @@ const GeneralExpenses = () => {
                                         align="center"
                                         className="!bg-primaryBg capitalize"
                                     >
-                                        {t("pages.GeneralExpenses.table.id")}
+                                        {t("pages.AdsBox.table.id")}
                                     </StyledTableCell>
                                     <StyledTableCell
                                         align="center"
                                         className="!bg-primaryBg capitalize"
                                     >
-                                        {t("pages.GeneralExpenses.table.Price")}
+                                        {t("pages.AdsBox.table.Title")}
                                     </StyledTableCell>
                                     <StyledTableCell
                                         align="center"
                                         className="!bg-primaryBg capitalize"
                                     >
-                                        {t(
-                                            "pages.GeneralExpenses.table.Description"
-                                        )}
+                                        {t("pages.AdsBox.table.Img")}
                                     </StyledTableCell>
                                     <StyledTableCell
                                         align="center"
                                         className="!bg-primaryBg capitalize"
                                     >
-                                        {t(
-                                            "pages.GeneralExpenses.table.actions"
-                                        )}
+                                        {t("pages.AdsBox.table.Description")}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.AdsBox.table.discount")}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.AdsBox.table.actions")}
                                     </StyledTableCell>
                                 </TableRow>
                             </TableHead>
+
                             <TableBody>
-                                {generalData.map((row, index) => (
+                                {adsData.map((row, index) => (
                                     <StyledTableRow key={row.id}>
                                         <StyledTableCell align="center">
                                             {row.id}
                                         </StyledTableCell>
                                         <StyledTableCell align="center">
-                                            {row.price}
+                                            {row.title}
+                                        </StyledTableCell>
+                                        <StyledTableCell
+                                            component="th"
+                                            scope="row"
+                                        >
+                                            <Avatar
+                                                className=" !mx-auto"
+                                                alt="Remy Sharp"
+                                                src={row.image}
+                                            />
                                         </StyledTableCell>
                                         <StyledTableCell align="center">
-                                            <div className="action flex items-center justify-center gap-2">
-                                                <IconButton
-                                                    aria-label=""
-                                                    onClick={() => {
-                                                        setOpenCt(true);
-
-                                                        setMessageData(
-                                                            row.reason
-                                                        );
-                                                    }}
-                                                >
-                                                    <InfoOutlined />
-                                                </IconButton>
-                                            </div>
+                                            <IconButton
+                                                aria-label=""
+                                                onClick={() => {
+                                                    setOpenCt(true);
+                                                    setMessageData(
+                                                        row.description
+                                                    );
+                                                }}
+                                            >
+                                                <InfoOutlined />
+                                            </IconButton>
                                         </StyledTableCell>
-
+                                        <StyledTableCell align="center">
+                                            {row.discount}
+                                        </StyledTableCell>
                                         <StyledTableCell align="center">
                                             <div className="action flex items-center justify-center gap-2">
                                                 <IconButton
                                                     aria-label=""
                                                     onClick={() => {
                                                         navigate(
-                                                            `/admin/generalExpenses/edit/${
-                                                                index + 1
-                                                            }`
+                                                            `/admin/ads/edit/${row.id}`
                                                         );
                                                     }}
                                                 >
@@ -170,7 +182,7 @@ const GeneralExpenses = () => {
                                                 <IconButton
                                                     aria-label=""
                                                     onClick={() => {
-                                                        handleDelete(row.id);
+                                                        handleDeleteAds(row.id);
                                                     }}
                                                 >
                                                     <DeleteForever />
@@ -184,7 +196,6 @@ const GeneralExpenses = () => {
                     </TableContainer>
                 ) : null}
             </div>
-
             <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
             <>
                 <Modal
@@ -206,9 +217,9 @@ const GeneralExpenses = () => {
                                 <CloseIcon />
                             </IconButton>
                             <h4 className=" w-full text-start mb-[12px] text-[20px]  font-bold">
-                                {t("pages.GeneralExpenses.table.Description")} :
+                                {t("pages.AdsBox.table.Description")}
                             </h4>
-                            <p className=" w-full text-start  text-[17px]  font-medium  overflow-hidden">
+                            <p className=" w-full text-start  text-[17px]  font-medium overflow-hidden">
                                 {messageData}
                             </p>
                         </div>
@@ -219,4 +230,5 @@ const GeneralExpenses = () => {
     );
 };
 
-export default GeneralExpenses;
+export default AdsBox;
+// discount;

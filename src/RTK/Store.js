@@ -14,6 +14,8 @@ import ProfileReducer from "./Reducers/ProfileReducer";
 import AboutReducer from "./Reducers/AboutReducer";
 import RolesReducer from "./Reducers/RolesReducer";
 import DashReducer from "./Reducers/DashReducer";
+import AdsReducer from "./Reducers/AdsReducer";
+import GeneralReducer from "./Reducers/GeneralReducer";
 export let Store = configureStore({
     reducer: {
         LoginReducer,
@@ -30,5 +32,7 @@ export let Store = configureStore({
         AboutReducer,
         RolesReducer,
         DashReducer,
+        AdsReducer,
+        GeneralReducer,
     },
 });

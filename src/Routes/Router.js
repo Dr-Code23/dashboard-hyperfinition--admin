@@ -27,6 +27,9 @@ import {
     SubSubCategoriesBox,
     UserAddBox,
     SubSubCategoriesEdit,
+    AdsBox,
+    AdsAddBox,
+    AdsAEditBox,
 } from "../components";
 import CategoriesEdit from "../components/CategoriesEdit/CategoriesEdit";
 import Attributes from "./Pages/Attributes";
@@ -134,7 +137,7 @@ export let Router = createBrowserRouter([
                 element: <GeneralExpenses />,
             },
             {
-                path: "generalExpenses/add/:generalExpensesAdd",
+                path: "generalExpenses/add",
                 element: <GeneralExpensesAdd />,
             },
             {
@@ -204,6 +207,18 @@ export let Router = createBrowserRouter([
             {
                 path: "settings",
                 element: <SettingsBox />,
+            },
+            {
+                path: "ads",
+                element: <AdsBox />,
+            },
+            {
+                path: "ads/add",
+                element: <AdsAddBox />,
+            },
+            {
+                path: "ads/edit/:editAds",
+                element: <AdsAEditBox />,
             },
 
             {

@@ -2,20 +2,20 @@
   "pages": {
     "DashBoard": {
       "names": {
-        "productsCount": "productsCount",
-        "servicesCount": "servicesCount",
-        "allProjectsCount": "allProjectsCount",
-        "pendingProjectsCount": "pendingProjectsCount",
-        "doneProjectsCount": "doneProjectsCount",
-        "dailyPayments": "dailyPayments",
-        "dailyExpenses": "dailyExpenses",
-        "monthlyPayments": "monthlyPayments",
-        "monthlyExpenses": "monthlyExpenses",
-        "yearlyPayments": "yearlyPayments",
-        "yearlyExpenses": "yearlyExpenses",
-        "dailyProfits": "dailyProfits",
-        "monthlyProfits": "monthlyProfits",
-        "yearlyProfits": "yearlyProfits"
+        "productsCount": "products Count",
+        "servicesCount": "services Count",
+        "allProjectsCount": "all Projects Count",
+        "pendingProjectsCount": "pending Projects Count",
+        "doneProjectsCount": "done Projects Count",
+        "dailyPayments": "daily Payments",
+        "dailyExpenses": "daily Expenses",
+        "monthlyPayments": "monthly Payments",
+        "monthlyExpenses": "monthly Expenses",
+        "yearlyPayments": "yearly Payments",
+        "yearlyExpenses": "yearly Expenses",
+        "dailyProfits": "daily Profits",
+        "monthlyProfits": "monthly Profits",
+        "yearlyProfits": "yearly Profits"
       },
       "number": {
         "productsCount": "100",
@@ -80,6 +80,25 @@
       "Name": "Name",
       "Submit": "Submit",
       "placeholder": "text"
+    },
+    "AdsBox": {
+      "search": "search",
+      "Add_a_new": "Add a new",
+      "table": {
+        "id": "id",
+        "Title": "Title",
+        "discount": "discount",
+        "Img": "Img",
+        "Description": "Description",
+        "actions": "actions"
+      }
+    },
+    "adsAdd": {
+      "discount": "discount",
+      "Title": "Title",
+      "Description": "Description",
+      "Image": "Image",
+      "Submit": "Submit"
     },
     "UsersBox": {
       "search": "search",
@@ -423,6 +442,7 @@
     "about": "about",
     "roles": "roles",
     "Logout": "Logout",
+    "ads": "Ads",
     "settings": "settings"
   },
   "code_error": {

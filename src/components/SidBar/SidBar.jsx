@@ -490,6 +490,27 @@ const SidBar = ({
                             </ListItemButton>
                         </NavLink>
                     </ListItem>
+                    {/* ========================ads================================ */}
+                    <ListItem disablePadding>
+                        <NavLink
+                            to={"/admin/ads"}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? "w-full  text-decoration-none sidebar-list active"
+                                    : "w-full   text-decoration-none sidebar-list"
+                            }
+                        >
+                            <ListItemButton sx={{ color: "#fff" }}>
+                                <ListItemIcon>
+                                    <SettingsOutlined sx={{ color: "#fff" }} />
+                                </ListItemIcon>
+                                <ListItemText
+                                    className=" !capitalize"
+                                    primary={t("sidBar.ads")}
+                                />
+                            </ListItemButton>
+                        </NavLink>
+                    </ListItem>
                     {/* ======================================================== */}
                 </List>
                 {/* <Divider /> */}

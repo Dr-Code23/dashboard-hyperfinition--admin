@@ -92,7 +92,7 @@ const UsersBox = () => {
                     </Button>
                 </div>
                 {userData.length && (
-                    <TableContainer component={Paper} sx={{ height: "438px" }}>
+                    <TableContainer component={Paper} className=" h-fit">
                         <Table
                             sx={{ minWidth: 700 }}
                             aria-label="customized table"
