@@ -18,6 +18,7 @@ import { DeleteForever } from "@mui/icons-material";
 import { useCallback } from "react";
 import { ErrorBox } from "../index";
 import { useTranslation } from "react-i18next";
+import { finalDate } from "../../HooK/ConvertDate";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -48,6 +49,8 @@ const ProjectAdd = () => {
     const [selectTarget, setSelectTarget] = React.useState({
         Product: "",
     });
+    const [open, setOpen] = React.useState(false);
+
     const [tableData, setTableData] = useState([
         { name: "dr-1", id: (numberD += 1) },
         { name: "dr-2", id: (numberD += 1) },
@@ -56,8 +59,8 @@ const ProjectAdd = () => {
     ]);
 
     //  error Message
-    const [open, setOpen] = React.useState(false);
-
+    // handle fun date
+    // console.log(finalDate(startDate));
     const addTable = useCallback(
         (e) => {
             if (e.currentTarget.parentElement.querySelector("input").value) {
@@ -98,7 +101,6 @@ const ProjectAdd = () => {
     );
 
     // ================
-
     return (
         <>
             <div className="p-[20px] mt-[40px]">

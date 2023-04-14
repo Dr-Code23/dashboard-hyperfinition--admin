@@ -16,6 +16,8 @@ import RolesReducer from "./Reducers/RolesReducer";
 import DashReducer from "./Reducers/DashReducer";
 import AdsReducer from "./Reducers/AdsReducer";
 import GeneralReducer from "./Reducers/GeneralReducer";
+import PaymentReducer from "./Reducers/PaymentReducer";
+import ExpensesReducer from "./Reducers/ExpensesReducer";
 export let Store = configureStore({
     reducer: {
         LoginReducer,
@@ -34,5 +36,7 @@ export let Store = configureStore({
         DashReducer,
         AdsReducer,
         GeneralReducer,
+        PaymentReducer,
+        ExpensesReducer,
     },
 });

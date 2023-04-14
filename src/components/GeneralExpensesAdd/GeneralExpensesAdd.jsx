@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import "./GeneralExpensesAdd.css";
@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AddGeneralThunk } from "../../RTK/Thunk/AddGeneralThunk";
+import { closeError } from "../../RTK/Reducers/GeneralReducer";
 
 const GeneralExpensesAdd = () => {
     let { t, i18n } = useTranslation();
@@ -19,6 +20,14 @@ const GeneralExpensesAdd = () => {
     let { descError, priceError } = useSelector(
         (state) => state.GeneralReducer
     );
+    useEffect(() => {
+        dispatch(closeError());
+    }, [dispatch, inputValue]);
+    useEffect(() => {
+        return () => {
+            dispatch(closeError());
+        };
+    }, []);
     let handleSubmit = (e) => {
         e.preventDefault();
         dispatch(

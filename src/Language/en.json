@@ -300,6 +300,21 @@
         "actions": "actions"
       }
     },
+    "ProjectPaymentAddView": {
+      "Project_Name": "Project Name",
+      "Customer_Name": "Customer Name",
+      "Project_Total": "Project Total",
+      "paid_before": "paid before",
+      "remaining_money": "remaining money",
+      "Start_Date": "Start Date",
+      "End_Date": "End Date",
+      "table": {
+        "id": "id",
+        "Name": "Name",
+        "Project_Name": "Project Name",
+        "Customer_Name": "Customer Name"
+      }
+    },
     "ProjectPaymentAdd": {
       "Project": "Project ",
       "Price": "Price  ",
@@ -307,8 +322,14 @@
     },
     "ProjectPaymentEdit": {
       "Project": "Project ",
-      "Price": "Price  ",
-      "Submit": "Submit"
+      "Price": "Price",
+      "Submit": "Submit",
+      "table": {
+        "id": "id",
+        "price": "price",
+        "created_at": "created at",
+        "actions": "actions"
+      }
     },
     "GeneralExpenses": {
       "Add_a_new": "Add a new",
@@ -349,6 +370,7 @@
         "id": "id",
         "Name": "Name",
         "Quantity": "Quantity",
+        "total_Price": "total Price",
         "Price": "Price",
         "actions": "actions"
       },
@@ -446,7 +468,8 @@
     "settings": "settings"
   },
   "code_error": {
-    "The_Main_value_Must_be_entered": "The Main value Must be entered !"
+    "The_Main_value_Must_be_entered": "The Main value Must be entered !",
+    "The_amount_entered_is_greater_than_the_available_quantity": "The amount entered is greater than the available quantity !"
   },
   "Language": {
     "English": "English",

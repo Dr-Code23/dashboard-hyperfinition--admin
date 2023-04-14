@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -14,6 +14,8 @@ import { Button } from "@mui/material";
 import { PaginationBox } from "../../index";
 import "./ComponyExpenses.css";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { AllExpensesThunk } from "../../../RTK/Thunk/AllExpensesThunk";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -34,21 +36,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
 const ComponyExpenses = () => {
-    const navigate = useNavigate();
     let { t, i18n } = useTranslation();
+    let navigate = useNavigate();
+    let dispatch = useDispatch();
+    const [pageTarget, setPageTarget] = useState(1);
+
+    let { expensesData, lastPage } = useSelector(
+        (state) => state.ExpensesReducer
+    );
+
+    useEffect(() => {
+        dispatch(AllExpensesThunk({ page: pageTarget }));
+    }, [dispatch, pageTarget, i18n.language]);
 
     return (
         <>
@@ -63,82 +63,86 @@ const ComponyExpenses = () => {
                         color="primary"
                         className=" !bg-primaryBg"
                         onClick={() => {
-                            navigate("/admin/projectExpense/add/add");
+                            navigate("/admin/projectExpense/add");
                         }}
                     >
                         {t("pages.ComponyExpenses.Add_a_new")}
                     </Button>
                 </div>
-                <TableContainer component={Paper} sx={{ height: "438px" }}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ComponyExpenses.table.id")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t(
-                                        "pages.ComponyExpenses.table.Customer_Name"
-                                    )}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t(
-                                        "pages.ComponyExpenses.table.Project_Name"
-                                    )}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ComponyExpenses.table.actions")}
-                                </StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row, index) => (
-                                <StyledTableRow key={row.name}>
-                                    <StyledTableCell align="center">
-                                        {index + 1}
+                {expensesData.length ? (
+                    <TableContainer component={Paper} sx={{ height: "438px" }}>
+                        <Table
+                            sx={{ minWidth: 700 }}
+                            aria-label="customized table"
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t("pages.ComponyExpenses.table.id")}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t(
+                                            "pages.ComponyExpenses.table.Customer_Name"
+                                        )}
                                     </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t(
+                                            "pages.ComponyExpenses.table.Project_Name"
+                                        )}
                                     </StyledTableCell>
-
-                                    <StyledTableCell align="center">
-                                        <div className="action flex items-center justify-center gap-2">
-                                            <IconButton
-                                                aria-label=""
-                                                onClick={() => {
-                                                    navigate(
-                                                        `/admin/projectExpense/view/${
-                                                            index + 1
-                                                        }`
-                                                    );
-                                                }}
-                                            >
-                                                <RemoveRedEye />
-                                            </IconButton>
-                                        </div>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
+                                        {t(
+                                            "pages.ComponyExpenses.table.actions"
+                                        )}
                                     </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {expensesData.map((row, index) => (
+                                    <StyledTableRow key={row.id}>
+                                        <StyledTableCell align="center">
+                                            {row.id}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {row.customer_name}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            {row.project_name}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            <div className="action flex items-center justify-center gap-2">
+                                                <IconButton
+                                                    aria-label=""
+                                                    onClick={() => {
+                                                        navigate(
+                                                            `/admin/projectExpense/view/${row.id}`
+                                                        );
+                                                    }}
+                                                >
+                                                    <RemoveRedEye />
+                                                </IconButton>
+                                            </div>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                ) : null}
             </div>
-            <PaginationBox count={10} />
+            <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
         </>
     );
 };

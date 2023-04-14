@@ -30,6 +30,7 @@ import {
     AdsBox,
     AdsAddBox,
     AdsAEditBox,
+    ProjectPaymentView,
 } from "../components";
 import CategoriesEdit from "../components/CategoriesEdit/CategoriesEdit";
 import Attributes from "./Pages/Attributes";
@@ -161,7 +162,11 @@ export let Router = createBrowserRouter([
                 element: <ProjectPayment />,
             },
             {
-                path: "projectPayment/add/:projectPaymentAdd",
+                path: "projectPayment/view/:paymentView",
+                element: <ProjectPaymentView />,
+            },
+            {
+                path: "projectPayment/add",
                 element: <ProjectPaymentAdd />,
             },
             {
@@ -173,7 +178,7 @@ export let Router = createBrowserRouter([
                 element: <Compony />,
             },
             {
-                path: "projectExpense/add/:componyExpensesAdd",
+                path: "projectExpense/add",
                 element: <ComponyExpensesAdd />,
             },
             {
