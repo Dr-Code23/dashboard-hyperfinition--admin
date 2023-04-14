@@ -19,6 +19,10 @@ import { DeleteForever } from "@mui/icons-material";
 import { useCallback } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import CloseIcon from "@mui/icons-material/Close";
+import { AllProjectThunk } from "../../RTK/Thunk/AllProjectThunk";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { ViewProjectThunk } from "../../RTK/Thunk/ViewProjectThunk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -53,7 +57,15 @@ const rows = [
 ];
 const ProjectView = () => {
     let { t, i18n } = useTranslation();
-
+    let dispatch = useDispatch();
+    let param = useParams();
+    let { viewData, viewTableData } = useSelector(
+        (state) => state.ProjectReducer
+    );
+    // ================
+    useEffect(() => {
+        dispatch(ViewProjectThunk({ id: param.projectView }));
+    }, [dispatch, param.projectView]);
     // ================
 
     return (
@@ -71,19 +83,33 @@ const ProjectView = () => {
                             <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                 {t("pages.ProjectView.Project_Name")}
                             </h6>
-                            <h4 className="input">project</h4>
+                            <h4 className="input">{viewData?.project_name}</h4>
                         </FormControl>
                         <FormControl className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]">
                             <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                 {t("pages.ProjectView.Customer_Name")}
                             </h6>
-                            <h4 className="input">Customer</h4>
+                            <h4 className="input">{viewData?.customer_name}</h4>
                         </FormControl>
                         <FormControl className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]">
                             <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                 {t("pages.ProjectView.Project_Total")}
                             </h6>
-                            <h4 className="input">Project</h4>
+                            <h4 className="input">{viewData?.project_total}</h4>
+                        </FormControl>
+                        <FormControl className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]">
+                            <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
+                                {t("pages.ProjectView.profits")}
+                            </h6>
+                            <h4 className="input">{viewData?.profits}</h4>
+                        </FormControl>
+                        <FormControl className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]">
+                            <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
+                                {t("pages.ProjectView.materials_total")}
+                            </h6>
+                            <h4 className="input">
+                                {viewData?.materials_total}
+                            </h4>
                         </FormControl>
                     </div>
                     <hr className=" w-full my-[40px]" />
@@ -92,73 +118,68 @@ const ProjectView = () => {
                             <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                 {t("pages.ProjectView.Start_Date")}
                             </h6>
-                            <h4 className="input">2023/01/01</h4>
+                            <h4 className="input">{viewData?.start_date}</h4>
                         </FormControl>
                         <FormControl className="min-h-[75.5px]  w-full lg:max-w-[440px]">
                             <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                 {t("pages.ProjectView.End_Date")}
                             </h6>
-                            <h4 className="input">2023/01/01</h4>
+                            <h4 className="input">{viewData?.end_date}</h4>
                         </FormControl>
                     </div>
                     <hr className=" w-full my-[40px]" />
-                    <TableContainer component={Paper} sx={{ height: "438px" }}>
-                        <Table
-                            sx={{ minWidth: 700 }}
-                            aria-label="customized table"
+                    {viewTableData.length ? (
+                        <TableContainer
+                            component={Paper}
+                            className=" h-fit  max-h-[450px] "
                         >
-                            <TableHead>
-                                <TableRow>
-                                    <StyledTableCell
-                                        align="center"
-                                        className="!bg-primaryBg capitalize"
-                                    >
-                                        {t("pages.ProjectView.table.id")}
-                                    </StyledTableCell>
-                                    <StyledTableCell
-                                        align="center"
-                                        className="!bg-primaryBg capitalize"
-                                    >
-                                        {t("pages.ProjectView.table.Name")}
-                                    </StyledTableCell>
-                                    <StyledTableCell
-                                        align="center"
-                                        className="!bg-primaryBg capitalize"
-                                    >
-                                        {t(
-                                            "pages.ProjectView.table.Project_Name"
-                                        )}
-                                    </StyledTableCell>
-                                    <StyledTableCell
-                                        align="center"
-                                        className="!bg-primaryBg capitalize"
-                                    >
-                                        {t(
-                                            "pages.ProjectView.table.Customer_Name"
-                                        )}
-                                    </StyledTableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map((row, index) => (
-                                    <StyledTableRow key={row.name}>
-                                        <StyledTableCell align="center">
-                                            {index + 1}
+                            <Table
+                                sx={{ minWidth: 700 }}
+                                aria-label="customized table"
+                            >
+                                <TableHead>
+                                    <TableRow>
+                                        <StyledTableCell
+                                            align="center"
+                                            className="!bg-primaryBg capitalize"
+                                        >
+                                            {t("pages.ProjectView.table.id")}
                                         </StyledTableCell>
-                                        <StyledTableCell align="center">
-                                            {row.calories}
+                                        <StyledTableCell
+                                            align="center"
+                                            className="!bg-primaryBg capitalize"
+                                        >
+                                            {t("pages.ProjectView.table.Name")}
                                         </StyledTableCell>
-                                        <StyledTableCell align="center">
-                                            {row.calories}
+                                        <StyledTableCell
+                                            align="center"
+                                            className="!bg-primaryBg capitalize"
+                                        >
+                                            {t(
+                                                "pages.ProjectView.table.quantity"
+                                            )}
                                         </StyledTableCell>
-                                        <StyledTableCell align="center">
-                                            {row.calories}
-                                        </StyledTableCell>
-                                    </StyledTableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {viewTableData.map((row, index) => (
+                                        <StyledTableRow key={row.id}>
+                                            <StyledTableCell align="center">
+                                                {row.id}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                {row.name}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                {row.quantity}
+                                            </StyledTableCell>
+                                        </StyledTableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    ) : null}
+
                     {/* ======================== */}
                 </form>
             </div>

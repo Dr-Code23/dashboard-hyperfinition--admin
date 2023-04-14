@@ -150,7 +150,7 @@ export let Router = createBrowserRouter([
                 element: <Project />,
             },
             {
-                path: "project/add/:projectAdd",
+                path: "project/add/",
                 element: <ProjectAdd />,
             },
             {

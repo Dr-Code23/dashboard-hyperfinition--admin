@@ -6,6 +6,8 @@ export let finalDate = (date) => {
     const month = (dateObj.getMonth() + 1).toString();
     const day = dateObj.getDate().toString();
 
-    const formattedDate = `${year}-${month}-${day}`;
+    const formattedDate = `${year}-${month < 10 ? "0" + month : month}-${
+        day < 10 ? "0" + day : day
+    }  `;
     return formattedDate;
 };

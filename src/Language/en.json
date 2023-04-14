@@ -271,6 +271,7 @@
         "id": "id",
         "Name": "Name",
         "Quantity": "Quantity",
+        "unit_price": "unit price",
         "Price": "Price",
         "actions": "actions"
       },
@@ -282,10 +283,13 @@
       "Project_Total": "Project Total",
       "Start_Date": "Start Date",
       "End_Date": "End Date",
+      "profits": "profits",
+      "materials_total": "materials total",
       "table": {
         "id": "id",
         "Name": "Name",
         "Project_Name": "Project Name",
+        "quantity": "quantity",
         "Customer_Name": "Customer Name"
       }
     },

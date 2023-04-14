@@ -251,19 +251,6 @@ const ComponyExpensesAdd = () => {
                                         ...targetIdSelect,
                                         main: data[0].id,
                                     });
-                                    // dispatch(
-                                    //     SelectSubCategoriesThunk({
-                                    //         id: data[0].id,
-                                    //     })
-                                    // )
-                                    //     .unwrap()
-                                    //     .then((data) => {
-                                    //         // console.log(data);
-                                    //         setTargetIdSelect({
-                                    //             ...targetIdSelect,
-                                    //             sub: data.data[0]?.id,
-                                    //         });
-                                    //     });
                                 }
                             }}
                         >

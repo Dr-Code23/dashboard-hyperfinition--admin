@@ -1,12 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { AllPaymentThunk } from "../Thunk/AllPaymentThunk";
-import { AddPaymentThunk } from "../Thunk/AddPaymentThunk";
 import { SelectProjectThunk } from "../Thunk/SelectProjectThunk";
-import { TablePaymentThunk } from "../Thunk/TablePaymentThunk";
-import { UpdateTablePaymentThunk } from "../Thunk/UpdateTablePaymentThunk";
-import { DeleteTablePaymentThunk } from "../Thunk/DeleteTablePaymentThunk";
-import { ViewPaymentThunk } from "../Thunk/ViewPaymentThunk";
 import { AllExpensesThunk } from "../Thunk/AllExpensesThunk";
 import { ViewExpensesThunk } from "../Thunk/ViewExpensesThunk";
 import { SelectProductThunk } from "../Thunk/SelectProductThunk";
@@ -74,26 +68,6 @@ let ExpensesReducer = createSlice({
             .addCase(UpdateExpensesThunk.rejected, (state, action) => {
                 state.productError = action.payload?.data?.products;
             });
-        // // // =======UpdateTablePaymentThunk===========
-        // .addCase(UpdateTablePaymentThunk.fulfilled, (state, action) => {})
-        // .addCase(UpdateTablePaymentThunk.rejected, (state, action) => {
-        //     state.descError = action.payload?.data?.project_id;
-        //     state.priceError = action.payload?.data?.price;
-        // })
-        // // // =======TablePaymentThunk===========
-        // .addCase(TablePaymentThunk.fulfilled, (state, action) => {
-        //     state.tableDataPayment = action.payload?.data;
-        // })
-        // .addCase(TablePaymentThunk.rejected, (state, action) => {
-        //     // state.descError = action.payload?.data?.reason;
-        //     // state.priceError = action.payload?.data?.price;
-        // })
-
-        // // // =======DeleteUserThunk===========
-        // .addCase(DeleteTablePaymentThunk.fulfilled, (state, action) => {})
-        // .addCase(DeleteTablePaymentThunk.rejected, (state, action) => {
-        //     // console.log(action.payload);
-        // });
     },
 });
 
