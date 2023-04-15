@@ -19,6 +19,7 @@ import GeneralReducer from "./Reducers/GeneralReducer";
 import PaymentReducer from "./Reducers/PaymentReducer";
 import ExpensesReducer from "./Reducers/ExpensesReducer";
 import ProjectReducer from "./Reducers/ProjectReducer";
+import ServicesReducer from "./Reducers/ServicesReducer";
 export let Store = configureStore({
     reducer: {
         LoginReducer,
@@ -40,5 +41,6 @@ export let Store = configureStore({
         PaymentReducer,
         ExpensesReducer,
         ProjectReducer,
+        ServicesReducer,
     },
 });

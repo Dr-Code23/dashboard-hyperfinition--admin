@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import "./ServicesBox.css";
@@ -15,130 +15,207 @@ import { DeleteForever, ModeEdit } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
+import { AllServicesThunk } from "../../../RTK/Thunk/AllServicesThunk";
+import { useDispatch, useSelector } from "react-redux";
+import { ServicesStatusThunk } from "../../../RTK/Thunk/ServicesStatusThunk";
+import SwitchBox from "../../SwitchBox/SwitchBox";
+import { DeleteServicesThunk } from "../../../RTK/Thunk/DeleteServicesThunk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
-    },
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    "&:nth-of-type(odd)": {
-        backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    "&:last-child td, &:last-child th": {
-        border: 0,
-    },
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
 }));
 
 function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+  return { name, calories, fat, carbs, protein };
 }
 
 const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
+  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+  createData("Eclair", 262, 16.0, 24, 6.0),
+  createData("Cupcake", 305, 3.7, 67, 4.3),
+  createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
 const ServicesBox = () => {
-    const navigate = useNavigate();
-    let { t, i18n } = useTranslation();
+  let { t, i18n } = useTranslation();
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
+  const [pageTarget, setPageTarget] = useState(1);
 
-    return (
-        <>
-            <div className=" mx-auto px-4  mt-[40px]">
-                <div className="flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 ">
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className=" !bg-primaryBg"
-                        onClick={() => {
-                            navigate("/admin/services/add/add");
+  let { servicesData, lastPage } = useSelector(
+    (state) => state.ServicesReducer
+  );
+
+  useEffect(() => {
+    dispatch(AllServicesThunk({ page: pageTarget }));
+  }, [dispatch, pageTarget, i18n.language]);
+
+  let handleDelete = (id) => {
+    dispatch(
+      DeleteServicesThunk({
+        id: id,
+      })
+    )
+      .unwrap()
+      .then((data) => {
+        // console.log(data);
+        dispatch(AllServicesThunk({ page: pageTarget }));
+      })
+      .catch((error) => {
+        // console.log(error);
+        // handle error here
+      });
+  };
+  return (
+    <>
+      <div className=" mx-auto px-4  mt-[40px]">
+        <div className="flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 ">
+          <Button
+            variant="contained"
+            color="primary"
+            className=" !bg-primaryBg"
+            onClick={() => {
+              navigate("/admin/services/add");
+            }}
+          >
+            {t("pages.ServicesBox.Add_a_new")}
+          </Button>
+        </div>
+        {servicesData.length ? (
+          <TableContainer component={Paper} sx={{ height: "438px" }}>
+            <Table
+              sx={{ minWidth: 700 }}
+              aria-label="customized table"
+            >
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell
+                    align="center"
+                    className="!bg-primaryBg capitalize"
+                  >
+                    {t("pages.ServicesBox.table.id")}
+                  </StyledTableCell>
+                  <StyledTableCell
+                    align="center"
+                    className="!bg-primaryBg capitalize"
+                  >
+                    {t("pages.ServicesBox.table.Name")}
+                  </StyledTableCell>
+                  <StyledTableCell
+                    align="center"
+                    className="!bg-primaryBg capitalize"
+                  >
+                    {t("pages.ServicesBox.table.Price")}
+                  </StyledTableCell>
+                  <StyledTableCell
+                    align="center"
+                    className="!bg-primaryBg capitalize"
+                  >
+                    {t("pages.ServicesBox.table.status")}
+                  </StyledTableCell>
+                  <StyledTableCell
+                    align="center"
+                    className="!bg-primaryBg capitalize"
+                  >
+                    {t("pages.ServicesBox.table.actions")}
+                  </StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {servicesData.map((row, index) => (
+                  <StyledTableRow key={row.id}>
+                    <StyledTableCell align="center">
+                      {row.id}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.name}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {row.price}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      <div
+                        data-name={row.status}
+                        onClick={(e) => {
+                          if (
+                            e.currentTarget.dataset
+                              .name == "true"
+                          ) {
+                            dispatch(
+                              ServicesStatusThunk(
+                                {
+                                  id: row.id,
+                                  status: false,
+                                }
+                              )
+                            );
+                            e.currentTarget.dataset.name = false;
+                          } else {
+                            dispatch(
+                              ServicesStatusThunk(
+                                {
+                                  id: row.id,
+                                  status: true,
+                                }
+                              )
+                            );
+                            e.currentTarget.dataset.name = true;
+                          }
                         }}
-                    >
-                        {t("pages.ServicesBox.Add_a_new")}
-                    </Button>
-                </div>
-                <TableContainer component={Paper} sx={{ height: "438px" }}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ServicesBox.table.id")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ServicesBox.table.Name")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ServicesBox.table.Price")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ServicesBox.table.actions")}
-                                </StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row, index) => (
-                                <StyledTableRow key={row.name}>
-                                    <StyledTableCell align="center">
-                                        {index + 1}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
-                                    </StyledTableCell>
+                      >
+                        <SwitchBox
+                          status={row.status}
+                        />
+                      </div>
+                    </StyledTableCell>
 
-                                    <StyledTableCell align="center">
-                                        <div className="action flex items-center justify-center gap-2">
-                                            <IconButton
-                                                aria-label=""
-                                                onClick={() => {
-                                                    navigate(
-                                                        `/admin/services/edit/${
-                                                            index + 1
-                                                        }`
-                                                    );
-                                                }}
-                                            >
-                                                <ModeEdit />
-                                            </IconButton>
-                                            <IconButton aria-label="">
-                                                <DeleteForever />
-                                            </IconButton>
-                                        </div>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </div>
+                    <StyledTableCell align="center">
+                      <div className="action flex items-center justify-center gap-2">
+                        <IconButton
+                          aria-label=""
+                          onClick={() => {
+                            navigate(
+                              `/admin/services/edit/${row.id}`
+                            );
+                          }}
+                        >
+                          <ModeEdit />
+                        </IconButton>
+                        <IconButton aria-label="" onClick={() => {
+                          handleDelete(row.id);
+                        }}>
+                          <DeleteForever />
+                        </IconButton>
+                      </div>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : null}
+      </div>
 
-            <PaginationBox count={10} />
-        </>
-    );
+      <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
+    </>
+  );
 };
 
 export default ServicesBox;

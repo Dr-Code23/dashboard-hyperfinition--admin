@@ -1,16 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { AllPaymentThunk } from "../Thunk/AllPaymentThunk";
-import { AddPaymentThunk } from "../Thunk/AddPaymentThunk";
-import { SelectProjectThunk } from "../Thunk/SelectProjectThunk";
-import { TablePaymentThunk } from "../Thunk/TablePaymentThunk";
-import { UpdateTablePaymentThunk } from "../Thunk/UpdateTablePaymentThunk";
-import { DeleteTablePaymentThunk } from "../Thunk/DeleteTablePaymentThunk";
-import { ViewPaymentThunk } from "../Thunk/ViewPaymentThunk";
-import { AllExpensesThunk } from "../Thunk/AllExpensesThunk";
-import { ViewExpensesThunk } from "../Thunk/ViewExpensesThunk";
 import { SelectProductThunk } from "../Thunk/SelectProductThunk";
-import { UpdateExpensesThunk } from "../Thunk/UpdateExpensesThunk";
 import { AllProjectThunk } from "../Thunk/AllProjectThunk";
 import { ViewProjectThunk } from "../Thunk/ViewProjectThunk";
 import { DeleteProjectThunk } from "../Thunk/DeleteProjectThunk";

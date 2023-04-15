@@ -221,6 +221,7 @@
       "table": {
         "id": "id",
         "Name": "Name",
+        "status": "status",
         "Price": "Price",
         "actions": "actions"
       }

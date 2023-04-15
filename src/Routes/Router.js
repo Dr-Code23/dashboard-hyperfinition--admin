@@ -126,7 +126,7 @@ export let Router = createBrowserRouter([
                 element: <ServicesBox />,
             },
             {
-                path: "services/add/:serviceAdd",
+                path: "services/add",
                 element: <ServicesAdd />,
             },
             {
