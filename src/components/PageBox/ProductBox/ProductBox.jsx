@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import "./ProductBox.css";
@@ -15,130 +15,197 @@ import { DeleteForever, ModeEdit } from "@mui/icons-material";
 import { Avatar, Button } from "@mui/material";
 import { PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import ProductReducer from "../../../RTK/Reducers/ProductReducer";
+import { AllProductThunk } from "../../../RTK/Thunk/AllProductThunk";
+import SwitchBox from "../../SwitchBox/SwitchBox";
+import { ProductStatusThunk } from "../../../RTK/Thunk/ProductStatusThunk";
+import { DeleteProductThunk } from "../../../RTK/Thunk/DeleteProductThunk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
-    },
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    "&:nth-of-type(odd)": {
-        backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    "&:last-child td, &:last-child th": {
-        border: 0,
-    },
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
 
-const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
 
 const ProductBox = () => {
-    const navigate = useNavigate();
-    let { t, i18n } = useTranslation();
+  let navigate = useNavigate();
+  let { t, i18n } = useTranslation();
 
-    return (
-        <>
-            <div className=" mx-auto px-4  mt-[40px]">
-                <div className="flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 ">
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className=" !bg-primaryBg"
-                        onClick={() => {
-                            navigate("/admin/product/add/add");
-                        }}
+  let dispatch = useDispatch();
+  const [pageTarget, setPageTarget] = useState(1);
+
+  let { productData, lastPage } = useSelector(
+    (state) => state.ProductReducer
+  );
+
+  useEffect(() => {
+    dispatch(AllProductThunk({ page: pageTarget }));
+  }, [dispatch, pageTarget, i18n.language]);
+
+  let handleDelete = (id) => {
+    dispatch(
+      DeleteProductThunk({
+        id: id,
+      })
+    )
+      .unwrap()
+      .then((data) => {
+        // console.log(data);
+        dispatch(AllProductThunk({ page: pageTarget }));
+      })
+      .catch((error) => {
+        // console.log(error);
+        // handle error here
+      });
+  };
+
+  return (
+    <>
+      <div className=" mx-auto px-4  mt-[40px]">
+        <div className="flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 ">
+          <Button
+            variant="contained"
+            color="primary"
+            className=" !bg-primaryBg"
+            onClick={() => {
+              navigate("/admin/product/add");
+            }}
+          >
+            {t("pages.ProductBox.Add_a_new")}
+          </Button>
+        </div>
+        {productData.length ? (<TableContainer component={Paper} sx={{ height: "438px" }}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell
+                  align="center"
+                  className="!bg-primaryBg capitalize"
+                >
+                  {t("pages.ProductBox.table.id")}
+                </StyledTableCell>
+                <StyledTableCell
+                  align="center"
+                  className="!bg-primaryBg capitalize"
+                >
+                  {t("pages.ProductBox.table.Name")}
+                </StyledTableCell>
+                <StyledTableCell
+                  align="center"
+                  className="!bg-primaryBg capitalize"
+                >
+                  {t("pages.ProductBox.table.Price")}
+                </StyledTableCell>
+                <StyledTableCell
+                  align="center"
+                  className="!bg-primaryBg capitalize"
+                >
+                  {t("pages.ProductBox.table.status")}
+                </StyledTableCell>
+                <StyledTableCell
+                  align="center"
+                  className="!bg-primaryBg capitalize"
+                >
+                  {t("pages.ProductBox.table.actions")}
+                </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {productData.map((row, index) => (
+                <StyledTableRow key={row.id}>
+                  <StyledTableCell align="center">
+                    {row.id}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.unit_price}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <div
+                      data-name={row.status}
+                      onClick={(e) => {
+                        if (
+                          e.currentTarget.dataset
+                            .name == "true"
+                        ) {
+                          dispatch(
+                            ProductStatusThunk(
+                              {
+                                id: row.id,
+                                status: false,
+                              }
+                            )
+                          );
+                          e.currentTarget.dataset.name = false;
+                        } else {
+                          dispatch(
+                            ProductStatusThunk(
+                              {
+                                id: row.id,
+                                status: true,
+                              }
+                            )
+                          );
+                          e.currentTarget.dataset.name = true;
+                        }
+                      }}
                     >
-                        {t("pages.ProductBox.Add_a_new")}
-                    </Button>
-                </div>
-                <TableContainer component={Paper} sx={{ height: "438px" }}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ProductBox.table.id")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ProductBox.table.Name")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ProductBox.table.Price")}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="center"
-                                    className="!bg-primaryBg capitalize"
-                                >
-                                    {t("pages.ProductBox.table.actions")}
-                                </StyledTableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row, index) => (
-                                <StyledTableRow key={row.name}>
-                                    <StyledTableCell align="center">
-                                        {index + 1}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
-                                    </StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        {row.calories}
-                                    </StyledTableCell>
+                      <SwitchBox
+                        status={row.status}
+                      />
+                    </div>
+                  </StyledTableCell>
 
-                                    <StyledTableCell align="center">
-                                        <div className="action flex items-center justify-center gap-2">
-                                            <IconButton
-                                                aria-label=""
-                                                onClick={() => {
-                                                    navigate(
-                                                        `/admin/product/edit/${
-                                                            index + 1
-                                                        }`
-                                                    );
-                                                }}
-                                            >
-                                                <ModeEdit />
-                                            </IconButton>
-                                            <IconButton aria-label="">
-                                                <DeleteForever />
-                                            </IconButton>
-                                        </div>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </div>
+                  <StyledTableCell align="center">
+                    <div className="action flex items-center justify-center gap-2">
+                      <IconButton
+                        aria-label=""
+                        onClick={() => {
+                          navigate(
+                            `/admin/product/edit/${row.id
+                            }`
+                          );
+                        }}
+                      >
+                        <ModeEdit />
+                      </IconButton>
+                      <IconButton aria-label="" onClick={() => {
+                        handleDelete(row.id);
+                      }}>
+                        <DeleteForever />
+                      </IconButton>
+                    </div>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>) : null}
 
-            <PaginationBox count={10} />
-        </>
-    );
+      </div>
+
+      <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
+    </>
+  );
 };
 
 export default ProductBox;

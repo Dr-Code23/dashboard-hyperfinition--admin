@@ -1,5 +1,5 @@
 import { Button, FormControl, MenuItem, Select } from "@mui/material";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Tab, Tabs, IconButton } from "@mui/material";
 import "./ProductNew.css";
@@ -7,19 +7,24 @@ import SelectBox from "../SelectBox/SelectBox";
 import img from "../../assets/Img/default.jpg";
 import ImageUploading from "react-images-uploading";
 import { DeleteForever } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { SelectAllCategoriesThunk } from "../../RTK/Thunk/SelectAllCategoriesThunk";
+import { useNavigate } from "react-router-dom";
+import { SelectBrandThunk } from "../../RTK/Thunk/SelectBrandThunk";
+import { SelectUnitThunk } from "../../RTK/Thunk/SelectUnitThunk";
+import { SelectAttributesThunk } from "../../RTK/Thunk/SelectAttributesThunk";
+import Brand from "../../Routes/Pages/Brand";
+import { UploadImgThunk } from "../../RTK/Thunk/uploadImgThunk";
+import { AddProductThunk } from "../../RTK/Thunk/AddProductThunk";
+import { closeError } from "../../RTK/Reducers/ProductReducer";
 let selectData = ["name", "email", "pass"];
 const ProductNew = () => {
     let { t, i18n } = useTranslation();
+    let dispatch = useDispatch();
+    let navigate = useNavigate();
     const [value, setValue] = React.useState(0);
     const [images, setImages] = React.useState([]);
 
-    // useEffect(() => {
-    //   setImages([{ data_url: editData.img }])
-    // }, [editData.img]);
-    const onChange = (imageList, addUpdateIndex) => {
-        // console.log(imageList, addUpdateIndex);
-        setImages(imageList);
-    };
     const [selectTarget, setSelectTarget] = React.useState({
         Brand: "",
         Attributes: "",
@@ -28,6 +33,52 @@ const ProductNew = () => {
         Sub_Sub_Categories: "",
         Unit: "",
     });
+
+    const [inputValue, setInputValue] = useState({
+        category_Name_en: "",
+        category_Name_ar: "",
+        category_Name_fr: "",
+        desc_en: "",
+        desc_ar: "",
+        desc_fr: "",
+        price: "",
+        total: "",
+    });
+    let {
+        unitSelectData,
+        attributesSelectData,
+        brandSelectData,
+        categoriesSelectData,
+        productData,
+        price_Error,
+        phone_Error,
+        category_id_Error,
+        brand_id_Error,
+        unit_id_Error,
+        att_id_Error,
+        images_Error,
+        name_Error_en,
+        name_Error_ar,
+        name_Error_fr,
+        desc_Error_en,
+        desc_Error_ar,
+        desc_Error_fr, } = useSelector(
+            (state) => state.ProductReducer
+        );
+    const [targetIdSelect, setTargetIdSelect] = React.useState({
+        categories: "",
+        brand: "",
+        attribute: "",
+        unit: "",
+    });
+    const [imgeDataTarget, setImgeDataTarget] = useState([]);
+    const [imgeTargetAction, setImgeTargetAction] = useState({
+        index: '',
+        type: '',
+    });
+
+
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -42,6 +93,169 @@ const ProductNew = () => {
             setValue(2);
         }
     }, [i18n.language]);
+
+    // =====data===========
+    useEffect(() => {
+        if (categoriesSelectData.length < 1) {
+            dispatch(SelectAllCategoriesThunk());
+        }
+    }, [dispatch, categoriesSelectData.length]);
+    useEffect(() => {
+        if (brandSelectData.length < 1) {
+            dispatch(SelectBrandThunk());
+        }
+    }, [dispatch, brandSelectData.length]);
+    useEffect(() => {
+        if (unitSelectData.length < 1) {
+            dispatch(SelectUnitThunk());
+        }
+    }, [dispatch, unitSelectData.length]);
+    useEffect(() => {
+        if (attributesSelectData.length < 1) {
+            dispatch(SelectAttributesThunk());
+        }
+    }, [dispatch, attributesSelectData.length]);
+
+
+
+    // handle select on loading
+
+    useEffect(() => {
+        if (targetIdSelect.categories == "" && categoriesSelectData.length) {
+            setTargetIdSelect({
+                ...targetIdSelect,
+                categories: categoriesSelectData[0]?.id,
+            });
+        }
+    }, [categoriesSelectData, targetIdSelect]);
+    useEffect(() => {
+        if (targetIdSelect.brand == "" && brandSelectData.length) {
+            setTargetIdSelect({
+                ...targetIdSelect,
+                brand: brandSelectData[0]?.id,
+            });
+        }
+    }, [brandSelectData, targetIdSelect]);
+    useEffect(() => {
+        if (targetIdSelect.attribute == "" && attributesSelectData.length) {
+            setTargetIdSelect({
+                ...targetIdSelect,
+                attribute: attributesSelectData[0]?.id,
+            });
+        }
+    }, [attributesSelectData, targetIdSelect]);
+    useEffect(() => {
+        if (targetIdSelect.unit == "" && unitSelectData.length) {
+            setTargetIdSelect({
+                ...targetIdSelect,
+                unit: unitSelectData[0]?.id,
+            });
+        }
+    }, [unitSelectData, targetIdSelect]);
+    /// handle img all
+    const onChange = (imageList, addUpdateIndex) => {
+        // console.log(addUpdateIndex)
+        // console.log(imageList[addUpdateIndex]?.file);
+
+        if (imgeTargetAction.type == 'upload') {
+            dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file })).unwrap()
+                .then((res) => {
+                    // console.log(res.data[0]);
+                    let getRes = [...imgeDataTarget]
+                    getRes.push(res.data[0])
+                    // console.log(getRes)
+                    setImgeDataTarget(getRes)
+                    setImgeTargetAction({
+                        index: '',
+                        type: '',
+                    })
+                })
+                .catch((error) => {
+                    // console.log(error);
+                    // handle error here
+                });
+        }
+        if (imgeTargetAction.type == 'update') {
+
+
+            dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file })).unwrap()
+                .then((res) => {
+                    let getRes = [...imgeDataTarget]
+                    console.log(imgeDataTarget)
+                    getRes.splice(imgeTargetAction.index, 1, res.data[0]);
+                    console.log(getRes)
+                    setImgeDataTarget(getRes)
+                    setImgeTargetAction({
+                        index: '',
+                        type: '',
+                    })
+                })
+                .catch((error) => {
+                    // console.log(error);
+                    // handle error here
+                });
+
+        }
+        setImages(imageList);
+    };
+    useEffect(() => {
+        if (imgeTargetAction.type == 'remove') {
+            // console.log(imgeDataTarget)
+            let getRes = imgeDataTarget.filter((el) => el !== imgeDataTarget[imgeTargetAction.index])
+            // console.log(getRes)
+            setImgeDataTarget(getRes)
+            console.log(getRes)
+            setImgeTargetAction({
+                index: '',
+                type: '',
+            })
+        }
+
+    }, [imgeTargetAction, imgeDataTarget]);
+    let handleSubmit = (e) => {
+        e.preventDefault();
+
+
+        let data = {
+            name: {
+                en: inputValue.category_Name_en,
+                ar: inputValue.category_Name_ar,
+                fr: inputValue.category_Name_fr
+            },
+            description: {
+                en: inputValue.desc_en,
+                ar: inputValue.desc_ar,
+                fr: inputValue.desc_fr
+            },
+            unit_price: inputValue.price,
+            quantity: inputValue.total,
+            category_id: targetIdSelect.categories,
+            attribute_id: targetIdSelect.attribute,
+            unit_id: targetIdSelect.unit,
+            brand_id: targetIdSelect.brand,
+            images: imgeDataTarget
+        };
+        // console.log(data)
+
+        dispatch(AddProductThunk(data))
+            .unwrap()
+            .then((data) => {
+                // console.log(data);
+                navigate("/admin/product");
+            })
+            .catch((error) => {
+                // console.log(error);
+                //    setCode(error.code);
+            });
+    };
+    useEffect(() => {
+        return () => {
+            dispatch(closeError());
+        };
+    }, []);
+    useEffect(() => {
+        dispatch(closeError());
+    }, [dispatch, inputValue]);
     return (
         <>
             <>
@@ -49,9 +263,7 @@ const ProductNew = () => {
                     <form
                         action=""
                         className="add-box flex  items-start justify-start flex-col px-5 py-[60px]  mb-[40px] add-shadow  "
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                        }}
+                        onSubmit={handleSubmit}
                     >
                         <Tabs
                             value={value}
@@ -88,7 +300,28 @@ const ProductNew = () => {
                                         )}
                                     </h6>
 
-                                    <input type="text" />
+                                    <input type="text"
+                                        value={inputValue.category_Name_en}
+                                        onChange={(e) => {
+                                            setInputValue({
+                                                ...inputValue,
+                                                category_Name_en: e.target.value,
+                                            });
+                                        }} />
+                                    {name_Error_en !== null && (
+                                        <span
+                                            style={{
+                                                width: "100%",
+                                                color: "red",
+                                                fontSize: "15px",
+                                                marginBottom: "15px",
+                                                marginTop: "15px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            {name_Error_en}
+                                        </span>
+                                    )}{" "}
                                 </div>
                                 <div
                                     className=" w-full "
@@ -102,7 +335,28 @@ const ProductNew = () => {
                                         )}
                                     </h6>
 
-                                    <input type="text" />
+                                    <input type="text"
+                                        value={inputValue.category_Name_ar}
+                                        onChange={(e) => {
+                                            setInputValue({
+                                                ...inputValue,
+                                                category_Name_ar: e.target.value,
+                                            });
+                                        }} />
+                                    {name_Error_ar !== null && (
+                                        <span
+                                            style={{
+                                                width: "100%",
+                                                color: "red",
+                                                fontSize: "15px",
+                                                marginBottom: "15px",
+                                                marginTop: "15px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            {name_Error_ar}
+                                        </span>
+                                    )}{" "}
                                 </div>
                                 <div
                                     className=" w-full "
@@ -116,7 +370,28 @@ const ProductNew = () => {
                                         )}
                                     </h6>
 
-                                    <input type="text" />
+                                    <input type="text"
+                                        value={inputValue.category_Name_fr}
+                                        onChange={(e) => {
+                                            setInputValue({
+                                                ...inputValue,
+                                                category_Name_fr: e.target.value,
+                                            });
+                                        }} />
+                                    {name_Error_fr !== null && (
+                                        <span
+                                            style={{
+                                                width: "100%",
+                                                color: "red",
+                                                fontSize: "15px",
+                                                marginBottom: "15px",
+                                                marginTop: "15px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            {name_Error_fr}
+                                        </span>
+                                    )}{" "}
                                 </div>
                             </>
                             <div
@@ -128,7 +403,29 @@ const ProductNew = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Description")}
                                 </h6>
-                                <textarea className=" min-h-[150px]"></textarea>
+                                <textarea className=" min-h-[150px]"
+                                    value={inputValue.desc_en}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            desc_en: e.target.value,
+                                        });
+                                    }}
+                                ></textarea>
+                                {desc_Error_en !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginBottom: "15px",
+                                            marginTop: "15px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {desc_Error_en}
+                                    </span>
+                                )}{" "}
                             </div>
                             <div
                                 className=" w-full "
@@ -139,7 +436,27 @@ const ProductNew = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Description")}
                                 </h6>
-                                <textarea className=" min-h-[150px]"></textarea>
+                                <textarea className=" min-h-[150px]" value={inputValue.desc_ar}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            desc_ar: e.target.value,
+                                        });
+                                    }} ></textarea>
+                                {desc_Error_ar !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginBottom: "15px",
+                                            marginTop: "15px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {desc_Error_ar}
+                                    </span>
+                                )}{" "}
                             </div>
                             <div
                                 className=" w-full "
@@ -150,103 +467,195 @@ const ProductNew = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Description")}
                                 </h6>
-                                <textarea className=" min-h-[150px]"></textarea>
+                                <textarea className=" min-h-[150px]" value={inputValue.desc_fr}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            desc_fr: e.target.value,
+                                        });
+                                    }}></textarea>
+                                {desc_Error_fr !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginBottom: "15px",
+                                            marginTop: "15px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {desc_Error_fr}
+                                    </span>
+                                )}{" "}
                             </div>
                         </div>
 
                         <hr className=" w-full my-[40px]" />
-
                         <div className=" flex flex-wrap  w-full gap-[30px] justify-start items-center">
                             <FormControl
                                 className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[340px]"
                                 onClick={(e) => {
                                     // console.log(e.target.textContent)
-                                    setSelectTarget({
-                                        ...selectTarget,
-                                        Brand: e.target.textContent,
-                                    });
-                                }}
-                            >
-                                <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
-                                    {t("pages.ProductNew.Brand")}
-                                </h6>
-                                <SelectBox selectData={selectData} />
-                            </FormControl>
-                            <FormControl
-                                className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[340px]"
-                                onClick={(e) => {
-                                    // console.log(e.target.textContent)
-                                    setSelectTarget({
-                                        ...selectTarget,
-                                        Attributes: e.target.textContent,
-                                    });
-                                }}
-                            >
-                                <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
-                                    {t("pages.ProductNew.Attributes")}
-                                </h6>
-                                <SelectBox selectData={selectData} />
-                            </FormControl>
-                            <FormControl
-                                className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[340px]"
-                                onClick={(e) => {
-                                    // console.log(e.target.textContent)
-                                    setSelectTarget({
-                                        ...selectTarget,
-                                        Categories: e.target.textContent,
-                                    });
+                                    if (e.target.tagName == "LI") {
+                                        // console.log(e.target.textContent);
+                                        setSelectTarget({
+                                            ...selectTarget,
+                                            Main_Category: e.target.textContent,
+                                        });
+                                        let data = categoriesSelectData.filter(
+                                            (el) => el.name === e.target.textContent
+                                        );
+
+                                        setTargetIdSelect({
+                                            ...targetIdSelect,
+                                            categories: data[0].id,
+                                        });
+                                    }
                                 }}
                             >
                                 <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Categories")}
                                 </h6>
-                                <SelectBox selectData={selectData} />
+                                <SelectBox TargetData={categoriesSelectData} />
+                                {category_id_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginBottom: "15px",
+                                            marginTop: "15px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {category_id_Error}
+                                    </span>
+                                )}
                             </FormControl>
                             <FormControl
                                 className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[340px]"
                                 onClick={(e) => {
                                     // console.log(e.target.textContent)
-                                    setSelectTarget({
-                                        ...selectTarget,
-                                        Sub_Categories: e.target.textContent,
-                                    });
+
+                                    if (e.target.tagName == "LI") {
+                                        // console.log(e.target.textContent);
+                                        setSelectTarget({
+                                            ...selectTarget,
+                                            Brand: e.target.textContent,
+                                        });
+                                        let data = brandSelectData.filter(
+                                            (el) => el.name === e.target.textContent
+                                        );
+
+                                        setTargetIdSelect({
+                                            ...targetIdSelect,
+                                            brand: data[0].id,
+                                        });
+                                    }
+                                }}
+
+                            >
+                                <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
+                                    {t("pages.ProductNew.Brand")}
+                                </h6>
+                                <SelectBox TargetData={brandSelectData} />
+                                {brand_id_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginBottom: "15px",
+                                            marginTop: "15px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {brand_id_Error}
+                                    </span>
+                                )}{" "}
+                            </FormControl>
+                            <FormControl
+                                className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[340px]"
+                                onClick={(e) => {
+                                    // console.log(e.target.textContent)
+
+                                    if (e.target.tagName == "LI") {
+                                        // console.log(e.target.textContent);
+                                        setSelectTarget({
+                                            ...selectTarget,
+                                            Attributes: e.target.textContent,
+                                        });
+                                        let data = attributesSelectData.filter(
+                                            (el) => el.name === e.target.textContent
+                                        );
+
+                                        setTargetIdSelect({
+                                            ...targetIdSelect,
+                                            attribute: data[0].id,
+                                        });
+                                    }
                                 }}
                             >
                                 <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
-                                    {t("pages.ProductNew.Sub_Categories")}
+                                    {t("pages.ProductNew.Attributes")}
                                 </h6>
-                                <SelectBox selectData={selectData} />
+                                <SelectBox TargetData={attributesSelectData} />
+                                {att_id_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginBottom: "15px",
+                                            marginTop: "15px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {att_id_Error}
+                                    </span>
+                                )}{" "}
                             </FormControl>
                             <FormControl
                                 className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[340px]"
                                 onClick={(e) => {
                                     // console.log(e.target.textContent)
-                                    setSelectTarget({
-                                        ...selectTarget,
-                                        Sub_Sub_Categories:
-                                            e.target.textContent,
-                                    });
-                                }}
-                            >
-                                <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
-                                    {t("pages.ProductNew.Sub_Sub_category")}
-                                </h6>
-                                <SelectBox selectData={selectData} />
-                            </FormControl>
-                            <FormControl
-                                className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[340px]"
-                                onClick={(e) => {
-                                    // console.log(e.target.textContent)
-                                    setSelectTarget({
-                                        ...selectTarget,
-                                        Unit: e.target.textContent,
-                                    });
+
+                                    if (e.target.tagName == "LI") {
+                                        // console.log(e.target.textContent);
+                                        setSelectTarget({
+                                            ...selectTarget,
+                                            Unit: e.target.textContent,
+                                        });
+                                        let data = unitSelectData.filter(
+                                            (el) => el.name === e.target.textContent
+                                        );
+
+                                        setTargetIdSelect({
+                                            ...targetIdSelect,
+                                            unit: data[0].id,
+                                        });
+                                    }
                                 }}
                             >
                                 <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Unit")}
                                 </h6>
-                                <SelectBox selectData={selectData} />
+                                <SelectBox TargetData={unitSelectData} />
+                                {unit_id_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginBottom: "15px",
+                                            marginTop: "15px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {unit_id_Error}
+                                    </span>
+                                )}{" "}
                             </FormControl>
                         </div>
                         <hr className=" w-full my-[40px]" />
@@ -256,15 +665,56 @@ const ProductNew = () => {
                                     {t("pages.ProductNew.Unit_Price")}
                                 </h6>
 
-                                <input type="text" />
+                                <input type="text"
+                                    value={inputValue.price}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            price: e.target.value,
+                                        });
+                                    }} />
+                                {price_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginBottom: "15px",
+                                            marginTop: "15px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {price_Error}
+                                    </span>
+                                )}{" "}
                             </div>
                             <div className=" w-full ">
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Total_Quantity")}
                                 </h6>
 
-                                <input type="text" />
-                            </div>
+                                <input type="text"
+                                    value={inputValue.total}
+                                    onChange={(e) => {
+                                        setInputValue({
+                                            ...inputValue,
+                                            total: e.target.value,
+                                        });
+                                    }} />
+                                {phone_Error !== null && (
+                                    <span
+                                        style={{
+                                            width: "100%",
+                                            color: "red",
+                                            fontSize: "15px",
+                                            marginBottom: "15px",
+                                            marginTop: "15px",
+                                            display: "block",
+                                        }}
+                                    >
+                                        {phone_Error}
+                                    </span>
+                                )}{" "}                            </div>
                         </div>
                         <hr className=" w-full my-[40px]" />
                         <div className=" w-full relative ">
@@ -290,10 +740,14 @@ const ProductNew = () => {
                                             variant="contained"
                                             className=" !bg-primaryBg w-[150px] h-[50px] "
                                             onClick={() => {
+                                                setImgeTargetAction({
+                                                    index: '',
+                                                    type: 'upload',
+                                                })
                                                 onImageUpload();
                                             }}
                                         >
-                                            {t("pages.ProductNew.ADD_Images")}
+                                            {t("pages.ServicesAdd.ADD_Images")}
                                         </Button>
                                         <div className=" w-full flex flex-wrap gap-[30px] justify-center lg:justify-start items-start">
                                             {imageList.length ? (
@@ -306,9 +760,9 @@ const ProductNew = () => {
                                                             <div className=" flex justify-between gap-5 items-center mb-3 ">
                                                                 <h6 className="mb-[10px] text-[17px] font-[500] capitalize  ">
                                                                     {t(
-                                                                        "pages.ProductNew.Img"
+                                                                        "pages.ServicesAdd.Img"
                                                                     )}{" "}
-                                                                    :{index + 1}{" "}
+                                                                    :{index + 1}
                                                                 </h6>
                                                                 <IconButton
                                                                     aria-label=""
@@ -316,6 +770,10 @@ const ProductNew = () => {
                                                                         onImageRemove(
                                                                             index
                                                                         );
+                                                                        setImgeTargetAction({
+                                                                            index: index,
+                                                                            type: 'remove',
+                                                                        })
                                                                     }}
                                                                 >
                                                                     <DeleteForever />
@@ -324,18 +782,23 @@ const ProductNew = () => {
                                                             <img
                                                                 src={
                                                                     image[
-                                                                        "data_url"
+                                                                    "data_url"
                                                                     ]
                                                                 }
                                                                 className=" rounded-[6px]  w-full cursor-pointer object-cover !aspect-square	"
                                                                 alt=""
-                                                                {...dragProps}
+
                                                                 width="100"
-                                                                onClick={() =>
+                                                                onClick={() => {
+
                                                                     onImageUpdate(
                                                                         index
-                                                                    )
-                                                                }
+                                                                    );
+                                                                    setImgeTargetAction({
+                                                                        index: index,
+                                                                        type: 'update',
+                                                                    })
+                                                                }}
                                                             />
                                                         </div>
                                                     )
@@ -353,6 +816,20 @@ const ProductNew = () => {
                                     </div>
                                 )}
                             </ImageUploading>
+                            {images_Error !== null && (
+                                <span
+                                    style={{
+                                        width: "100%",
+                                        color: "red",
+                                        fontSize: "15px",
+                                        marginBottom: "15px",
+                                        marginTop: "15px",
+                                        display: "block",
+                                    }}
+                                >
+                                    {images_Error}
+                                </span>
+                            )}
                         </div>
                         {/* ======================== */}
                         <hr className=" w-full my-[40px]" />

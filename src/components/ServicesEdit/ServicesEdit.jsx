@@ -1,5 +1,5 @@
 import { Button, FormControl } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Tab, Tabs, IconButton } from "@mui/material";
 import "./ServicesEdit.css";
@@ -79,11 +79,16 @@ const ServicesEdit = () => {
 
   // handle data on loading
   useEffect(() => {
-    dispatch(SelectAllCategoriesThunk());
-  }, [dispatch]);
+    if (categoriesSelectData.length < 1) {
+      dispatch(SelectAllCategoriesThunk());
+    }
+  }, [dispatch, categoriesSelectData.length]);
   useEffect(() => {
-    dispatch(OneServicesThunk({ id: param.serviceEdit }));
-  }, [dispatch, param.serviceEdit]);
+    if (oneDataServices == '') {
+      dispatch(OneServicesThunk({ id: param.serviceEdit }));
+
+    }
+  }, [dispatch, param.serviceEdit, oneDataServices]);
   // handle select on loading
 
   useEffect(() => {
@@ -157,9 +162,9 @@ const ServicesEdit = () => {
     }
     setImages(imageList);
   };
-
+  const RefImg = useRef(true)
   useEffect(() => {
-    if (oneImgData.length && images.length < 1) {
+    if (oneImgData.length && images.length < 1 && RefImg.current) {
       let dataGet = [...oneImgData];
       let data = []
       for (let index = 0; index < oneImgData.length; index++) {

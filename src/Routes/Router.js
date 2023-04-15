@@ -114,7 +114,7 @@ export let Router = createBrowserRouter([
                 element: <Product />,
             },
             {
-                path: "product/add/:productAdd",
+                path: "product/add",
                 element: <ProductNew />,
             },
             {

@@ -73,8 +73,10 @@ const ServicesAdd = () => {
 
   // =====data===========
   useEffect(() => {
-    dispatch(SelectAllCategoriesThunk());
-  }, [dispatch]);
+    if (categoriesSelectData.length < 1) {
+      dispatch(SelectAllCategoriesThunk());
+    }
+  }, [dispatch, categoriesSelectData.length]);
 
   // handle select on loading
 

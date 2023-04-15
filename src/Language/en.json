@@ -183,11 +183,12 @@
         "id": "id",
         "Name": "Name",
         "Price": "Price",
+        "status": "status",
         "actions": "actions"
       }
     },
     "ProductNew": {
-      "Sub_category_Name": "Sub category Name",
+      "Sub_category_Name": "Name",
       "Description": "Description",
       "Brand": "Brand ",
       "Attributes": "Attributes  ",
