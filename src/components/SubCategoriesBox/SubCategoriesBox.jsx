@@ -99,7 +99,7 @@ const SubCategoriesBox = () => {
     // ================================
     useEffect(() => {
         dispatch(SelectParentCategoriesThunk());
-    }, [dispatch]);
+    }, []);
     /// update table data
 
     useEffect(() => {

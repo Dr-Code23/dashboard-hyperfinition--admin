@@ -87,9 +87,21 @@ const CategoriesBox = () => {
     setImages(imageList);
   };
 
+
+  const [searchValue, setSearchValue] = useState('');
+
+
   useEffect(() => {
-    dispatch(AllCategoriesThunk({ page: pageTarget }));
-  }, [dispatch, pageTarget, i18n.language]);
+    if (searchValue) {
+      dispatch(AllCategoriesThunk({ page: pageTarget, search: searchValue }));
+
+    }
+    else {
+      dispatch(AllCategoriesThunk({ page: pageTarget, search: '' }));
+
+    }
+  }, [dispatch, pageTarget, i18n.language, searchValue]);
+
   //  handle add table
   // ========== convertImg===============
   const [imageFile, setImageFile] = useState(null);
@@ -378,6 +390,17 @@ const CategoriesBox = () => {
             {t("pages.CategoriesBox.add.Submit")}
           </Button>
         </form>
+        <div className=" w-full flex justify-start  items-end my-[20px]">
+          <div className='flex  items-end gap-2 pl-1'>
+            <h6 className=' capitalize text-[22px]  font-medium	'>{t("pages.BrandBox.search")} :</h6>
+            <input type="text" className=' bg-secondaryBg outline-none p-[8px]' value={searchValue} onChange={(e) => {
+
+              setSearchValue(e.target.value)
+            }
+
+            } />
+          </div>
+        </div>
         {categoriesData.length && (
           <TableContainer component={Paper} sx={{ height: "438px" }}>
             <Table

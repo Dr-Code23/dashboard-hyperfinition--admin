@@ -19,18 +19,24 @@ let BrandReducer = createSlice({
     name: "brand",
 
     initialState: initState,
-    reducers: {},
+    reducers: {
+        closeData: (state) => {
+            state.brandData = []
+
+        }
+
+    },
     extraReducers: (builder) => {
         builder
             // =======allBrand===========
-            .addCase(AllBrandThunk.pending, (state, action) => {})
+            .addCase(AllBrandThunk.pending, (state, action) => { })
             .addCase(AllBrandThunk.fulfilled, (state, action) => {
                 // console.log(action.payload);
                 state.brandData = action.payload.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;
             })
-            .addCase(AllBrandThunk.rejected, (state, action) => {})
+            .addCase(AllBrandThunk.rejected, (state, action) => { })
             // =======oneBrand===========
             .addCase(OneBrandThunk.fulfilled, (state, action) => {
                 state.nameBrand_en = action.payload.data.name.en;
@@ -38,25 +44,25 @@ let BrandReducer = createSlice({
                 state.nameBrand_fr = action.payload.data.name.fr;
                 state.brandImg = action.payload.data.image;
             })
-            .addCase(OneBrandThunk.rejected, (state, action) => {})
+            .addCase(OneBrandThunk.rejected, (state, action) => { })
             // =======oneBrand===========
             .addCase(UpDateBrand.fulfilled, (state, action) => {
                 // console.log(action.payload);
             })
-            .addCase(UpDateBrand.rejected, (state, action) => {})
+            .addCase(UpDateBrand.rejected, (state, action) => { })
             // =======DeleteBrand===========
             .addCase(DeleteBrand.fulfilled, (state, action) => {
                 // console.log(action.payload);
             })
-            .addCase(DeleteBrand.rejected, (state, action) => {})
+            .addCase(DeleteBrand.rejected, (state, action) => { })
             // =======AddBrandThunk===========
             .addCase(AddBrandThunk.fulfilled, (state, action) => {
                 // console.log(action.payload);
             })
-            .addCase(AddBrandThunk.rejected, (state, action) => {});
+            .addCase(AddBrandThunk.rejected, (state, action) => { });
     },
 });
 
 export default BrandReducer.reducer;
 
-// export { }=LoginReducer.actions
+export let { closeData } = BrandReducer.actions

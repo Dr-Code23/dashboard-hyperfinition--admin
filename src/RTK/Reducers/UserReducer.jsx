@@ -35,6 +35,9 @@ let UserReducer = createSlice({
             state.oneRole = "";
             state.oneName = "";
             state.oneEmail = "";
+            state.userData = [];
+
+
         },
         closeError: (state, action) => {
             state.nameError = null;
@@ -47,14 +50,14 @@ let UserReducer = createSlice({
     extraReducers: (builder) => {
         builder
             // =======allBrand===========
-            .addCase(AllUsersThunk.pending, (state, action) => {})
+            .addCase(AllUsersThunk.pending, (state, action) => { })
             .addCase(AllUsersThunk.fulfilled, (state, action) => {
                 // console.log(action.payload);
                 state.userData = action.payload?.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;
             })
-            .addCase(AllUsersThunk.rejected, (state, action) => {})
+            .addCase(AllUsersThunk.rejected, (state, action) => { })
             // =======OneUserThunk===========
             .addCase(OneUserThunk.fulfilled, (state, action) => {
                 state.oneUser = action.payload?.data;
@@ -63,14 +66,14 @@ let UserReducer = createSlice({
                 state.oneName = action.payload?.data.name;
                 state.oneEmail = action.payload?.data.email;
             })
-            .addCase(OneUserThunk.rejected, (state, action) => {})
+            .addCase(OneUserThunk.rejected, (state, action) => { })
             // =======RolesDataThunk===========
             .addCase(RolesDataThunk.fulfilled, (state, action) => {
                 state.roleData = action.payload?.data;
             })
-            .addCase(RolesDataThunk.rejected, (state, action) => {})
+            .addCase(RolesDataThunk.rejected, (state, action) => { })
             // =======UpdateUserThunk===========
-            .addCase(UpdateUserThunk.fulfilled, (state, action) => {})
+            .addCase(UpdateUserThunk.fulfilled, (state, action) => { })
             .addCase(UpdateUserThunk.rejected, (state, action) => {
                 state.nameError = action.payload?.data?.name;
                 state.emailError = action.payload?.data?.email;
@@ -79,7 +82,7 @@ let UserReducer = createSlice({
                 state.avatarError = action.payload?.data?.avatar;
             })
             // =======AddUserThunk===========
-            .addCase(AddUserThunk.fulfilled, (state, action) => {})
+            .addCase(AddUserThunk.fulfilled, (state, action) => { })
             .addCase(AddUserThunk.rejected, (state, action) => {
                 // console.log(action.payload);
                 state.nameError = action.payload?.data?.name;
@@ -89,7 +92,7 @@ let UserReducer = createSlice({
                 state.avatarError = action.payload?.data?.avatar;
             })
             // =======DeleteUserThunk===========
-            .addCase(DeleteUserThunk.fulfilled, (state, action) => {})
+            .addCase(DeleteUserThunk.fulfilled, (state, action) => { })
             .addCase(DeleteUserThunk.rejected, (state, action) => {
                 // console.log(action.payload);
             });

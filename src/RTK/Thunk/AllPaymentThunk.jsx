@@ -6,17 +6,20 @@ export let AllPaymentThunk = createAsyncThunk(
     "payment/AllPaymentThunk",
     async (arg, ThunkApi) => {
         let { rejectWithValue } = ThunkApi;
+
         try {
+            let url = `${process.env.REACT_APP_API}/project_payments?per_page=5&page=${arg.page}`
+            let urlSearch = `${process.env.REACT_APP_API}/project_payments?per_page=5&page=${arg.page}&handle=${arg.search}`
             let res = await axios.get(
-                `${process.env.REACT_APP_API}/project_payments?per_page=5&page=${arg.page}`,
+                arg.search !== '' ? urlSearch : url,
                 Api()
             );
-            // console.log(res.data);
 
             return res.data;
         } catch (error) {
             // console.log(error.response.data);
             return rejectWithValue(error.response.data);
         }
+
     }
 );

@@ -1,5 +1,5 @@
 import { Button, FormControl } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./ProjectAdd.css";
 import "react-datepicker/dist/react-datepicker.css";
 import SelectBox from "../SelectBox/SelectBox";
@@ -86,8 +86,12 @@ const ProjectAdd = () => {
     // console.log(finalDate(startDate));
 
     // =====data===========
+    const selectRef = useRef(true)
     useEffect(() => {
-        dispatch(SelectProductThunk());
+        if (selectRef.current) {
+            dispatch(SelectProductThunk());
+
+        }
     }, [dispatch]);
 
     // handle select on loading
@@ -141,9 +145,9 @@ const ProjectAdd = () => {
                                 ...foundId[0],
                                 total_price: Number(
                                     foundId[0]?.unit_price *
-                                        e.currentTarget.parentElement.querySelector(
-                                            "input"
-                                        ).value
+                                    e.currentTarget.parentElement.querySelector(
+                                        "input"
+                                    ).value
                                 ).toFixed(2),
                                 quantity:
                                     e.currentTarget.parentElement.querySelector(
@@ -159,9 +163,9 @@ const ProjectAdd = () => {
                                 ...foundId[0],
                                 total_price: Number(
                                     foundId[0]?.unit_price *
-                                        e.currentTarget.parentElement.querySelector(
-                                            "input"
-                                        ).value
+                                    e.currentTarget.parentElement.querySelector(
+                                        "input"
+                                    ).value
                                 ).toFixed(2),
                                 quantity:
                                     e.currentTarget.parentElement.querySelector(

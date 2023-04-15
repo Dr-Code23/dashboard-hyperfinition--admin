@@ -1,5 +1,5 @@
 import { Button, FormControl, MenuItem, Select } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Tab, Tabs, IconButton } from "@mui/material";
 import "./ProductNew.css";
@@ -95,26 +95,36 @@ const ProductNew = () => {
     }, [i18n.language]);
 
     // =====data===========
+    const dataRef = useRef(true)
     useEffect(() => {
-        if (categoriesSelectData.length < 1) {
+        if (dataRef.current) {
             dispatch(SelectAllCategoriesThunk());
-        }
-    }, [dispatch, categoriesSelectData.length]);
-    useEffect(() => {
-        if (brandSelectData.length < 1) {
             dispatch(SelectBrandThunk());
-        }
-    }, [dispatch, brandSelectData.length]);
-    useEffect(() => {
-        if (unitSelectData.length < 1) {
             dispatch(SelectUnitThunk());
-        }
-    }, [dispatch, unitSelectData.length]);
-    useEffect(() => {
-        if (attributesSelectData.length < 1) {
             dispatch(SelectAttributesThunk());
+            dataRef.current = false;
         }
-    }, [dispatch, attributesSelectData.length]);
+    }, [dispatch]);
+    // useEffect(() => {
+    //     if (categoriesSelectData.length < 1) {
+    //         dispatch(SelectAllCategoriesThunk());
+    //     }
+    // }, [dispatch, categoriesSelectData.length]);
+    // useEffect(() => {
+    //     if (brandSelectData.length < 1) {
+    //         dispatch(SelectBrandThunk());
+    //     }
+    // }, [dispatch, brandSelectData.length]);
+    // useEffect(() => {
+    //     if (unitSelectData.length < 1) {
+    //         dispatch(SelectUnitThunk());
+    //     }
+    // }, [dispatch, unitSelectData.length]);
+    // useEffect(() => {
+    //     if (attributesSelectData.length < 1) {
+    //         dispatch(SelectAttributesThunk());
+    //     }
+    // }, [dispatch, attributesSelectData.length]);
 
 
 

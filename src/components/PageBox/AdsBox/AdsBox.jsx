@@ -50,9 +50,23 @@ const AdsBox = () => {
     const handleClose = useCallback(() => {
         setOpenCt(false);
     }, [setOpenCt]);
+
+
+    const [searchValue, setSearchValue] = useState('');
+
+
     useEffect(() => {
-        dispatch(AllAdsThunk({ page: pageTarget }));
-    }, [dispatch, pageTarget, i18n.language]);
+        if (searchValue) {
+            dispatch(AllAdsThunk({ page: pageTarget, search: searchValue }));
+
+        }
+        else {
+            dispatch(AllAdsThunk({ page: pageTarget, search: '' }));
+
+        }
+    }, [dispatch, pageTarget, i18n.language, searchValue]);
+
+
     // handle Delete
     let handleDeleteAds = (id) => {
         dispatch(
@@ -73,7 +87,18 @@ const AdsBox = () => {
     return (
         <>
             <div className=" mx-auto px-4  mt-[40px]">
-                <div className="flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 ">
+                <div className="flex  items-start md:items-center justify-between flex-col md:flex-row mb-3  gap-5 ">
+                    <div className='flex  items-end gap-2 pl-1'>
+
+                        <h6 className=' capitalize text-[22px]  font-medium	'>{t("pages.BrandBox.search")} :</h6>
+
+                        <input type="text" className=' bg-secondaryBg outline-none p-[8px]' value={searchValue} onChange={(e) => {
+
+                            setSearchValue(e.target.value)
+                        }
+
+                        } />
+                    </div>
                     <Button
                         variant="contained"
                         color="primary"

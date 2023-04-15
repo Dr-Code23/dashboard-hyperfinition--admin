@@ -102,29 +102,42 @@ const ProductEdit = () => {
         }
     }, [i18n.language]);
     // =====data===========
+    const dataRef = useRef(true)
     useEffect(() => {
-        if (categoriesSelectData.length < 1) {
+        if (dataRef.current) {
             dispatch(SelectAllCategoriesThunk());
-        }
-    }, [dispatch, categoriesSelectData.length]);
-    useEffect(() => {
-        if (brandSelectData.length < 1) {
             dispatch(SelectBrandThunk());
-        }
-    }, [dispatch, brandSelectData.length]);
-    useEffect(() => {
-        if (unitSelectData.length < 1) {
             dispatch(SelectUnitThunk());
-        }
-    }, [dispatch, unitSelectData.length]);
-    useEffect(() => {
-        if (attributesSelectData.length < 1) {
             dispatch(SelectAttributesThunk());
+            dataRef.current = false;
         }
-    }, [dispatch, attributesSelectData.length]);
+    }, [dispatch]);
+    // =============
+    // useEffect(() => {
+    //     if (categoriesSelectData.length < 1) {
+    //         dispatch(SelectAllCategoriesThunk());
+    //     }
+    // }, [dispatch, categoriesSelectData.length]);
+    // useEffect(() => {
+    //     if (brandSelectData.length < 1) {
+    //         dispatch(SelectBrandThunk());
+    //     }
+    // }, [dispatch, brandSelectData.length]);
+    // useEffect(() => {
+    //     if (unitSelectData.length < 1) {
+    //         dispatch(SelectUnitThunk());
+    //     }
+    // }, [dispatch, unitSelectData.length]);
+    // useEffect(() => {
+    //     if (attributesSelectData.length < 1) {
+    //         dispatch(SelectAttributesThunk());
+    //     }
+    // }, [dispatch, attributesSelectData.length]);
+    const OneRef = useRef(true)
     useEffect(() => {
-        if (oneDataProduct == '') {
+        if (oneDataProduct == '' && OneRef.current) {
             dispatch(OneProductThunk({ id: param.productEdit }));
+            OneRef.current = false
         }
     }, [dispatch, param.productEdit, oneDataProduct]);
     // handle select on loading
@@ -205,8 +218,7 @@ const ProductEdit = () => {
             });
         }
     }, [oneDataProduct]);
-    // console.log(targetIdSelect)
-    // console.log(selectIndex)
+
     /// handle img all
     const onChange = (imageList, addUpdateIndex) => {
 
@@ -306,7 +318,6 @@ const ProductEdit = () => {
         }
     }, [imgeTargetAction, imgeDataTarget]);
 
-    console.log(imgeDataTarget)
 
     useEffect(() => {
         return () => {
@@ -848,7 +859,8 @@ const ProductEdit = () => {
                                     >
                                         {phone_Error}
                                     </span>
-                                )}{" "}                            </div>
+                                )}{" "}
+                            </div>
                         </div>
                         <hr className=" w-full my-[40px]" />
                         <div className=" w-full relative ">

@@ -18,6 +18,9 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { AllBrandThunk } from "../../../RTK/Thunk/AllBrandThunk";
 import { DeleteBrand } from "../../../RTK/Thunk/DeleteBrand";
+import SwitchBox from "../../SwitchBox/SwitchBox";
+import { BrandStatusThunk } from "../../../RTK/Thunk/BrandStatusThunk";
+import { closeData } from "../../../RTK/Reducers/BrandReducer";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -45,10 +48,13 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
     const [pageTarget, setPageTarget] = useState(1);
     // const navigation = useNavigate();
 
-    useEffect(() => {
-        dispatch(AllBrandThunk({ page: pageTarget }));
-    }, [dispatch, pageTarget, i18n.language]);
 
+    useEffect(() => {
+
+        return () => {
+            dispatch(closeData())
+        };
+    }, []);
     // ====
     // handle Delete Brand
     let handleDeleteBrand = (id) => {
@@ -67,11 +73,31 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
                 // handle error here
             });
     };
+    const [searchValue, setSearchValue] = useState('');
 
+
+    useEffect(() => {
+        if (searchValue) {
+            dispatch(AllBrandThunk({ page: pageTarget, search: searchValue }));
+        }
+        else {
+            dispatch(AllBrandThunk({ page: pageTarget, search: '' }));
+
+        }
+    }, [dispatch, pageTarget, i18n.language, searchValue]);
     return (
         <>
             <div className=" mx-auto px-4 mt-[40px]">
-                <div className="flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 ">
+                <div className="flex  items-start md:items-center justify-between flex-col md:flex-row mb-3  gap-5 ">
+                    <div className='flex  items-end gap-2 pl-1'>
+                        <h6 className=' capitalize text-[22px]  font-medium	'>{t("pages.BrandBox.search")} :</h6>
+                        <input type="text" className=' bg-secondaryBg outline-none p-[8px]' value={searchValue} onChange={(e) => {
+
+                            setSearchValue(e.target.value)
+                        }
+
+                        } />
+                    </div>
                     <Button
                         variant="contained"
                         color="primary"
@@ -117,6 +143,12 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
                                         align="center"
                                         className="!bg-primaryBg capitalize"
                                     >
+                                        {t("pages.ProductBox.table.status")}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
                                         {t("pages.BrandBox.table.actions")}
                                     </StyledTableCell>
                                 </TableRow>
@@ -140,6 +172,41 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
                                         </StyledTableCell>
                                         <StyledTableCell align="center">
                                             {row.name}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            <div
+                                                data-name={row.status}
+                                                onClick={(e) => {
+                                                    if (
+                                                        e.currentTarget.dataset
+                                                            .name == "true"
+                                                    ) {
+                                                        dispatch(
+                                                            BrandStatusThunk(
+                                                                {
+                                                                    id: row.id,
+                                                                    status: false,
+                                                                }
+                                                            )
+                                                        );
+                                                        e.currentTarget.dataset.name = false;
+                                                    } else {
+                                                        dispatch(
+                                                            BrandStatusThunk(
+                                                                {
+                                                                    id: row.id,
+                                                                    status: true,
+                                                                }
+                                                            )
+                                                        );
+                                                        e.currentTarget.dataset.name = true;
+                                                    }
+                                                }}
+                                            >
+                                                <SwitchBox
+                                                    status={row.status}
+                                                />
+                                            </div>
                                         </StyledTableCell>
                                         <StyledTableCell align="center">
                                             <div className="action flex items-center justify-center gap-2">

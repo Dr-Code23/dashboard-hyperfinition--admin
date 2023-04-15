@@ -18,6 +18,9 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { AllUsersThunk } from "../../../RTK/Thunk/AllUsersThunk";
 import { DeleteUserThunk } from "../../../RTK/Thunk/DeleteUserThunk";
+import { UserStatusThunk } from "../../../RTK/Thunk/UserStatusThunk";
+import SwitchBox from "../../SwitchBox/SwitchBox";
+import { closeModal } from "../../../RTK/Reducers/UserReducer";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -56,10 +59,30 @@ const UsersBox = () => {
     let { t, i18n } = useTranslation();
     let { userData, lastPage } = useSelector((state) => state.UserReducer);
     const [pageTarget, setPageTarget] = useState(1);
+
+    const [searchValue, setSearchValue] = useState('');
+
+
     useEffect(() => {
-        dispatch(AllUsersThunk({ page: pageTarget }));
-    }, [dispatch, pageTarget, i18n.language]);
+        if (searchValue) {
+            dispatch(AllUsersThunk({ page: pageTarget, search: searchValue }));
+
+        }
+        else {
+            dispatch(AllUsersThunk({ page: pageTarget, search: '' }));
+
+        }
+    }, [dispatch, pageTarget, i18n.language, searchValue]);
+
+
+
     // handle Delete user
+    useEffect(() => {
+
+        return () => {
+            dispatch(closeModal())
+        };
+    }, []);
     let handleDeleteUser = (id) => {
         dispatch(
             DeleteUserThunk({
@@ -79,7 +102,18 @@ const UsersBox = () => {
     return (
         <>
             <div className=" mx-auto px-4  mt-[40px]">
-                <div className="flex  items-start md:items-center justify-end flex-col md:flex-row mb-3  gap-5 ">
+                <div className="flex  items-start md:items-center justify-between flex-col md:flex-row mb-3  gap-5 ">
+                    <div className='flex  items-end gap-2 pl-1'>
+
+                        <h6 className=' capitalize text-[22px]  font-medium	'>{t("pages.BrandBox.search")} :</h6>
+
+                        <input type="text" className=' bg-secondaryBg outline-none p-[8px]' value={searchValue} onChange={(e) => {
+
+                            setSearchValue(e.target.value)
+                        }
+
+                        } />
+                    </div>
                     <Button
                         variant="contained"
                         color="primary"
@@ -133,6 +167,12 @@ const UsersBox = () => {
                                         align="center"
                                         className="!bg-primaryBg capitalize"
                                     >
+                                        {t("pages.ProductBox.table.status")}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="center"
+                                        className="!bg-primaryBg capitalize"
+                                    >
                                         {t("pages.UsersBox.table.actions")}
                                     </StyledTableCell>
                                 </TableRow>
@@ -162,6 +202,41 @@ const UsersBox = () => {
                                         </StyledTableCell>
                                         <StyledTableCell align="center">
                                             {row.role_name}
+                                        </StyledTableCell>
+                                        <StyledTableCell align="center">
+                                            <div
+                                                data-name={row.status}
+                                                onClick={(e) => {
+                                                    if (
+                                                        e.currentTarget.dataset
+                                                            .name == "true"
+                                                    ) {
+                                                        dispatch(
+                                                            UserStatusThunk(
+                                                                {
+                                                                    id: row.id,
+                                                                    status: false,
+                                                                }
+                                                            )
+                                                        );
+                                                        e.currentTarget.dataset.name = false;
+                                                    } else {
+                                                        dispatch(
+                                                            UserStatusThunk(
+                                                                {
+                                                                    id: row.id,
+                                                                    status: true,
+                                                                }
+                                                            )
+                                                        );
+                                                        e.currentTarget.dataset.name = true;
+                                                    }
+                                                }}
+                                            >
+                                                <SwitchBox
+                                                    status={row.status}
+                                                />
+                                            </div>
                                         </StyledTableCell>
                                         <StyledTableCell align="center">
                                             <div className="action flex items-center justify-center gap-2">

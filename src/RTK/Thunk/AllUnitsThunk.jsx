@@ -7,13 +7,16 @@ export let AllUnitsThunk = createAsyncThunk(
     async (arg, ThunkApi) => {
         let { rejectWithValue } = ThunkApi;
         try {
+            let url = `${process.env.REACT_APP_API}/units?per_page=5&page=${arg.page}`
+            let urlSearch = `${process.env.REACT_APP_API}/units?per_page=5&page=${arg.page}&handle=${arg.search}`
             let res = await axios.get(
-                `${process.env.REACT_APP_API}/units?per_page=5&page=${arg.page}`,
+                arg.search !== '' ? urlSearch : url,
                 Api()
             );
+
             return res.data;
         } catch (error) {
-            // console.log(error.response.data)
+            // console.log(error.response.data);
             return rejectWithValue(error.response.data);
         }
     }

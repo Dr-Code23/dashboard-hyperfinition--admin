@@ -5,13 +5,16 @@ import { Api } from "../Api";
 export let AllProductThunk = createAsyncThunk(
   "product/AllProductThunk",
   async (arg, ThunkApi) => {
+    console.log(arg)
     let { rejectWithValue } = ThunkApi;
     try {
+      let url = `${process.env.REACT_APP_API}/products?per_page=5&page=${arg.page}`
+      let urlSearch = `${process.env.REACT_APP_API}/products?per_page=5&page=${arg.page}&handle=${arg.search}`
       let res = await axios.get(
-        `${process.env.REACT_APP_API}/products?per_page=5&page=${arg.page}`,
+        arg.search !== '' ? urlSearch : url,
         Api()
       );
-      // console.log(res.data);
+      console.log(res.data);
 
       return res.data;
     } catch (error) {
