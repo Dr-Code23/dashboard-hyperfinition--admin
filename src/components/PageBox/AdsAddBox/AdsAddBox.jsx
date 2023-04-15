@@ -98,7 +98,7 @@ const AdsAddBox = () => {
             })
             .catch((error) => {
                 // console.log(error);
-                //    setCode(error.code);
+                //setCode(error.code);
             });
     };
     return (
@@ -390,8 +390,8 @@ const AdsAddBox = () => {
                                                     style={
                                                         isDragging
                                                             ? {
-                                                                  border: "4px dashed #000",
-                                                              }
+                                                                border: "4px dashed #000",
+                                                            }
                                                             : undefined
                                                     }
                                                     width="100"

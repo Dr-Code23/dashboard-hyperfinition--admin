@@ -58,11 +58,19 @@ const LoginBox = () => {
     // fun handel validation
     const formik = useFormik({
         initialValues: {
-            email: "super_admin@admin.com",
-            pass: "super_admin",
+            email: "",
+            pass: "",
         },
         onSubmit: (values) => {
-            dispatch(LoginThunk(values));
+            dispatch(LoginThunk(values)).unwrap()
+                .then((data) => {
+                    // console.log(data);
+                    navigate("/admin");
+                })
+                .catch((error) => {
+                    // console.log(error);
+                    // handle error here
+                });
         },
         validationSchema: SignupSchema,
     });

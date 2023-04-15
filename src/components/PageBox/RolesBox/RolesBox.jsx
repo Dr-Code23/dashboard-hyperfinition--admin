@@ -57,7 +57,19 @@ const RolesBox = () => {
 
         }
         else {
-            dispatch(AllRolesThunk({ page: pageTarget, search: '' }));
+            dispatch(AllRolesThunk({ page: pageTarget, search: '' }))
+            // .unwrap()
+            //     .then((data) => {
+            //         // console.log(data);
+            //     })
+            //     .catch((error) => {
+            //         // console.log(error.code);
+            //         if (error.code === 403) {
+            //             navigate("/admin");
+
+            //         }
+
+            //     });
 
         }
     }, [dispatch, pageTarget, i18n.language, searchValue]);

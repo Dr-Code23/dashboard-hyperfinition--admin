@@ -42,6 +42,7 @@ const Layout = (props) => {
   // check token
   useEffect(() => {
     if (!localStorage.getItem('AccessToken')) {
+      localStorage.clear()
       navigate('/')
     }
   }, [navigate]);

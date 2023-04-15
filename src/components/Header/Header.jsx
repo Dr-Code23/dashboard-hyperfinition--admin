@@ -20,10 +20,12 @@ import EnImg from "../../assets/Img/en.jpg";
 import ArImg from "../../assets/Img/ar.jpg";
 import FrImg from "../../assets/Img/fr.jpg";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { LogoutThunk } from "../../RTK/Thunk/LogoutThunk";
 const Header = ({ drawerWidth, handleDrawerToggle }) => {
     let { t, i18n } = useTranslation();
     let Navigate = useNavigate();
+    let dispatch = useDispatch();
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [userImg, setUserImg] = React.useState(
@@ -34,15 +36,24 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
         localStorage.getItem("language") === "en"
             ? EnImg
             : localStorage.getItem("language") === "ar"
-            ? ArImg
-            : localStorage.getItem("language") === "fr"
-            ? FrImg
-            : EnImg
+                ? ArImg
+                : localStorage.getItem("language") === "fr"
+                    ? FrImg
+                    : EnImg
     );
     const handleLogOut = useCallback(() => {
-        localStorage.removeItem("AccessToken");
-        Navigate("/");
-    }, [Navigate]);
+
+        dispatch(LogoutThunk()).unwrap()
+            .then((data) => {
+                localStorage.clear();
+                Navigate("/");
+            })
+            .catch((error) => {
+                // console.log(error);
+                // handle error here
+            });
+
+    }, [Navigate, dispatch]);
     let { avatar } = useSelector((state) => state.ProfileReducer);
     useEffect(() => {
         if (avatar) {
