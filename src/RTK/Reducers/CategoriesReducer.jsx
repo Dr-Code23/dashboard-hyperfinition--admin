@@ -50,7 +50,7 @@ let CategoriesReducer = createSlice({
         builder
             // =======allBrand===========
             .addCase(AllCategoriesThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.categoriesData = action.payload.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;
@@ -58,7 +58,7 @@ let CategoriesReducer = createSlice({
             .addCase(AllCategoriesThunk.rejected, (state, action) => {})
             // =======OneCategoriesThunk===========
             .addCase(OneCategoriesThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.categoriesImg = action.payload.data.img;
                 state.categoriesName = action.payload.data.name;
             })
@@ -66,7 +66,7 @@ let CategoriesReducer = createSlice({
 
             // =======AddCategoriesThunk===========
             .addCase(AddCategoriesThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(AddCategoriesThunk.rejected, (state, action) => {
                 state.name_en_Error = action.payload?.data?.["name.en"];
@@ -77,7 +77,7 @@ let CategoriesReducer = createSlice({
             })
             // =======UpdateCategoriesThunk===========
             .addCase(UpdateCategoriesThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(UpdateCategoriesThunk.rejected, (state, action) => {
                 state.name_en_Error = action.payload?.data?.["name.en"];
@@ -88,11 +88,11 @@ let CategoriesReducer = createSlice({
             })
             // =======DeleteCategoriesThunk===========
             .addCase(DeleteCategoriesThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             // =======CategoriesStatusThunk===========
             .addCase(CategoriesStatusThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             });
         // .addCase(DeleteBrand.rejected, (state, action) => {})
     },

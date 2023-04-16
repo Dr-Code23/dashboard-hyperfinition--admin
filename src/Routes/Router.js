@@ -36,7 +36,7 @@ import CategoriesEdit from "../components/CategoriesEdit/CategoriesEdit";
 import Attributes from "./Pages/Attributes";
 import Brand from "./Pages/Brand";
 import Categories from "./Pages/Categories";
-import Compony from "./Pages/Compony";
+import Company from "./Pages/Company";
 import Dashboard from "./Pages/Dashboard";
 import Layout from "./Pages/Layout";
 import Login from "./Pages/Login";
@@ -45,144 +45,145 @@ import Project from "./Pages/Project";
 import Units from "./Pages/Units";
 import UserDetail from "./Pages/UserDetail";
 import Users from "./Pages/Users";
+import hasPermission from '../config/functions'
 
 export let Router = createBrowserRouter([
     {
         path: "/",
         element: <Login />,
-        errorElement: <div>errorElement</div>,
+        errorElement: <div>This Page Is Not Found</div>,
     },
     {
         path: "/admin",
         element: <Layout />,
-        errorElement: <div>errorElement</div>,
+        errorElement: <div>This Page Is Not Found</div>,
         children: [
             { index: true, element: <Dashboard /> },
 
             {
-                path: "brand",
+                path: hasPermission('brand_management') ? "brand" : '',
                 element: <Brand />,
             },
             {
-                path: "attributes",
+                path: hasPermission('attribute_management') ? "attributes" : '',
                 element: <Attributes />,
             },
             {
-                path: "units",
+                path: hasPermission('unit_management') ? "units" : '',
                 element: <Units />,
             },
             {
-                path: "users",
+                path: hasPermission('user_management') ? "users" : '',
                 element: <Users />,
             },
             {
-                path: "users/detail/:user_id",
+                path: hasPermission('user_management') ? "users/detail/:user_id" : '',
                 element: <UserDetail />,
             },
             {
-                path: "users/add/:user_add",
+                path: hasPermission('user_management') ? "users/add/:user_add" : '',
                 element: <UserAddBox />,
             },
             {
-                path: "categories",
+                path: hasPermission('category_management') ? "categories" : '',
                 element: <Categories />,
             },
 
             {
-                path: "categories/edit/:editCategories",
+                path:  hasPermission('category_management') ? "categories/edit/:editCategories" : '',
                 element: <CategoriesEdit />,
             },
 
             {
-                path: "categories/sub",
+                path:  hasPermission('category_management') ? "categories/sub" : '',
                 element: <SubCategoriesBox />,
             },
             {
-                path: "categories/sub/edit/:idMainCategories/:editSub",
+                path:  hasPermission('category_management') ? "categories/sub/edit/:idMainCategories/:editSub" : '',
                 element: <SubCategoriesEdit />,
             },
             {
-                path: "categories/sub_sub",
+                path:  hasPermission('category_management') ? "categories/sub_sub" : '',
                 element: <SubSubCategoriesBox />,
             },
             {
-                path: "categories/sub_sub/edit/:editSub/:SubSub",
+                path:  hasPermission('category_management') ? "categories/sub_sub/edit/:editSub/:SubSub" : '',
                 element: <SubSubCategoriesEdit />,
             },
             {
-                path: "product",
+                path: hasPermission('product_management') ? "product" : '',
                 element: <Product />,
             },
             {
-                path: "product/add",
+                path: hasPermission('product_management') ? "product/add" : '',
                 element: <ProductNew />,
             },
             {
-                path: "product/edit/:productEdit",
+                path: hasPermission('product_management') ? "product/edit/:productEdit" : '',
                 element: <ProductEdit />,
             },
             {
-                path: "services",
+                path: hasPermission('service_management') ? "services" : '',
                 element: <ServicesBox />,
             },
             {
-                path: "services/add",
+                path: hasPermission('service_management') ? "services/add" : '',
                 element: <ServicesAdd />,
             },
             {
-                path: "services/edit/:serviceEdit",
+                path: hasPermission('service_management') ? "services/edit/:serviceEdit" : '',
                 element: <ServicesEdit />,
             },
             {
-                path: "generalExpenses",
+                path: hasPermission('general_expenses_management') ? "generalExpenses" : '',
                 element: <GeneralExpenses />,
             },
             {
-                path: "generalExpenses/add",
+                path: hasPermission('general_expenses_management') ? "generalExpenses/add" : '',
                 element: <GeneralExpensesAdd />,
             },
             {
-                path: "generalExpenses/edit/:GeneralExpensesEdit",
+                path: hasPermission('general_expenses_management') ? "generalExpenses/edit/:GeneralExpensesEdit" : '',
                 element: <GeneralExpensesEdit />,
             },
             {
-                path: "project",
+                path: hasPermission('project_management') ? "project" : '',
                 element: <Project />,
             },
             {
-                path: "project/add/",
+                path: hasPermission('project_management') ? "project/add/" : '',
                 element: <ProjectAdd />,
             },
             {
-                path: "project/view/:projectView",
+                path: hasPermission('project_management') ? "project/view/:projectView" : '',
                 element: <ProjectView />,
             },
             {
-                path: "projectPayment",
+                path: hasPermission('project_management') ? "projectPayment" : '',
                 element: <ProjectPayment />,
             },
             {
-                path: "projectPayment/view/:paymentView",
+                path: hasPermission('project_payment_management') ? "projectPayment/view/:paymentView" : '',
                 element: <ProjectPaymentView />,
             },
             {
-                path: "projectPayment/add",
+                path: hasPermission('project_payment_management') ? "projectPayment/add" : '',
                 element: <ProjectPaymentAdd />,
             },
             {
-                path: "projectPayment/edit/:projectPaymentEdit",
+                path: hasPermission('project_payment_management') ? "projectPayment/edit/:projectPaymentEdit" : '',
                 element: <ProjectPaymentEdit />,
             },
             {
-                path: "projectExpense",
-                element: <Compony />,
+                path: hasPermission('project_expenses_management') ? "projectExpense" : '',
+                element: <Company />,
             },
             {
-                path: "projectExpense/add",
+                path: hasPermission('project_expenses_management') ? "projectExpense/add" : '',
                 element: <ComponyExpensesAdd />,
             },
             {
-                path: "projectExpense/view/:ComponyExpensesView",
+                path: hasPermission('project_expenses_management') ? "projectExpense/view/:ComponyExpensesView" : '',
                 element: <ComponyExpensesView />,
             },
             {
@@ -190,50 +191,40 @@ export let Router = createBrowserRouter([
                 element: <ProfileBox />,
             },
             {
-                path: "contact",
+                path: hasPermission('contact_us_management') ? "contact" : '',
                 element: <ContactBox />,
             },
             {
-                path: "about",
+                path:  hasPermission('about_us_management') ? "about" : '',
                 element: <AboutBox />,
             },
             {
-                path: "roles",
+                path: hasPermission('role_management') ? "roles" : '',
                 element: <RolesBox />,
             },
             {
-                path: "roles/add/:RolesBoxAdd",
+                path: hasPermission('role_management') ? "roles/add/:RolesBoxAdd" : '',
                 element: <RolesBoxAdd />,
             },
             {
-                path: "roles/edit/:RolesBoxEdit",
+                path: hasPermission('role_management') ? "roles/edit/:RolesBoxEdit" : '',
                 element: <RolesBoxEdit />,
             },
             {
-                path: "settings",
+                path: hasPermission('settings_management') ? "settings" : '',
                 element: <SettingsBox />,
             },
             {
-                path: "ads",
+                path: hasPermission('ad_management') ? "ads" : '',
                 element: <AdsBox />,
             },
             {
-                path: "ads/add",
+                path: hasPermission('ad_management') ? "ads/add" : '',
                 element: <AdsAddBox />,
             },
             {
-                path: "ads/edit/:editAds",
+                path: hasPermission('ad_management') ? "ads/edit/:editAds" : '',
                 element: <AdsAEditBox />,
-            },
-
-            {
-                // path: "admin",
-                // element: <Admin />,
-                // loader: async (e) => {
-                //   if (localStorage.AccessToken) {
-                //   }
-                //   return e
-                // },
             },
         ],
     },

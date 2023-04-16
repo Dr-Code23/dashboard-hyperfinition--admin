@@ -87,7 +87,7 @@ let ProductReducer = createSlice({
       // =======AllServicesThunk===========
       .addCase(AllProductThunk.pending, (state, action) => { })
       .addCase(AllProductThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.productData = action.payload?.data;
         state.currentPage = action.payload.meta.current_page;
         state.lastPage = action.payload.meta.last_page;
@@ -96,7 +96,7 @@ let ProductReducer = createSlice({
       // =======ProductStatusThunk===========
       .addCase(ProductStatusThunk.pending, (state, action) => { })
       .addCase(ProductStatusThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
       })
       // .addCase(ServicesStatusThunk.rejected, (state, action) => { })
       // =======DeleteProductThunk===========
@@ -119,25 +119,25 @@ let ProductReducer = createSlice({
       // =======SelectProductThunk===========
       .addCase(SelectAllCategoriesThunk.pending, (state, action) => { })
       .addCase(SelectAllCategoriesThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.categoriesSelectData = action.payload?.data;
       })
       // =======SelectBrandThunk===========
       .addCase(SelectBrandThunk.pending, (state, action) => { })
       .addCase(SelectBrandThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.brandSelectData = action.payload?.data;
       })
       // =======SelectUnitThunk===========
       .addCase(SelectUnitThunk.pending, (state, action) => { })
       .addCase(SelectUnitThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.unitSelectData = action.payload?.data;
       })
       // =======SelectUnitThunk===========
       .addCase(SelectAttributesThunk.pending, (state, action) => { })
       .addCase(SelectAttributesThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.attributesSelectData = action.payload?.data;
       })
 

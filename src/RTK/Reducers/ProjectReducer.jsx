@@ -46,7 +46,7 @@ let ProjectReducer = createSlice({
             // =======AllExpensesThunk===========
             .addCase(AllProjectThunk.pending, (state, action) => {})
             .addCase(AllProjectThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.projectData = action.payload?.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;
@@ -65,7 +65,7 @@ let ProjectReducer = createSlice({
             // =======SelectProductThunk===========
             .addCase(SelectProductThunk.pending, (state, action) => {})
             .addCase(SelectProductThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.productSelectData = action.payload?.data;
             })
             .addCase(SelectProductThunk.rejected, (state, action) => {})

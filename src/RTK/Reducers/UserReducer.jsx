@@ -52,7 +52,7 @@ let UserReducer = createSlice({
             // =======allBrand===========
             .addCase(AllUsersThunk.pending, (state, action) => { })
             .addCase(AllUsersThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.userData = action.payload?.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;
@@ -84,7 +84,7 @@ let UserReducer = createSlice({
             // =======AddUserThunk===========
             .addCase(AddUserThunk.fulfilled, (state, action) => { })
             .addCase(AddUserThunk.rejected, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.nameError = action.payload?.data?.name;
                 state.emailError = action.payload?.data?.email;
                 state.passwordError = action.payload?.data?.password;
@@ -94,7 +94,7 @@ let UserReducer = createSlice({
             // =======DeleteUserThunk===========
             .addCase(DeleteUserThunk.fulfilled, (state, action) => { })
             .addCase(DeleteUserThunk.rejected, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             });
     },
 });

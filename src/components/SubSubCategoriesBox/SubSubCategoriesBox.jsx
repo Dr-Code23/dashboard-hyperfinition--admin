@@ -125,13 +125,13 @@ const SubSubCategoriesBox = () => {
     //handle first open page
 
     useEffect(() => {
-        if (targetIdSelect.sub == "" && subSelectData.length) {
+        if (targetIdSelect.sub === "" && subSelectData.length) {
             setTargetIdSelect({
                 ...targetIdSelect,
                 sub: subSelectData[0]?.id,
             });
         }
-        if (targetIdSelect.main == "" && mainSelectData.length) {
+        if (targetIdSelect.main === "" && mainSelectData.length) {
             setTargetIdSelect({
                 ...targetIdSelect,
                 main: mainSelectData[0]?.id,
@@ -158,7 +158,7 @@ const SubSubCategoriesBox = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // ////console.log(data);
                 dispatch(
                     SubSubCategoriesThunk({
                         sub: targetIdSelect.sub,
@@ -168,7 +168,7 @@ const SubSubCategoriesBox = () => {
                 );
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 // handle error here
             });
     };
@@ -186,7 +186,7 @@ const SubSubCategoriesBox = () => {
             )
                 .unwrap()
                 .then((data) => {
-                    // console.log(data);
+                    // //console.log(data);
                     dispatch(
                         SubSubCategoriesThunk({
                             sub: targetIdSelect.sub,
@@ -200,7 +200,7 @@ const SubSubCategoriesBox = () => {
                     });
                 })
                 .catch((error) => {
-                    console.log(error);
+                    //console.log(error);
                     // setCode(error.code);
                     // handle error here
                 });
@@ -358,7 +358,7 @@ const SubSubCategoriesBox = () => {
                             fullWidth
                             className="min-h-[75.5px]"
                             onClick={(e) => {
-                                if (e.target.tagName == "LI") {
+                                if (e.target.tagName === "LI") {
                                     setSelectTarget({
                                         ...selectTarget,
                                         Sub_Categories: e.target.textContent,
@@ -387,7 +387,7 @@ const SubSubCategoriesBox = () => {
                             fullWidth
                             className="min-h-[75.5px]"
                             onClick={(e) => {
-                                // console.log(e.target.textContent)
+                                // //console.log(e.target.textContent)
                                 if (e.target.tagName == "LI") {
                                     setSelectTarget({
                                         ...selectTarget,
@@ -407,7 +407,7 @@ const SubSubCategoriesBox = () => {
                                     )
                                         .unwrap()
                                         .then((data) => {
-                                            // console.log(data);
+                                            // //console.log(data);
                                             setTargetIdSelect({
                                                 ...targetIdSelect,
                                                 sub: data.data[0]?.id,

@@ -4,7 +4,7 @@ import { Api } from "../Api";
 export let UploadImgThunk = createAsyncThunk(
   "services/UploadImgThunk",
   async (arg, ThunkApi) => {
-    // console.log(arg.img);
+    // //console.log(arg.img);
     const formData = new FormData();
     formData.append("image", arg?.img);
     const config = {
@@ -24,10 +24,10 @@ export let UploadImgThunk = createAsyncThunk(
         formData,
         config
       );
-      // console.log(res.data);
+      // //console.log(res.data);
       return res.data;
     } catch (error) {
-      console.log(error.response.data);
+      //console.log(error.response.data);
       return rejectWithValue(error.response.data);
     }
   }

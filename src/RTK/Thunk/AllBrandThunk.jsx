@@ -13,11 +13,11 @@ export let AllBrandThunk = createAsyncThunk(
                 arg.search !== '' ? urlSearch : url,
                 Api()
             );
-            // console.log(res.data);
+            // //console.log(res.data);
 
             return res.data;
         } catch (error) {
-            // console.log(error.response.data);
+            // //console.log(error.response.data);
             return rejectWithValue(error.response.data);
         }
 

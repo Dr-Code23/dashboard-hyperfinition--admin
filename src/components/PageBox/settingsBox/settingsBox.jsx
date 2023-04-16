@@ -97,11 +97,11 @@ const SettingsBox = () => {
         );
         // .unwrap()
         // .then((data) => {
-        //     // console.log(data);
+        //     // //console.log(data);
         //     navigate();
         // })
         // .catch((error) => {
-        //     // console.log(error);
+        //     // //console.log(error);
         //     // setCode(error.code);
         //     // handle error here
         // });

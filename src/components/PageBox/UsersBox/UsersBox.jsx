@@ -91,11 +91,11 @@ const UsersBox = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 dispatch(AllUsersThunk({ page: pageTarget }));
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 // handle error here
             });
     };

@@ -49,7 +49,7 @@ const UserAddBox = () => {
     } = useSelector((state) => state.UserReducer);
     // = img==
     const onChange = (imageList, addUpdateIndex) => {
-        // console.log(imageList, addUpdateIndex);
+        // //console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
     const [age, setAge] = React.useState("");
@@ -106,13 +106,13 @@ const UserAddBox = () => {
             )
                 .unwrap()
                 .then((data) => {
-                    // console.log(data);
+                    // //console.log(data);
                     setImages([{ data_url: img }]);
                     navigate("/admin/users/");
                     dispatch(closeError());
                 })
                 .catch((error) => {
-                    // console.log(error);
+                    // //console.log(error);
                     //    setCode(error.code);
                 });
         },

@@ -24,7 +24,7 @@ const AdsAddBox = () => {
     });
     const [images, setImages] = React.useState([{ data_url: img }]);
     const onChange = (imageList, addUpdateIndex) => {
-        // console.log(imageList, addUpdateIndex);
+        // //console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
 
@@ -56,7 +56,7 @@ const AdsAddBox = () => {
     }, [i18n.language]);
 
     // ============= handle get data user================
-    // console.log(!!oneAbout);
+    // //console.log(!!oneAbout);
 
     useEffect(() => {
         dispatch(closeError());
@@ -93,11 +93,11 @@ const AdsAddBox = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 navigate("/admin/ads");
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 //setCode(error.code);
             });
     };

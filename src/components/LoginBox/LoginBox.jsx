@@ -64,11 +64,11 @@ const LoginBox = () => {
         onSubmit: (values) => {
             dispatch(LoginThunk(values)).unwrap()
                 .then((data) => {
-                    // console.log(data);
+                    // //console.log(data);
                     navigate("/admin");
                 })
                 .catch((error) => {
-                    // console.log(error);
+                    // //console.log(error);
                     // handle error here
                 });
         },

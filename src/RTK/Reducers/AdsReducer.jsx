@@ -53,7 +53,7 @@ let AdsReducer = createSlice({
             // =======ads===========
             .addCase(AllAdsThunk.pending, (state, action) => {})
             .addCase(AllAdsThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.adsData = action.payload?.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;
@@ -96,7 +96,7 @@ let AdsReducer = createSlice({
             // // =======DeleteUserThunk===========
             .addCase(DeleteAdsThunk.fulfilled, (state, action) => {})
             .addCase(DeleteAdsThunk.rejected, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             });
     },
 });

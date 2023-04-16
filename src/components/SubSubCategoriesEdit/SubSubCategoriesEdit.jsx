@@ -94,12 +94,10 @@ const SubCategoriesEdit = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
-
                 navigate("/admin/categories/sub_sub");
             })
             .catch((error) => {
-                // console.log(error);
+
                 // setCode(error.code);
                 // handle error here
             });

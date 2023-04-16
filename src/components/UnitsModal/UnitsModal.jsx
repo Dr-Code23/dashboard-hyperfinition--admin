@@ -31,7 +31,7 @@ const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
             setInputValue(nameUnit);
         }
         if (typeUnit.type === "add") {
-            // console.log("add");
+            // //console.log("add");
         }
     }, [typeUnit.type, nameUnit]);
     useEffect(() => {
@@ -39,7 +39,7 @@ const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
             dispatch(OneUnitThunk({ id: typeUnit?.id }));
         }
         if (typeUnit.type === "add") {
-            // console.log("add");
+            // //console.log("add");
         }
     }, [typeUnit.type, dispatch, typeUnit?.id]);
     //handle sub form
@@ -47,7 +47,7 @@ const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
     let handleSubmit = (e) => {
         e.preventDefault();
         if (typeUnit.type === "update") {
-            // console.log("update");
+            // //console.log("update");
             dispatch(
                 UpdateUnitThunk({
                     name: inputValue,
@@ -56,7 +56,7 @@ const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
             )
                 .unwrap()
                 .then((data) => {
-                    // console.log(data);
+                    // //console.log(data);
                     dispatch(AllUnitsThunk({ page: currentPage }));
                     setCode(0);
 
@@ -66,7 +66,7 @@ const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
                     dispatch(closeModal());
                 })
                 .catch((error) => {
-                    // console.log(error);
+                    // //console.log(error);
                     setCode(error.code);
                     // handle error here
                 });
@@ -74,7 +74,7 @@ const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
             dispatch(closeModal());
         }
         if (typeUnit.type === "add") {
-            // console.log("add");
+            // //console.log("add");
             dispatch(
                 AddUnitThunk({
                     name: inputValue,
@@ -82,7 +82,7 @@ const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
             )
                 .unwrap()
                 .then((data) => {
-                    // console.log(data);
+                    // //console.log(data);
                     dispatch(AllUnitsThunk({ page: currentPage }));
                     setCode(0);
                     setOpen(false);
@@ -91,7 +91,7 @@ const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
                     dispatch(closeModal());
                 })
                 .catch((error) => {
-                    // console.log(error);
+                    // //console.log(error);
                     setCode(error.code);
                     // handle error here
                 });

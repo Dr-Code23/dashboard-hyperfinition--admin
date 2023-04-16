@@ -69,11 +69,11 @@ const ProjectPaymentEdit = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 dispatch(TablePaymentThunk({ id: param.projectPaymentEdit }));
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 // handle error here
             });
     };
@@ -89,7 +89,7 @@ const ProjectPaymentEdit = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 setInputValue({
                     price: "",
                     id: "",
@@ -100,7 +100,7 @@ const ProjectPaymentEdit = () => {
                 // navigate("/admin/projectPayment");
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 //    setCode(error.code);
             });
     };

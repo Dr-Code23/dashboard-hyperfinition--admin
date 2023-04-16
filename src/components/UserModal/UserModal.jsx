@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { Button, FormControl, IconButton, Input, InputAdornment, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
@@ -7,7 +7,6 @@ import * as Yup from 'yup';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
-import { useTranslation } from 'react-i18next';
 import './UserModal.css';
 const SignupSchema = Yup.object().shape({
   email: Yup.string()
@@ -29,11 +28,9 @@ const UnitsModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
   const handleClose = useCallback(() => {
     setOpen(false)
   }, [setOpen]);
-  let { i18n } = useTranslation()
-
-  let navigate = useNavigate()
+  useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
-  const [showErrorForm, setShowErrorForm] = React.useState(false);
+  const [showErrorForm] = React.useState(false);
   const [age, setAge] = React.useState('0');
 
   const handleClickShowPassword = useCallback(() => {

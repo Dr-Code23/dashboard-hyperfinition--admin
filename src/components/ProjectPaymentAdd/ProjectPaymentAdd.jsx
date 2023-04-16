@@ -35,7 +35,7 @@ const ProjectPaymentAdd = () => {
         }
     }, [projectSelectData, targetIdSelect]);
 
-    // console.log(targetIdSelect);
+    // //console.log(targetIdSelect);
 
     useEffect(() => {
         dispatch(SelectProjectThunk());
@@ -50,11 +50,11 @@ const ProjectPaymentAdd = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 navigate("/admin/projectPayment");
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 //    setCode(error.code);
             });
     };
@@ -78,14 +78,14 @@ const ProjectPaymentAdd = () => {
                         <FormControl
                             className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]"
                             onClick={(e) => {
-                                // console.log(e.target.textContent)
+                                // //console.log(e.target.textContent)
                                 // setSelectTarget({
                                 //     ...selectTarget,
                                 //     Project: e.target.textContent,
                                 // });
-                                // console.log(e.target.textContent)
+                                // //console.log(e.target.textContent)
                                 if (e.target.tagName == "LI") {
-                                    // console.log(e.target.textContent);
+                                    // //console.log(e.target.textContent);
                                     setSelectTarget({
                                         ...selectTarget,
                                         Main_Category: e.target.textContent,
@@ -104,7 +104,7 @@ const ProjectPaymentAdd = () => {
                                     // )
                                     //     .unwrap()
                                     //     .then((data) => {
-                                    //         // console.log(data);
+                                    //         // //console.log(data);
                                     //         setTargetIdSelect({
                                     //             ...targetIdSelect,
                                     //             sub: data.data[0]?.id,

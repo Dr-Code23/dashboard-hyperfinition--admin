@@ -11,10 +11,9 @@ export let OneBrandThunk = createAsyncThunk(
                 `${process.env.REACT_APP_API}/brands/${arg?.id}`,
                 Api()
             );
-
             return res.data;
         } catch (error) {
-            // console.log(error.response.data)
+            // //console.log(error.response.data)
             return rejectWithValue(error.response.data);
         }
     }

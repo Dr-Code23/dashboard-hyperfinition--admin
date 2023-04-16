@@ -62,11 +62,11 @@ const RolesBoxAdd = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 navigate("/admin/roles")
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 //    setCode(error.code);
             });
     };
@@ -139,17 +139,17 @@ const RolesBoxAdd = () => {
                                                         "true"
                                                     ) {
                                                         e.currentTarget.parentElement.parentElement.dataset.name = false;
-                                                        //   console.log(
+                                                        //   //console.log(
                                                         //       "no active"
                                                         //   );
                                                         handleAddData('remove', el.id);
 
                                                     } else {
                                                         e.currentTarget.parentElement.parentElement.dataset.name = true;
-                                                        //   console.log("active");
+                                                        //   //console.log("active");
                                                         handleAddData('add', el.id);
                                                     }
-                                                    //   console.log(el.id);
+                                                    //   //console.log(el.id);
                                                 }}
                                                 label={el.name}
                                                 data-name={"false"}

@@ -18,7 +18,7 @@ let DashReducer = createSlice({
       // =======contact===========
       .addCase(DashThunk.pending, (state, action) => { })
       .addCase(DashThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.dashData = action.payload.data;
       })
       .addCase(DashThunk.rejected, (state, action) => { });

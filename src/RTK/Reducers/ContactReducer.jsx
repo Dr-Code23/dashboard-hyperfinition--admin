@@ -22,7 +22,7 @@ let ContactReducer = createSlice({
             // =======contact===========
             .addCase(ContactThunk.pending, (state, action) => {})
             .addCase(ContactThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.contactData = action.payload.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;

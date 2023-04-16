@@ -11,11 +11,11 @@ export let PermissionsThunk = createAsyncThunk(
                 `${process.env.REACT_APP_API}/select_menu/permissions`,
                 Api()
             );
-            // console.log(res.data);
+            // //console.log(res.data);
 
             return res.data;
         } catch (error) {
-            // console.log(error.response.data);
+            // //console.log(error.response.data);
             return rejectWithValue(error.response.data);
         }
     }

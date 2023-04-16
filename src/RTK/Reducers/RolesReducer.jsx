@@ -46,7 +46,7 @@ let RolesReducer = createSlice({
       // =======role data===========
       .addCase(AllRolesThunk.pending, (state, action) => { })
       .addCase(AllRolesThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.roleData = action.payload?.data;
         state.currentPage = action.payload.meta.current_page;
         state.lastPage = action.payload.meta.last_page;
@@ -55,14 +55,14 @@ let RolesReducer = createSlice({
       // ======= PermissionsThunk===========
       .addCase(PermissionsThunk.pending, (state, action) => { })
       .addCase(PermissionsThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.permissionsData = action.payload?.data;
       })
       .addCase(PermissionsThunk.rejected, (state, action) => { })
       // =======AddUserThunk===========
       .addCase(AddRoleThunk.fulfilled, (state, action) => { })
       .addCase(AddRoleThunk.rejected, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.nameError = action.payload?.data?.name;
         state.roleError = action.payload?.data?.permissions;
       })
@@ -73,14 +73,14 @@ let RolesReducer = createSlice({
       })      // =======AddUserThunk===========
       .addCase(UpdateRoleThunk.fulfilled, (state, action) => { })
       .addCase(UpdateRoleThunk.rejected, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.nameError = action.payload?.data?.name;
         state.roleError = action.payload?.data?.permissions;
       })
       // =======DeleteUserThunk===========
       .addCase(DeleteRoleThunk.fulfilled, (state, action) => { })
       .addCase(DeleteRoleThunk.rejected, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
       });
   },
 });
