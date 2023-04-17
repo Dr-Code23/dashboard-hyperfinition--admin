@@ -38,7 +38,9 @@ const LoginBox = () => {
     // handel path and error form
     useEffect(() => {
         if (localStorage.AccessToken) {
-            navigate("/admin");
+            window.location.replace('/admin')
+
+            // navigate("/admin");
         }
     }, [navigate]);
 
@@ -46,7 +48,8 @@ const LoginBox = () => {
         if (code === 200) {
             if (localStorage.AccessToken) {
                 setShowErrorForm(false);
-                navigate("/admin");
+                window.location.replace('/admin')
+                // navigate("/admin");
             }
         } else {
             if (code !== null) {
@@ -64,8 +67,9 @@ const LoginBox = () => {
         onSubmit: (values) => {
             dispatch(LoginThunk(values)).unwrap()
                 .then((data) => {
-                    // //console.log(data);
-                    navigate("/admin");
+                    // navigate("/admin");
+                    window.location.replace('/admin')
+
                 })
                 .catch((error) => {
                     // //console.log(error);

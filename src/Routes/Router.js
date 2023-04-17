@@ -47,6 +47,7 @@ import UserDetail from "./Pages/UserDetail";
 import Users from "./Pages/Users";
 import hasPermission from '../config/functions'
 
+console.log(localStorage.getItem('permissions'));
 export let Router = createBrowserRouter([
     {
         path: "/",

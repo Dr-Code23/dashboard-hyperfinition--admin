@@ -18,15 +18,22 @@ root.render(
 const HTTP_UNAUTHORIZED = 401,
     HTTP_FORBIDDEN=403,
     HTTP_NOT_FOUND=404;
+
 // Add a response interceptor
+/*
+* response interceptor then catch
+* */
+
 axios.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
+
     return response;
 }, function (error) {
 
-    let errorCode = error.response.status;
-    let currentPathName = window.location.pathname
+    let errorCode = error.response.status,
+        currentPathName = window.location.pathname
+
     if(errorCode === HTTP_UNAUTHORIZED){
 
         // Redirect User To Login If The Current Url Is not Login Page
@@ -42,7 +49,7 @@ axios.interceptors.response.use(function (response) {
             * so start to show error message to user
             * */
 
-            //console.log(error.response.data.msg)
+            console.log(error.response.data.msg)
         }
     } else if (errorCode === HTTP_FORBIDDEN){
         if(currentPathName !== '/admin'){
