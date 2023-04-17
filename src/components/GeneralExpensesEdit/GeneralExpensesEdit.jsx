@@ -23,7 +23,7 @@ const GeneralExpensesEdit = () => {
     );
 
     // ============= handle get data user================
-    // console.log(!!oneAds);
+    // //console.log(!!oneAds);
     useEffect(() => {
         if (param.GeneralExpensesEdit) {
             dispatch(OneGeneralThunk({ id: param.GeneralExpensesEdit }));
@@ -57,11 +57,11 @@ const GeneralExpensesEdit = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 navigate("/admin/generalExpenses");
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 //    setCode(error.code);
             });
     };

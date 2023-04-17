@@ -69,7 +69,7 @@ let ServicesReducer = createSlice({
       // =======AllServicesThunk===========
       .addCase(AllServicesThunk.pending, (state, action) => { })
       .addCase(AllServicesThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.servicesData = action.payload?.data;
         state.currentPage = action.payload.meta.current_page;
         state.lastPage = action.payload.meta.last_page;
@@ -78,7 +78,7 @@ let ServicesReducer = createSlice({
       // =======ServicesStatusThunk===========
       .addCase(ServicesStatusThunk.pending, (state, action) => { })
       .addCase(ServicesStatusThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
       })
       .addCase(ServicesStatusThunk.rejected, (state, action) => { })
       // =======DeleteProjectThunk===========
@@ -102,7 +102,7 @@ let ServicesReducer = createSlice({
       // =======SelectProductThunk===========
       .addCase(SelectAllCategoriesThunk.pending, (state, action) => { })
       .addCase(SelectAllCategoriesThunk.fulfilled, (state, action) => {
-        // console.log(action.payload);
+        // //console.log(action.payload);
         state.categoriesSelectData = action.payload?.data;
       })
 

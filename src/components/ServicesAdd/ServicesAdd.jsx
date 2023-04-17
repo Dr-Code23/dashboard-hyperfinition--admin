@@ -20,7 +20,7 @@ const ServicesAdd = () => {
   let navigate = useNavigate();
   const [value, setValue] = React.useState(0);
   const [images, setImages] = React.useState([]);
-  // console.log(images);
+  // //console.log(images);
 
   const [selectTarget, setSelectTarget] = React.useState({
     Categories: "",
@@ -90,16 +90,16 @@ const ServicesAdd = () => {
   }, [categoriesSelectData, targetIdSelect]);
   /// handle img all
   const onChange = (imageList, addUpdateIndex) => {
-    // console.log(addUpdateIndex)
-    // console.log(imageList[addUpdateIndex]?.file);
+    // //console.log(addUpdateIndex)
+    // //console.log(imageList[addUpdateIndex]?.file);
 
     if (imgeTargetAction.type == 'upload') {
       dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file })).unwrap()
         .then((res) => {
-          // console.log(res.data[0]);
+          // //console.log(res.data[0]);
           let getRes = [...imgeDataTarget]
           getRes.push(res.data[0])
-          // console.log(getRes)
+          // //console.log(getRes)
           setImgeDataTarget(getRes)
           setImgeTargetAction({
             index: '',
@@ -107,7 +107,7 @@ const ServicesAdd = () => {
           })
         })
         .catch((error) => {
-          // console.log(error);
+          // //console.log(error);
           // handle error here
         });
     }
@@ -117,9 +117,9 @@ const ServicesAdd = () => {
       dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file })).unwrap()
         .then((res) => {
           let getRes = [...imgeDataTarget]
-          console.log(imgeDataTarget)
+          //console.log(imgeDataTarget)
           getRes.splice(imgeTargetAction.index, 1, res.data[0]);
-          console.log(getRes)
+          //console.log(getRes)
           setImgeDataTarget(getRes)
           setImgeTargetAction({
             index: '',
@@ -127,7 +127,7 @@ const ServicesAdd = () => {
           })
         })
         .catch((error) => {
-          // console.log(error);
+          // //console.log(error);
           // handle error here
         });
 
@@ -136,11 +136,11 @@ const ServicesAdd = () => {
   };
   useEffect(() => {
     if (imgeTargetAction.type == 'remove') {
-      // console.log(imgeDataTarget)
+      // //console.log(imgeDataTarget)
       let getRes = imgeDataTarget.filter((el) => el !== imgeDataTarget[imgeTargetAction.index])
-      // console.log(getRes)
+      // //console.log(getRes)
       setImgeDataTarget(getRes)
-      console.log(getRes)
+      //console.log(getRes)
       setImgeTargetAction({
         index: '',
         type: '',
@@ -169,16 +169,16 @@ const ServicesAdd = () => {
       category_id: targetIdSelect.categories,
       images: imgeDataTarget
     };
-    // console.log(data)
+    // //console.log(data)
 
     dispatch(AddServicesThunk(data))
       .unwrap()
       .then((data) => {
-        // console.log(data);
+        // //console.log(data);
         navigate("/admin/services");
       })
       .catch((error) => {
-        // console.log(error);
+        // //console.log(error);
         //    setCode(error.code);
       });
   };
@@ -432,9 +432,9 @@ const ServicesAdd = () => {
               <FormControl
                 className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]"
                 onClick={(e) => {
-                  // console.log(e.target.textContent)
+                  // //console.log(e.target.textContent)
                   if (e.target.tagName == "LI") {
-                    // console.log(e.target.textContent);
+                    // //console.log(e.target.textContent);
                     setSelectTarget({
                       ...selectTarget,
                       Main_Category: e.target.textContent,

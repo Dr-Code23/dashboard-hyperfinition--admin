@@ -68,7 +68,7 @@ const UserDetailBox = () => {
 
     // = img==
     const onChange = (imageList, addUpdateIndex) => {
-        // console.log(imageList, addUpdateIndex);
+        // //console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
 
@@ -96,7 +96,7 @@ const UserDetailBox = () => {
     // handle img value on loading
     useEffect(() => {
         if (oneImg) {
-            // console.log(oneImg);
+            // //console.log(oneImg);
             setImages([{ data_url: oneImg }]);
         }
     }, [oneImg]);
@@ -134,13 +134,13 @@ const UserDetailBox = () => {
             )
                 .unwrap()
                 .then((data) => {
-                    // console.log(data);
+                    // //console.log(data);
                     dispatch(closeModal());
                     setImages([{ data_url: img }]);
                     navigate("/admin/users/");
                 })
                 .catch((error) => {
-                    // console.log(error);
+                    // //console.log(error);
                     //    setCode(error.code);
                 });
         },

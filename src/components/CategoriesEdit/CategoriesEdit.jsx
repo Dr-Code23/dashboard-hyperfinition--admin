@@ -47,7 +47,7 @@ const CategoriesEdit = () => {
     }, [i18n.language]);
     const [images, setImages] = React.useState([{ data_url: img }]);
     const onChange = (imageList, addUpdateIndex) => {
-        // console.log(imageList, addUpdateIndex);
+        // //console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
 
@@ -69,7 +69,7 @@ const CategoriesEdit = () => {
     };
     useEffect(() => {
         if (categoriesImg) {
-            // console.log(oneImg);
+            // //console.log(oneImg);
             setImages([{ data_url: categoriesImg }]);
         }
     }, [categoriesImg]);
@@ -135,13 +135,13 @@ const CategoriesEdit = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
 
                 setImages([{ data_url: img }]);
                 navigate("/admin/categories/");
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 // setCode(error.code);
                 // handle error here
             });

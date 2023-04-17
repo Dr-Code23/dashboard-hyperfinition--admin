@@ -26,7 +26,7 @@ const AdsAEditBox = () => {
     });
     const [images, setImages] = React.useState([{ data_url: img }]);
     const onChange = (imageList, addUpdateIndex) => {
-        // console.log(imageList, addUpdateIndex);
+        // //console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
 
@@ -59,7 +59,7 @@ const AdsAEditBox = () => {
     }, [i18n.language]);
 
     // ============= handle get data user================
-    // console.log(!!oneAds);
+    // //console.log(!!oneAds);
     useEffect(() => {
         if (param.editAds) {
             dispatch(OneAdsThunk({ id: param.editAds }));
@@ -114,11 +114,11 @@ const AdsAEditBox = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 navigate("/admin/ads");
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 //    setCode(error.code);
             });
     };

@@ -34,7 +34,7 @@ let AttributeReducer = createSlice({
             // =======allBrand===========
             .addCase(AttributeThunk.pending, (state, action) => {})
             .addCase(AttributeThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.attributeData = action.payload.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;
@@ -43,22 +43,22 @@ let AttributeReducer = createSlice({
             // =========OneAttributeThunk=============
             .addCase(OneAttributeThunk.fulfilled, (state, action) => {
                 state.nameAttribute = action.payload.data.name;
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(OneAttributeThunk.rejected, (state, action) => {})
             // =========UpdateAttributeThunk=============
             .addCase(UpdateAttributeThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(UpdateAttributeThunk.rejected, (state, action) => {})
             // =========AddAttributeThunk=============
             .addCase(AddAttributeThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(AddAttributeThunk.rejected, (state, action) => {})
             // =========DeleteAttributeThunk=============
             .addCase(DeleteAttributeThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(DeleteAttributeThunk.rejected, (state, action) => {});
     },

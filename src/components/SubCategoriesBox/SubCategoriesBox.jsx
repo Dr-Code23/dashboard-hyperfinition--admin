@@ -148,7 +148,7 @@ const SubCategoriesBox = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 dispatch(
                     SubCategoriesThunk({
                         id: age,
@@ -162,7 +162,7 @@ const SubCategoriesBox = () => {
                 });
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 // setCode(error.code);
                 // handle error here
             });
@@ -181,7 +181,7 @@ const SubCategoriesBox = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 dispatch(
                     SubCategoriesThunk({
                         id: age,
@@ -190,7 +190,7 @@ const SubCategoriesBox = () => {
                 );
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 // handle error here
             });
     };

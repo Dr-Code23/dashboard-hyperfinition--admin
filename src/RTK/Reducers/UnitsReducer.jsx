@@ -27,7 +27,7 @@ let UnitsReducer = createSlice({
             // =======allBrand===========
             .addCase(AllUnitsThunk.pending, (state, action) => {})
             .addCase(AllUnitsThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.unitData = action.payload.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;
@@ -36,22 +36,22 @@ let UnitsReducer = createSlice({
             // =========OneUnitThunk=============
             .addCase(OneUnitThunk.fulfilled, (state, action) => {
                 state.nameUnit = action.payload.data.name;
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(OneUnitThunk.rejected, (state, action) => {})
             // =========UpdateAttributeThunk=============
             .addCase(UpdateUnitThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(UpdateUnitThunk.rejected, (state, action) => {})
             // =========AddUnitThunk=============
             .addCase(AddUnitThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(AddUnitThunk.rejected, (state, action) => {})
             // =========DeleteUnitThunk=============
             .addCase(DeleteUnitThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(DeleteUnitThunk.rejected, (state, action) => {});
     },

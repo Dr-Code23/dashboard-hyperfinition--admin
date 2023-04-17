@@ -36,7 +36,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
     });
     const [code, setCode] = useState(0);
     const onChange = (imageList, addUpdateIndex) => {
-        // console.log(imageList, addUpdateIndex);
+        // //console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
     //handle input language
@@ -126,7 +126,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
             )
                 .unwrap()
                 .then((data) => {
-                    // console.log(data);
+                    // //console.log(data);
                     dispatch(AllBrandThunk({ page: currentPage }));
                     setOpen(false);
                     setCode(0);
@@ -136,7 +136,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                     setImageFile(null);
                 })
                 .catch((error) => {
-                    // console.log(error);
+                    // //console.log(error);
                     setCode(error.code);
                     // handle error here
                 });
@@ -153,7 +153,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
             )
                 .unwrap()
                 .then((data) => {
-                    // console.log(data);
+                    // //console.log(data);
                     dispatch(AllBrandThunk({ page: currentPage }));
                     setOpen(false);
                     setCode(0);
@@ -163,7 +163,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                     setImageFile(null);
                 })
                 .catch((error) => {
-                    // console.log(error);
+                    // //console.log(error);
                     setCode(error.code);
                     // handle error here
                 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponyExpenses } from '../../components';
 
-const Compony = () => {
+const Company = () => {
 
   return (
     <>
@@ -10,4 +10,4 @@ const Compony = () => {
   );
 }
 
-export default Compony;
+export default Company;

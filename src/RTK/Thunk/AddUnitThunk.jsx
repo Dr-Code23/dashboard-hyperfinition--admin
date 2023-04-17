@@ -4,7 +4,7 @@ import { Api } from "../Api";
 export let AddUnitThunk = createAsyncThunk(
     "unit/AddUnitThunk",
     async (arg, ThunkApi) => {
-        // console.log(arg);
+        // //console.log(arg);
 
         let { rejectWithValue } = ThunkApi;
         try {
@@ -15,10 +15,10 @@ export let AddUnitThunk = createAsyncThunk(
                 },
                 Api()
             );
-            // console.log(res.data);
+            // //console.log(res.data);
             return res.data;
         } catch (error) {
-            // console.log(error.response.data);
+            // //console.log(error.response.data);
             return rejectWithValue(error.response.data);
         }
     }

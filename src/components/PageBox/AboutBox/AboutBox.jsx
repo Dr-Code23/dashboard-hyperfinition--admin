@@ -50,11 +50,11 @@ const AboutBox = () => {
         }
     }, [i18n.language]);
     const onChange = (imageList, addUpdateIndex) => {
-        // console.log(imageList, addUpdateIndex);
+        // //console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
     // ============= handle get data user================
-    // console.log(!!oneAbout);
+    // //console.log(!!oneAbout);
 
 
     useEffect(() => {
@@ -113,7 +113,7 @@ const AboutBox = () => {
     // handle img value on loading
     useEffect(() => {
         if (oneImg) {
-            // console.log(oneImg);
+            // //console.log(oneImg);
             setImages([{ data_url: oneImg }]);
         }
     }, [oneImg]);
@@ -144,10 +144,10 @@ const AboutBox = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 //    setCode(error.code);
             });
     };

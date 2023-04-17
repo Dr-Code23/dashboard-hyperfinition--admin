@@ -39,7 +39,7 @@ const AttributesModal = ({
             setInputValue(nameAttribute);
         }
         if (typeAttributes.type === "add") {
-            // console.log("add");
+            // //console.log("add");
         }
     }, [typeAttributes.type, nameAttribute]);
     //handle update
@@ -49,7 +49,7 @@ const AttributesModal = ({
             dispatch(OneAttributeThunk({ id: typeAttributes?.id }));
         }
         if (typeAttributes.type === "add") {
-            // console.log("add");
+            // //console.log("add");
         }
     }, [typeAttributes.type, dispatch, typeAttributes?.id]);
 
@@ -58,7 +58,7 @@ const AttributesModal = ({
     let handleSubmit = (e) => {
         e.preventDefault();
         if (typeAttributes.type === "update") {
-            // console.log("update");
+            // //console.log("update");
             dispatch(
                 UpdateAttributeThunk({
                     name: inputValue,
@@ -67,7 +67,7 @@ const AttributesModal = ({
             )
                 .unwrap()
                 .then((data) => {
-                    // console.log(data);
+                    // //console.log(data);
                     dispatch(AttributeThunk({ page: currentPage }));
                     setCode(0);
 
@@ -77,7 +77,7 @@ const AttributesModal = ({
                     dispatch(closeModal());
                 })
                 .catch((error) => {
-                    // console.log(error);
+                    // //console.log(error);
                     setCode(error.code);
                     // handle error here
                 });
@@ -85,7 +85,7 @@ const AttributesModal = ({
             dispatch(closeModal());
         }
         if (typeAttributes.type === "add") {
-            // console.log("add");
+            // //console.log("add");
             dispatch(
                 AddAttributeThunk({
                     name: inputValue,
@@ -93,7 +93,7 @@ const AttributesModal = ({
             )
                 .unwrap()
                 .then((data) => {
-                    // console.log(data);
+                    // //console.log(data);
                     dispatch(AttributeThunk({ page: currentPage }));
                     setCode(0);
                     setOpen(false);
@@ -101,7 +101,7 @@ const AttributesModal = ({
                     setInputValue("");
                 })
                 .catch((error) => {
-                    // console.log(error);
+                    // //console.log(error);
                     setCode(error.code);
                     // handle error here
                 });

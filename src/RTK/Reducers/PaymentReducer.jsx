@@ -40,7 +40,7 @@ let PaymentReducer = createSlice({
             // =======AllPaymentThunk===========
             .addCase(AllPaymentThunk.pending, (state, action) => {})
             .addCase(AllPaymentThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.paymentData = action.payload?.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;
@@ -49,7 +49,7 @@ let PaymentReducer = createSlice({
             // =======SelectProjectThunk===========
             .addCase(SelectProjectThunk.pending, (state, action) => {})
             .addCase(SelectProjectThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.projectSelectData = action.payload?.data;
             })
             .addCase(SelectProjectThunk.rejected, (state, action) => {})
@@ -84,7 +84,7 @@ let PaymentReducer = createSlice({
             // // =======DeleteUserThunk===========
             .addCase(DeleteTablePaymentThunk.fulfilled, (state, action) => {})
             .addCase(DeleteTablePaymentThunk.rejected, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             });
     },
 });

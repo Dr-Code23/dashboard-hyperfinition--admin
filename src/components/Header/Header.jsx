@@ -1,29 +1,16 @@
-import {
-    AppBar,
-    Avatar,
-    Box,
-    Button,
-    IconButton,
-    Menu,
-    MenuItem,
-    Toolbar,
-    Tooltip,
-    Typography,
-} from "@mui/material";
+import {AppBar, Avatar, Box, IconButton, Menu, MenuItem, Toolbar, Typography,} from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
-import React, { useCallback } from "react";
+import React, {useCallback, useEffect} from "react";
 import "./Header.css";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import EnImg from "../../assets/Img/en.jpg";
-import ArImg from "../../assets/Img/ar.jpg";
-import FrImg from "../../assets/Img/fr.jpg";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { LogoutThunk } from "../../RTK/Thunk/LogoutThunk";
-const Header = ({ drawerWidth, handleDrawerToggle }) => {
-    let { t, i18n } = useTranslation();
+import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import {useDispatch, useSelector} from "react-redux";
+import {LogoutThunk} from "../../RTK/Thunk/LogoutThunk";
+import {allLanguagesAsArray, allLanguagesAsObject, getCurrentUserLanguage} from "../../config/language"
+
+const Header = ({drawerWidth, handleDrawerToggle}) => {
+    let {t, i18n} = useTranslation();
     let Navigate = useNavigate();
     let dispatch = useDispatch();
 
@@ -33,14 +20,9 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
     );
     const [languageTarget, setLanguageTarget] = React.useState(null);
     const [imgTarget, setImgTarget] = React.useState(
-        localStorage.getItem("language") === "en"
-            ? EnImg
-            : localStorage.getItem("language") === "ar"
-                ? ArImg
-                : localStorage.getItem("language") === "fr"
-                    ? FrImg
-                    : EnImg
+        allLanguagesAsObject[getCurrentUserLanguage()].image
     );
+
     const handleLogOut = useCallback(() => {
 
         dispatch(LogoutThunk()).unwrap()
@@ -49,12 +31,12 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                 Navigate("/");
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 // handle error here
             });
 
     }, [Navigate, dispatch]);
-    let { avatar } = useSelector((state) => state.ProfileReducer);
+    let {avatar} = useSelector((state) => state.ProfileReducer);
     useEffect(() => {
         if (avatar) {
             setUserImg(avatar);
@@ -67,9 +49,9 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
             <AppBar
                 position="fixed"
                 sx={{
-                    width: { sm: `calc(100% - ${drawerWidth}px)` },
-                    mr: i18n.language === "ar" && { sm: `${drawerWidth}px` },
-                    ml: i18n.language !== "ar" && { sm: `${drawerWidth}px` },
+                    width: {sm: `calc(100% - ${drawerWidth}px)`},
+                    mr: i18n.language === "ar" && {sm: `${drawerWidth}px`},
+                    ml: i18n.language !== "ar" && {sm: `${drawerWidth}px`},
                 }}
                 className="header"
             >
@@ -80,9 +62,9 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                             aria-label="open drawer"
                             edge="start"
                             onClick={handleDrawerToggle}
-                            sx={{ mr: 2, display: { sm: "none" } }}
+                            sx={{mr: 2, display: {sm: "none"}}}
                         >
-                            <MenuIcon sx={{ color: "#000" }} />
+                            <MenuIcon sx={{color: "#000"}}/>
                         </IconButton>
                     </Toolbar>
 
@@ -92,14 +74,14 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                                 onClick={(event) => {
                                     setLanguageTarget(event.currentTarget);
                                 }}
-                                sx={{ p: 0 }}
+                                sx={{p: 0}}
                                 className="img-shadow"
                             >
-                                <Avatar alt="Remy Sharp" src={imgTarget} />
+                                <Avatar alt="Remy Sharp" src={imgTarget}/>
                             </IconButton>
 
                             <Menu
-                                sx={{ mt: "45px" }}
+                                sx={{mt: "45px"}}
                                 id="menu-appbar"
                                 anchorEl={languageTarget}
                                 anchorOrigin={{
@@ -116,84 +98,38 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                                     setLanguageTarget(null);
                                 }}
                             >
-                                <MenuItem
-                                    onClick={(e) => {
-                                        setLanguageTarget(null);
-                                    }}
-                                    className=" w-full !min-w-[180px] "
-                                >
-                                    <Typography
-                                        textAlign="center "
-                                        className=" w-full flex justify-start items-center gap-[8px]"
-                                        onClick={() => {
-                                            setImgTarget(EnImg);
-                                            i18n.changeLanguage("en");
-                                            localStorage.setItem(
-                                                "language",
-                                                "en"
-                                            );
-                                        }}
-                                    >
-                                        <img
-                                            src={EnImg}
-                                            alt=""
-                                            className=" w-[35px] h-[20px]"
-                                        />
-                                        {t("Language.English")}
-                                    </Typography>
-                                </MenuItem>
-                                <MenuItem
-                                    onClick={(e) => {
-                                        setLanguageTarget(null);
-                                    }}
-                                    className=" w-full !min-w-[180px] "
-                                >
-                                    <Typography
-                                        textAlign="center "
-                                        className=" w-full flex justify-start items-center gap-[8px]"
-                                        onClick={() => {
-                                            setImgTarget(ArImg);
-                                            i18n.changeLanguage("ar");
-                                            localStorage.setItem(
-                                                "language",
-                                                "ar"
-                                            );
-                                        }}
-                                    >
-                                        <img
-                                            src={ArImg}
-                                            alt=""
-                                            className=" w-[35px] h-[20px]"
-                                        />
-                                        {t("Language.Arabic")}
-                                    </Typography>
-                                </MenuItem>
-                                <MenuItem
-                                    onClick={(e) => {
-                                        setLanguageTarget(null);
-                                    }}
-                                    className=" w-full !min-w-[180px] "
-                                >
-                                    <Typography
-                                        textAlign="center "
-                                        className=" w-full flex justify-start items-center gap-[8px]"
-                                        onClick={() => {
-                                            setImgTarget(FrImg);
-                                            i18n.changeLanguage("fr");
-                                            localStorage.setItem(
-                                                "language",
-                                                "fr"
-                                            );
-                                        }}
-                                    >
-                                        <img
-                                            src={FrImg}
-                                            alt=""
-                                            className=" w-[35px] h-[20px]"
-                                        />
-                                        {t("Language.French")}
-                                    </Typography>
-                                </MenuItem>
+                                {
+                                    allLanguagesAsArray.map(function (language): React.ReactNode {
+                                        return (
+                                            <MenuItem
+                                                onClick={() => {
+                                                    setLanguageTarget(null);
+                                                }}
+                                                className=" w-full !min-w-[180px] "
+                                                key={language}
+                                            >
+                                                <Typography
+                                                    textAlign="center "
+                                                    className=" w-full flex justify-start items-center gap-[8px]"
+                                                    onClick={() => {
+                                                        setImgTarget(allLanguagesAsObject[language].image);
+                                                        i18n.changeLanguage(language);
+                                                        localStorage.setItem(
+                                                            "language",
+                                                            language
+                                                        );
+                                                    }}
+                                                >
+                                                    <img
+                                                        src={allLanguagesAsObject[language].image}
+                                                        alt=""
+                                                        className=" w-[35px] h-[20px]"
+                                                    />
+                                                    {t("Language." + allLanguagesAsObject[language].translatedWord)}
+                                                </Typography>
+                                            </MenuItem>)
+                                    })
+                                }
                             </Menu>
                         </>
                         <>
@@ -201,13 +137,13 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
                                 onClick={(event) => {
                                     setAnchorElUser(event.currentTarget);
                                 }}
-                                sx={{ p: 0 }}
+                                sx={{p: 0}}
                             >
-                                <Avatar alt="Remy Sharp" src={userImg} />
+                                <Avatar alt="Remy Sharp" src={userImg}/>
                             </IconButton>
 
                             <Menu
-                                sx={{ mt: "45px" }}
+                                sx={{mt: "45px"}}
                                 id="menu-appbar"
                                 anchorEl={anchorElUser}
                                 anchorOrigin={{

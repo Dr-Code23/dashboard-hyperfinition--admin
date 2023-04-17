@@ -209,11 +209,11 @@ const ComponyExpensesAdd = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 navigate("/admin/projectExpense");
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 //    setCode(error.code);
             });
     };
@@ -238,7 +238,7 @@ const ComponyExpensesAdd = () => {
                             className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]"
                             onClick={(e) => {
                                 if (e.target.tagName == "LI") {
-                                    // console.log(e.target.textContent);
+                                    // //console.log(e.target.textContent);
                                     setSelectTarget({
                                         ...selectTarget,
                                         Main_Category: e.target.textContent,
@@ -265,9 +265,9 @@ const ComponyExpensesAdd = () => {
                         <FormControl
                             className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]"
                             onClick={(e) => {
-                                // console.log(e.target.textContent)
+                                // //console.log(e.target.textContent)
                                 if (e.target.tagName == "LI") {
-                                    // console.log(e.target.textContent);
+                                    // //console.log(e.target.textContent);
                                     setSelectTarget({
                                         ...selectTarget,
                                         Main_Category: e.target.textContent,

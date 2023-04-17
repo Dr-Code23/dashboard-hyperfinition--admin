@@ -41,7 +41,7 @@ let ProfileReducer = createSlice({
             // =======UpdateUserThunk===========
             .addCase(UpdateProfileThunk.fulfilled, (state, action) => {
                 localStorage.setItem("avatar", action.payload.data.avatar);
-                // console.log(action.payload.data.avatar);
+                // //console.log(action.payload.data.avatar);
                 state.avatar = action.payload.data.avatar;
             })
             .addCase(UpdateProfileThunk.rejected, (state, action) => {

@@ -60,10 +60,10 @@ const RolesBox = () => {
             dispatch(AllRolesThunk({ page: pageTarget, search: '' }))
             // .unwrap()
             //     .then((data) => {
-            //         // console.log(data);
+            //         // //console.log(data);
             //     })
             //     .catch((error) => {
-            //         // console.log(error.code);
+            //         // //console.log(error.code);
             //         if (error.code === 403) {
             //             navigate("/admin");
 
@@ -84,11 +84,11 @@ const RolesBox = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 dispatch(AllRolesThunk({ page: pageTarget }));
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 // handle error here
             });
     };

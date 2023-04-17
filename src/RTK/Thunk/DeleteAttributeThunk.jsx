@@ -4,7 +4,7 @@ import { Api } from "../Api";
 export let DeleteAttributeThunk = createAsyncThunk(
     "attribute/DeleteAttributeThunk",
     async (arg, ThunkApi) => {
-        // console.log(arg);
+        // //console.log(arg);
 
         let { rejectWithValue } = ThunkApi;
         try {
@@ -12,10 +12,10 @@ export let DeleteAttributeThunk = createAsyncThunk(
                 `${process.env.REACT_APP_API}/attributes/${arg?.id}`,
                 Api()
             );
-            // console.log(res.data);
+            // //console.log(res.data);
             return res.data;
         } catch (error) {
-            // console.log(error.response.data);
+            // //console.log(error.response.data);
             return rejectWithValue(error.response.data);
         }
     }

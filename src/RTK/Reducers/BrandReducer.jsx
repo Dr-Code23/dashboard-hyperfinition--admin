@@ -31,7 +31,7 @@ let BrandReducer = createSlice({
             // =======allBrand===========
             .addCase(AllBrandThunk.pending, (state, action) => { })
             .addCase(AllBrandThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.brandData = action.payload.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;
@@ -47,17 +47,17 @@ let BrandReducer = createSlice({
             .addCase(OneBrandThunk.rejected, (state, action) => { })
             // =======oneBrand===========
             .addCase(UpDateBrand.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(UpDateBrand.rejected, (state, action) => { })
             // =======DeleteBrand===========
             .addCase(DeleteBrand.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(DeleteBrand.rejected, (state, action) => { })
             // =======AddBrandThunk===========
             .addCase(AddBrandThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             })
             .addCase(AddBrandThunk.rejected, (state, action) => { });
     },

@@ -65,11 +65,11 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 dispatch(AllBrandThunk({ page: pageTarget }));
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 // handle error here
             });
     };

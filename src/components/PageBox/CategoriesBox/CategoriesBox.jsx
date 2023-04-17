@@ -83,7 +83,7 @@ const CategoriesBox = () => {
     }
   }, [i18n.language]);
   const onChange = (imageList, addUpdateIndex) => {
-    // console.log(imageList, addUpdateIndex);
+    // //console.log(imageList, addUpdateIndex);
     setImages(imageList);
   };
 
@@ -159,7 +159,7 @@ const CategoriesBox = () => {
     )
       .unwrap()
       .then((data) => {
-        // console.log(data);
+        // //console.log(data);
         dispatch(AllCategoriesThunk({ page: pageTarget }));
         setInputValue({
           input_en: "",
@@ -170,7 +170,7 @@ const CategoriesBox = () => {
         setImageFile(null);
       })
       .catch((error) => {
-        // console.log(error);
+        // //console.log(error);
         // setCode(error.code);
         // handle error here
       });
@@ -184,11 +184,11 @@ const CategoriesBox = () => {
     )
       .unwrap()
       .then((data) => {
-        // console.log(data);
+        // //console.log(data);
         dispatch(AllCategoriesThunk({ page: pageTarget }));
       })
       .catch((error) => {
-        // console.log(error);
+        // //console.log(error);
         // handle error here
       });
   };

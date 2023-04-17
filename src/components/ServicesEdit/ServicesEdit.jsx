@@ -127,10 +127,10 @@ const ServicesEdit = () => {
     if (imgeTargetAction.type == 'upload') {
       dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file })).unwrap()
         .then((res) => {
-          // console.log(res.data[0]);
+          // //console.log(res.data[0]);
           let getRes = [...imgeDataTarget]
           getRes.push(res.data[0])
-          // console.log(getRes)
+          // //console.log(getRes)
           setImgeDataTarget(getRes)
           setImgeTargetAction({
             index: '',
@@ -138,7 +138,7 @@ const ServicesEdit = () => {
           })
         })
         .catch((error) => {
-          // console.log(error);
+          // //console.log(error);
           // handle error here
         });
     }
@@ -262,11 +262,11 @@ const ServicesEdit = () => {
     dispatch(UpdateServicesThunk(data))
       .unwrap()
       .then((data) => {
-        // console.log(data);
+        // //console.log(data);
         navigate("/admin/services");
       })
       .catch((error) => {
-        // console.log(error);
+        // //console.log(error);
         //    setCode(error.code);
       });
   };
@@ -534,9 +534,9 @@ const ServicesEdit = () => {
               <FormControl
                 className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]"
                 onClick={(e) => {
-                  // console.log(e.target.textContent)
+                  // //console.log(e.target.textContent)
                   if (e.target.tagName == "LI") {
-                    // console.log(e.target.textContent);
+                    // //console.log(e.target.textContent);
                     setSelectTarget({
                       ...selectTarget,
                       Main_Category: e.target.textContent,

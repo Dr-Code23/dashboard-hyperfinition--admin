@@ -4,7 +4,7 @@ import { Api } from "../Api";
 export let LogoutThunk = createAsyncThunk(
   "login/LogoutThunk",
   async (arg, ThunkApi) => {
-    // console.log(arg);
+    // //console.log(arg);
 
     let { rejectWithValue } = ThunkApi;
     let config = {
@@ -20,7 +20,7 @@ export let LogoutThunk = createAsyncThunk(
 
       return res.data;
     } catch (error) {
-      // console.log(error.response.data);
+      // //console.log(error.response.data);
       return rejectWithValue(error.response.data);
     }
   }

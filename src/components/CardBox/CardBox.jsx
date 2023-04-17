@@ -15,7 +15,7 @@ const CardBox = ({ title, number, Icon, path }) => {
                         if (path) {
                             navigate(path);
                         }
-                        // console.log(path)
+                        // //console.log(path)
                     }}
                 >
                     <div className="box flex flex-col justify-start items-start gap-2">

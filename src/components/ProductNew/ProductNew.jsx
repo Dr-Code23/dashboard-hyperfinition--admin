@@ -164,16 +164,16 @@ const ProductNew = () => {
     }, [unitSelectData, targetIdSelect]);
     /// handle img all
     const onChange = (imageList, addUpdateIndex) => {
-        // console.log(addUpdateIndex)
-        // console.log(imageList[addUpdateIndex]?.file);
+        // //console.log(addUpdateIndex)
+        // //console.log(imageList[addUpdateIndex]?.file);
 
         if (imgeTargetAction.type == 'upload') {
             dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file })).unwrap()
                 .then((res) => {
-                    // console.log(res.data[0]);
+                    // //console.log(res.data[0]);
                     let getRes = [...imgeDataTarget]
                     getRes.push(res.data[0])
-                    // console.log(getRes)
+                    // //console.log(getRes)
                     setImgeDataTarget(getRes)
                     setImgeTargetAction({
                         index: '',
@@ -181,7 +181,7 @@ const ProductNew = () => {
                     })
                 })
                 .catch((error) => {
-                    // console.log(error);
+                    // //console.log(error);
                     // handle error here
                 });
         }
@@ -191,9 +191,9 @@ const ProductNew = () => {
             dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file })).unwrap()
                 .then((res) => {
                     let getRes = [...imgeDataTarget]
-                    console.log(imgeDataTarget)
+                    //console.log(imgeDataTarget)
                     getRes.splice(imgeTargetAction.index, 1, res.data[0]);
-                    console.log(getRes)
+                    //console.log(getRes)
                     setImgeDataTarget(getRes)
                     setImgeTargetAction({
                         index: '',
@@ -201,7 +201,7 @@ const ProductNew = () => {
                     })
                 })
                 .catch((error) => {
-                    // console.log(error);
+                    // //console.log(error);
                     // handle error here
                 });
 
@@ -210,11 +210,11 @@ const ProductNew = () => {
     };
     useEffect(() => {
         if (imgeTargetAction.type == 'remove') {
-            // console.log(imgeDataTarget)
+            // //console.log(imgeDataTarget)
             let getRes = imgeDataTarget.filter((el) => el !== imgeDataTarget[imgeTargetAction.index])
-            // console.log(getRes)
+            // //console.log(getRes)
             setImgeDataTarget(getRes)
-            console.log(getRes)
+            //console.log(getRes)
             setImgeTargetAction({
                 index: '',
                 type: '',
@@ -245,16 +245,16 @@ const ProductNew = () => {
             brand_id: targetIdSelect.brand,
             images: imgeDataTarget
         };
-        // console.log(data)
+        // //console.log(data)
 
         dispatch(AddProductThunk(data))
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 navigate("/admin/product");
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 //    setCode(error.code);
             });
     };
@@ -506,9 +506,9 @@ const ProductNew = () => {
                             <FormControl
                                 className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[340px]"
                                 onClick={(e) => {
-                                    // console.log(e.target.textContent)
+                                    // //console.log(e.target.textContent)
                                     if (e.target.tagName == "LI") {
-                                        // console.log(e.target.textContent);
+                                        // //console.log(e.target.textContent);
                                         setSelectTarget({
                                             ...selectTarget,
                                             Main_Category: e.target.textContent,
@@ -546,10 +546,10 @@ const ProductNew = () => {
                             <FormControl
                                 className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[340px]"
                                 onClick={(e) => {
-                                    // console.log(e.target.textContent)
+                                    // //console.log(e.target.textContent)
 
                                     if (e.target.tagName == "LI") {
-                                        // console.log(e.target.textContent);
+                                        // //console.log(e.target.textContent);
                                         setSelectTarget({
                                             ...selectTarget,
                                             Brand: e.target.textContent,
@@ -588,10 +588,10 @@ const ProductNew = () => {
                             <FormControl
                                 className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[340px]"
                                 onClick={(e) => {
-                                    // console.log(e.target.textContent)
+                                    // //console.log(e.target.textContent)
 
                                     if (e.target.tagName == "LI") {
-                                        // console.log(e.target.textContent);
+                                        // //console.log(e.target.textContent);
                                         setSelectTarget({
                                             ...selectTarget,
                                             Attributes: e.target.textContent,
@@ -629,10 +629,10 @@ const ProductNew = () => {
                             <FormControl
                                 className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[340px]"
                                 onClick={(e) => {
-                                    // console.log(e.target.textContent)
+                                    // //console.log(e.target.textContent)
 
                                     if (e.target.tagName == "LI") {
-                                        // console.log(e.target.textContent);
+                                        // //console.log(e.target.textContent);
                                         setSelectTarget({
                                             ...selectTarget,
                                             Unit: e.target.textContent,

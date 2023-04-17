@@ -83,7 +83,7 @@ const ProjectAdd = () => {
 
     //  error Message
     // handle fun date
-    // console.log(finalDate(startDate));
+    // //console.log(finalDate(startDate));
 
     // =====data===========
     const selectRef = useRef(true)
@@ -208,17 +208,17 @@ const ProjectAdd = () => {
             project_total: inputValue.total,
             materials: data,
         };
-        // console.log(finalDate(startDate));
-        // console.log(finalDate(endDate));
+        // //console.log(finalDate(startDate));
+        // //console.log(finalDate(endDate));
 
         dispatch(UpdateProjectThunk(data))
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 navigate("/admin/project");
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 //    setCode(error.code);
             });
     };
@@ -393,9 +393,9 @@ const ProjectAdd = () => {
                         <FormControl
                             className="min-h-[75.5px] min-w-[250px] w-full lg:max-w-[440px]"
                             onClick={(e) => {
-                                // console.log(e.target.textContent)
+                                // //console.log(e.target.textContent)
                                 if (e.target.tagName == "LI") {
-                                    // console.log(e.target.textContent);
+                                    // //console.log(e.target.textContent);
                                     setSelectTarget({
                                         ...selectTarget,
                                         Main_Category: e.target.textContent,

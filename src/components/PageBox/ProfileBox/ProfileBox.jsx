@@ -54,7 +54,7 @@ const ProfileBox = () => {
     //   setImages([{ data_url: editData.img }])
     // }, [editData.img]);
     const onChange = (imageList, addUpdateIndex) => {
-        // console.log(imageList, addUpdateIndex);
+        // //console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
     // ============= handle get data user================
@@ -91,7 +91,7 @@ const ProfileBox = () => {
     // handle img value on loading
     useEffect(() => {
         if (avatar) {
-            // console.log(oneImg);
+            // //console.log(oneImg);
             setImages([{ data_url: avatar }]);
         }
     }, [avatar]);
@@ -121,10 +121,10 @@ const ProfileBox = () => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 //    setCode(error.code);
             });
     };

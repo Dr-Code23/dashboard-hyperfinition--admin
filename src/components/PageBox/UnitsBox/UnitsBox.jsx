@@ -68,11 +68,11 @@ const UnitsBox = ({ setOpen, setTypeUnit }) => {
         )
             .unwrap()
             .then((data) => {
-                // console.log(data);
+                // //console.log(data);
                 dispatch(AllUnitsThunk({ page: pageTarget }));
             })
             .catch((error) => {
-                // console.log(error);
+                // //console.log(error);
                 // handle error here
             });
     };

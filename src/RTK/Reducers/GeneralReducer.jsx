@@ -34,7 +34,7 @@ let GeneralReducer = createSlice({
             // =======ads===========
             .addCase(AllGeneralThunk.pending, (state, action) => {})
             .addCase(AllGeneralThunk.fulfilled, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
                 state.generalData = action.payload?.data;
                 state.currentPage = action.payload.meta.current_page;
                 state.lastPage = action.payload.meta.last_page;
@@ -64,7 +64,7 @@ let GeneralReducer = createSlice({
             // // =======DeleteUserThunk===========
             .addCase(DeleteGeneralThunk.fulfilled, (state, action) => {})
             .addCase(DeleteGeneralThunk.rejected, (state, action) => {
-                // console.log(action.payload);
+                // //console.log(action.payload);
             });
     },
 });

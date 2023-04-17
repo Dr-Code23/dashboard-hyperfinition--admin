@@ -4,7 +4,7 @@ import { Api } from "../Api";
 export let AddAdsThunk = createAsyncThunk(
     "ads/AddAdsThunk",
     async (arg, ThunkApi) => {
-        // console.log(arg);
+        // //console.log(arg);
         const formData = new FormData();
         formData.append(
             "title",
@@ -41,7 +41,7 @@ export let AddAdsThunk = createAsyncThunk(
             );
             return res.data;
         } catch (error) {
-            // console.log(error.response.data);
+            // //console.log(error.response.data);
             return rejectWithValue(error.response.data);
         }
     }

@@ -5,7 +5,7 @@ import { Api } from "../Api";
 export let CategoriesStatusThunk = createAsyncThunk(
     "categories/CategoriesStatusThunk",
     async (arg, ThunkApi) => {
-        // console.log(arg);
+        // //console.log(arg);
         let { rejectWithValue } = ThunkApi;
         try {
             let res = await axios.put(
@@ -16,11 +16,11 @@ export let CategoriesStatusThunk = createAsyncThunk(
 
                 Api()
             );
-            // console.log(res.data);
+            // //console.log(res.data);
 
             return res.data;
         } catch (error) {
-            console.log(error.response.data);
+            //console.log(error.response.data);
             return rejectWithValue(error.response.data);
         }
     }
