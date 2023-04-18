@@ -13,7 +13,7 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import { DeleteForever, ModeEdit } from "@mui/icons-material";
 import { Avatar, Button } from "@mui/material";
-import { PaginationBox } from "../../index.js";
+import { AlertDialog, PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import ProductReducer from "../../../RTK/Reducers/ProductReducer";
@@ -51,7 +51,8 @@ const ProductBox = () => {
   let dispatch = useDispatch();
   const [pageTarget, setPageTarget] = useState(1);
   const [searchValue, setSearchValue] = useState('');
-
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [deleteId, setDeleteId] = React.useState(0);
   let { productData, lastPage } = useSelector(
     (state) => state.ProductReducer
   );
@@ -76,7 +77,7 @@ const ProductBox = () => {
       .unwrap()
       .then((data) => {
         // console.log(data);
-        dispatch(AllProductThunk({ page: pageTarget }));
+        dispatch(AllProductThunk({ page: pageTarget, search: '' }));
       })
       .catch((error) => {
         // console.log(error);
@@ -206,7 +207,9 @@ const ProductBox = () => {
                         <ModeEdit />
                       </IconButton>
                       <IconButton aria-label="" onClick={() => {
-                        handleDelete(row.id);
+                        // handleDelete(row.id);
+                        setOpenAlert(true)
+                        setDeleteId(row.id)
                       }}>
                         <DeleteForever />
                       </IconButton>
@@ -219,7 +222,7 @@ const ProductBox = () => {
         </TableContainer>) : null}
 
       </div>
-
+      <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDelete} deleteId={deleteId} setDeleteId={setDeleteId} />
       <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
     </>
   );

@@ -21,7 +21,7 @@ import {
     Tabs,
 } from "@mui/material";
 import ImageUploading from "react-images-uploading";
-import { PaginationBox } from "../index.js";
+import { AlertDialog, PaginationBox } from "../index.js";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { SelectParentCategoriesThunk } from "../../RTK/Thunk/SelectParentCategoriesThunk";
@@ -61,7 +61,8 @@ const SubCategoriesBox = () => {
     const [value, setValue] = React.useState(0);
     const [age, setAge] = React.useState(0);
     const [pageTarget, setPageTarget] = useState(1);
-
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [deleteId, setDeleteId] = React.useState(0);
     const [inputValue, setInputValue] = React.useState({
         input_en: "",
         input_ar: "",
@@ -438,9 +439,11 @@ const SubCategoriesBox = () => {
                                                     <IconButton
                                                         aria-label=""
                                                         onClick={() => {
-                                                            handleDeleteSubCategories(
-                                                                row.id
-                                                            );
+                                                            // handleDeleteSubCategories(
+                                                            //     row.id
+                                                            // );
+                                                            setOpenAlert(true)
+                                                            setDeleteId(row.id)
                                                         }}
                                                     >
                                                         <DeleteForever />
@@ -458,6 +461,8 @@ const SubCategoriesBox = () => {
                         />
                     </>
                 ) : null}
+                <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDeleteSubCategories} deleteId={deleteId} setDeleteId={setDeleteId} />
+
             </div>
         </>
     );

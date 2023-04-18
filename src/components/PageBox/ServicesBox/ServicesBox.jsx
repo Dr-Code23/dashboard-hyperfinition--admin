@@ -13,7 +13,7 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import { DeleteForever, ModeEdit } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { PaginationBox } from "../../index.js";
+import { AlertDialog, PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
 import { AllServicesThunk } from "../../../RTK/Thunk/AllServicesThunk";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,7 +47,8 @@ const ServicesBox = () => {
   let navigate = useNavigate();
   let dispatch = useDispatch();
   const [pageTarget, setPageTarget] = useState(1);
-
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [deleteId, setDeleteId] = React.useState(0);
   let { servicesData, lastPage } = useSelector(
     (state) => state.ServicesReducer
   );
@@ -75,7 +76,7 @@ const ServicesBox = () => {
       .unwrap()
       .then((data) => {
         // console.log(data);
-        dispatch(AllServicesThunk({ page: pageTarget }));
+        dispatch(AllServicesThunk({ page: pageTarget, search: '' }));
       })
       .catch((error) => {
         // console.log(error);
@@ -207,7 +208,9 @@ const ServicesBox = () => {
                           <ModeEdit />
                         </IconButton>
                         <IconButton aria-label="" onClick={() => {
-                          handleDelete(row.id);
+                          // handleDelete(row.id);
+                          setOpenAlert(true)
+                          setDeleteId(row.id)
                         }}>
                           <DeleteForever />
                         </IconButton>
@@ -220,7 +223,7 @@ const ServicesBox = () => {
           </TableContainer>
         ) : null}
       </div>
-
+      <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDelete} deleteId={deleteId} setDeleteId={setDeleteId} />
       <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
     </>
   );

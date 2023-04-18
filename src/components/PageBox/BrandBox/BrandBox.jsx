@@ -21,6 +21,7 @@ import { DeleteBrand } from "../../../RTK/Thunk/DeleteBrand";
 import SwitchBox from "../../SwitchBox/SwitchBox";
 import { BrandStatusThunk } from "../../../RTK/Thunk/BrandStatusThunk";
 import { closeData } from "../../../RTK/Reducers/BrandReducer";
+import AlertDialog from "../../AlertBox/AlertBox";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -44,6 +45,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const BrandBox = ({ setNameBrand, setOpen }) => {
     let dispatch = useDispatch();
     let { t, i18n } = useTranslation();
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [deleteId, setDeleteId] = React.useState(0);
+
     let { brandData, lastPage } = useSelector((state) => state.BrandReducer);
     const [pageTarget, setPageTarget] = useState(1);
     // const navigation = useNavigate();
@@ -63,7 +67,7 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
-                dispatch(AllBrandThunk({ page: pageTarget }));
+                dispatch(AllBrandThunk({ page: pageTarget, search: '' }));
             })
             .catch((error) => {
                 // console.log(error);
@@ -222,9 +226,11 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
                                                 <IconButton
                                                     aria-label=""
                                                     onClick={() => {
-                                                        handleDeleteBrand(
-                                                            row.id
-                                                        );
+                                                        // handleDeleteBrand(
+                                                        //     row.id
+                                                        // );
+                                                        setOpenAlert(true)
+                                                        setDeleteId(row.id)
                                                     }}
                                                 >
                                                     <DeleteForever />
@@ -238,6 +244,7 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
                     </TableContainer>
                 )}
             </div>
+            <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDeleteBrand} deleteId={deleteId} setDeleteId={setDeleteId} />
 
             <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
         </>

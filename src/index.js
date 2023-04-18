@@ -60,3 +60,9 @@ axios.interceptors.response.use(function (response) {
   // Do something with response error
   return Promise.reject(error);
 });
+
+// const [openAlert, setOpenAlert] = React.useState(false);
+// const [deleteId, setDeleteId] = React.useState(0);
+// setOpenAlert(true)
+// setDeleteId(row.id)
+//  <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDeleteBrand} deleteId={deleteId} setDeleteId={setDeleteId} />

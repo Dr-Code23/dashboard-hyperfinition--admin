@@ -13,7 +13,7 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import { DeleteForever, ModeEdit } from "@mui/icons-material";
 import { Avatar, Button } from "@mui/material";
-import { PaginationBox } from "../../index.js";
+import { AlertDialog, PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { AllUsersThunk } from "../../../RTK/Thunk/AllUsersThunk";
@@ -61,7 +61,8 @@ const UsersBox = () => {
     const [pageTarget, setPageTarget] = useState(1);
 
     const [searchValue, setSearchValue] = useState('');
-
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [deleteId, setDeleteId] = React.useState(0);
 
     useEffect(() => {
         if (searchValue) {
@@ -92,7 +93,7 @@ const UsersBox = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
-                dispatch(AllUsersThunk({ page: pageTarget }));
+                dispatch(AllUsersThunk({ page: pageTarget, search: '' }));
             })
             .catch((error) => {
                 // console.log(error);
@@ -253,9 +254,11 @@ const UsersBox = () => {
                                                 <IconButton
                                                     aria-label=""
                                                     onClick={() => {
-                                                        handleDeleteUser(
-                                                            row.id
-                                                        );
+                                                        // handleDeleteUser(
+                                                        //     row.id
+                                                        // );
+                                                        setOpenAlert(true)
+                                                        setDeleteId(row.id)
                                                     }}
                                                 >
                                                     <DeleteForever />
@@ -269,6 +272,8 @@ const UsersBox = () => {
                     </TableContainer>
                 )}
             </div>
+            <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDeleteUser} deleteId={deleteId} setDeleteId={setDeleteId} />
+
             <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
         </>
     );

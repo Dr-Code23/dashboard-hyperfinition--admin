@@ -13,7 +13,7 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import { DeleteForever, ModeEdit } from "@mui/icons-material";
 import { Avatar, Button } from "@mui/material";
-import { PaginationBox } from "../../index.js";
+import { AlertDialog, PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
 import { AttributeThunk } from "../../../RTK/Thunk/AttributeThunk";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,7 +42,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const AttreibutesBox = ({ setOpen, setTypeAttributes }) => {
     let { t, i18n } = useTranslation();
     let dispatch = useDispatch();
-
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [deleteId, setDeleteId] = React.useState(0);
     const [pageTarget, setPageTarget] = useState(1);
     let { attributeData, lastPage } = useSelector(
         (state) => state.AttributeReducer
@@ -71,7 +72,7 @@ const AttreibutesBox = ({ setOpen, setTypeAttributes }) => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
-                dispatch(AttributeThunk({ page: pageTarget }));
+                dispatch(AttributeThunk({ page: pageTarget, search: '' }));
             })
             .catch((error) => {
                 // console.log(error);
@@ -160,9 +161,11 @@ const AttreibutesBox = ({ setOpen, setTypeAttributes }) => {
                                                 <IconButton
                                                     aria-label=""
                                                     onClick={() => {
-                                                        handleDeleteAttribute(
-                                                            row.id
-                                                        );
+                                                        // handleDeleteAttribute(
+                                                        //     row.id
+                                                        // );
+                                                        setOpenAlert(true)
+                                                        setDeleteId(row.id)
                                                     }}
                                                 >
                                                     <DeleteForever />
@@ -176,7 +179,7 @@ const AttreibutesBox = ({ setOpen, setTypeAttributes }) => {
                     </TableContainer>
                 )}
             </div>
-
+            <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDeleteAttribute} deleteId={deleteId} setDeleteId={setDeleteId} />
             <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
         </>
     );

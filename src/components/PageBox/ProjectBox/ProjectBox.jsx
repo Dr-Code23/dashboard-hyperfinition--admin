@@ -12,7 +12,7 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import { DeleteForever, ModeEdit, RemoveRedEye } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { PaginationBox } from "../../index";
+import { AlertDialog, PaginationBox } from "../../index";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { AllProjectThunk } from "../../../RTK/Thunk/AllProjectThunk";
@@ -43,7 +43,8 @@ const ProjectBox = ({ title, list, setOpen }) => {
     let navigate = useNavigate();
     let dispatch = useDispatch();
     const [pageTarget, setPageTarget] = useState(1);
-
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [deleteId, setDeleteId] = React.useState(0);
     let { projectData, lastPage } = useSelector(
         (state) => state.ProjectReducer
     );
@@ -71,7 +72,7 @@ const ProjectBox = ({ title, list, setOpen }) => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
-                dispatch(AllProjectThunk({ page: pageTarget }));
+                dispatch(AllProjectThunk({ page: pageTarget, search: '' }));
             })
             .catch((error) => {
                 // console.log(error);
@@ -169,7 +170,9 @@ const ProjectBox = ({ title, list, setOpen }) => {
                                                 <IconButton
                                                     aria-label=""
                                                     onClick={() => {
-                                                        handleDelete(row.id);
+                                                        // handleDelete(row.id);
+                                                        setOpenAlert(true)
+                                                        setDeleteId(row.id)
                                                     }}
                                                 >
                                                     <DeleteForever />
@@ -183,6 +186,7 @@ const ProjectBox = ({ title, list, setOpen }) => {
                     </TableContainer>
                 ) : null}
             </div>
+            <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDelete} deleteId={deleteId} setDeleteId={setDeleteId} />
             <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
         </>
     );

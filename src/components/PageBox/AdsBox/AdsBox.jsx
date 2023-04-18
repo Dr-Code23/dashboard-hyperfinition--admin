@@ -12,7 +12,7 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import { DeleteForever, InfoOutlined, ModeEdit } from "@mui/icons-material";
 import { Avatar, Box, Button, Modal } from "@mui/material";
-import { PaginationBox } from "../../index.js";
+import { AlertDialog, PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { AllAdsThunk } from "../../../RTK/Thunk/AllAdsThunk";
@@ -54,7 +54,8 @@ const AdsBox = () => {
 
     const [searchValue, setSearchValue] = useState('');
 
-
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [deleteId, setDeleteId] = React.useState(0);
     useEffect(() => {
         if (searchValue) {
             dispatch(AllAdsThunk({ page: pageTarget, search: searchValue }));
@@ -77,7 +78,7 @@ const AdsBox = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
-                dispatch(AllAdsThunk({ page: pageTarget }));
+                dispatch(AllAdsThunk({ page: pageTarget, search: '' }));
             })
             .catch((error) => {
                 // console.log(error);
@@ -207,7 +208,9 @@ const AdsBox = () => {
                                                 <IconButton
                                                     aria-label=""
                                                     onClick={() => {
-                                                        handleDeleteAds(row.id);
+                                                        // handleDeleteAds(row.id);
+                                                        setOpenAlert(true)
+                                                        setDeleteId(row.id)
                                                     }}
                                                 >
                                                     <DeleteForever />
@@ -222,6 +225,8 @@ const AdsBox = () => {
                 ) : null}
             </div>
             <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
+            <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDeleteAds} deleteId={deleteId} setDeleteId={setDeleteId} />
+
             <>
                 <Modal
                     open={openCt}

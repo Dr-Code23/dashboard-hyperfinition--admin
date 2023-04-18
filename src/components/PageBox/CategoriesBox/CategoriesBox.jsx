@@ -14,7 +14,7 @@ import { DeleteForever, ModeEdit } from "@mui/icons-material";
 import { Avatar, Button, Tab, Tabs } from "@mui/material";
 import ImageUploading from "react-images-uploading";
 import img from "../../../assets/Img/default.jpg";
-import { PaginationBox } from "../../index.js";
+import { AlertDialog, PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
 import SwitchBox from "../../SwitchBox/SwitchBox";
 import { useDispatch, useSelector } from "react-redux";
@@ -53,6 +53,8 @@ const CategoriesBox = () => {
   const [value, setValue] = React.useState(0);
   const [pageTarget, setPageTarget] = useState(1);
   const [images, setImages] = React.useState([{ data_url: img }]);
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [deleteId, setDeleteId] = React.useState(0);
   let {
     categoriesData,
     lastPage,
@@ -160,7 +162,7 @@ const CategoriesBox = () => {
       .unwrap()
       .then((data) => {
         // console.log(data);
-        dispatch(AllCategoriesThunk({ page: pageTarget }));
+        dispatch(AllCategoriesThunk({ page: pageTarget, search: '' }));
         setInputValue({
           input_en: "",
           input_ar: "",
@@ -185,7 +187,7 @@ const CategoriesBox = () => {
       .unwrap()
       .then((data) => {
         // console.log(data);
-        dispatch(AllCategoriesThunk({ page: pageTarget }));
+        dispatch(AllCategoriesThunk({ page: pageTarget, search: '' }));
       })
       .catch((error) => {
         // console.log(error);
@@ -511,9 +513,11 @@ const CategoriesBox = () => {
                         <IconButton
                           aria-label=""
                           onClick={() => {
-                            handleDeleteCategories(
-                              row.id
-                            );
+                            // handleDeleteCategories(
+                            //   row.id
+                            // );
+                            setOpenAlert(true)
+                            setDeleteId(row.id)
                           }}
                         >
                           <DeleteForever />
@@ -526,6 +530,7 @@ const CategoriesBox = () => {
             </Table>
           </TableContainer>
         )}
+        <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDeleteCategories} deleteId={deleteId} setDeleteId={setDeleteId} />
 
         <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
       </div>

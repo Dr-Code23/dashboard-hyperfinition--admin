@@ -13,7 +13,7 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import { DeleteForever, ModeEdit } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { PaginationBox } from "../../index.js";
+import { AlertDialog, PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { AllUnitsThunk } from "../../../RTK/Thunk/AllUnitsThunk";
@@ -46,7 +46,8 @@ const UnitsBox = ({ setOpen, setTypeUnit }) => {
     const [pageTarget, setPageTarget] = useState(1);
     let { unitData, lastPage } = useSelector((state) => state.UnitsReducer);
     const [searchValue, setSearchValue] = useState('');
-
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [deleteId, setDeleteId] = React.useState(0);
 
     useEffect(() => {
         if (searchValue) {
@@ -69,7 +70,7 @@ const UnitsBox = ({ setOpen, setTypeUnit }) => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
-                dispatch(AllUnitsThunk({ page: pageTarget }));
+                dispatch(AllUnitsThunk({ page: pageTarget, search: '' }));
             })
             .catch((error) => {
                 // console.log(error);
@@ -161,9 +162,11 @@ const UnitsBox = ({ setOpen, setTypeUnit }) => {
                                                 <IconButton
                                                     aria-label=""
                                                     onClick={() => {
-                                                        handleDeleteUnit(
-                                                            row.id
-                                                        );
+                                                        // handleDeleteUnit(
+                                                        //     row.id
+                                                        // );
+                                                        setOpenAlert(true)
+                                                        setDeleteId(row.id)
                                                     }}
                                                 >
                                                     <DeleteForever />
@@ -177,6 +180,8 @@ const UnitsBox = ({ setOpen, setTypeUnit }) => {
                     </TableContainer>
                 )}
             </div>
+            <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDeleteUnit} deleteId={deleteId} setDeleteId={setDeleteId} />
+
             <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
         </>
     );

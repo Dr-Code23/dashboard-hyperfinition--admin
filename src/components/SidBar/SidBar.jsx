@@ -95,7 +95,7 @@ const SidBar = ({
                                     <InboxIcon sx={{ color: "#fff" }} />
                                 </ListItemIcon>
                                 <ListItemText
-                                    className=" !capitalize"
+                                    className=" !capitalize !text-start"
                                     primary={t("sidBar.DashBoard")}
                                 />
                             </ListItemButton>
@@ -118,7 +118,7 @@ const SidBar = ({
                                         <BrandingWatermark sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.Brand")}
                                     />
                                 </ListItemButton>
@@ -143,7 +143,7 @@ const SidBar = ({
                                         <Attribution sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.attributes")}
                                     />
                                 </ListItemButton>
@@ -167,7 +167,7 @@ const SidBar = ({
                                         <Apartment sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.units")}
                                     />
                                 </ListItemButton>
@@ -191,7 +191,7 @@ const SidBar = ({
                                         <Person sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.Users")}
                                     />
                                 </ListItemButton>
@@ -215,7 +215,7 @@ const SidBar = ({
                                         <Category sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.categories")}
                                     />
                                 </ListItemButton>
@@ -234,7 +234,7 @@ const SidBar = ({
                                                     }}
                                                 />
                                             </ListItemIcon>
-                                            <ListItemText className=" !capitalize">
+                                            <ListItemText className=" !capitalize !text-start">
                                                 <span className=" text-[13px]">
                                                     {t("sidBar.sub_categories")}
                                                 </span>
@@ -255,7 +255,7 @@ const SidBar = ({
                                                     }}
                                                 />
                                             </ListItemIcon>
-                                            <ListItemText className=" !capitalize">
+                                            <ListItemText className=" !capitalize !text-start">
                                                 <span className=" text-[13px]">
                                                     {t("sidBar.sub_Sub_categories")}
                                                 </span>
@@ -285,7 +285,7 @@ const SidBar = ({
                                         />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.product")}
                                     />
                                 </ListItemButton>
@@ -308,7 +308,7 @@ const SidBar = ({
                                         <DesignServices sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.Services")}
                                     />
                                 </ListItemButton>
@@ -333,7 +333,7 @@ const SidBar = ({
                                         <AccountTree sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.project")}
                                     />
                                 </ListItemButton>
@@ -358,7 +358,7 @@ const SidBar = ({
                                         <Paid sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.project_Payment")}
                                     />
                                 </ListItemButton>
@@ -383,7 +383,7 @@ const SidBar = ({
                                         <CellTowerOutlined sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.General_Expenses")}
                                     />
                                 </ListItemButton>
@@ -407,7 +407,7 @@ const SidBar = ({
                                         <Explore sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.project_Expenses")}
                                     />
                                 </ListItemButton>
@@ -430,7 +430,7 @@ const SidBar = ({
                                     <AccountCircle sx={{ color: "#fff" }} />
                                 </ListItemIcon>
                                 <ListItemText
-                                    className=" !capitalize"
+                                    className=" !capitalize !text-start"
                                     primary={t("sidBar.profile")}
                                 />
                             </ListItemButton>
@@ -453,7 +453,7 @@ const SidBar = ({
                                         <ContactPhone sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.contact")}
                                     />
                                 </ListItemButton>
@@ -477,7 +477,7 @@ const SidBar = ({
                                         <InfoOutlined sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.about")}
                                     />
                                 </ListItemButton>
@@ -501,7 +501,7 @@ const SidBar = ({
                                         <SpeedOutlined sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.roles")}
                                     />
                                 </ListItemButton>
@@ -526,7 +526,7 @@ const SidBar = ({
                                         <SettingsOutlined sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.settings")}
                                     />
                                 </ListItemButton>
@@ -549,7 +549,7 @@ const SidBar = ({
                                         <SettingsOutlined sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
-                                        className=" !capitalize"
+                                        className=" !capitalize !text-start"
                                         primary={t("sidBar.ads")}
                                     />
                                 </ListItemButton>

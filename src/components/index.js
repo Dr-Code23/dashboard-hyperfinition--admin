@@ -49,5 +49,6 @@ export { default as AdsAddBox } from "./PageBox/AdsAddBox/AdsAddBox.jsx";
 export { default as ProjectPaymentView } from "./ProjectPaymentView/ProjectPaymentView.jsx";
 export { default as AdsAEditBox } from "./PageBox/AdsAEditBox/AdsAEditBox.jsx";
 export { default as AdsBox } from "./PageBox/AdsBox/AdsBox.jsx";
+export { default as AlertDialog } from "./AlertBox/AlertBox.jsx";
 
 // ProjectPayment

@@ -18,6 +18,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { UpdateTablePaymentThunk } from "../../RTK/Thunk/UpdateTablePaymentThunk";
 import { closeError } from "../../RTK/Reducers/PaymentReducer";
 import { DeleteTablePaymentThunk } from "../../RTK/Thunk/DeleteTablePaymentThunk";
+import { AlertDialog } from "..";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -41,6 +42,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 let selectData = ["name", "email", "pass"];
 const ProjectPaymentEdit = () => {
     let { t, i18n } = useTranslation();
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [deleteId, setDeleteId] = React.useState(0);
     let dispatch = useDispatch();
     let navigate = useNavigate();
     let param = useParams();
@@ -192,9 +195,11 @@ const ProjectPaymentEdit = () => {
                                                     <IconButton
                                                         aria-label=""
                                                         onClick={() => {
-                                                            handleDelete(
-                                                                row.payment_id
-                                                            );
+                                                            // handleDelete(
+                                                            //     row.payment_id
+                                                            // );
+                                                            setOpenAlert(true)
+                                                            setDeleteId(row.payment_id)
                                                         }}
                                                     >
                                                         <DeleteForever />
@@ -274,6 +279,7 @@ const ProjectPaymentEdit = () => {
                         </Box>
                     </Modal>
                 </>
+                <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDelete} deleteId={deleteId} setDeleteId={setDeleteId} />
             </>
         </>
     );
