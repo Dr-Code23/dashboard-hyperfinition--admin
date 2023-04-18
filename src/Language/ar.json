@@ -1,402 +1,485 @@
 {
   "pages": {
+    "DashBoard": {
+      "names": {
+        "productsCount": " عدد المنتجات",
+        "servicesCount": " عدد الخدمات",
+        "allProjectsCount": " كل المشاريع عدد",
+        "pendingProjectsCount": " عدد المشاريع المعلقة",
+        "doneProjectsCount": " عدد المشاريع المنجزة",
+        "dailyPayments": " مدفوعات يومية",
+        "dailyExpenses": " مصاريف يومية",
+        "monthlyPayments": " مدفوعات شهرية",
+        "monthlyExpenses": " مصاريف شهرية",
+        "yearlyPayments": " المدفوعات السنوية",
+        "yearlyExpenses": " المصاريف السنوية",
+        "dailyProfits": " أرباح يومية",
+        "monthlyProfits": " أرباح شهرية",
+        "yearlyProfits": " أرباح سنوية"
+      },
+      "number": {
+        "productsCount": "١٠٠",
+        "servicesCount": "٩٩",
+        "allProjectsCount": "٥",
+        "pendingProjectsCount": "٥",
+        "doneProjectsCount": "٠",
+        "dailyPayments": "٠",
+        "dailyExpenses": "٠",
+        "monthlyPayments": "٢٠،١٣٥",
+        "monthlyExpenses": "٥،٤٠٩،٩١٠",
+        "yearlyPayments": "٢٠،١٣٥",
+        "yearlyExpenses": "٥،٤٠٩،٩١٠",
+        "dailyProfits": "٠",
+        "monthlyProfits": "٠",
+        "yearlyProfits": "٠"
+      }
+    },
     "BrandBox": {
-      "search": "search",
-      "Add_a_new": "Add a new",
+      "search": "بحث",
+      "Add_a_new": "إضافة جديدً",
       "table": {
-        "id": "id",
-        "Img": "Img",
-        "Name": "Name",
-        "actions": "actions"
+        "id": "بطاقة التعريف",
+        "Img": "الصورة",
+        "Name": "الأسم",
+        "actions": "الإجراءات الخاصة"
       }
     },
     "BrandModal": {
-      "New_Brand_Name": "New Brand Name",
-      "Name": "Name",
-      "Images": "Images",
-      "Submit": "Submit",
-      "placeholder": "text"
+      "New_Brand_Name": "أسم العلامة التجارية الجديدة",
+      "Name": "الأسم",
+      "Images": "الصور",
+      "Submit": "دخول",
+      "placeholder": "نص"
     },
     "UnitsBox": {
-      "search": "search",
-      "Add_a_new": "Add a new",
+      "search": "بحث",
+      "Add_a_new": " إضافة جديدً",
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "actions": "actions"
+        "id": "بطاقة التعريف",
+        "Name": "الأسم",
+        "actions": "الإجراءات الخاصة"
       }
     },
     "UnitsModal": {
-      "New_Unit_Name": "New Unit Name",
-      "Name": "Name",
-      "Submit": "Submit",
-      "placeholder": "text"
+      "New_Unit_Name": "أسم وحدة جديدة",
+      "Name": " الأسم",
+      "Submit": " دخول",
+      "placeholder": "نص"
     },
     "AttributeBox": {
-      "search": "search",
-      "Add_a_new": "Add a new",
+      "search": " بحث",
+      "Add_a_new": " إضافة جديداً",
       "table": {
         "id": "id",
-        "Name": "Name",
-        "actions": "actions"
+        "Name": " الأسم",
+        "actions": " الإجراءات الخاصة"
       }
     },
     "AttributesModal": {
-      "New_Unit_Name": "New Attribute Name",
-      "Name": "Name",
-      "Submit": "Submit",
-      "placeholder": "text"
+      "New_Unit_Name": "أسم السمة الجديدة",
+      "Name": " الأسم",
+      "Submit": " دخول",
+      "placeholder": " نص"
+    },
+    "AdsBox": {
+      "search": " بحث",
+      "Add_a_new": " إضافة جديداً",
+      "table": {
+        "id": " بطاقة التعريف",
+        "Title": "العنوان",
+        "discount": "الخصم",
+        "Img": " الصورة",
+        "Description": "الوصف",
+        "actions": " الإجراءات الخاصة"
+      }
+    },
+    "adsAdd": {
+      "discount": "",
+      "Title": " العنوان",
+      "Description": " الوصف",
+      "Image": " الصورة",
+      "Submit": " دخول"
     },
     "UsersBox": {
-      "search": "search",
-      "Add_a_new": "Add a new",
+      "search": "دخول",
+      "Add_a_new": " إضافة جديداً",
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Email": "Email",
-        "Img": "Img",
-        "Rule": "Rule",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": "الأسم",
+        "Email": "البريد الإلكتروني",
+        "Img": " الصورة",
+        "Rule": "قاعدة",
+        "actions": " الإجراءات الخاصة"
       }
     },
     "UserDetailBox": {
-      "Name": "Name",
-      "Email": "Email",
-      "Password": "Password",
-      "Confirm_Password": "Confirm Password",
-      "Rule": "Rule ",
-      "Submit": "Submit ",
-      "email_or_password_is_wrong": "email or password is wrong ",
-      "Required": "Required ",
-      "must_be_a_valid_email": "must be a valid email "
+      "Name": "الاسم",
+      "Email": " البريد الإلكتروني",
+      "Password": "كلمة المرور",
+      "Confirm_Password": "تأكيد كلمة المرور",
+      "Rule": "قاعدة ",
+      "Submit": "دخول ",
+      "email_or_password_is_wrong": "البريد الالكتروني او كلمة المرور خاطئة",
+      "Required": "مطلوب",
+      "must_be_a_valid_email": "يجب ان يكون بريداً الكترونياً صالحاً "
     },
     "CategoriesBox": {
       "add": {
-        "name": "Name",
-        "Images": "Images",
-        "Submit": "Submit"
+        "name": "الأسم",
+        "Images": " الصور",
+        "Submit": " دخول"
       },
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Img": "Img",
-        "Home_Status": "Home Status",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": " الأسم",
+        "Img": " الصورة",
+        "Home_Status": "الصفحة الرئيسية الحالة",
+        "actions": " الإجراءات الخاصة"
       }
     },
     "CategoriesEdit": {
       "add": {
-        "name": "Name",
-        "Images": "Images",
-        "Submit": "Submit"
+        "name": " الأسم",
+        "Images": " الصور",
+        "Submit": " دخول"
       }
     },
     "SubCategoriesBox": {
       "add": {
-        "Main_Category": "Main Category *",
-        "Sub_category_Name": "Sub category Name",
-        "Submit": "Submit"
+        "Main_Category": "الفئة الرئيسية *",
+        "Sub_category_Name": "اسم الفئة الفرعية",
+        "Submit": " دخول"
       },
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Img": "Img",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": "الأسم",
+        "Img": " الصورة",
+        "actions": " الإجراءات الخاصة"
       }
     },
     "SubCategoriesEdit": {
       "add": {
-        "Sub_category_Name": "Sub category Name",
-        "Submit": "Submit"
+        "Sub_category_Name": "اسم الفئة الفرعية",
+        "Submit": " دخول"
       }
     },
     "SubSubCategoriesBox": {
       "add": {
-        "Main_Category": "Main Category *",
-        "Sub_category_Name": "Sub category Name",
-        "Sub_Sub_category_Name": "Sub Sub category Name",
-        "Submit": "Submit"
+        "Main_Category": "الفئة الرئيسية *",
+        "Sub_category_Name": "اسم الفئة الفرعية",
+        "Sub_Sub_category_Name": " اسم الفئة الفرعية الفرعية",
+        "Submit": "دخول"
       },
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Img": "Img",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": " الأسم",
+        "Img": " الصورة",
+        "actions": " الإجراءات الخاصة"
       }
     },
     "ProductBox": {
-      "Add_a_new": "Add a new",
+      "Add_a_new": " إضافة جديداً",
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Price": "Price",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": " الأسم",
+        "Price": "السعر",
+        "status": "الحالة",
+        "actions": "الإجراءات الخاصة"
       }
     },
     "ProductNew": {
-      "Sub_category_Name": "Sub category Name",
-      "Description": "Description",
-      "Brand": "Brand ",
-      "Attributes": "Attributes  ",
-      "Categories": "Categories  ",
-      "Sub_Categories": "Sub Categories ",
-      "Sub_Sub_category": "Sub Sub Categories  ",
-      "Unit": "Unit",
-      "Unit_Price": "Unit Price",
-      "Total_Quantity": "Total Quantity ",
-      "ADD_Images": "ADD Images ",
-      "Img": "Img",
-      "Submit": "Submit "
+      "Sub_category_Name": "اسم الفئة الفرعية",
+      "Description": "الوصف",
+      "Brand": "علامة تجارية ",
+      "Attributes": "السمة  ",
+      "Categories": "الفئات  ",
+      "Sub_Categories": "الفرعية الفئات ",
+      "Sub_Sub_category": "الفئات الفرعية الفرعية  ",
+      "Unit": " الوحدة",
+      "Unit_Price": " الوحدة سعر",
+      "Total_Quantity": "الكمية الإجمالية ",
+      "ADD_Images": "إضافة صور ",
+      "Img": " الصورة",
+      "Submit": " دخول"
     },
     "ProductEdit": {
-      "Sub_category_Name": "Sub category Name",
-      "Description": "Description",
-      "Brand": "Brand ",
-      "Attributes": "Attributes  ",
-      "Categories": "Categories  ",
-      "Sub_Categories": "Sub Categories ",
-      "Sub_Sub_category": "Sub Sub Categories  ",
-      "Unit": "Unit",
-      "Unit_Price": "Unit Price",
-      "Total_Quantity": "Total Quantity ",
-      "ADD_Images": "ADD Images ",
+      "Sub_category_Name": "اسم الفئة الفرعية",
+      "Description": "الوصف",
+      "Brand": "علامة تجارية ",
+      "Attributes": "السمة  ",
+      "Categories": "الفئات  ",
+      "Sub_Categories": " الفئات الفرعية",
+      "Sub_Sub_category": " الفرعية الفرعية الفئات ",
+      "Unit": " الوحدة",
+      "Unit_Price": " الوحدة سعر",
+      "Total_Quantity": "الكمية الإجمالية ",
+      "ADD_Images": "إضافة صور ",
       "Img": "Img",
-      "Submit": "Submit "
+      "Submit": " دخول "
     },
     "ServicesBox": {
-      "Add_a_new": "Add a new",
+      "Add_a_new": " إضافة جديداً",
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Price": "Price",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": "الأسم",
+        "status": "الحالة",
+        "Price": "السعر",
+        "actions": " الإجراءات الخاصة"
       }
     },
     "ServicesAdd": {
-      "Sub_category_Name": "Sub category Name",
-      "Description": "Description",
-      "Categories": "Categories  ",
-      "Unit": "Unit",
-      "Price": "Price",
-      "Phone_Number": "Phone Number ",
-      "ADD_Images": "ADD Images ",
+      "Sub_category_Name": "اسم الفئة الفرعية",
+      "Description": "الوصف",
+      "Categories": "الفئات  ",
+      "Unit": " الوحدة",
+      "Price": "السعر",
+      "Phone_Number": "رقم الهاتف",
+      "ADD_Images": "إضافة صور ",
       "Img": "Img",
-      "Submit": "Submit "
+      "Submit": "دخول "
     },
     "ServicesEdit": {
-      "Sub_category_Name": "Sub category Name",
-      "Description": "Description",
-      "Categories": "Categories  ",
-      "Unit": "Unit",
-      "Price": "Price",
-      "Phone_Number": "Phone Number ",
-      "ADD_Images": "ADD Images ",
-      "Img": "Img",
-      "Submit": "Submit "
+      "Sub_category_Name": "اسم الفئة الفرعية",
+      "Description": "الوصف",
+      "Categories": "الفئات  ",
+      "Unit": " الوحدة",
+      "Price": "السعر",
+      "Phone_Number": "رقم الهاتف",
+      "ADD_Images": "إضافة صور ",
+      "Img": "الصورة",
+      "Submit": "دخول "
     },
     "ProjectBox": {
-      "Add_a_new": "Add a new",
+      "Add_a_new": " إضافة جديداً",
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Customer_Name": "Customer Name",
-        "Project_Name": "Project Name",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": "الاسم",
+        "Customer_Name": "اسم العميل",
+        "Project_Name": "اسم المشروع",
+        "actions": " الإجراءات الخاصة"
       }
     },
     "ProjectAdd": {
-      "Project_Name": "Project Name",
-      "Customer_Name": "Customer Name",
-      "Project_Total": "Project Total",
-      "Start_Date": "Start Date",
-      "End_Date": "End Date",
-      "Product": "Product",
-      "Quantity_Total": "Quantity Total",
-      "The_Quantity_Must_be_Number": "The Quantity Must be Number !",
+      "Project_Name": "اسم المشروع",
+      "Customer_Name": "اسم العميل",
+      "Project_Total": "إجمالي المشروع",
+      "Start_Date": "تاريخ البدء",
+      "End_Date": "تاريخ الانتهاء",
+      "Product": "المنتج",
+      "Quantity_Total": "مجموع الكمية",
+      "The_Quantity_Must_be_Number": "يجب ان تكون الكمية رقما!",
       "Add": "Add",
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Quantity": "Quantity",
-        "Price": "Price",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": " الأسم",
+        "Quantity": "الكمية",
+        "unit_price": " الوحدة سعر",
+        "Price": "السعر",
+        "actions": "الإجراءات الخاصة"
       },
-      "Submit": "Submit"
+      "Submit": " دخول"
     },
     "ProjectView": {
-      "Project_Name": "Project Name",
-      "Customer_Name": "Customer Name",
-      "Project_Total": "Project Total",
-      "Start_Date": "Start Date",
-      "End_Date": "End Date",
+      "Project_Name": "اسم المشروع",
+      "Customer_Name": "اسم العميل",
+      "Project_Total": "إجمالي المشروع",
+      "Start_Date": "تاريخ البدء",
+      "End_Date": "تاريخ الانتهاء",
+      "profits": "الأرباح",
+      "materials_total": "إجمالي المواد",
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Project_Name": "Project Name",
-        "Customer_Name": "Customer Name"
+        "id": " بطاقة التعريف",
+        "Name": "الأسم",
+        "Project_Name": "اسم المشروع",
+        "quantity": "الكمية",
+        "Customer_Name": "اسم العميل"
       }
     },
     "ProjectPayment": {
-      "Add_a_new": "Add a new",
+      "Add_a_new": " إضافة جديداً",
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Customer_Name": "Customer Name",
-        "Project_Name": "Project Name",
-        "Price": "Price",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": " الأسم",
+        "Customer_Name": "اسم العميل",
+        "Project_Name": "اسم المشروع",
+        "Price": "السعر",
+        "actions": " الإجراءات الخاصة"
+      }
+    },
+    "ProjectPaymentAddView": {
+      "Project_Name": "اسم المشروع",
+      "Customer_Name": "اسم العميل",
+      "Project_Total": "إجمالي المشروع",
+      "paid_before": "المدفوع مسبقاً",
+      "remaining_money": "المال المتبقي",
+      "Start_Date": "تاريخ البدء",
+      "End_Date": "تاريخ الانتهاء",
+      "table": {
+        "id": " بطاقة التعريف",
+        "Name": " الأسم",
+        "Project_Name": "اسم المشروع",
+        "Customer_Name": "اسم العميل"
       }
     },
     "ProjectPaymentAdd": {
-      "Project": "Project ",
-      "Price": "Price  ",
-      "Submit": "Submit"
+      "Project": "المشروع ",
+      "Price": "السعر  ",
+      "Submit": " دخول"
     },
     "ProjectPaymentEdit": {
-      "Project": "Project ",
-      "Price": "Price  ",
-      "Submit": "Submit"
+      "Project": "المشروع ",
+      "Price": "السعر",
+      "Submit": " دخول",
+      "table": {
+        "id": " بطاقة التعريف",
+        "price": "السعر",
+        "created_at": "تم إنشاؤها في",
+        "actions": " الإجراءات الخاصة"
+      }
     },
     "GeneralExpenses": {
-      "Add_a_new": "Add a new",
+      "Add_a_new": " إضافة جديداً",
       "table": {
-        "id": "id",
-        "Price": "Price",
-        "Description": "Description",
-        "Description_Modal": "Description",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Price": "السعر",
+        "Description": "الوصف",
+        "Description_Modal": "الوصف",
+        "actions": " الإجراءات الخاصة"
       }
     },
     "GeneralExpensesAdd": {
-      "Price": "Price",
-      "Description": "Description",
-      "Submit": "Submit"
+      "Price": "السعر",
+      "Description": "الوصف",
+      "Submit": " دخول"
     },
     "GeneralExpensesEdit": {
-      "Price": "Price",
-      "Description": "Description",
-      "Submit": "Submit"
+      "Price": "السعر",
+      "Description": "الوصف",
+      "Submit": " دخول"
     },
     "ComponyExpenses": {
-      "Add_a_new": "Add a new",
+      "Add_a_new": " إضافة جديداً",
       "table": {
-        "id": "id",
-        "Customer_Name": "Customer Name",
-        "Project_Name": "Project Name",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Customer_Name": "اسم العميل",
+        "Project_Name": "اسم المشروع",
+        "actions": " الإجراءات الخاصة"
       }
     },
     "ComponyExpensesAdd": {
-      "Project": "Project ",
-      "Product": "Product",
-      "Quantity_Total": "Quantity Total",
-      "The_Quantity_Must_be_Number": "The Quantity Must be Number !",
-      "Add": "Add",
+      "Project": "المشروع ",
+      "Product": "المنتج",
+      "Quantity_Total": "مجموع الكمية",
+      "The_Quantity_Must_be_Number": "يجب ان تكون الكمية رقماً !",
+      "Add": "اضافة",
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Quantity": "Quantity",
-        "Price": "Price",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": " الأسم",
+        "Quantity": "الكمية",
+        "total_Price": "السعر الإجمالي",
+        "Price": "السعر",
+        "actions": " الإجراءات الخاصة"
       },
-      "Submit": "Submit"
+      "Submit": "دخول"
     },
     "ComponyExpensesView": {
-      "Project_Name": "Project Name",
-      "Customer_Name": "Customer Name",
-      "Project_Total": "Project Total",
-      "Start_Date": "Start Date",
-      "End_Date": "End Date",
+      "Project_Name": "اسم العميل",
+      "Customer_Name": "اسم العميل",
+      "Project_Total": "إجمالي المشروع",
+      "Start_Date": "تاريخ البدء",
+      "End_Date": "تاريخ الانتهاء",
       "table": {
-        "id": "id",
-        "Date": "Date",
-        "Products": "Products ",
-        "Customer_Name": "Customer Name"
+        "id": " بطاقة التعريف",
+        "Date": "التاريخ",
+        "Products": "المنتجات ",
+        "Customer_Name": "اسم العميل"
       },
       "table_Modal": {
-        "id": "id",
-        "Project": "Project",
-        "Products": "Products ",
-        "quantity": "quantity"
+        "id": " بطاقة التعريف",
+        "Project": "المشروع",
+        "Products": "المنتجات ",
+        "quantity": "الكمية"
       }
     },
     "Profile": {
-      "Full_Name": "Full Name ",
-      "Email": "Email",
-      "New_Password": "New Password",
-      "Confirm_Password": "Confirm  Password",
-      "Save_Change": "Save Change"
+      "Full_Name": "لأسم الكامل",
+      "Email": " البريد الإلكتروني",
+      "New_Password": "جديدة كلمة المرور",
+      "Confirm_Password": "تأكيد كلمة المرور",
+      "Save_Change": "حفظ التغييرات"
     },
     "ContactBox": {
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "Email": "Email",
-        "Phone": "Phone",
-        "Message_Modal": "Message",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": " الأسم",
+        "Email": "البريد الإلكتروني",
+        "Phone": "الرقم",
+        "Message_Modal": "رسالة",
+        "actions": " الإجراءات الخاصة"
       }
     },
     "RolesBox": {
-      "Add_a_new": "Add a new",
+      "Add_a_new": " إضافة جديداً",
       "table": {
-        "id": "id",
-        "Name": "Name",
-        "actions": "actions"
+        "id": " بطاقة التعريف",
+        "Name": " الأسم",
+        "actions": " الإجراءات الخاصة"
       }
     },
     "RolesBoxAdd": {
-      "Role_Name": "Role Name",
-      "Submit": "Submit"
+      "Role_Name": "اسم الدور",
+      "Submit": "دخول"
     },
     "RolesBoxEdit": {
-      "Role_Name": "Role Name",
-      "Submit": "Submit"
+      "Role_Name": "اسم الدور",
+      "Submit": "دخول"
     },
     "AboutBox": {
-      "Title": "Title",
-      "Description": "Description",
-      "Image": "Image",
-      "Submit": "Submit"
+      "Title": "العنوان",
+      "Description": "الوصف",
+      "Image": "الصورة",
+      "Submit": "دخول"
     },
     "SettingsBox": {
-      "Facebook": "Facebook",
-      "Instagram": "Instagram",
-      "Whatsapp": "Whatsapp",
-      "Youtube": "Youtube",
-      "Phones": "Phones",
-      "Address": "Address",
-      "Submit": "Submit"
+      "Facebook": "فيسبوك",
+      "Instagram": "إنستغرام",
+      "Whatsapp": "واتساب",
+      "Youtube": "يوتيوب",
+      "Phones": "ارقام الهواتف",
+      "Address": "العنوان",
+      "Submit": "دخول"
     }
   },
   "sidBar": {
-    "DashBoard": "DashBoard",
-    "Brand": "Brand",
-    "attributes": "attributes",
-    "units": "units",
-    "Users": "Users",
-    "categories": "categories",
-    "sub_categories": "sub categories",
-    "sub_Sub_categories": "sub sub categories",
-    "product": "product",
-    "Services": "Services",
-    "project": "project",
-    "project_Payment": "project Payment",
-    "General_Expenses": "General Expenses",
-    "project_Expenses": "project Expenses",
-    "profile": "profile",
-    "contact": "contact",
-    "about": "about",
-    "roles": "roles",
-    "Logout": "Logout",
-    "settings": "settings"
+    "DashBoard": "لوجة القيادة",
+    "Brand": "علامة تجارية",
+    "attributes": "السمة",
+    "units": "الوحدات",
+    "Users": "المستخدمين",
+    "categories": "الفئات",
+    "sub_categories": "الفرعية الفئات",
+    "sub_Sub_categories": " الفئات الفرعية الفرعية",
+    "product": "المنتج",
+    "Services": "الخدمات",
+    "project": "المشروع",
+    "project_Payment": "دفعات المشروع",
+    "General_Expenses": "النفقات العامة",
+    "project_Expenses": "نفقات المشروع",
+    "profile": "الحساب التعريفي",
+    "contact": "اتصال",
+    "about": "عنا",
+    "roles": "الصلاحيات",
+    "Logout": "تسجيل الخروج",
+    "ads": "الاعلانات",
+    "settings": "الإعدادات"
   },
   "code_error": {
-    "The_Main_value_Must_be_entered": "The Main value Must be entered !"
+    "The_Main_value_Must_be_entered": " يجب إدخال القيمة الرئيسية!",
+    "The_amount_entered_is_greater_than_the_available_quantity": " المبلغ الذي تم إدخاله أكبر من الكمية المتاحة!"
   },
   "Language": {
-    "English": "English",
-    "Arabic": "Arabic",
-    "French": "French"
+    "English": "الإنجليزية",
+    "Arabic": "العربية",
+    "French": "الفرنسية"
   }
 }

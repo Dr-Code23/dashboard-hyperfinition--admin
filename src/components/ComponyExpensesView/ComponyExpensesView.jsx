@@ -13,10 +13,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { InfoOutlined } from "@mui/icons-material";
+import { InfoOutlined, Print } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ViewExpensesThunk } from "../../RTK/Thunk/ViewExpensesThunk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -52,6 +52,7 @@ const rows = [
 const ComponyExpensesView = () => {
     let { t, i18n } = useTranslation();
     let dispatch = useDispatch();
+    let navigate = useNavigate()
     let param = useParams();
     let { viewData, viewTableData } = useSelector(
         (state) => state.ExpensesReducer
@@ -60,6 +61,7 @@ const ComponyExpensesView = () => {
     useEffect(() => {
         dispatch(ViewExpensesThunk({ id: param.ComponyExpensesView }));
     }, [dispatch, param.ComponyExpensesView]);
+
     const [openCt, setOpenCt] = React.useState(false);
     const [modalData, setModalData] = React.useState([]);
     const handleClose = useCallback(() => {
@@ -174,6 +176,16 @@ const ComponyExpensesView = () => {
                                                     >
                                                         <InfoOutlined />
                                                     </IconButton>
+                                                    <IconButton
+                                                        aria-label=""
+                                                        onClick={() => {
+                                                            navigate(`/print/${row.project_expense_id}`)
+                                                            // console.log('admin')
+
+                                                        }}
+                                                    >
+                                                        <Print />
+                                                    </IconButton>
                                                 </div>
                                             </StyledTableCell>
                                         </StyledTableRow>
@@ -255,7 +267,6 @@ const ComponyExpensesView = () => {
                                                             row.project_expense_product_id
                                                         }
                                                     </StyledTableCell>
-
                                                     <StyledTableCell align="center">
                                                         {row.product_name}
                                                     </StyledTableCell>

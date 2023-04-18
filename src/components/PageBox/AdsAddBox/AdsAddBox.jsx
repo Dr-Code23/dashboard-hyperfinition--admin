@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AddAdsThunk } from "../../../RTK/Thunk/AddAdsThunk";
 import { closeError } from "../../../RTK/Reducers/AdsReducer";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 const AdsAddBox = () => {
     let { t, i18n } = useTranslation();
     let dispatch = useDispatch();
@@ -72,7 +73,6 @@ const AdsAddBox = () => {
     //         dispatch(closeAbout());
     //     };
     // }, [dispatch]);
-
     let handleSubmit = (e) => {
         e.preventDefault();
         dispatch(
@@ -103,7 +103,7 @@ const AdsAddBox = () => {
     };
     return (
         <>
-            <div className="p-[20px] my-[60px]">
+            <div className="p-[20px] my-[60px]" >
                 <div className="about-box add-box w-full flex justify-center add-shadow  items-center h-full py-[40px] px-[20px]">
                     <form
                         className="box  flex justify-start gap-[40px] items-center flex-col  w-full max-w-[750px]  h-full p-[20px]"

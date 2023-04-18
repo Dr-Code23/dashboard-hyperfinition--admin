@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import {
     SettingsBox,
     AboutBox,
@@ -45,145 +46,154 @@ import Project from "./Pages/Project";
 import Units from "./Pages/Units";
 import UserDetail from "./Pages/UserDetail";
 import Users from "./Pages/Users";
+import PrintBox from "./Pages/Print";
+import TestBox from "../HooK/TestBox";
+import NotFoundPage from "../components/NotFoundPage/NotFoundPage";
 
 export let Router = createBrowserRouter([
     {
         path: "/",
         element: <Login />,
+
         errorElement: <div>errorElement</div>,
     },
     {
         path: "/admin",
         element: <Layout />,
         errorElement: <div>errorElement</div>,
+
         children: [
             { index: true, element: <Dashboard /> },
 
             {
                 path: "brand",
-                element: <Brand />,
+                element: <TestBox data={'brand_management'}><Brand /></TestBox>,
             },
             {
                 path: "attributes",
-                element: <Attributes />,
+                element: <TestBox data={'attribute_management'}>
+                    <Attributes />
+                </TestBox>,
             },
             {
                 path: "units",
-                element: <Units />,
+                element: <TestBox data={'unit_management'}><Units /></TestBox>,
+
             },
             {
                 path: "users",
-                element: <Users />,
+                element:
+                    <TestBox data={'user_management'}><Users /></TestBox>,
             },
             {
                 path: "users/detail/:user_id",
-                element: <UserDetail />,
+                element: <TestBox data={'user_management'}><UserDetail /></TestBox>,
             },
             {
                 path: "users/add/:user_add",
-                element: <UserAddBox />,
+                element: <TestBox data={'user_management'}><UserAddBox /></TestBox>,
             },
             {
                 path: "categories",
-                element: <Categories />,
+                element: <TestBox data={'category_management'}><Categories /></TestBox>,
             },
 
             {
                 path: "categories/edit/:editCategories",
-                element: <CategoriesEdit />,
+                element: <TestBox data={'category_management'}><CategoriesEdit /></TestBox>,
             },
 
             {
                 path: "categories/sub",
-                element: <SubCategoriesBox />,
+                element: <TestBox data={'category_management'}><SubCategoriesBox /></TestBox>,
             },
             {
                 path: "categories/sub/edit/:idMainCategories/:editSub",
-                element: <SubCategoriesEdit />,
+                element: <TestBox data={'category_management'}><SubCategoriesEdit /></TestBox>,
             },
             {
                 path: "categories/sub_sub",
-                element: <SubSubCategoriesBox />,
+                element: <TestBox data={'category_management'}><SubSubCategoriesBox /></TestBox>,
             },
             {
                 path: "categories/sub_sub/edit/:editSub/:SubSub",
-                element: <SubSubCategoriesEdit />,
+                element: <TestBox data={'category_management'}><SubSubCategoriesEdit /></TestBox>,
             },
             {
                 path: "product",
-                element: <Product />,
+                element: <TestBox data={'product_management'}><Product /></TestBox>,
             },
             {
                 path: "product/add",
-                element: <ProductNew />,
+                element: <TestBox data={'product_management'}><ProductNew /></TestBox>,
             },
             {
                 path: "product/edit/:productEdit",
-                element: <ProductEdit />,
+                element: <TestBox data={'product_management'}><ProductEdit /></TestBox>,
             },
             {
                 path: "services",
-                element: <ServicesBox />,
+                element: <TestBox data={'service_management'}><ServicesBox /></TestBox>,
             },
             {
                 path: "services/add",
-                element: <ServicesAdd />,
+                element: <TestBox data={'service_management'}><ServicesAdd /></TestBox>,
             },
             {
                 path: "services/edit/:serviceEdit",
-                element: <ServicesEdit />,
+                element: <TestBox data={'service_management'}><ServicesEdit /></TestBox>,
             },
             {
                 path: "generalExpenses",
-                element: <GeneralExpenses />,
+                element: <TestBox data={'general_expenses_management'}><GeneralExpenses /></TestBox>,
             },
             {
                 path: "generalExpenses/add",
-                element: <GeneralExpensesAdd />,
+                element: <TestBox data={'general_expenses_management'}><GeneralExpensesAdd /></TestBox>,
             },
             {
                 path: "generalExpenses/edit/:GeneralExpensesEdit",
-                element: <GeneralExpensesEdit />,
+                element: <TestBox data={'general_expenses_management'}><GeneralExpensesEdit /></TestBox>,
             },
             {
                 path: "project",
-                element: <Project />,
+                element: <TestBox data={'project_management'}><Project /></TestBox>,
             },
             {
                 path: "project/add/",
-                element: <ProjectAdd />,
+                element: <TestBox data={'project_management'}><ProjectAdd /></TestBox>,
             },
             {
                 path: "project/view/:projectView",
-                element: <ProjectView />,
+                element: <TestBox data={'project_management'}><ProjectView /></TestBox>,
             },
             {
                 path: "projectPayment",
-                element: <ProjectPayment />,
+                element: <TestBox data={'project_payment_management'}><ProjectPayment /></TestBox>,
             },
             {
                 path: "projectPayment/view/:paymentView",
-                element: <ProjectPaymentView />,
+                element: <TestBox data={'project_payment_management'}><ProjectPaymentView /></TestBox>,
             },
             {
                 path: "projectPayment/add",
-                element: <ProjectPaymentAdd />,
+                element: <TestBox data={'project_payment_management'}><ProjectPaymentAdd /></TestBox>,
             },
             {
                 path: "projectPayment/edit/:projectPaymentEdit",
-                element: <ProjectPaymentEdit />,
+                element: <TestBox data={'project_payment_management'}><ProjectPaymentEdit /></TestBox>,
             },
             {
                 path: "projectExpense",
-                element: <Compony />,
+                element: <TestBox data={'project_expenses_management'}><Compony /></TestBox>,
             },
             {
                 path: "projectExpense/add",
-                element: <ComponyExpensesAdd />,
+                element: <TestBox data={'project_expenses_management'}><ComponyExpensesAdd /></TestBox>,
             },
             {
                 path: "projectExpense/view/:ComponyExpensesView",
-                element: <ComponyExpensesView />,
+                element: <TestBox data={'project_expenses_management'}><ComponyExpensesView /></TestBox>,
             },
             {
                 path: "profile",
@@ -191,40 +201,42 @@ export let Router = createBrowserRouter([
             },
             {
                 path: "contact",
-                element: <ContactBox />,
+                element: <TestBox data={'contact_us_management'}><ContactBox /></TestBox>,
             },
             {
                 path: "about",
-                element: <AboutBox />,
+                element: <TestBox data={'about_us_management'}><AboutBox /></TestBox>,
             },
             {
                 path: "roles",
-                element: <RolesBox />,
+                element: <TestBox data={'role_management'}><RolesBox /></TestBox>,
             },
             {
                 path: "roles/add/:RolesBoxAdd",
-                element: <RolesBoxAdd />,
+                element: <TestBox data={'role_management'}><RolesBoxAdd /></TestBox>,
             },
             {
                 path: "roles/edit/:RolesBoxEdit",
-                element: <RolesBoxEdit />,
+                element: <TestBox data={'role_management'}><RolesBoxEdit /></TestBox>,
             },
             {
                 path: "settings",
-                element: <SettingsBox />,
+                element: <TestBox data={'settings_management'}><SettingsBox /></TestBox>,
             },
             {
                 path: "ads",
-                element: <AdsBox />,
+                element: <TestBox data={'ad_management'}><AdsBox /></TestBox>,
             },
             {
                 path: "ads/add",
-                element: <AdsAddBox />,
+                element: <TestBox data={'ad_management'}><AdsAddBox /></TestBox>,
             },
             {
                 path: "ads/edit/:editAds",
-                element: <AdsAEditBox />,
+                element: <TestBox data={'ad_management'}><AdsAEditBox /></TestBox>,
             },
+
+
 
             {
                 // path: "admin",
@@ -236,5 +248,14 @@ export let Router = createBrowserRouter([
                 // },
             },
         ],
+
+    },
+    {
+        path: "print/:printId",
+        element: <PrintBox />,
+    },
+    {
+        path: "*",
+        element: <NotFoundPage />,
     },
 ]);

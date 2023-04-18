@@ -1,59 +1,113 @@
 {
   "pages": {
+    "DashBoard": {
+      "names": {
+        "allProjectsCount": "tous les projets comptent",
+        "dailyExpenses": "frais journaliers",
+        "dailyPayments": "Paiements quotidiens",
+        "dailyProfits": "Bénéfices quotidiens",
+        "doneProjectsCount": " Nombre de projets réalisés",
+        "monthlyExpenses": "dépenses mensuelles",
+        "monthlyPayments": "mensualités",
+        "monthlyProfits": "Bénéfices mensuels",
+        "pendingProjectsCount": "Nombre de projets en attente",
+        "productsCount": "Produits Comptent",
+        "servicesCount": "Nombre de services",
+        "yearlyExpenses": "Dépenses annuelles",
+        "yearlyPayments": "Paiements annuels",
+        "yearlyProfits": "Bénéfices annuels"
+      },
+      "number": {
+        "productsCount": "100",
+        "servicesCount": "99",
+        "allProjectsCount": "5",
+        "pendingProjectsCount": "5",
+        "doneProjectsCount": "0",
+        "dailyPayments": "0",
+        "dailyExpenses": "0",
+        "monthlyPayments": "20,135",
+        "monthlyExpenses": "5,409,910",
+        "yearlyPayments": "20,135",
+        "yearlyExpenses": "5,409,910",
+        "dailyProfits": "0",
+        "monthlyProfits": "0",
+        "yearlyProfits": "0"
+      }
+    },
     "BrandBox": {
-      "search": "Chercher",
+      "search": "chercher",
       "Add_a_new": "Ajouter un nouveau",
       "table": {
-        "id": "id",
-        "Img": "Img",
+        "id": "Carte d’idendité",
+        "Img": "Image",
         "Name": "Nom",
         "actions": "actions"
       }
     },
     "BrandModal": {
-      "New_Brand_Name": " Nouveau nom de marque",
+      "New_Brand_Name": "Nouveau nom de marque",
       "Name": "Nom",
       "Images": "Images",
       "Submit": "Soumettre",
       "placeholder": "texte"
     },
     "UnitsBox": {
-      "search": "Chercher",
+      "search": "chercher",
       "Add_a_new": "Ajouter un nouveau",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
         "actions": "actions"
       }
     },
     "UnitsModal": {
-      "New_Unit_Name": " Nouveau nom d'unité",
+      "New_Unit_Name": "Nouveau nom d’unité",
       "Name": "Nom",
       "Submit": "Soumettre",
       "placeholder": "texte"
     },
     "AttributeBox": {
-      "search": "Chercher",
+      "search": "chercher",
       "Add_a_new": "Ajouter un nouveau",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
         "actions": "actions"
       }
     },
     "AttributesModal": {
-      "New_Unit_Name": " Nouveau nom d'attribut",
+      "New_Unit_Name": "Nouveau nom d’attribut",
       "Name": "Nom",
       "Submit": "Soumettre",
       "placeholder": "texte"
     },
-    "UsersBox": {
-      "search": "Chercher",
+    "AdsBox": {
+      "search": "chercher",
       "Add_a_new": "Ajouter un nouveau",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
+        "Title": "Titre",
+        "discount": "Réduction",
+        "Img": "Image",
+        "Description": "Description",
+        "actions": "actions"
+      }
+    },
+    "adsAdd": {
+      "discount": "Réduction",
+      "Title": "Titre",
+      "Description": "Description",
+      "Image": "Image",
+      "Submit": "Soumettre"
+    },
+    "UsersBox": {
+      "search": "chercher",
+      "Add_a_new": "Ajouter un nouveau",
+      "table": {
+        "id": "Carte d’idendité",
         "Name": "Nom",
         "Email": "E-mail",
+        "Img": "Image",
         "Rule": "Règle",
         "actions": "actions"
       }
@@ -62,12 +116,12 @@
       "Name": "Nom",
       "Email": "E-mail",
       "Password": "Mot de passe",
-      "Confirm_Password": " Confirmez le mot de passe",
-      "Rule": " Règle ",
+      "Confirm_Password": "Confirmez Mot de passe",
+      "Rule": "Règle ",
       "Submit": "Soumettre ",
-      "email_or_password_is_wrong": " l'email ou le mot de passe est erroné ",
-      "Required": " Requis ",
-      "must_be_a_valid_email": " doit être un email valide "
+      "email_or_password_is_wrong": "E-mail ou Mot de passe est faux ",
+      "Required": "Required ",
+      "must_be_a_valid_email": "doit être un email valide "
     },
     "CategoriesBox": {
       "add": {
@@ -76,10 +130,10 @@
         "Submit": "Soumettre"
       },
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
-        "Img": "Img",
-        "Home_Status": " Statut d'accueil",
+        "Img": "Image",
+        "Home_Status": "Statut de la page d’acceuil",
         "actions": "actions"
       }
     },
@@ -93,13 +147,13 @@
     "SubCategoriesBox": {
       "add": {
         "Main_Category": "Catégorie principale *",
-        "Sub_category_Name": " Nom de la sous-catégorie",
+        "Sub_category_Name": "Nom de la sous-catégorie",
         "Submit": "Soumettre"
       },
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
-        "Img": "Img",
+        "Img": "Image",
         "actions": "actions"
       }
     },
@@ -111,92 +165,94 @@
     },
     "SubSubCategoriesBox": {
       "add": {
-        "Main_Category": " Catégorie principale *",
-        "Sub_category_Name": " Nom de la sous-catégorie",
-        "Sub_Sub_category_Name": " Nom de la sous-sous-catégorie",
+        "Main_Category": "Catégorie principale *",
+        "Sub_category_Name": "Nom de la sous-catégorie",
+        "Sub_Sub_category_Name": "Nom de la sous-sous-catégorie",
         "Submit": "Soumettre"
       },
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
-        "Img": "Img",
+        "Img": "Image",
         "actions": "actions"
       }
     },
     "ProductBox": {
       "Add_a_new": "Ajouter un nouveau",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
         "Price": "Prix",
+        "status": "statut",
         "actions": "actions"
       }
     },
     "ProductNew": {
-      "Sub_category_Name": "Sub category Name",
+      "Sub_category_Name": "Nom de la sous-catégorie",
       "Description": "Description",
-      "Brand": "Marque ",
-      "Attributes": "Attributs  ",
+      "Brand": "Marques ",
+      "Attributes": "Attributes  ",
       "Categories": "Categories  ",
-      "Sub_Categories": "Sous-Categories ",
-      "Sub_Sub_category": "Sous-sous-Categories  ",
-      "Unit": "Unité",
+      "Sub_Categories": "Sub Categories ",
+      "Sub_Sub_category": " sous-sous-catégorie",
+      "Unit": "Unit",
       "Unit_Price": "Prix unitaire",
       "Total_Quantity": " Quantité totale ",
-      "ADD_Images": "Ajouter des Images ",
-      "Img": "Img",
+      "ADD_Images": "Ajouter des images",
+      "Img": "Image",
       "Submit": "Soumettre "
     },
     "ProductEdit": {
-      "Sub_category_Name": " Nom de la sous-catégorie",
+      "Sub_category_Name": "Nom de la sous-catégorie",
       "Description": "Description",
-      "Brand": "Marque ",
-      "Attributes": " Les attributs",
-      "Categories": "Categories",
-      "Sub_Categories": "Sous-Categories ",
-      "Sub_Sub_category": " Sous-sous-catégories ",
-      "Unit": "Unité",
-      "Unit_Price": " Prix ??unitaire",
-      "Total_Quantity": "Quantité totale ",
-      "ADD_Images": "Ajouter des images ",
-      "Img": "Img",
+      "Brand": "Marques ",
+      "Attributes": "Attributs  ",
+      "Categories": "Categories  ",
+      "Sub_Categories": "Sub Categories ",
+      "Sub_Sub_category": " sous-sous-catégorie",
+      "Unit": "Unit",
+      "Unit_Price": "Prix unitaire",
+      "Total_Quantity": "Total Quantity ",
+      "ADD_Images": "Ajouter des images",
+      "Img": "Image",
       "Submit": "Soumettre "
     },
     "ServicesBox": {
       "Add_a_new": "Ajouter un nouveau",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
+        "status": "status",
         "Price": "Prix",
         "actions": "actions"
       }
     },
     "ServicesAdd": {
-      "Sub_category_Name": "  Nom de la sous-catégorie",
+      "Sub_category_Name": "Nom de la sous-catégorie",
       "Description": "Description",
-      "Categories": "Categories",
-      "Unit": " Unité",
+      "Categories": "Categories  ",
+      "Unit": "Unité",
       "Price": "Prix",
-      "Phone_Number": "Numéro de téléphone ",
-      "ADD_Images": "Ajouter des images ",
-      "Img": "Img",
+      "Phone_Number": "Phone Number ",
+      "ADD_Images": "Ajouter des images",
+      "Img": "Image",
       "Submit": "Soumettre "
     },
     "ServicesEdit": {
-      "Sub_category_Name": " Nom de la sous-catégorie",
+      "Sub_category_Name": "Nom de la sous-catégorie",
       "Description": "Description",
-      "Categories": "Categories",
+      "Categories": "Categories  ",
       "Unit": "Unité",
       "Price": "Prix",
-      "Phone_Number": "Numéro de téléphone ",
-      "ADD_Images": " Ajouter des images ",
-      "Img": "Img",
+      "Phone_Number": "Phone Number ",
+      "ADD_Images": "Ajouter des images",
+      "Img": "Image",
       "Submit": "Soumettre "
     },
     "ProjectBox": {
       "Add_a_new": "Ajouter un nouveau",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
         "Customer_Name": "Nom du client",
         "Project_Name": "Nom du projet",
@@ -206,17 +262,18 @@
     "ProjectAdd": {
       "Project_Name": "Nom du projet",
       "Customer_Name": "Nom du client",
-      "Project_Total": " Total du projet",
+      "Project_Total": "Ensemble du projet",
       "Start_Date": "Date de début",
-      "End_Date": "Date de fin ",
+      "End_Date": "Date de fin",
       "Product": "Produit",
-      "Quantity_Total": "Quantité total",
-      "The_Quantity_Must_be_Number": " la quantité doit être un nombre !",
+      "Quantity_Total": "Quantité Totale",
+      "The_Quantity_Must_be_Number": "La quantité doit être un nombre!",
       "Add": "Ajouter",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
-        "Quantity": "Quantité",
+        "Quantity": "Quantité ",
+        "unit_price": "Prix unitaire",
         "Price": "Prix",
         "actions": "actions"
       },
@@ -225,20 +282,23 @@
     "ProjectView": {
       "Project_Name": "Nom du projet",
       "Customer_Name": "Nom du client",
-      "Project_Total": "Total du projet",
+      "Project_Total": "Ensemble du projet",
       "Start_Date": "Date de début",
-      "End_Date": "Date de fin ",
+      "End_Date": "Date de fin",
+      "profits": " bénéfices",
+      "materials_total": " total des matériaux",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
         "Project_Name": "Nom du projet",
+        "quantity": "Quantité ",
         "Customer_Name": "Nom du client"
       }
     },
     "ProjectPayment": {
       "Add_a_new": "Ajouter un nouveau",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
         "Customer_Name": "Nom du client",
         "Project_Name": "Nom du projet",
@@ -246,20 +306,41 @@
         "actions": "actions"
       }
     },
+    "ProjectPaymentAddView": {
+      "Project_Name": "Nom du projet",
+      "Customer_Name": "Nom du client",
+      "Project_Total": "Ensemble du projet",
+      "paid_before": "Payé avant",
+      "remaining_money": " argent restant",
+      "Start_Date": "Date de début",
+      "End_Date": "Date de fin",
+      "table": {
+        "id": "Carte d’idendité",
+        "Name": "Nom",
+        "Project_Name": "Nom du projet",
+        "Customer_Name": "Nom du client"
+      }
+    },
     "ProjectPaymentAdd": {
       "Project": "Projet ",
-      "Price": "Prix",
+      "Price": "Prix  ",
       "Submit": "Soumettre"
     },
     "ProjectPaymentEdit": {
       "Project": "Projet ",
       "Price": "Prix",
-      "Submit": "Soumettre"
+      "Submit": "Soumettre",
+      "table": {
+        "id": "Carte d’idendité",
+        "price": "Prix",
+        "created_at": " créé à",
+        "actions": "actions"
+      }
     },
     "GeneralExpenses": {
       "Add_a_new": "Ajouter un nouveau",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Price": "Prix",
         "Description": "Description",
         "Description_Modal": "Description",
@@ -279,7 +360,7 @@
     "ComponyExpenses": {
       "Add_a_new": "Ajouter un nouveau",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Customer_Name": "Nom du client",
         "Project_Name": "Nom du projet",
         "actions": "actions"
@@ -288,13 +369,14 @@
     "ComponyExpensesAdd": {
       "Project": "Projet ",
       "Product": "Produit",
-      "Quantity_Total": " Quantité totale",
-      "The_Quantity_Must_be_Number": " La quantité doit être un nombre !",
+      "Quantity_Total": "Quantité  Totale",
+      "The_Quantity_Must_be_Number": " La quantité doit être un nombre!",
       "Add": "Ajouter",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
-        "Quantity": "Quantité",
+        "Quantity": "Quantité ",
+        "total_Price": "Prix total",
         "Price": "Prix",
         "actions": "actions"
       },
@@ -302,36 +384,36 @@
     },
     "ComponyExpensesView": {
       "Project_Name": "Nom du projet",
-      "Customer_Name": " Nom du client",
-      "Project_Total": " Total du projet",
-      "Start_Date": " Date de début",
+      "Customer_Name": "Nom du client",
+      "Project_Total": "Ensemble du projet",
+      "Start_Date": "Date de début",
       "End_Date": "Date de fin",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Date": "Date",
         "Products": "Produits ",
         "Customer_Name": "Nom du client"
       },
       "table_Modal": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Project": "Projet",
         "Products": "Produits ",
-        "quantity": "quantité"
+        "quantity": "Quantité "
       }
     },
     "Profile": {
-      "Full_Name": " Nom et prénom ",
+      "Full_Name": "Nom et prénom",
       "Email": "E-mail",
-      "New_Password": "Nouveau mot de passe",
-      "Confirm_Password": " Confirmez le mot de passe",
-      "Save_Change": " Sauvegarder les modifications"
+      "New_Password": "Nouveau Mot de passe",
+      "Confirm_Password": "Confirmez  Mot de passe",
+      "Save_Change": "Sauvegarder les modifications "
     },
     "ContactBox": {
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
         "Email": "E-mail",
-        "Phone": "Numéro de téléphone",
+        "Phone": "Phone",
         "Message_Modal": "Message",
         "actions": "actions"
       }
@@ -339,56 +421,61 @@
     "RolesBox": {
       "Add_a_new": "Ajouter un nouveau",
       "table": {
-        "id": "id",
+        "id": "Carte d’idendité",
         "Name": "Nom",
         "actions": "actions"
       }
     },
     "RolesBoxAdd": {
-      "Role_Name": "Nom du rôle",
+      "Role_Name": "Nom du role",
       "Submit": "Soumettre"
     },
     "RolesBoxEdit": {
-      "Role_Name": "Nom du rôle",
+      "Role_Name": "Nom du role",
       "Submit": "Soumettre"
     },
     "AboutBox": {
       "Title": "Titre",
       "Description": "Description",
       "Image": "Image",
-      "Submit": "Soumetrre"
+      "Submit": "Soumettre"
     },
     "SettingsBox": {
       "Facebook": "Facebook",
       "Instagram": "Instagram",
       "Whatsapp": "Whatsapp",
       "Youtube": "Youtube",
-      "Phones": "Numéro de téléphone",
+      "Phones": "Téléphones",
       "Address": "Addresse",
       "Submit": "Soumettre"
     }
   },
   "sidBar": {
-    "DashBoard": " Tableau de bord",
-    "Brand": "Marque",
-    "attributes": " les attributs",
+    "DashBoard": "Tableau de bord",
+    "Brand": "Marques",
+    "attributes": "attributs",
     "units": "unités",
     "Users": "Utilisateurs",
-    "categories": "catégories",
-    "sub_categories": "sub-catégories",
-    "sub_Sub_categories": "sub sub-catégories",
+    "categories": "categories",
+    "sub_categories": "sub categories",
+    "sub_Sub_categories": "sub sub categories",
     "product": "produit",
     "Services": "Services",
-    "project": "project",
-    "project_Payment": " paiement du projet",
-    "General_Expenses": " Frais généraux",
-    "project_Expenses": " Dépenses du projet",
+    "project": "projet",
+    "project_Payment": "projet Payment",
+    "General_Expenses": "General Expenses",
+    "project_Expenses": "projet Expenses",
     "profile": "profil",
     "contact": "contact",
     "about": "A propos",
-    "roles": "les rôles",
-    "Logout": " Se déconnecter",
-    "settings": " paramètres"
+    "roles": "Rôles",
+    "Logout": "Se déconnect",
+    "ads": "Publicités",
+    "settings": "Paramètres"
+  },
+  "code_error": {
+    "The_Main_value_Must_be_entered": "La valeur principale doit être saisie!",
+    "The_amount_entered_is_greater_than_the_available_quantity": "Le montant saisi est supérieur à la quantité disponible!"
   },
   "Language": {
     "English": "Anglais",

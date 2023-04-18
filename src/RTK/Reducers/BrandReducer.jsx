@@ -23,6 +23,12 @@ let BrandReducer = createSlice({
         closeData: (state) => {
             state.brandData = []
 
+        },
+        removeData: (state) => {
+            state.brandImg = '';
+            state.nameBrand_fr = '';
+            state.nameBrand_ar = '';
+            state.nameBrand_en = '';
         }
 
     },
@@ -65,4 +71,4 @@ let BrandReducer = createSlice({
 
 export default BrandReducer.reducer;
 
-export let { closeData } = BrandReducer.actions
+export let { closeData, removeData } = BrandReducer.actions

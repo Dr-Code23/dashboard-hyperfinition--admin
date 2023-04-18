@@ -14,6 +14,7 @@ const SettingsBox = () => {
     let {
         settingData,
         error_phones,
+        error_email,
         error_facebook,
         error_instagram,
         error_youtube,
@@ -27,6 +28,7 @@ const SettingsBox = () => {
         input_youtube: "",
         input_whatsapp: "",
         input_address: "",
+        email: "",
     });
     useEffect(() => {
         dispatch(OneSettingThunk());
@@ -40,6 +42,7 @@ const SettingsBox = () => {
                 input_youtube: settingData?.youtube,
                 input_whatsapp: settingData?.whatsapp,
                 input_address: settingData?.address,
+                email: settingData?.email,
             });
         }
     }, [settingData]);
@@ -82,6 +85,11 @@ const SettingsBox = () => {
             dispatch(closeError({ type: "ad" }));
         }
     }, [inputValue.input_address, dispatch]);
+    useEffect(() => {
+        if (inputValue.email) {
+            dispatch(closeError({ type: "em" }));
+        }
+    }, [inputValue.email, dispatch]);
     // =============
     let handleSubmit = (e) => {
         e.preventDefault();
@@ -93,6 +101,7 @@ const SettingsBox = () => {
                 youtube: inputValue.input_youtube,
                 whatsapp: inputValue.input_whatsapp,
                 address: inputValue.input_address,
+                email: inputValue.email,
             })
         );
         // .unwrap()
@@ -222,6 +231,34 @@ const SettingsBox = () => {
                                 }}
                             >
                                 {error_youtube}
+                            </span>
+                        )}{" "}
+                    </div>
+                    <div className=" flex flex-col justify-start items-start w-full gap-[10px]">
+                        <h6 className=" text-[17px]   font-[500] capitalize  ">
+                            {t("print.Email")} :
+                        </h6>
+                        <input
+                            type="text"
+                            value={inputValue?.email}
+                            onChange={(e) => {
+                                setInputValue({
+                                    ...inputValue,
+                                    email: e.target.value,
+                                });
+                            }}
+                        />
+                        {error_email !== null && (
+                            <span
+                                style={{
+                                    width: "100%",
+                                    color: "red",
+                                    fontSize: "15px",
+                                    marginTop: "20px",
+                                    display: "block",
+                                }}
+                            >
+                                {error_email}
                             </span>
                         )}{" "}
                     </div>

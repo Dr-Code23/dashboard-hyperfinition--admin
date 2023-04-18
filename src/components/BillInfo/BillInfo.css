@@ -1,0 +1,9 @@
+.bill-info img{
+    max-width: 300px;
+}
+
+@media(max-width:600px){
+    .info-content{
+        flex-direction: column-reverse!important;
+    }
+}

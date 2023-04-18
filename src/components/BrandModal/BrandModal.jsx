@@ -16,6 +16,7 @@ import { UpDateBrand } from "../../RTK/Thunk/UpDateBrand";
 import { AllBrandThunk } from "../../RTK/Thunk/AllBrandThunk";
 import { AddBrandThunk } from "../../RTK/Thunk/AddBrandThunk";
 import { HandleMessage } from "../index";
+import { removeData } from "../../RTK/Reducers/BrandReducer";
 
 const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
     let { t, i18n } = useTranslation();
@@ -73,17 +74,22 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
     useEffect(() => {
         if (nameBrand?.type === "update") {
             if (images[0].data_url !== img) {
-                convertImage(images[0].data_url);
+                if (!images[0].type) {
+                    convertImage(images[0].data_url);
+
+                }
+
             }
         }
         if (nameBrand?.type === "add") {
             convertImage(images[0].data_url);
         }
-    }, [images, nameBrand?.type]);
+    }, [images, nameBrand?.type, brandImg]);
     // handle img value on loading
     useEffect(() => {
         if (nameBrand?.type === "update") {
-            setImages([{ data_url: brandImg }]);
+            setImages([{ data_url: brandImg, type: 'update' }]);
+
         }
         if (nameBrand?.type === "add") {
             setImages([{ data_url: img }]);
@@ -127,8 +133,10 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                 .unwrap()
                 .then((data) => {
                     // console.log(data);
-                    dispatch(AllBrandThunk({ page: currentPage }));
+                    dispatch(AllBrandThunk({ page: currentPage, search: '' }));
+                    dispatch(removeData());
                     setOpen(false);
+                    setImageFile(null)
                     setCode(0);
                     setInputValue({ input_en: "", input_ar: "", input_fr: "" });
                     setImages([{ data_url: img }]);
@@ -154,7 +162,10 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                 .unwrap()
                 .then((data) => {
                     // console.log(data);
-                    dispatch(AllBrandThunk({ page: currentPage }));
+                    dispatch(AllBrandThunk({ page: currentPage, search: '' }));
+                    dispatch(removeData());
+                    setImageFile(null)
+
                     setOpen(false);
                     setCode(0);
                     setInputValue({ input_en: "", input_ar: "", input_fr: "" });
@@ -176,11 +187,14 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
             input_ar: "",
             input_fr: "",
         });
+        dispatch(removeData());
+
         setImages([{ data_url: img }]);
         setNameBrand({ type: "", id: "" });
         setCode(0);
         setOpen(false);
         setImageFile(null);
+
     };
     return (
         <>
@@ -203,6 +217,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                                 aria-label=""
                                 onClick={() => {
                                     handleCloseModal();
+
                                 }}
                                 className="close-modal"
                             >
@@ -246,8 +261,8 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                                                         style={
                                                             isDragging
                                                                 ? {
-                                                                      border: "4px dashed #1da231",
-                                                                  }
+                                                                    border: "4px dashed #1da231",
+                                                                }
                                                                 : undefined
                                                         }
                                                         width="100"

@@ -13,13 +13,14 @@ let LoginReducer = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(LoginThunk.pending, (state, action) => {})
+            .addCase(LoginThunk.pending, (state, action) => { })
             .addCase(LoginThunk.fulfilled, (state, action) => {
                 state.code = action.payload.code;
 
                 state.token = action.payload.data.token;
                 localStorage.setItem("AccessToken", action.payload.data.token);
                 localStorage.setItem("avatar", action.payload.data.avatar);
+                localStorage.setItem("permissions", JSON.stringify(action.payload.data.permissions));
             })
             .addCase(LoginThunk.rejected, (state, action) => {
                 state.code = action.payload.code;

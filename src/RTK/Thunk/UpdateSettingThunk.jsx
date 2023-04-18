@@ -17,6 +17,7 @@ export let UpdateSettingThunk = createAsyncThunk(
                     youtube: arg?.youtube,
                     whatsapp: arg?.whatsapp,
                     address: arg?.address,
+                    email: arg?.email,
                 },
                 Api()
             );

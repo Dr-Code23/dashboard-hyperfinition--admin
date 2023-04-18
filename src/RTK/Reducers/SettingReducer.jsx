@@ -16,6 +16,7 @@ let initState = {
     error_youtube: null,
     error_whatsapp: null,
     error_address: null,
+    error_email: null,
 };
 
 let SettingReducer = createSlice({
@@ -42,6 +43,9 @@ let SettingReducer = createSlice({
             if (action.payload.type === "ad") {
                 state.error_address = null;
             }
+            if (action.payload.type === "em") {
+                state.error_email = null;
+            }
 
             if (action.payload.type === "all") {
                 state.settingData = {};
@@ -51,6 +55,7 @@ let SettingReducer = createSlice({
                 state.error_instagram = null;
                 state.error_facebook = null;
                 state.error_phones = null;
+                state.error_email = null;
             }
         },
     },
@@ -62,10 +67,10 @@ let SettingReducer = createSlice({
             .addCase(OneSettingThunk.fulfilled, (state, action) => {
                 state.settingData = action.payload?.data;
             })
-            .addCase(OneSettingThunk.rejected, (state, action) => {})
+            .addCase(OneSettingThunk.rejected, (state, action) => { })
 
             // =======UpdateSettingThunk===========
-            .addCase(UpdateSettingThunk.fulfilled, (state, action) => {})
+            .addCase(UpdateSettingThunk.fulfilled, (state, action) => { })
             .addCase(UpdateSettingThunk.rejected, (state, action) => {
                 state.error_phones = action.payload?.data?.phones;
                 state.error_facebook = action.payload?.data?.facebook;
@@ -73,6 +78,7 @@ let SettingReducer = createSlice({
                 state.error_youtube = action.payload?.data?.youtube;
                 state.error_whatsapp = action.payload?.data?.whatsapp;
                 state.error_address = action.payload?.data?.address;
+                state.error_email = action.payload?.data?.email;
             });
     },
 });

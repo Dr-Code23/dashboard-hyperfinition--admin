@@ -477,6 +477,22 @@
     "The_Main_value_Must_be_entered": "The Main value Must be entered !",
     "The_amount_entered_is_greater_than_the_available_quantity": "The amount entered is greater than the available quantity !"
   },
+  "print": {
+    "Project_Name": "Project Name",
+    "Email": "Email",
+    "Phone": "Phone",
+    "Date": "Date",
+    "go_back": "go back",
+    "print_window": "print window",
+    "table": {
+      "Id": "Id",
+      "Description": "Description",
+      "Quantity": "Quantity",
+      "Price": "Price",
+      "SubTotal": "SubTotal",
+      "Total": "Total"
+    }
+  },
   "Language": {
     "English": "English",
     "Arabic": "Arabic",

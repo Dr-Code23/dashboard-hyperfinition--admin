@@ -47,10 +47,7 @@ const BrandBox = ({ setNameBrand, setOpen }) => {
     let { brandData, lastPage } = useSelector((state) => state.BrandReducer);
     const [pageTarget, setPageTarget] = useState(1);
     // const navigation = useNavigate();
-
-
     useEffect(() => {
-
         return () => {
             dispatch(closeData())
         };
