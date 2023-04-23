@@ -477,6 +477,12 @@
     "The_Main_value_Must_be_entered": "The Main value Must be entered !",
     "The_amount_entered_is_greater_than_the_available_quantity": "The amount entered is greater than the available quantity !"
   },
+  "remove_Modal": {
+    "delete": "delete",
+    "Disagree": "Disagree",
+    "Are_you_sure_to_Delete_The_Item": "Are You sure to Delete The Item ?",
+    "the_item_cannot_be_retrieved_after_its_letter": "the item cannot be retrieved after its letter"
+  },
   "print": {
     "Project_Name": "Project Name",
     "Email": "Email",
