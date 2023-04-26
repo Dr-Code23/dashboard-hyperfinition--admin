@@ -30,11 +30,10 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import hasPermission from "../../HooK/functions.js";
-import { ReactComponent as LogoSvg } from "../../assets/Icon/Hyper_SVG_01.svg";
 import "./SidBar.css";
 
 const SidBar = ({
@@ -50,14 +49,17 @@ const SidBar = ({
     let drawer = useMemo(() => {
         return (
             <>
-
                 <Toolbar
                     sx={{ display: "flex ", justifyContent: "center" }}
                     className=" !min-h-[120px]"
                 >
                     {/* <img className=' max-h-[120px]  w-fit ' src={ImgLogo} alt="img-logo" /> */}
-                    <span className=" w-full  h-full flex justify-items-stretch items-stretch ">
-                        <LogoSvg className="max-w-[100%]  w-full  h-full" />
+                    <span className=" w-full  h-full flex text-center  justify-center items-stretch ">
+                        <img
+                            className=" max-h-[100px]  w-fit object-contain "
+                            src={localStorage.getItem("logo_dh")}
+                            alt="img-logo"
+                        />
                     </span>
                     <Typography
                         variant="body1"
@@ -103,8 +105,8 @@ const SidBar = ({
                     </ListItem>
 
                     {/* ======================== Brand========================= */}
-                    {
-                        hasPermission('brand_management') ? <ListItem disablePadding>
+                    {hasPermission("brand_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/brand"}
                                 className={({ isActive }) =>
@@ -115,7 +117,9 @@ const SidBar = ({
                             >
                                 <ListItemButton sx={{ color: "#fff" }}>
                                     <ListItemIcon>
-                                        <BrandingWatermark sx={{ color: "#fff" }} />
+                                        <BrandingWatermark
+                                            sx={{ color: "#fff" }}
+                                        />
                                     </ListItemIcon>
                                     <ListItemText
                                         className=" !capitalize !text-start"
@@ -123,13 +127,15 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================attributes================================ */}
 
-                    {
-                        hasPermission('attribute_management') ? <ListItem disablePadding>
+                    {hasPermission("attribute_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/attributes"}
                                 className={({ isActive }) =>
@@ -148,12 +154,14 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================units================================ */}
-                    {
-                        hasPermission('unit_management') ? <ListItem disablePadding>
+                    {hasPermission("unit_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/units"}
                                 className={({ isActive }) =>
@@ -172,12 +180,14 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================Users================================ */}
-                    {
-                        hasPermission('user_management') ? <ListItem disablePadding>
+                    {hasPermission("user_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/users"}
                                 className={({ isActive }) =>
@@ -196,12 +206,14 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================categories================================ */}
-                    {
-                        hasPermission('category_management') ? <ListItem disablePadding>
+                    {hasPermission("category_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/categories"}
                                 className={({ isActive }) =>
@@ -257,19 +269,23 @@ const SidBar = ({
                                             </ListItemIcon>
                                             <ListItemText className=" !capitalize !text-start">
                                                 <span className=" text-[13px]">
-                                                    {t("sidBar.sub_Sub_categories")}
+                                                    {t(
+                                                        "sidBar.sub_Sub_categories"
+                                                    )}
                                                 </span>
                                             </ListItemText>
                                         </ListItemButton>
                                     </NavLink>
                                 </div>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================== Products============================= */}
-                    {
-                        hasPermission('product_management') ? <ListItem disablePadding>
+                    {hasPermission("product_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/product"}
                                 className={({ isActive }) =>
@@ -290,11 +306,13 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
                     {/* ========================Services================================ */}
-                    {
-                        hasPermission('service_management') ? <ListItem disablePadding>
+                    {hasPermission("service_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/services"}
                                 className={({ isActive }) =>
@@ -305,7 +323,9 @@ const SidBar = ({
                             >
                                 <ListItemButton sx={{ color: "#fff" }}>
                                     <ListItemIcon>
-                                        <DesignServices sx={{ color: "#fff" }} />
+                                        <DesignServices
+                                            sx={{ color: "#fff" }}
+                                        />
                                     </ListItemIcon>
                                     <ListItemText
                                         className=" !capitalize !text-start"
@@ -314,12 +334,14 @@ const SidBar = ({
                                 </ListItemButton>
                             </NavLink>
                             {/* ================================================= */}
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================project================================ */}
-                    {
-                        hasPermission('project_management') ? <ListItem disablePadding>
+                    {hasPermission("project_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/project"}
                                 className={({ isActive }) =>
@@ -339,12 +361,14 @@ const SidBar = ({
                                 </ListItemButton>
                             </NavLink>
                             {/* ================================================= */}
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================projectPayment================================ */}
-                    {
-                        hasPermission('project_payment_management') ? <ListItem disablePadding>
+                    {hasPermission("project_payment_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/projectPayment"}
                                 className={({ isActive }) =>
@@ -364,12 +388,14 @@ const SidBar = ({
                                 </ListItemButton>
                             </NavLink>
                             {/* ================================================= */}
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================generalExpenses================================ */}
-                    {
-                        hasPermission('project_expenses_management') ? <ListItem disablePadding>
+                    {hasPermission("project_expenses_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/generalExpenses"}
                                 className={({ isActive }) =>
@@ -380,7 +406,9 @@ const SidBar = ({
                             >
                                 <ListItemButton sx={{ color: "#fff" }}>
                                     <ListItemIcon>
-                                        <CellTowerOutlined sx={{ color: "#fff" }} />
+                                        <CellTowerOutlined
+                                            sx={{ color: "#fff" }}
+                                        />
                                     </ListItemIcon>
                                     <ListItemText
                                         className=" !capitalize !text-start"
@@ -388,12 +416,14 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================companyExpenses================================ */}
-                    {
-                        hasPermission('general_expenses_management') ? <ListItem disablePadding>
+                    {hasPermission("general_expenses_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/projectExpense"}
                                 className={({ isActive }) =>
@@ -412,8 +442,10 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================profile================================ */}
                     <ListItem disablePadding>
@@ -438,8 +470,8 @@ const SidBar = ({
                     </ListItem>
 
                     {/* ========================contact================================ */}
-                    {
-                        hasPermission('contact_us_management') ? <ListItem disablePadding>
+                    {hasPermission("contact_us_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/contact"}
                                 className={({ isActive }) =>
@@ -458,12 +490,14 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================about================================ */}
-                    {
-                        hasPermission('about_us_management') ? <ListItem disablePadding>
+                    {hasPermission("about_us_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/about"}
                                 className={({ isActive }) =>
@@ -482,12 +516,14 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ======================== Roles ================================ */}
-                    {
-                        hasPermission('role_management') ? <ListItem disablePadding>
+                    {hasPermission("role_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/roles"}
                                 className={({ isActive }) =>
@@ -506,13 +542,15 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
 
                     {/* ========================settings================================ */}
 
-                    {
-                        hasPermission('settings_management') ? <ListItem disablePadding>
+                    {hasPermission("settings_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/settings"}
                                 className={({ isActive }) =>
@@ -523,7 +561,9 @@ const SidBar = ({
                             >
                                 <ListItemButton sx={{ color: "#fff" }}>
                                     <ListItemIcon>
-                                        <SettingsOutlined sx={{ color: "#fff" }} />
+                                        <SettingsOutlined
+                                            sx={{ color: "#fff" }}
+                                        />
                                     </ListItemIcon>
                                     <ListItemText
                                         className=" !capitalize !text-start"
@@ -531,11 +571,13 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
                     {/* ========================ads================================ */}
-                    {
-                        hasPermission('ad_management') ? <ListItem disablePadding>
+                    {hasPermission("ad_management") ? (
+                        <ListItem disablePadding>
                             <NavLink
                                 to={"/admin/ads"}
                                 className={({ isActive }) =>
@@ -546,7 +588,9 @@ const SidBar = ({
                             >
                                 <ListItemButton sx={{ color: "#fff" }}>
                                     <ListItemIcon>
-                                        <SettingsOutlined sx={{ color: "#fff" }} />
+                                        <SettingsOutlined
+                                            sx={{ color: "#fff" }}
+                                        />
                                     </ListItemIcon>
                                     <ListItemText
                                         className=" !capitalize !text-start"
@@ -554,8 +598,10 @@ const SidBar = ({
                                     />
                                 </ListItemButton>
                             </NavLink>
-                        </ListItem> : ''
-                    }
+                        </ListItem>
+                    ) : (
+                        ""
+                    )}
                     {/* ======================================================== */}
                 </List>
                 {/* <Divider /> */}

@@ -2,6 +2,9 @@ import { Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "./settingsBox.css";
+import img from "../../../assets/Img/default.jpg";
+import ImageUploading from "react-images-uploading";
+
 import { useDispatch, useSelector } from "react-redux";
 import { OneSettingThunk } from "../../../RTK/Thunk/OneSettingThunk";
 import { UpdateSettingThunk } from "../../../RTK/Thunk/UpdateSettingThunk";
@@ -9,18 +12,23 @@ import { closeError } from "../../../RTK/Reducers/SettingReducer";
 import { useNavigation } from "react-router-dom";
 const SettingsBox = () => {
     let { t, i18n } = useTranslation();
+    const [images, setImages] = React.useState([{ data_url: img }]);
+
     let dispatch = useDispatch();
     let navigate = useNavigation();
     let {
         settingData,
         error_phones,
+        avatarError,
         error_email,
         error_facebook,
         error_instagram,
         error_youtube,
         error_whatsapp,
+        settingImg,
         error_address,
     } = useSelector((state) => state.SettingReducer);
+
     const [inputValue, setInputValue] = React.useState({
         input_phones: "",
         input_facebook: "",
@@ -30,9 +38,21 @@ const SettingsBox = () => {
         input_address: "",
         email: "",
     });
+    const onChange = (imageList, addUpdateIndex) => {
+        // console.log(imageList, addUpdateIndex);
+        setImages(imageList);
+    };
     useEffect(() => {
         dispatch(OneSettingThunk());
     }, [dispatch]);
+    // handle data on loading
+    useEffect(() => {
+        if (settingImg) {
+            // console.log(oneImg);
+            setImages([{ data_url: settingImg }]);
+        }
+    }, [settingImg]);
+
     useEffect(() => {
         if (settingData) {
             setInputValue({
@@ -102,13 +122,15 @@ const SettingsBox = () => {
                 whatsapp: inputValue.input_whatsapp,
                 address: inputValue.input_address,
                 email: inputValue.email,
+                logo: images[0]?.file,
             })
-        );
-        // .unwrap()
-        // .then((data) => {
-        //     // console.log(data);
-        //     navigate();
-        // })
+        )
+            .unwrap()
+            .then((data) => {
+                if (images[0]?.file) {
+                    localStorage.setItem("logo_dh", images[0].data_url);
+                }
+            });
         // .catch((error) => {
         //     // console.log(error);
         //     // setCode(error.code);
@@ -317,6 +339,67 @@ const SettingsBox = () => {
                                 {error_address}
                             </span>
                         )}{" "}
+                    </div>
+                    <div className="flex justify-start w-full items-start  flex-col gap-[15px]">
+                        <h6 className=" text-[17px] font-[500] capitalize  ">
+                            {t("pages.AboutBox.Image")}
+                        </h6>
+                        <>
+                            <ImageUploading
+                                multiple
+                                value={images}
+                                onChange={onChange}
+                                maxNumber={"1"}
+                                dataURLKey="data_url"
+                            >
+                                {({
+                                    imageList,
+                                    onImageUpload,
+                                    onImageRemoveAll,
+                                    onImageUpdate,
+                                    onImageRemove,
+                                    isDragging,
+                                    dragProps,
+                                }) => (
+                                    // write your building UI
+                                    <>
+                                        {imageList.map((image, index) => (
+                                            <img
+                                                src={image["data_url"]}
+                                                key={index}
+                                                className=" max-h-[350px] mx-[auto] w-full cursor-pointer object-cover"
+                                                alt=""
+                                                {...dragProps}
+                                                style={
+                                                    isDragging
+                                                        ? {
+                                                              border: "4px dashed #000",
+                                                          }
+                                                        : undefined
+                                                }
+                                                width="100"
+                                                onClick={() =>
+                                                    onImageUpdate(index)
+                                                }
+                                            />
+                                        ))}
+                                    </>
+                                )}
+                            </ImageUploading>
+                        </>
+                        {avatarError !== null && (
+                            <span
+                                style={{
+                                    width: "100%",
+                                    color: "red",
+                                    fontSize: "15px",
+                                    marginTop: "0px",
+                                    display: "block",
+                                }}
+                            >
+                                {avatarError}
+                            </span>
+                        )}
                     </div>
                     <Button
                         variant="contained"

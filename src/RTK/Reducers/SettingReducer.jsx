@@ -6,6 +6,7 @@ import { UpdateSettingThunk } from "../Thunk/UpdateSettingThunk";
 let initState = {
     code: null,
     settingData: {},
+    settingImg: "",
     nameError: null,
     emailError: null,
     passwordError: null,
@@ -17,6 +18,7 @@ let initState = {
     error_whatsapp: null,
     error_address: null,
     error_email: null,
+    avatarError: null,
 };
 
 let SettingReducer = createSlice({
@@ -46,16 +48,21 @@ let SettingReducer = createSlice({
             if (action.payload.type === "em") {
                 state.error_email = null;
             }
+            if (action.payload.type === "img") {
+                state.avatarError = null;
+            }
 
             if (action.payload.type === "all") {
                 state.settingData = {};
                 state.error_address = null;
+                state.settingImg = "";
                 state.error_whatsapp = null;
                 state.error_youtube = null;
                 state.error_instagram = null;
                 state.error_facebook = null;
                 state.error_phones = null;
                 state.error_email = null;
+                state.avatarError = null;
             }
         },
     },
@@ -66,11 +73,12 @@ let SettingReducer = createSlice({
             // =======OneUserThunk===========
             .addCase(OneSettingThunk.fulfilled, (state, action) => {
                 state.settingData = action.payload?.data;
+                state.settingImg = action.payload?.data?.logo;
             })
-            .addCase(OneSettingThunk.rejected, (state, action) => { })
+            .addCase(OneSettingThunk.rejected, (state, action) => {})
 
             // =======UpdateSettingThunk===========
-            .addCase(UpdateSettingThunk.fulfilled, (state, action) => { })
+            .addCase(UpdateSettingThunk.fulfilled, (state, action) => {})
             .addCase(UpdateSettingThunk.rejected, (state, action) => {
                 state.error_phones = action.payload?.data?.phones;
                 state.error_facebook = action.payload?.data?.facebook;
@@ -79,6 +87,7 @@ let SettingReducer = createSlice({
                 state.error_whatsapp = action.payload?.data?.whatsapp;
                 state.error_address = action.payload?.data?.address;
                 state.error_email = action.payload?.data?.email;
+                state.avatarError = action.payload?.data?.logo;
             });
     },
 });
