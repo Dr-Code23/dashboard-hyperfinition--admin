@@ -1,5 +1,6 @@
 
 import {
+    AcUnit,
     AccountCircle,
     AccountTree,
     Apartment,
@@ -588,9 +589,7 @@ const SidBar = ({
                             >
                                 <ListItemButton sx={{ color: "#fff" }}>
                                     <ListItemIcon>
-                                        <SettingsOutlined
-                                            sx={{ color: "#fff" }}
-                                        />
+                                        <AcUnit sx={{ color: "#fff" }} />
                                     </ListItemIcon>
                                     <ListItemText
                                         className=" !capitalize !text-start"
