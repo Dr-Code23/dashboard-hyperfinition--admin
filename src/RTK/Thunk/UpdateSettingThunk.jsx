@@ -5,13 +5,13 @@ export let UpdateSettingThunk = createAsyncThunk(
     async (arg, ThunkApi) => {
         // console.log(arg);
         const formData = new FormData();
-        formData.append("phones", JSON.stringify(arg?.phones));
-        formData.append("facebook", JSON.stringify(arg?.facebook));
-        formData.append("instagram", JSON.stringify(arg?.instagram));
-        formData.append("youtube", JSON.stringify(arg?.youtube));
-        formData.append("whatsapp", JSON.stringify(arg?.whatsapp));
-        formData.append("address", JSON.stringify(arg?.address));
-        formData.append("email", JSON.stringify(arg?.email));
+        formData.append("phones", arg?.phones);
+        formData.append("facebook", arg?.facebook);
+        formData.append("instagram", arg?.instagram);
+        formData.append("youtube", arg?.youtube);
+        formData.append("whatsapp", arg?.whatsapp);
+        formData.append("address", arg?.address);
+        formData.append("email", arg?.email);
         formData.append("logo", arg?.logo);
         const config = {
             headers: {
