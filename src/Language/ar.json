@@ -473,9 +473,32 @@
     "ads": "الاعلانات",
     "settings": "الإعدادات"
   },
+  
   "code_error": {
     "The_Main_value_Must_be_entered": " يجب إدخال القيمة الرئيسية!",
     "The_amount_entered_is_greater_than_the_available_quantity": " المبلغ الذي تم إدخاله أكبر من الكمية المتاحة!"
+  },
+  "remove_Modal": {
+    "delete": "الحذف",
+    "Disagree": "الرفض",
+    "Are_you_sure_to_Delete_The_Item": " هل أنت متأكد من حذف العنصر؟",
+    "the_item_cannot_be_retrieved_after_its_letter": "لا يمكن استرجاع العنصر بعد حذفه"
+  },
+  "print": {
+    "Project_Name": "أسم المشروع",
+    "Email": "البريد الالكتروني",
+    "Phone": "الهاتف",
+    "Date": "التاريخ",
+    "go_back": "العودة",
+    "print_window": "نافذة الطباعة",
+    "table": {
+      "Id": "Id",
+      "Description": "الوصف",
+      "Quantity": "الكمية",
+      "Price": "السعر",
+      "SubTotal": "المجموع الفرعي",
+      "Total": "المجموع"
+    }
   },
   "Language": {
     "English": "الإنجليزية",

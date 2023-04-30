@@ -477,6 +477,28 @@
     "The_Main_value_Must_be_entered": "La valeur principale doit être saisie!",
     "The_amount_entered_is_greater_than_the_available_quantity": "Le montant saisi est supérieur à la quantité disponible!"
   },
+  "remove_Modal": {
+    "delete": "Supprimer",
+    "Disagree": "Réfusé",
+    "Are_you_sure_to_Delete_The_Item": "Êtes-vous sûr de supprimer l'élément ?",
+    "the_item_cannot_be_retrieved_after_its_letter": "l'article ne peut pas être récupéré après sa lettre"
+  },
+  "print": {
+    "Project_Name": "Nom du projet",
+    "Email": "E-mail",
+    "Phone": "téléphone",
+    "Date": "Date",
+    "go_back": "Retourner",
+    "print_window": "Fenêtre d’impression",
+    "table": {
+      "Id": "Identifiant",
+      "Description": "Description",
+      "Quantity": "Quantité",
+      "Price": "Prix",
+      "SubTotal": "Sous-Total",
+      "Total": "Total"
+    }
+  },
   "Language": {
     "English": "Anglais",
     "Arabic": "Arabe",
