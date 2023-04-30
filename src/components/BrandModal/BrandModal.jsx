@@ -17,8 +17,12 @@ import { AllBrandThunk } from "../../RTK/Thunk/AllBrandThunk";
 import { AddBrandThunk } from "../../RTK/Thunk/AddBrandThunk";
 import { HandleMessage } from "../index";
 import { removeData } from "../../RTK/Reducers/BrandReducer";
+import UpdateData from "../UpdateData/UpdataData";
 
 const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [Message, setMessage] = React.useState("");
+
     let { t, i18n } = useTranslation();
     let dispatch = useDispatch();
 
@@ -76,9 +80,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
             if (images[0].data_url !== img) {
                 if (!images[0].type) {
                     convertImage(images[0].data_url);
-
                 }
-
             }
         }
         if (nameBrand?.type === "add") {
@@ -88,8 +90,7 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
     // handle img value on loading
     useEffect(() => {
         if (nameBrand?.type === "update") {
-            setImages([{ data_url: brandImg, type: 'update' }]);
-
+            setImages([{ data_url: brandImg, type: "update" }]);
         }
         if (nameBrand?.type === "add") {
             setImages([{ data_url: img }]);
@@ -133,10 +134,12 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                 .unwrap()
                 .then((data) => {
                     // console.log(data);
-                    dispatch(AllBrandThunk({ page: currentPage, search: '' }));
+                    setMessage(t("code_error.The_Data_Has_Been_Updated"));
+                    setOpenAlert(true);
+                    dispatch(AllBrandThunk({ page: currentPage, search: "" }));
                     dispatch(removeData());
                     setOpen(false);
-                    setImageFile(null)
+                    setImageFile(null);
                     setCode(0);
                     setInputValue({ input_en: "", input_ar: "", input_fr: "" });
                     setImages([{ data_url: img }]);
@@ -162,9 +165,11 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                 .unwrap()
                 .then((data) => {
                     // console.log(data);
-                    dispatch(AllBrandThunk({ page: currentPage, search: '' }));
+                    setMessage(t("code_error.The_Data_Has_Been_Updated"));
+                    setOpenAlert(true);
+                    dispatch(AllBrandThunk({ page: currentPage, search: "" }));
                     dispatch(removeData());
-                    setImageFile(null)
+                    setImageFile(null);
 
                     setOpen(false);
                     setCode(0);
@@ -194,7 +199,6 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
         setCode(0);
         setOpen(false);
         setImageFile(null);
-
     };
     return (
         <>
@@ -217,7 +221,6 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                                 aria-label=""
                                 onClick={() => {
                                     handleCloseModal();
-
                                 }}
                                 className="close-modal"
                             >
@@ -261,8 +264,8 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                                                         style={
                                                             isDragging
                                                                 ? {
-                                                                    border: "4px dashed #1da231",
-                                                                }
+                                                                      border: "4px dashed #1da231",
+                                                                  }
                                                                 : undefined
                                                         }
                                                         width="100"
@@ -370,6 +373,11 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
                     </form>
                 </Box>
             </Modal>
+            <UpdateData
+                setOpenAlert={setOpenAlert}
+                openAlert={openAlert}
+                Data={Message}
+            />
         </>
     );
 };
