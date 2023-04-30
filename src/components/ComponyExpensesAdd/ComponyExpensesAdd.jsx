@@ -24,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { SelectProductThunk } from "../../RTK/Thunk/SelectProductThunk";
 import { UpdateExpensesThunk } from "../../RTK/Thunk/UpdateExpensesThunk";
 import { closeError } from "../../RTK/Reducers/ExpensesReducer";
+import { openMessageAlert } from "../../RTK/Reducers/MessageReducer";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -210,6 +211,8 @@ const ComponyExpensesAdd = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
+
                 navigate("/admin/projectExpense");
             })
             .catch((error) => {

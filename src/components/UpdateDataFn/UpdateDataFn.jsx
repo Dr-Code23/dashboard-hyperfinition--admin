@@ -1,15 +1,23 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { Alert, IconButton, Snackbar } from "@mui/material";
 import React, { useCallback } from "react";
-const UpdateData = ({ setOpenAlert, openAlert, Data }) => {
+import { useDispatch } from "react-redux";
+import { closeAlert } from "../../RTK/Reducers/MessageReducer";
+import { useEffect } from "react";
+import { useState } from "react";
+const UpdateDataFn = ({ setOpenAlert, openAlert, Data }) => {
+    // console.log(openAlert);
+    let dispatch = useDispatch();
+    const [time, setTime] = useState(0);
     const handleClose = useCallback(
         (event, reason) => {
             if (reason === "clickaway") {
                 return;
             }
+            dispatch(closeAlert());
             setOpenAlert(false);
         },
-        [setOpenAlert]
+        [dispatch, setOpenAlert]
     );
     const action = useCallback(
         (e) => {
@@ -26,11 +34,22 @@ const UpdateData = ({ setOpenAlert, openAlert, Data }) => {
         },
         [handleClose]
     );
+
+    useEffect(() => {
+        return () => {
+            if (openAlert) {
+                setOpenAlert(false);
+                dispatch(closeAlert());
+                // setTime(0);
+                // console.log("said");
+            }
+        };
+    }, [openAlert, setOpenAlert, dispatch]);
     return (
         <>
             <Snackbar
                 open={openAlert}
-                autoHideDuration={2000}
+                autoHideDuration={openAlert ? 1600 : 0}
                 onClose={handleClose}
                 message="Note archived"
                 action={action}
@@ -52,7 +71,7 @@ const UpdateData = ({ setOpenAlert, openAlert, Data }) => {
     );
 };
 
-export default UpdateData;
+export default React.memo(UpdateDataFn);
 
 //     const [openAlert, setOpenAlert] = React.useState(false);
 //     const [Message, setMessage] = React.useState("");

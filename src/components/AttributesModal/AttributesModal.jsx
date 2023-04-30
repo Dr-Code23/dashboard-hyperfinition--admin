@@ -14,6 +14,7 @@ import { closeModal } from "../../RTK/Reducers/AttributeReducer";
 import { UpdateAttributeThunk } from "../../RTK/Thunk/UpdateAttributeThunk";
 import { AttributeThunk } from "../../RTK/Thunk/AttributeThunk";
 import { AddAttributeThunk } from "../../RTK/Thunk/AddAttributeThunk";
+import UpdateData from "../UpdateData/UpdataData";
 const AttributesModal = ({
     open,
     setOpen,
@@ -22,7 +23,8 @@ const AttributesModal = ({
 }) => {
     let { t } = useTranslation();
     let dispatch = useDispatch();
-
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [Message, setMessage] = React.useState("");
     const handleClose = useCallback(() => {
         setOpen(false);
     }, [setOpen]);
@@ -68,7 +70,9 @@ const AttributesModal = ({
                 .unwrap()
                 .then((data) => {
                     // console.log(data);
-                    dispatch(AttributeThunk({ page: currentPage }));
+                    setMessage(t("code_error.The_Data_Has_Been_Updated"));
+                    setOpenAlert(true);
+                    dispatch(AttributeThunk({ page: currentPage, search: "" }));
                     setCode(0);
 
                     setOpen(false);
@@ -94,7 +98,9 @@ const AttributesModal = ({
                 .unwrap()
                 .then((data) => {
                     // console.log(data);
-                    dispatch(AttributeThunk({ page: currentPage }));
+                    setMessage(t("code_error.The_Data_Has_Been_Updated"));
+                    setOpenAlert(true);
+                    dispatch(AttributeThunk({ page: currentPage, search: "" }));
                     setCode(0);
                     setOpen(false);
                     setTypeAttributes({ type: "", id: "" });
@@ -160,6 +166,11 @@ const AttributesModal = ({
                     </form>
                 </Box>
             </Modal>
+            <UpdateData
+                setOpenAlert={setOpenAlert}
+                openAlert={openAlert}
+                Data={Message}
+            />
         </>
     );
 };

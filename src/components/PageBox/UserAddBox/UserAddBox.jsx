@@ -22,6 +22,7 @@ import { RolesDataThunk } from "../../../RTK/Thunk/RolesDataThunk";
 import { useDispatch, useSelector } from "react-redux";
 import { AddUserThunk } from "../../../RTK/Thunk/AddUserThunk";
 import { closeError } from "../../../RTK/Reducers/UserReducer";
+import { openAlert } from "../../../RTK/Reducers/MessageReducer";
 
 const UserAddBox = () => {
     let { t, i18n } = useTranslation();
@@ -107,6 +108,8 @@ const UserAddBox = () => {
                 .unwrap()
                 .then((data) => {
                     // console.log(data);
+                    dispatch(openAlert());
+
                     setImages([{ data_url: img }]);
                     navigate("/admin/users/");
                     dispatch(closeError());

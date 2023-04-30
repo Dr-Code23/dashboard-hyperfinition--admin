@@ -16,6 +16,7 @@ import { PaginationBox } from "../../index.js";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { AllPaymentThunk } from "../../../RTK/Thunk/AllPaymentThunk";
+import UpdateDataFn from "../../UpdateDataFn/UpdateDataFn";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -42,40 +43,50 @@ const ProjectPayment = () => {
     let navigate = useNavigate();
     let dispatch = useDispatch();
     const [pageTarget, setPageTarget] = useState(1);
-    const [searchValue, setSearchValue] = useState('');
-
+    const [searchValue, setSearchValue] = useState("");
 
     useEffect(() => {
         if (searchValue) {
-            dispatch(AllPaymentThunk({ page: pageTarget, search: searchValue }));
-
-        }
-        else {
-            dispatch(AllPaymentThunk({ page: pageTarget, search: '' }));
-
+            dispatch(
+                AllPaymentThunk({ page: pageTarget, search: searchValue })
+            );
+        } else {
+            dispatch(AllPaymentThunk({ page: pageTarget, search: "" }));
         }
     }, [dispatch, pageTarget, i18n.language, searchValue]);
     let { paymentData, lastPage } = useSelector(
         (state) => state.PaymentReducer
     );
 
-
     // ================
+    // ===================================
+    const [openAlertFn, setOpenAlertFn] = React.useState(false);
+    const [Message, setMessage] = React.useState("");
+    let { typeAlert } = useSelector((state) => state.MessageReducer);
 
+    useEffect(() => {
+        if (typeAlert) {
+            setMessage(t("code_error.The_Data_Has_Been_Updated"));
+            setOpenAlertFn(true);
+        }
+    }, [typeAlert, t]);
     return (
         <>
             <div className=" mx-auto px-4  mt-[40px]">
                 <div className="flex  items-start md:items-center justify-between flex-col md:flex-row mb-3  gap-5 ">
-                    <div className='flex  items-end gap-2 pl-1'>
+                    <div className="flex  items-end gap-2 pl-1">
+                        <h6 className=" capitalize text-[22px]  font-medium	">
+                            {t("pages.BrandBox.search")} :
+                        </h6>
 
-                        <h6 className=' capitalize text-[22px]  font-medium	'>{t("pages.BrandBox.search")} :</h6>
-
-                        <input type="text" className=' bg-secondaryBg outline-none p-[8px]' value={searchValue} onChange={(e) => {
-
-                            setSearchValue(e.target.value)
-                        }
-
-                        } />
+                        <input
+                            type="text"
+                            className=" bg-secondaryBg outline-none p-[8px]"
+                            value={searchValue}
+                            onChange={(e) => {
+                                setSearchValue(e.target.value);
+                            }}
+                        />
                     </div>
                     <Button
                         variant="contained"
@@ -174,6 +185,11 @@ const ProjectPayment = () => {
             </div>
 
             <PaginationBox count={lastPage} setPageTarget={setPageTarget} />
+            <UpdateDataFn
+                openAlert={openAlertFn}
+                setOpenAlert={setOpenAlertFn}
+                Data={Message}
+            />
         </>
     );
 };

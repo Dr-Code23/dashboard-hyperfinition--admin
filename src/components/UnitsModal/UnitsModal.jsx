@@ -14,7 +14,10 @@ import { UpdateUnitThunk } from "../../RTK/Thunk/UpdateUnitThunk";
 import { AllUnitsThunk } from "../../RTK/Thunk/AllUnitsThunk";
 import { closeModal } from "../../RTK/Reducers/UnitsReducer";
 import { AddUnitThunk } from "../../RTK/Thunk/AddUnitThunk";
+import UpdateData from "../UpdateData/UpdataData";
 const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [Message, setMessage] = React.useState("");
     const handleClose = useCallback(() => {
         setOpen(false);
     }, [setOpen]);
@@ -57,7 +60,9 @@ const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
                 .unwrap()
                 .then((data) => {
                     // console.log(data);
-                    dispatch(AllUnitsThunk({ page: currentPage }));
+                    setMessage(t("code_error.The_Data_Has_Been_Updated"));
+                    setOpenAlert(true);
+                    dispatch(AllUnitsThunk({ page: currentPage, search: "" }));
                     setCode(0);
 
                     setOpen(false);
@@ -83,7 +88,9 @@ const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
                 .unwrap()
                 .then((data) => {
                     // console.log(data);
-                    dispatch(AllUnitsThunk({ page: currentPage }));
+                    setMessage(t("code_error.The_Data_Has_Been_Updated"));
+                    setOpenAlert(true);
+                    dispatch(AllUnitsThunk({ page: currentPage, search: "" }));
                     setCode(0);
                     setOpen(false);
                     setTypeUnit({ type: "", id: "" });
@@ -147,6 +154,11 @@ const UnitsModal = ({ open, setOpen, typeUnit, setTypeUnit }) => {
                     </form>
                 </Box>
             </Modal>
+            <UpdateData
+                setOpenAlert={setOpenAlert}
+                openAlert={openAlert}
+                Data={Message}
+            />
         </>
     );
 };

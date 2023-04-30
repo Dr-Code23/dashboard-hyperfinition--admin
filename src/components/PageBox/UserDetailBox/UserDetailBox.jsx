@@ -1,7 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import img from "../../../assets/Img/default.jpg";
-import ImageUploading from "react-images-uploading";
-import "./UserDetailBox.css";
+import { Shortcut, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
     Button,
     FormControl,
@@ -13,20 +10,25 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import { Shortcut, Visibility, VisibilityOff } from "@mui/icons-material";
-import { useNavigate, useParams } from "react-router";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import ImageUploading from "react-images-uploading";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import * as Yup from "yup";
+import { closeError, closeModal } from "../../../RTK/Reducers/UserReducer";
 import { OneUserThunk } from "../../../RTK/Thunk/OneUserThunk";
 import { RolesDataThunk } from "../../../RTK/Thunk/RolesDataThunk";
 import { UpdateUserThunk } from "../../../RTK/Thunk/UpdateUserThunk";
-import axios from "axios";
-import { closeError, closeModal } from "../../../RTK/Reducers/UserReducer";
+import img from "../../../assets/Img/default.jpg";
+import UpdateData from "../../UpdateData/UpdataData";
+import "./UserDetailBox.css";
+import { openAlert } from "../../../RTK/Reducers/MessageReducer";
 
 const UserDetailBox = () => {
     let { t, i18n } = useTranslation();
+
     let param = useParams();
     let dispatch = useDispatch();
     const SignupSchema = Yup.object().shape({
@@ -87,7 +89,9 @@ const UserDetailBox = () => {
             });
             let blob = await response.blob();
 
-            let file = new File([blob], "image.jpg", { type: "image/jpeg" });
+            let file = new File([blob], "image.jpg", {
+                type: "image/jpeg",
+            });
             setImageFile(file);
         }
 
@@ -134,7 +138,8 @@ const UserDetailBox = () => {
             )
                 .unwrap()
                 .then((data) => {
-                    // console.log(data);
+                    dispatch(openAlert());
+
                     dispatch(closeModal());
                     setImages([{ data_url: img }]);
                     navigate("/admin/users/");
@@ -514,6 +519,11 @@ const UserDetailBox = () => {
                     </span>
                 </Typography>
             </div>
+            {/* <UpdateData
+                setOpenAlert={setOpenAlert}
+                openAlert={openAlert}
+                Data={Message}
+            /> */}
         </>
     );
 };

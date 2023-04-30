@@ -10,6 +10,8 @@ import { OneSettingThunk } from "../../../RTK/Thunk/OneSettingThunk";
 import { UpdateSettingThunk } from "../../../RTK/Thunk/UpdateSettingThunk";
 import { closeError } from "../../../RTK/Reducers/SettingReducer";
 import { useNavigation } from "react-router-dom";
+import UpdateDataFn from "../../UpdateDataFn/UpdateDataFn";
+import { openMessageAlert } from "../../../RTK/Reducers/MessageReducer";
 const SettingsBox = () => {
     let { t, i18n } = useTranslation();
     const [images, setImages] = React.useState([{ data_url: img }]);
@@ -127,6 +129,8 @@ const SettingsBox = () => {
         )
             .unwrap()
             .then((data) => {
+                dispatch(openMessageAlert());
+
                 if (images[0]?.file) {
                     localStorage.setItem("logo_dh", images[0].data_url);
                 }
@@ -137,6 +141,20 @@ const SettingsBox = () => {
         //     // handle error here
         // });
     };
+    // ===================================
+    const [openAlertFn, setOpenAlertFn] = React.useState(false);
+    const [Message, setMessage] = React.useState("");
+    let { typeAlert } = useSelector((state) => state.MessageReducer);
+
+    useEffect(() => {
+        if (typeAlert) {
+            setMessage(t("code_error.The_Data_Has_Been_Updated"));
+            setOpenAlertFn(true);
+        }
+        return () => {
+            setOpenAlertFn(false);
+        };
+    }, [typeAlert, t]);
     return (
         <>
             <div className=" w-full add-box mt-[40px] mx-auto pb-[120px] h-full flex justify-center items-start">
@@ -411,6 +429,11 @@ const SettingsBox = () => {
                     </Button>
                 </form>
             </div>
+            <UpdateDataFn
+                openAlert={openAlertFn}
+                setOpenAlert={setOpenAlertFn}
+                Data={Message}
+            />
         </>
     );
 };

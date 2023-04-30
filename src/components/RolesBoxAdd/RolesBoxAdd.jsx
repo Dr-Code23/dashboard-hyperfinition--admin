@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PermissionsThunk } from "../../RTK/Thunk/PermissionsThunk";
 import { AddRoleThunk } from "../../RTK/Thunk/AddRoleThunk";
 import { closeError } from "../../RTK/Reducers/RolesReducer";
+import { openMessageAlert } from "../../RTK/Reducers/MessageReducer";
 
 const RolesBoxAdd = () => {
     const navigate = useNavigate();
@@ -23,11 +24,10 @@ const RolesBoxAdd = () => {
         name: "",
     });
     useEffect(() => {
-        dispatch(closeError())
+        dispatch(closeError());
 
         return () => {
-            dispatch(closeError())
-
+            dispatch(closeError());
         };
     }, [inputValue, dispatch]);
     useEffect(() => {
@@ -35,23 +35,22 @@ const RolesBoxAdd = () => {
             dispatch(PermissionsThunk());
         }
     }, [dispatch, permissionsData, i18n.language]);
-    const handleAddData = useCallback((type, id) => {
-        if (type === 'add') {
-            if (!targetData.includes(id)) {
-                setTargetData([...targetData, id]);
-                dispatch(closeError())
+    const handleAddData = useCallback(
+        (type, id) => {
+            if (type === "add") {
+                if (!targetData.includes(id)) {
+                    setTargetData([...targetData, id]);
+                    dispatch(closeError());
+                }
             }
-        }
-        if (type === 'remove') {
-            let data = targetData.filter((el) => el !== id)
-            setTargetData(data);
-            dispatch(closeError())
-
-        }
-
-
-    }
-        , [targetData, dispatch]);
+            if (type === "remove") {
+                let data = targetData.filter((el) => el !== id);
+                setTargetData(data);
+                dispatch(closeError());
+            }
+        },
+        [targetData, dispatch]
+    );
     let handleSubmit = (e) => {
         e.preventDefault();
         dispatch(
@@ -63,7 +62,9 @@ const RolesBoxAdd = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
-                navigate("/admin/roles")
+                dispatch(openMessageAlert());
+
+                navigate("/admin/roles");
             })
             .catch((error) => {
                 // console.log(error);
@@ -83,13 +84,16 @@ const RolesBoxAdd = () => {
                             <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                 {t("pages.RolesBoxAdd.Role_Name")}
                             </h6>
-                            <input type="text" value={inputValue?.name}
+                            <input
+                                type="text"
+                                value={inputValue?.name}
                                 onChange={(e) => {
                                     setInputValue({
                                         ...inputValue,
                                         name: e.target.value,
                                     });
-                                }} />
+                                }}
+                            />
                             {nameError !== null && (
                                 <span
                                     style={{
@@ -114,50 +118,55 @@ const RolesBoxAdd = () => {
                     >
                         {permissionsData.length
                             ? permissionsData.map((el, index) => {
-                                return (
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        md={6}
-                                        lg={4}
-                                        className="p-5"
-                                        key={el.id}
-                                    >
-                                        <div className=" w-full  bg-white px-[20px] py-[10px]">
-                                            <FormControlLabel
-                                                control={
-                                                    <Checkbox
-                                                    // defaultChecked={el.status}
-                                                    />
-                                                }
-                                                onChange={(e) => {
-                                                    if (
-                                                        e.currentTarget
-                                                            .parentElement
-                                                            .parentElement
-                                                            .dataset.name ==
-                                                        "true"
-                                                    ) {
-                                                        e.currentTarget.parentElement.parentElement.dataset.name = false;
-                                                        //   console.log(
-                                                        //       "no active"
-                                                        //   );
-                                                        handleAddData('remove', el.id);
-
-                                                    } else {
-                                                        e.currentTarget.parentElement.parentElement.dataset.name = true;
-                                                        //   console.log("active");
-                                                        handleAddData('add', el.id);
-                                                    }
-                                                    //   console.log(el.id);
-                                                }}
-                                                label={el.name}
-                                                data-name={"false"}
-                                            />
-                                        </div>
-                                    </Grid>
-                                );
-                            })
+                                  return (
+                                      <Grid
+                                          item
+                                          xs={12}
+                                          md={6}
+                                          lg={4}
+                                          className="p-5"
+                                          key={el.id}
+                                      >
+                                          <div className=" w-full  bg-white px-[20px] py-[10px]">
+                                              <FormControlLabel
+                                                  control={
+                                                      <Checkbox
+                                                      // defaultChecked={el.status}
+                                                      />
+                                                  }
+                                                  onChange={(e) => {
+                                                      if (
+                                                          e.currentTarget
+                                                              .parentElement
+                                                              .parentElement
+                                                              .dataset.name ==
+                                                          "true"
+                                                      ) {
+                                                          e.currentTarget.parentElement.parentElement.dataset.name = false;
+                                                          //   console.log(
+                                                          //       "no active"
+                                                          //   );
+                                                          handleAddData(
+                                                              "remove",
+                                                              el.id
+                                                          );
+                                                      } else {
+                                                          e.currentTarget.parentElement.parentElement.dataset.name = true;
+                                                          //   console.log("active");
+                                                          handleAddData(
+                                                              "add",
+                                                              el.id
+                                                          );
+                                                      }
+                                                      //   console.log(el.id);
+                                                  }}
+                                                  label={el.name}
+                                                  data-name={"false"}
+                                              />
+                                          </div>
+                                      </Grid>
+                                  );
+                              })
                             : null}
                     </Grid>
                     {roleError !== null && (

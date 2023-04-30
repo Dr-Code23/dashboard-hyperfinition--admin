@@ -24,6 +24,7 @@ import { SelectProductThunk } from "../../RTK/Thunk/SelectProductThunk";
 import { useNavigate } from "react-router-dom";
 import { UpdateProjectThunk } from "../../RTK/Thunk/UpdateProjectThunk";
 import { closeError } from "../../RTK/Reducers/ProjectReducer";
+import { openMessageAlert } from "../../RTK/Reducers/MessageReducer";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -86,11 +87,10 @@ const ProjectAdd = () => {
     // console.log(finalDate(startDate));
 
     // =====data===========
-    const selectRef = useRef(true)
+    const selectRef = useRef(true);
     useEffect(() => {
         if (selectRef.current) {
             dispatch(SelectProductThunk());
-
         }
     }, [dispatch]);
 
@@ -145,9 +145,9 @@ const ProjectAdd = () => {
                                 ...foundId[0],
                                 total_price: Number(
                                     foundId[0]?.unit_price *
-                                    e.currentTarget.parentElement.querySelector(
-                                        "input"
-                                    ).value
+                                        e.currentTarget.parentElement.querySelector(
+                                            "input"
+                                        ).value
                                 ).toFixed(2),
                                 quantity:
                                     e.currentTarget.parentElement.querySelector(
@@ -163,9 +163,9 @@ const ProjectAdd = () => {
                                 ...foundId[0],
                                 total_price: Number(
                                     foundId[0]?.unit_price *
-                                    e.currentTarget.parentElement.querySelector(
-                                        "input"
-                                    ).value
+                                        e.currentTarget.parentElement.querySelector(
+                                            "input"
+                                        ).value
                                 ).toFixed(2),
                                 quantity:
                                     e.currentTarget.parentElement.querySelector(
@@ -215,6 +215,8 @@ const ProjectAdd = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
+
                 navigate("/admin/project");
             })
             .catch((error) => {

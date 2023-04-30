@@ -19,6 +19,7 @@ import { UpdateTablePaymentThunk } from "../../RTK/Thunk/UpdateTablePaymentThunk
 import { closeError } from "../../RTK/Reducers/PaymentReducer";
 import { DeleteTablePaymentThunk } from "../../RTK/Thunk/DeleteTablePaymentThunk";
 import { AlertDialog } from "..";
+import { openMessageAlert } from "../../RTK/Reducers/MessageReducer";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -93,14 +94,15 @@ const ProjectPaymentEdit = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
+
                 setInputValue({
                     price: "",
                     id: "",
                 });
                 setOpenCt(false);
                 dispatch(TablePaymentThunk({ id: param.projectPaymentEdit }));
-
-                // navigate("/admin/projectPayment");
+                navigate("/admin/projectPayment");
             })
             .catch((error) => {
                 // console.log(error);
@@ -198,8 +200,10 @@ const ProjectPaymentEdit = () => {
                                                             // handleDelete(
                                                             //     row.payment_id
                                                             // );
-                                                            setOpenAlert(true)
-                                                            setDeleteId(row.payment_id)
+                                                            setOpenAlert(true);
+                                                            setDeleteId(
+                                                                row.payment_id
+                                                            );
                                                         }}
                                                     >
                                                         <DeleteForever />
@@ -279,7 +283,13 @@ const ProjectPaymentEdit = () => {
                         </Box>
                     </Modal>
                 </>
-                <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDelete} deleteId={deleteId} setDeleteId={setDeleteId} />
+                <AlertDialog
+                    open={openAlert}
+                    setOpen={setOpenAlert}
+                    handleDelete={handleDelete}
+                    deleteId={deleteId}
+                    setDeleteId={setDeleteId}
+                />
             </>
         </>
     );

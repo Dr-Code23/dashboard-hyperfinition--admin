@@ -9,6 +9,7 @@ import { closeError } from "../../../RTK/Reducers/AdsReducer";
 import { useNavigate, useParams } from "react-router-dom";
 import { OneAdsThunk } from "../../../RTK/Thunk/OneAdsThunk";
 import { UpdateAdsThunk } from "../../../RTK/Thunk/UpdateAdsThunk";
+import { openMessageAlert } from "../../../RTK/Reducers/MessageReducer";
 const AdsAEditBox = () => {
     let { t, i18n } = useTranslation();
     let dispatch = useDispatch();
@@ -115,6 +116,8 @@ const AdsAEditBox = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
+
                 navigate("/admin/ads");
             })
             .catch((error) => {

@@ -1,8 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import TestBox from "../HooK/TestBox";
 import {
-    SettingsBox,
     AboutBox,
+    AdsAEditBox,
+    AdsAddBox,
+    AdsBox,
     ComponyExpensesAdd,
     ComponyExpensesView,
     ContactBox,
@@ -16,6 +18,7 @@ import {
     ProjectPayment,
     ProjectPaymentAdd,
     ProjectPaymentEdit,
+    ProjectPaymentView,
     ProjectView,
     RolesBox,
     RolesBoxAdd,
@@ -23,17 +26,15 @@ import {
     ServicesAdd,
     ServicesBox,
     ServicesEdit,
+    SettingsBox,
     SubCategoriesBox,
     SubCategoriesEdit,
     SubSubCategoriesBox,
-    UserAddBox,
     SubSubCategoriesEdit,
-    AdsBox,
-    AdsAddBox,
-    AdsAEditBox,
-    ProjectPaymentView,
+    UserAddBox,
 } from "../components";
 import CategoriesEdit from "../components/CategoriesEdit/CategoriesEdit";
+import NotFoundPage from "../components/NotFoundPage/NotFoundPage";
 import Attributes from "./Pages/Attributes";
 import Brand from "./Pages/Brand";
 import Categories from "./Pages/Categories";
@@ -41,14 +42,12 @@ import Compony from "./Pages/Compony";
 import Dashboard from "./Pages/Dashboard";
 import Layout from "./Pages/Layout";
 import Login from "./Pages/Login";
+import PrintBox from "./Pages/Print";
 import Product from "./Pages/Product";
 import Project from "./Pages/Project";
 import Units from "./Pages/Units";
 import UserDetail from "./Pages/UserDetail";
 import Users from "./Pages/Users";
-import PrintBox from "./Pages/Print";
-import TestBox from "../HooK/TestBox";
-import NotFoundPage from "../components/NotFoundPage/NotFoundPage";
 
 export let Router = createBrowserRouter([
     {

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { OneSubSubCategoriesThunk } from "../../RTK/Thunk/OneSubSubCategoriesThunk";
 import { UpdateSubSubCategoriesThunk } from "../../RTK/Thunk/UpdateSubSubCategoriesThunk";
 import { closeError } from "../../RTK/Reducers/SubSubCategoriesReducer";
+import { openMessageAlert } from "../../RTK/Reducers/MessageReducer";
 
 const SubCategoriesEdit = () => {
     let { t, i18n } = useTranslation();
@@ -95,6 +96,7 @@ const SubCategoriesEdit = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
 
                 navigate("/admin/categories/sub_sub");
             })

@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { OneAboutThunk } from "../../../RTK/Thunk/OneAboutThunk";
 import { closeAbout, closeError } from "../../../RTK/Reducers/AboutReducer";
 import { UpdateAboutThunk } from "../../../RTK/Thunk/UpdateAboutThunk";
+import { openMessageAlert } from "../../../RTK/Reducers/MessageReducer";
+import UpdateDataFn from "../../UpdateDataFn/UpdateDataFn";
 const AboutBox = () => {
     const [images, setImages] = React.useState([{ data_url: img }]);
     let { t, i18n } = useTranslation();
@@ -23,7 +25,8 @@ const AboutBox = () => {
         desc_fr: "",
     });
 
-    let { oneImg,
+    let {
+        oneImg,
         nameError_en,
         nameError_ar,
         nameError_fr,
@@ -31,9 +34,8 @@ const AboutBox = () => {
         descError_ar,
         descError_fr,
         avatarError,
-        oneAbout } = useSelector(
-            (state) => state.AboutReducer
-        );
+        oneAbout,
+    } = useSelector((state) => state.AboutReducer);
     //handle input language
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -56,19 +58,13 @@ const AboutBox = () => {
     // ============= handle get data user================
     // console.log(!!oneAbout);
 
-
     useEffect(() => {
-
         dispatch(closeError());
-
     }, [dispatch, inputValue]);
     useEffect(() => {
         return () => {
             dispatch(closeError());
-
-
-        }
-
+        };
     }, []);
     useEffect(() => {
         if (oneAbout == "") {
@@ -144,6 +140,8 @@ const AboutBox = () => {
         )
             .unwrap()
             .then((data) => {
+                dispatch(openMessageAlert());
+
                 // console.log(data);
             })
             .catch((error) => {
@@ -151,6 +149,20 @@ const AboutBox = () => {
                 //    setCode(error.code);
             });
     };
+    // ===================================
+    const [openAlertFn, setOpenAlertFn] = React.useState(false);
+    const [Message, setMessage] = React.useState("");
+    let { typeAlert } = useSelector((state) => state.MessageReducer);
+
+    useEffect(() => {
+        if (typeAlert) {
+            setMessage(t("code_error.The_Data_Has_Been_Updated"));
+            setOpenAlertFn(true);
+        }
+        return () => {
+            setOpenAlertFn(false);
+        };
+    }, [typeAlert, t]);
     return (
         <>
             <div className="p-[20px] my-[60px]">
@@ -200,7 +212,8 @@ const AboutBox = () => {
                                                 name_en: e.target.value,
                                             });
                                         }}
-                                    /> {nameError_en !== null && (
+                                    />{" "}
+                                    {nameError_en !== null && (
                                         <span
                                             style={{
                                                 width: "100%",
@@ -405,8 +418,8 @@ const AboutBox = () => {
                                                     style={
                                                         isDragging
                                                             ? {
-                                                                border: "4px dashed #000",
-                                                            }
+                                                                  border: "4px dashed #000",
+                                                              }
                                                             : undefined
                                                     }
                                                     width="100"
@@ -444,6 +457,11 @@ const AboutBox = () => {
                     </form>
                 </div>
             </div>
+            <UpdateDataFn
+                openAlert={openAlertFn}
+                setOpenAlert={setOpenAlertFn}
+                Data={Message}
+            />
         </>
     );
 };

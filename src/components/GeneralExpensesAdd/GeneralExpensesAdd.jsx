@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AddGeneralThunk } from "../../RTK/Thunk/AddGeneralThunk";
 import { closeError } from "../../RTK/Reducers/GeneralReducer";
+import { openMessageAlert } from "../../RTK/Reducers/MessageReducer";
 
 const GeneralExpensesAdd = () => {
     let { t, i18n } = useTranslation();
@@ -39,6 +40,8 @@ const GeneralExpensesAdd = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
+
                 navigate("/admin/generalExpenses");
             })
             .catch((error) => {

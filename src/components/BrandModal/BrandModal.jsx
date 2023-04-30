@@ -193,7 +193,6 @@ const BrandModal = ({ open, setOpen, nameBrand, setNameBrand }) => {
             input_fr: "",
         });
         dispatch(removeData());
-
         setImages([{ data_url: img }]);
         setNameBrand({ type: "", id: "" });
         setCode(0);

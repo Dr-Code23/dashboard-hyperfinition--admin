@@ -474,7 +474,7 @@
     "settings": "settings"
   },
   "code_error": {
-    "The_Data_Has_Been_Updated": "The Data Has Been Updated",
+    "The_Data_Has_Been_Updated": "The operation has been made successfully",
     "The_Main_value_Must_be_entered": "The Main value Must be entered !",
     "The_amount_entered_is_greater_than_the_available_quantity": "The amount entered is greater than the available quantity !"
   },

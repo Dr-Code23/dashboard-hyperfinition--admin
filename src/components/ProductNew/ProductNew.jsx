@@ -17,6 +17,7 @@ import Brand from "../../Routes/Pages/Brand";
 import { UploadImgThunk } from "../../RTK/Thunk/uploadImgThunk";
 import { AddProductThunk } from "../../RTK/Thunk/AddProductThunk";
 import { closeError } from "../../RTK/Reducers/ProductReducer";
+import { openMessageAlert } from "../../RTK/Reducers/MessageReducer";
 let selectData = ["name", "email", "pass"];
 const ProductNew = () => {
     let { t, i18n } = useTranslation();
@@ -62,9 +63,8 @@ const ProductNew = () => {
         name_Error_fr,
         desc_Error_en,
         desc_Error_ar,
-        desc_Error_fr, } = useSelector(
-            (state) => state.ProductReducer
-        );
+        desc_Error_fr,
+    } = useSelector((state) => state.ProductReducer);
     const [targetIdSelect, setTargetIdSelect] = React.useState({
         categories: "",
         brand: "",
@@ -73,11 +73,9 @@ const ProductNew = () => {
     });
     const [imgeDataTarget, setImgeDataTarget] = useState([]);
     const [imgeTargetAction, setImgeTargetAction] = useState({
-        index: '',
-        type: '',
+        index: "",
+        type: "",
     });
-
-
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -95,7 +93,7 @@ const ProductNew = () => {
     }, [i18n.language]);
 
     // =====data===========
-    const dataRef = useRef(true)
+    const dataRef = useRef(true);
     useEffect(() => {
         if (dataRef.current) {
             dispatch(SelectAllCategoriesThunk());
@@ -125,8 +123,6 @@ const ProductNew = () => {
     //         dispatch(SelectAttributesThunk());
     //     }
     // }, [dispatch, attributesSelectData.length]);
-
-
 
     // handle select on loading
 
@@ -167,75 +163,74 @@ const ProductNew = () => {
         // console.log(addUpdateIndex)
         // console.log(imageList[addUpdateIndex]?.file);
 
-        if (imgeTargetAction.type == 'upload') {
-            dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file })).unwrap()
+        if (imgeTargetAction.type == "upload") {
+            dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file }))
+                .unwrap()
                 .then((res) => {
                     // console.log(res.data[0]);
-                    let getRes = [...imgeDataTarget]
-                    getRes.push(res.data[0])
+                    let getRes = [...imgeDataTarget];
+                    getRes.push(res.data[0]);
                     // console.log(getRes)
-                    setImgeDataTarget(getRes)
+                    setImgeDataTarget(getRes);
                     setImgeTargetAction({
-                        index: '',
-                        type: '',
-                    })
+                        index: "",
+                        type: "",
+                    });
                 })
                 .catch((error) => {
                     // console.log(error);
                     // handle error here
                 });
         }
-        if (imgeTargetAction.type == 'update') {
-
-
-            dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file })).unwrap()
+        if (imgeTargetAction.type == "update") {
+            dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file }))
+                .unwrap()
                 .then((res) => {
-                    let getRes = [...imgeDataTarget]
-                    console.log(imgeDataTarget)
+                    let getRes = [...imgeDataTarget];
+                    console.log(imgeDataTarget);
                     getRes.splice(imgeTargetAction.index, 1, res.data[0]);
-                    console.log(getRes)
-                    setImgeDataTarget(getRes)
+                    console.log(getRes);
+                    setImgeDataTarget(getRes);
                     setImgeTargetAction({
-                        index: '',
-                        type: '',
-                    })
+                        index: "",
+                        type: "",
+                    });
                 })
                 .catch((error) => {
                     // console.log(error);
                     // handle error here
                 });
-
         }
         setImages(imageList);
     };
     useEffect(() => {
-        if (imgeTargetAction.type == 'remove') {
+        if (imgeTargetAction.type == "remove") {
             // console.log(imgeDataTarget)
-            let getRes = imgeDataTarget.filter((el) => el !== imgeDataTarget[imgeTargetAction.index])
+            let getRes = imgeDataTarget.filter(
+                (el) => el !== imgeDataTarget[imgeTargetAction.index]
+            );
             // console.log(getRes)
-            setImgeDataTarget(getRes)
-            console.log(getRes)
+            setImgeDataTarget(getRes);
+            console.log(getRes);
             setImgeTargetAction({
-                index: '',
-                type: '',
-            })
+                index: "",
+                type: "",
+            });
         }
-
     }, [imgeTargetAction, imgeDataTarget]);
     let handleSubmit = (e) => {
         e.preventDefault();
-
 
         let data = {
             name: {
                 en: inputValue.category_Name_en,
                 ar: inputValue.category_Name_ar,
-                fr: inputValue.category_Name_fr
+                fr: inputValue.category_Name_fr,
             },
             description: {
                 en: inputValue.desc_en,
                 ar: inputValue.desc_ar,
-                fr: inputValue.desc_fr
+                fr: inputValue.desc_fr,
             },
             unit_price: inputValue.price,
             quantity: inputValue.total,
@@ -243,7 +238,7 @@ const ProductNew = () => {
             attribute_id: targetIdSelect.attribute,
             unit_id: targetIdSelect.unit,
             brand_id: targetIdSelect.brand,
-            images: imgeDataTarget
+            images: imgeDataTarget,
         };
         // console.log(data)
 
@@ -251,6 +246,7 @@ const ProductNew = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
                 navigate("/admin/product");
             })
             .catch((error) => {
@@ -309,15 +305,17 @@ const ProductNew = () => {
                                             "pages.ProductNew.Sub_category_Name"
                                         )}
                                     </h6>
-
-                                    <input type="text"
+                                    <input
+                                        type="text"
                                         value={inputValue.category_Name_en}
                                         onChange={(e) => {
                                             setInputValue({
                                                 ...inputValue,
-                                                category_Name_en: e.target.value,
+                                                category_Name_en:
+                                                    e.target.value,
                                             });
-                                        }} />
+                                        }}
+                                    />
                                     {name_Error_en !== null && (
                                         <span
                                             style={{
@@ -344,15 +342,17 @@ const ProductNew = () => {
                                             "pages.ProductNew.Sub_category_Name"
                                         )}
                                     </h6>
-
-                                    <input type="text"
+                                    <input
+                                        type="text"
                                         value={inputValue.category_Name_ar}
                                         onChange={(e) => {
                                             setInputValue({
                                                 ...inputValue,
-                                                category_Name_ar: e.target.value,
+                                                category_Name_ar:
+                                                    e.target.value,
                                             });
-                                        }} />
+                                        }}
+                                    />
                                     {name_Error_ar !== null && (
                                         <span
                                             style={{
@@ -379,15 +379,17 @@ const ProductNew = () => {
                                             "pages.ProductNew.Sub_category_Name"
                                         )}
                                     </h6>
-
-                                    <input type="text"
+                                    <input
+                                        type="text"
                                         value={inputValue.category_Name_fr}
                                         onChange={(e) => {
                                             setInputValue({
                                                 ...inputValue,
-                                                category_Name_fr: e.target.value,
+                                                category_Name_fr:
+                                                    e.target.value,
                                             });
-                                        }} />
+                                        }}
+                                    />
                                     {name_Error_fr !== null && (
                                         <span
                                             style={{
@@ -413,7 +415,8 @@ const ProductNew = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Description")}
                                 </h6>
-                                <textarea className=" min-h-[150px]"
+                                <textarea
+                                    className=" min-h-[150px]"
                                     value={inputValue.desc_en}
                                     onChange={(e) => {
                                         setInputValue({
@@ -446,13 +449,16 @@ const ProductNew = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Description")}
                                 </h6>
-                                <textarea className=" min-h-[150px]" value={inputValue.desc_ar}
+                                <textarea
+                                    className=" min-h-[150px]"
+                                    value={inputValue.desc_ar}
                                     onChange={(e) => {
                                         setInputValue({
                                             ...inputValue,
                                             desc_ar: e.target.value,
                                         });
-                                    }} ></textarea>
+                                    }}
+                                ></textarea>
                                 {desc_Error_ar !== null && (
                                     <span
                                         style={{
@@ -477,13 +483,16 @@ const ProductNew = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Description")}
                                 </h6>
-                                <textarea className=" min-h-[150px]" value={inputValue.desc_fr}
+                                <textarea
+                                    className=" min-h-[150px]"
+                                    value={inputValue.desc_fr}
                                     onChange={(e) => {
                                         setInputValue({
                                             ...inputValue,
                                             desc_fr: e.target.value,
                                         });
-                                    }}></textarea>
+                                    }}
+                                ></textarea>
                                 {desc_Error_fr !== null && (
                                     <span
                                         style={{
@@ -514,7 +523,8 @@ const ProductNew = () => {
                                             Main_Category: e.target.textContent,
                                         });
                                         let data = categoriesSelectData.filter(
-                                            (el) => el.name === e.target.textContent
+                                            (el) =>
+                                                el.name === e.target.textContent
                                         );
 
                                         setTargetIdSelect({
@@ -555,7 +565,8 @@ const ProductNew = () => {
                                             Brand: e.target.textContent,
                                         });
                                         let data = brandSelectData.filter(
-                                            (el) => el.name === e.target.textContent
+                                            (el) =>
+                                                el.name === e.target.textContent
                                         );
 
                                         setTargetIdSelect({
@@ -564,7 +575,6 @@ const ProductNew = () => {
                                         });
                                     }
                                 }}
-
                             >
                                 <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Brand")}
@@ -597,7 +607,8 @@ const ProductNew = () => {
                                             Attributes: e.target.textContent,
                                         });
                                         let data = attributesSelectData.filter(
-                                            (el) => el.name === e.target.textContent
+                                            (el) =>
+                                                el.name === e.target.textContent
                                         );
 
                                         setTargetIdSelect({
@@ -638,7 +649,8 @@ const ProductNew = () => {
                                             Unit: e.target.textContent,
                                         });
                                         let data = unitSelectData.filter(
-                                            (el) => el.name === e.target.textContent
+                                            (el) =>
+                                                el.name === e.target.textContent
                                         );
 
                                         setTargetIdSelect({
@@ -674,15 +686,16 @@ const ProductNew = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Unit_Price")}
                                 </h6>
-
-                                <input type="text"
+                                <input
+                                    type="text"
                                     value={inputValue.price}
                                     onChange={(e) => {
                                         setInputValue({
                                             ...inputValue,
                                             price: e.target.value,
                                         });
-                                    }} />
+                                    }}
+                                />
                                 {price_Error !== null && (
                                     <span
                                         style={{
@@ -702,15 +715,16 @@ const ProductNew = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Total_Quantity")}
                                 </h6>
-
-                                <input type="text"
+                                <input
+                                    type="text"
                                     value={inputValue.total}
                                     onChange={(e) => {
                                         setInputValue({
                                             ...inputValue,
                                             total: e.target.value,
                                         });
-                                    }} />
+                                    }}
+                                />
                                 {phone_Error !== null && (
                                     <span
                                         style={{
@@ -724,7 +738,8 @@ const ProductNew = () => {
                                     >
                                         {phone_Error}
                                     </span>
-                                )}{" "}                            </div>
+                                )}{" "}
+                            </div>
                         </div>
                         <hr className=" w-full my-[40px]" />
                         <div className=" w-full relative ">
@@ -751,9 +766,9 @@ const ProductNew = () => {
                                             className=" !bg-primaryBg w-[150px] h-[50px] "
                                             onClick={() => {
                                                 setImgeTargetAction({
-                                                    index: '',
-                                                    type: 'upload',
-                                                })
+                                                    index: "",
+                                                    type: "upload",
+                                                });
                                                 onImageUpload();
                                             }}
                                         >
@@ -780,10 +795,12 @@ const ProductNew = () => {
                                                                         onImageRemove(
                                                                             index
                                                                         );
-                                                                        setImgeTargetAction({
-                                                                            index: index,
-                                                                            type: 'remove',
-                                                                        })
+                                                                        setImgeTargetAction(
+                                                                            {
+                                                                                index: index,
+                                                                                type: "remove",
+                                                                            }
+                                                                        );
                                                                     }}
                                                                 >
                                                                     <DeleteForever />
@@ -792,22 +809,22 @@ const ProductNew = () => {
                                                             <img
                                                                 src={
                                                                     image[
-                                                                    "data_url"
+                                                                        "data_url"
                                                                     ]
                                                                 }
                                                                 className=" rounded-[6px]  w-full cursor-pointer object-cover !aspect-square	"
                                                                 alt=""
-
                                                                 width="100"
                                                                 onClick={() => {
-
                                                                     onImageUpdate(
                                                                         index
                                                                     );
-                                                                    setImgeTargetAction({
-                                                                        index: index,
-                                                                        type: 'update',
-                                                                    })
+                                                                    setImgeTargetAction(
+                                                                        {
+                                                                            index: index,
+                                                                            type: "update",
+                                                                        }
+                                                                    );
                                                                 }}
                                                             />
                                                         </div>

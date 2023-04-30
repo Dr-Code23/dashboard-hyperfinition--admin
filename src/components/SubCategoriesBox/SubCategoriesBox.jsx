@@ -32,6 +32,8 @@ import {
     removeCategoriesData,
 } from "../../RTK/Reducers/SubCategoriesReducer";
 import { DeleteSubCategoriesThunk } from "../../RTK/Thunk/DeleteSubCategoriesThunk";
+import UpdateDataFn from "../UpdateDataFn/UpdateDataFn";
+import { openMessageAlert } from "../../RTK/Reducers/MessageReducer";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -150,6 +152,7 @@ const SubCategoriesBox = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
                 dispatch(
                     SubCategoriesThunk({
                         id: age,
@@ -195,6 +198,16 @@ const SubCategoriesBox = () => {
                 // handle error here
             });
     };
+    const [openAlertFn, setOpenAlertFn] = React.useState(false);
+    const [Message, setMessage] = React.useState("");
+    let { typeAlert } = useSelector((state) => state.MessageReducer);
+
+    useEffect(() => {
+        if (typeAlert) {
+            setMessage(t("code_error.The_Data_Has_Been_Updated"));
+            setOpenAlertFn(true);
+        }
+    }, [typeAlert, t]);
     return (
         <>
             <div className=" mx-auto px-4  mt-[40px] mb-[160px] ">
@@ -442,8 +455,8 @@ const SubCategoriesBox = () => {
                                                             // handleDeleteSubCategories(
                                                             //     row.id
                                                             // );
-                                                            setOpenAlert(true)
-                                                            setDeleteId(row.id)
+                                                            setOpenAlert(true);
+                                                            setDeleteId(row.id);
                                                         }}
                                                     >
                                                         <DeleteForever />
@@ -461,8 +474,18 @@ const SubCategoriesBox = () => {
                         />
                     </>
                 ) : null}
-                <AlertDialog open={openAlert} setOpen={setOpenAlert} handleDelete={handleDeleteSubCategories} deleteId={deleteId} setDeleteId={setDeleteId} />
-
+                <AlertDialog
+                    open={openAlert}
+                    setOpen={setOpenAlert}
+                    handleDelete={handleDeleteSubCategories}
+                    deleteId={deleteId}
+                    setDeleteId={setDeleteId}
+                />
+                <UpdateDataFn
+                    openAlert={openAlertFn}
+                    setOpenAlert={setOpenAlertFn}
+                    Data={Message}
+                />
             </div>
         </>
     );

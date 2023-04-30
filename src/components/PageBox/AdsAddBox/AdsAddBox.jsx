@@ -9,6 +9,7 @@ import { AddAdsThunk } from "../../../RTK/Thunk/AddAdsThunk";
 import { closeError } from "../../../RTK/Reducers/AdsReducer";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
+import { openMessageAlert } from "../../../RTK/Reducers/MessageReducer";
 const AdsAddBox = () => {
     let { t, i18n } = useTranslation();
     let dispatch = useDispatch();
@@ -94,6 +95,8 @@ const AdsAddBox = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
+
                 navigate("/admin/ads");
             })
             .catch((error) => {
@@ -103,7 +106,7 @@ const AdsAddBox = () => {
     };
     return (
         <>
-            <div className="p-[20px] my-[60px]" >
+            <div className="p-[20px] my-[60px]">
                 <div className="about-box add-box w-full flex justify-center add-shadow  items-center h-full py-[40px] px-[20px]">
                     <form
                         className="box  flex justify-start gap-[40px] items-center flex-col  w-full max-w-[750px]  h-full p-[20px]"
@@ -390,8 +393,8 @@ const AdsAddBox = () => {
                                                     style={
                                                         isDragging
                                                             ? {
-                                                                border: "4px dashed #000",
-                                                            }
+                                                                  border: "4px dashed #000",
+                                                              }
                                                             : undefined
                                                     }
                                                     width="100"

@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { OneCategoriesThunk } from "../../RTK/Thunk/OneCategoriesThunk";
 import { UpdateCategoriesThunk } from "../../RTK/Thunk/UpdateCategoriesThunk";
 import { closeError } from "../../RTK/Reducers/CategoriesReducer";
+import { openMessageAlert } from "../../RTK/Reducers/MessageReducer";
 
 const CategoriesEdit = () => {
     let { t, i18n } = useTranslation();
@@ -136,6 +137,7 @@ const CategoriesEdit = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
 
                 setImages([{ data_url: img }]);
                 navigate("/admin/categories/");

@@ -17,16 +17,16 @@ import { OneProductThunk } from "../../RTK/Thunk/OneProductThunk";
 import { UploadImgThunk } from "../../RTK/Thunk/uploadImgThunk";
 import { DataView, closeError } from "../../RTK/Reducers/ProductReducer";
 import { UpdateProductThunk } from "../../RTK/Thunk/UpdateProductThunk";
+import { openMessageAlert } from "../../RTK/Reducers/MessageReducer";
 let selectData = ["name", "email", "pass"];
 const ProductEdit = () => {
     let { t, i18n } = useTranslation();
     let dispatch = useDispatch();
     let param = useParams();
 
-    let navigate = useNavigate(); const [value, setValue] = React.useState(0);
+    let navigate = useNavigate();
+    const [value, setValue] = React.useState(0);
     const [images, setImages] = React.useState([]);
-
-
 
     const [imgeDataTarget, setImgeDataTarget] = useState([]);
     const [imgeTargetAction, setImgeTargetAction] = useState({
@@ -83,9 +83,8 @@ const ProductEdit = () => {
         name_Error_fr,
         desc_Error_en,
         desc_Error_ar,
-        desc_Error_fr, } = useSelector(
-            (state) => state.ProductReducer
-        );
+        desc_Error_fr,
+    } = useSelector((state) => state.ProductReducer);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -102,7 +101,7 @@ const ProductEdit = () => {
         }
     }, [i18n.language]);
     // =====data===========
-    const dataRef = useRef(true)
+    const dataRef = useRef(true);
     useEffect(() => {
         if (dataRef.current) {
             dispatch(SelectAllCategoriesThunk());
@@ -133,11 +132,11 @@ const ProductEdit = () => {
     //         dispatch(SelectAttributesThunk());
     //     }
     // }, [dispatch, attributesSelectData.length]);
-    const OneRef = useRef(true)
+    const OneRef = useRef(true);
     useEffect(() => {
-        if (oneDataProduct == '' && OneRef.current) {
+        if (oneDataProduct == "" && OneRef.current) {
             dispatch(OneProductThunk({ id: param.productEdit }));
-            OneRef.current = false
+            OneRef.current = false;
         }
     }, [dispatch, param.productEdit, oneDataProduct]);
     // handle select on loading
@@ -154,9 +153,13 @@ const ProductEdit = () => {
                     categories: categoriesSelectData[data]?.id,
                 });
             }
-
         }
-    }, [categoriesSelectData, targetIdSelect, oneDataProduct?.category_id, selectIndex]);
+    }, [
+        categoriesSelectData,
+        targetIdSelect,
+        oneDataProduct?.category_id,
+        selectIndex,
+    ]);
     useEffect(() => {
         if (targetIdSelect.brand == "" && brandSelectData.length) {
             if (oneDataProduct?.brand_id) {
@@ -169,9 +172,13 @@ const ProductEdit = () => {
                     brand: brandSelectData[data]?.id,
                 });
             }
-
         }
-    }, [brandSelectData, targetIdSelect, oneDataProduct?.brand_id, selectIndex]);
+    }, [
+        brandSelectData,
+        targetIdSelect,
+        oneDataProduct?.brand_id,
+        selectIndex,
+    ]);
     useEffect(() => {
         if (targetIdSelect.attribute == "" && attributesSelectData.length) {
             if (oneDataProduct?.attribute_id) {
@@ -184,9 +191,13 @@ const ProductEdit = () => {
                     attribute: attributesSelectData[data]?.id,
                 });
             }
-
         }
-    }, [attributesSelectData, targetIdSelect, oneDataProduct?.attribute_id, selectIndex]);
+    }, [
+        attributesSelectData,
+        targetIdSelect,
+        oneDataProduct?.attribute_id,
+        selectIndex,
+    ]);
     useEffect(() => {
         if (targetIdSelect.unit == "" && unitSelectData.length) {
             if (oneDataProduct?.unit_id) {
@@ -199,7 +210,6 @@ const ProductEdit = () => {
                     unit: unitSelectData[data]?.id,
                 });
             }
-
         }
     }, [unitSelectData, targetIdSelect, oneDataProduct?.unit_id, selectIndex]);
     // OneProductThunk
@@ -221,57 +231,54 @@ const ProductEdit = () => {
 
     /// handle img all
     const onChange = (imageList, addUpdateIndex) => {
-
-        if (imgeTargetAction.type == 'upload') {
-            dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file })).unwrap()
+        if (imgeTargetAction.type == "upload") {
+            dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file }))
+                .unwrap()
                 .then((res) => {
                     // console.log(res.data[0]);
-                    let getRes = [...imgeDataTarget]
-                    getRes.push(res.data[0])
+                    let getRes = [...imgeDataTarget];
+                    getRes.push(res.data[0]);
                     // console.log(getRes)
-                    setImgeDataTarget(getRes)
+                    setImgeDataTarget(getRes);
                     setImgeTargetAction({
-                        index: '',
-                        type: '',
-                    })
+                        index: "",
+                        type: "",
+                    });
                 })
                 .catch((error) => {
                     // console.log(error);
                     // handle error here
                 });
         }
-        if (imgeTargetAction.type == 'update') {
-
-
-            dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file })).unwrap()
+        if (imgeTargetAction.type == "update") {
+            dispatch(UploadImgThunk({ img: imageList[addUpdateIndex]?.file }))
+                .unwrap()
                 .then((res) => {
-                    let getRes = [...imgeDataTarget]
+                    let getRes = [...imgeDataTarget];
                     // getRes.splice(imgeTargetAction.index, 1, res.data[0]);
-                    getRes[imgeTargetAction.index] = res.data[0]
-                    setImgeDataTarget(getRes)
+                    getRes[imgeTargetAction.index] = res.data[0];
+                    setImgeDataTarget(getRes);
                     // console.log(getRes)
                     setImgeTargetAction({
-                        index: '',
-                        type: '',
-                    })
+                        index: "",
+                        type: "",
+                    });
                 })
                 .catch((error) => {
                     // handle error here
                 });
-
         }
         setImages(imageList);
     };
-    const RefImg = useRef(true)
+    const RefImg = useRef(true);
     useEffect(() => {
         if (oneImgData.length && images.length < 1 && RefImg.current) {
             let dataGet = [...oneImgData];
-            let data = []
+            let data = [];
             for (let index = 0; index < oneImgData.length; index++) {
-                data.push('')
-
+                data.push("");
             }
-            setImgeDataTarget(data)
+            setImgeDataTarget(data);
 
             let dataString = ImageToString(oneImgData);
 
@@ -282,8 +289,7 @@ const ProductEdit = () => {
                 };
             });
             setImages(dataGet);
-            RefImg.current = false
-
+            RefImg.current = false;
         }
     }, [oneImgData, images]);
     let ImageToString = (imagesFromApi) => {
@@ -307,7 +313,7 @@ const ProductEdit = () => {
 
     useEffect(() => {
         if (imgeTargetAction.type == "remove") {
-            let getRes = [...imgeDataTarget]
+            let getRes = [...imgeDataTarget];
             getRes.splice(imgeTargetAction.index, 1);
 
             setImgeDataTarget(getRes);
@@ -317,7 +323,6 @@ const ProductEdit = () => {
             });
         }
     }, [imgeTargetAction, imgeDataTarget]);
-
 
     useEffect(() => {
         return () => {
@@ -330,17 +335,15 @@ const ProductEdit = () => {
         dispatch(closeError());
     }, [dispatch, inputValue]);
 
-
     let handleSubmit = (e) => {
         e.preventDefault();
         let handleKeepImg = () => {
             let data = [...images];
             data = data.map((el) => {
-
                 if (el?.key) {
-                    return el
+                    return el;
                 }
-            })
+            });
             data = data.filter((el) => el?.key);
             data = data.map((el) => {
                 return el.key;
@@ -350,7 +353,7 @@ const ProductEdit = () => {
         let handleImg = () => {
             let data = [...imgeDataTarget];
 
-            data = data.filter((el) => el !== '');
+            data = data.filter((el) => el !== "");
 
             return data;
         };
@@ -382,6 +385,8 @@ const ProductEdit = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
+
                 navigate("/admin/product");
             })
             .catch((error) => {
@@ -434,15 +439,17 @@ const ProductEdit = () => {
                                             "pages.ProductNew.Sub_category_Name"
                                         )}
                                     </h6>
-
-                                    <input type="text"
+                                    <input
+                                        type="text"
                                         value={inputValue.category_Name_en}
                                         onChange={(e) => {
                                             setInputValue({
                                                 ...inputValue,
-                                                category_Name_en: e.target.value,
+                                                category_Name_en:
+                                                    e.target.value,
                                             });
-                                        }} />
+                                        }}
+                                    />
                                     {name_Error_en !== null && (
                                         <span
                                             style={{
@@ -469,15 +476,17 @@ const ProductEdit = () => {
                                             "pages.ProductNew.Sub_category_Name"
                                         )}
                                     </h6>
-
-                                    <input type="text"
+                                    <input
+                                        type="text"
                                         value={inputValue.category_Name_ar}
                                         onChange={(e) => {
                                             setInputValue({
                                                 ...inputValue,
-                                                category_Name_ar: e.target.value,
+                                                category_Name_ar:
+                                                    e.target.value,
                                             });
-                                        }} />
+                                        }}
+                                    />
                                     {name_Error_ar !== null && (
                                         <span
                                             style={{
@@ -504,15 +513,17 @@ const ProductEdit = () => {
                                             "pages.ProductNew.Sub_category_Name"
                                         )}
                                     </h6>
-
-                                    <input type="text"
+                                    <input
+                                        type="text"
                                         value={inputValue.category_Name_fr}
                                         onChange={(e) => {
                                             setInputValue({
                                                 ...inputValue,
-                                                category_Name_fr: e.target.value,
+                                                category_Name_fr:
+                                                    e.target.value,
                                             });
-                                        }} />
+                                        }}
+                                    />
                                     {name_Error_fr !== null && (
                                         <span
                                             style={{
@@ -538,7 +549,8 @@ const ProductEdit = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Description")}
                                 </h6>
-                                <textarea className=" min-h-[150px]"
+                                <textarea
+                                    className=" min-h-[150px]"
                                     value={inputValue.desc_en}
                                     onChange={(e) => {
                                         setInputValue({
@@ -571,13 +583,16 @@ const ProductEdit = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Description")}
                                 </h6>
-                                <textarea className=" min-h-[150px]" value={inputValue.desc_ar}
+                                <textarea
+                                    className=" min-h-[150px]"
+                                    value={inputValue.desc_ar}
                                     onChange={(e) => {
                                         setInputValue({
                                             ...inputValue,
                                             desc_ar: e.target.value,
                                         });
-                                    }} ></textarea>
+                                    }}
+                                ></textarea>
                                 {desc_Error_ar !== null && (
                                     <span
                                         style={{
@@ -602,13 +617,16 @@ const ProductEdit = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Description")}
                                 </h6>
-                                <textarea className=" min-h-[150px]" value={inputValue.desc_fr}
+                                <textarea
+                                    className=" min-h-[150px]"
+                                    value={inputValue.desc_fr}
                                     onChange={(e) => {
                                         setInputValue({
                                             ...inputValue,
                                             desc_fr: e.target.value,
                                         });
-                                    }}></textarea>
+                                    }}
+                                ></textarea>
                                 {desc_Error_fr !== null && (
                                     <span
                                         style={{
@@ -639,7 +657,8 @@ const ProductEdit = () => {
                                             Main_Category: e.target.textContent,
                                         });
                                         let data = categoriesSelectData.filter(
-                                            (el) => el.name === e.target.textContent
+                                            (el) =>
+                                                el.name === e.target.textContent
                                         );
 
                                         setTargetIdSelect({
@@ -652,7 +671,8 @@ const ProductEdit = () => {
                                 <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Categories")}
                                 </h6>
-                                <SelectBox TargetData={categoriesSelectData}
+                                <SelectBox
+                                    TargetData={categoriesSelectData}
                                     selectIndex={selectIndex.categories}
                                 />
                                 {category_id_Error !== null && (
@@ -682,7 +702,8 @@ const ProductEdit = () => {
                                             Brand: e.target.textContent,
                                         });
                                         let data = brandSelectData.filter(
-                                            (el) => el.name === e.target.textContent
+                                            (el) =>
+                                                el.name === e.target.textContent
                                         );
 
                                         setTargetIdSelect({
@@ -691,12 +712,12 @@ const ProductEdit = () => {
                                         });
                                     }
                                 }}
-
                             >
                                 <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Brand")}
                                 </h6>
-                                <SelectBox TargetData={brandSelectData}
+                                <SelectBox
+                                    TargetData={brandSelectData}
                                     selectIndex={selectIndex.brand}
                                 />
                                 {brand_id_Error !== null && (
@@ -726,7 +747,8 @@ const ProductEdit = () => {
                                             Attributes: e.target.textContent,
                                         });
                                         let data = attributesSelectData.filter(
-                                            (el) => el.name === e.target.textContent
+                                            (el) =>
+                                                el.name === e.target.textContent
                                         );
 
                                         setTargetIdSelect({
@@ -739,9 +761,9 @@ const ProductEdit = () => {
                                 <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Attributes")}
                                 </h6>
-                                <SelectBox TargetData={attributesSelectData}
+                                <SelectBox
+                                    TargetData={attributesSelectData}
                                     selectIndex={selectIndex.attribute}
-
                                 />
                                 {att_id_Error !== null && (
                                     <span
@@ -770,7 +792,8 @@ const ProductEdit = () => {
                                             Unit: e.target.textContent,
                                         });
                                         let data = unitSelectData.filter(
-                                            (el) => el.name === e.target.textContent
+                                            (el) =>
+                                                el.name === e.target.textContent
                                         );
 
                                         setTargetIdSelect({
@@ -783,9 +806,9 @@ const ProductEdit = () => {
                                 <h6 className=" text-[17px]  mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Unit")}
                                 </h6>
-                                <SelectBox TargetData={unitSelectData}
+                                <SelectBox
+                                    TargetData={unitSelectData}
                                     selectIndex={selectIndex.unit}
-
                                 />
                                 {unit_id_Error !== null && (
                                     <span
@@ -809,15 +832,16 @@ const ProductEdit = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Unit_Price")}
                                 </h6>
-
-                                <input type="text"
+                                <input
+                                    type="text"
                                     value={inputValue.price}
                                     onChange={(e) => {
                                         setInputValue({
                                             ...inputValue,
                                             price: e.target.value,
                                         });
-                                    }} />
+                                    }}
+                                />
                                 {price_Error !== null && (
                                     <span
                                         style={{
@@ -837,15 +861,16 @@ const ProductEdit = () => {
                                 <h6 className=" text-[17px] mb-3 font-[500] capitalize  ">
                                     {t("pages.ProductNew.Total_Quantity")}
                                 </h6>
-
-                                <input type="text"
+                                <input
+                                    type="text"
                                     value={inputValue.total}
                                     onChange={(e) => {
                                         setInputValue({
                                             ...inputValue,
                                             total: e.target.value,
                                         });
-                                    }} />
+                                    }}
+                                />
                                 {phone_Error !== null && (
                                     <span
                                         style={{
@@ -930,7 +955,7 @@ const ProductEdit = () => {
                                                             <img
                                                                 src={
                                                                     image[
-                                                                    "data_url"
+                                                                        "data_url"
                                                                     ]
                                                                 }
                                                                 className=" rounded-[6px]  w-full cursor-pointer object-cover !aspect-square	"

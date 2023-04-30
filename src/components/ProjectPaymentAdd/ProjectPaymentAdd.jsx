@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { SelectProjectThunk } from "../../RTK/Thunk/SelectProjectThunk";
 import { AddPaymentThunk } from "../../RTK/Thunk/AddPaymentThunk";
 import { closeError } from "../../RTK/Reducers/PaymentReducer";
+import { openMessageAlert } from "../../RTK/Reducers/MessageReducer";
 let selectData = ["name", "email", "pass"];
 const ProjectPaymentAdd = () => {
     let { t, i18n } = useTranslation();
@@ -51,6 +52,8 @@ const ProjectPaymentAdd = () => {
             .unwrap()
             .then((data) => {
                 // console.log(data);
+                dispatch(openMessageAlert());
+
                 navigate("/admin/projectPayment");
             })
             .catch((error) => {
